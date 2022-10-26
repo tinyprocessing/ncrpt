@@ -11,6 +11,14 @@
 		D4F36F5E29086AA300EF7C85 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F5D29086AA300EF7C85 /* ContentView.swift */; };
 		D4F36F6029086AA400EF7C85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4F36F5F29086AA400EF7C85 /* Assets.xcassets */; };
 		D4F36F6329086AA400EF7C85 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4F36F6229086AA400EF7C85 /* Preview Assets.xcassets */; };
+		D4F36F6B29086BC800EF7C85 /* EncryptionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F6A29086BC800EF7C85 /* EncryptionEngine.swift */; };
+		D4F36F6D29086E6900EF7C85 /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F6C29086E6900EF7C85 /* AES.swift */; };
+		D4F36F7029086EA000EF7C85 /* AESHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F6F29086EA000EF7C85 /* AESHelper.swift */; };
+		D4F36F722908717900EF7C85 /* Polygone.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F712908717900EF7C85 /* Polygone.swift */; };
+		D4F36F74290871DE00EF7C85 /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = D4F36F73290871DE00EF7C85 /* test.txt */; };
+		D4F36F792908870900EF7C85 /* FileEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F782908870900EF7C85 /* FileEngine.swift */; };
+		D4F36F7C2908898000EF7C85 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = D4F36F7B2908898000EF7C85 /* ZIPFoundation */; };
+		D4F36F7E2909500F00EF7C85 /* LocalFileEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F7D2909500F00EF7C85 /* LocalFileEngine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +27,13 @@
 		D4F36F5D29086AA300EF7C85 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D4F36F5F29086AA400EF7C85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D4F36F6229086AA400EF7C85 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D4F36F6A29086BC800EF7C85 /* EncryptionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionEngine.swift; sourceTree = "<group>"; };
+		D4F36F6C29086E6900EF7C85 /* AES.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AES.swift; sourceTree = "<group>"; };
+		D4F36F6F29086EA000EF7C85 /* AESHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AESHelper.swift; sourceTree = "<group>"; };
+		D4F36F712908717900EF7C85 /* Polygone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygone.swift; sourceTree = "<group>"; };
+		D4F36F73290871DE00EF7C85 /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
+		D4F36F782908870900EF7C85 /* FileEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileEngine.swift; sourceTree = "<group>"; };
+		D4F36F7D2909500F00EF7C85 /* LocalFileEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileEngine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4F36F7C2908898000EF7C85 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,8 +67,10 @@
 		D4F36F5A29086AA300EF7C85 /* EncryptFile */ = {
 			isa = PBXGroup;
 			children = (
+				D4F36F6929086B4700EF7C85 /* engine */,
 				D4F36F5B29086AA300EF7C85 /* EncryptFileApp.swift */,
 				D4F36F5D29086AA300EF7C85 /* ContentView.swift */,
+				D4F36F75290871E200EF7C85 /* Polygone */,
 				D4F36F5F29086AA400EF7C85 /* Assets.xcassets */,
 				D4F36F6129086AA400EF7C85 /* Preview Content */,
 			);
@@ -65,6 +83,35 @@
 				D4F36F6229086AA400EF7C85 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D4F36F6929086B4700EF7C85 /* engine */ = {
+			isa = PBXGroup;
+			children = (
+				D4F36F6A29086BC800EF7C85 /* EncryptionEngine.swift */,
+				D4F36F782908870900EF7C85 /* FileEngine.swift */,
+				D4F36F7D2909500F00EF7C85 /* LocalFileEngine.swift */,
+				D4F36F6E29086E6C00EF7C85 /* AES */,
+			);
+			path = engine;
+			sourceTree = "<group>";
+		};
+		D4F36F6E29086E6C00EF7C85 /* AES */ = {
+			isa = PBXGroup;
+			children = (
+				D4F36F6C29086E6900EF7C85 /* AES.swift */,
+				D4F36F6F29086EA000EF7C85 /* AESHelper.swift */,
+			);
+			path = AES;
+			sourceTree = "<group>";
+		};
+		D4F36F75290871E200EF7C85 /* Polygone */ = {
+			isa = PBXGroup;
+			children = (
+				D4F36F712908717900EF7C85 /* Polygone.swift */,
+				D4F36F73290871DE00EF7C85 /* test.txt */,
+			);
+			path = Polygone;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +130,9 @@
 			dependencies = (
 			);
 			name = EncryptFile;
+			packageProductDependencies = (
+				D4F36F7B2908898000EF7C85 /* ZIPFoundation */,
+			);
 			productName = EncryptFile;
 			productReference = D4F36F5829086AA300EF7C85 /* EncryptFile.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +161,9 @@
 				Base,
 			);
 			mainGroup = D4F36F4F29086AA300EF7C85;
+			packageReferences = (
+				D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+			);
 			productRefGroup = D4F36F5929086AA300EF7C85 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -126,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4F36F6329086AA400EF7C85 /* Preview Assets.xcassets in Resources */,
+				D4F36F74290871DE00EF7C85 /* test.txt in Resources */,
 				D4F36F6029086AA400EF7C85 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,7 +192,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4F36F5E29086AA300EF7C85 /* ContentView.swift in Sources */,
+				D4F36F7E2909500F00EF7C85 /* LocalFileEngine.swift in Sources */,
+				D4F36F6D29086E6900EF7C85 /* AES.swift in Sources */,
+				D4F36F792908870900EF7C85 /* FileEngine.swift in Sources */,
+				D4F36F722908717900EF7C85 /* Polygone.swift in Sources */,
 				D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */,
+				D4F36F7029086EA000EF7C85 /* AESHelper.swift in Sources */,
+				D4F36F6B29086BC800EF7C85 /* EncryptionEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +399,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D4F36F7B2908898000EF7C85 /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D4F36F5029086AA300EF7C85 /* Project object */;
 }

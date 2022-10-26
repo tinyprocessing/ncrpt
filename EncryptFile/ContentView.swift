@@ -6,28 +6,93 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
+import QuickLook
+import QuartzCore
+
+struct PreviewController: UIViewControllerRepresentable {
+    let url: URL
+    
+    func makeUIViewController(context: Context) -> QLPreviewController {
+        let controller = QLPreviewController()
+        controller.dataSource = context.coordinator
+        return controller
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(parent: self)
+    }
+    
+    func updateUIViewController(
+        _ uiViewController: QLPreviewController, context: Context) {}
+    
+    class Coordinator: QLPreviewControllerDataSource {
+        let parent: PreviewController
+        
+        init(parent: PreviewController) {
+            self.parent = parent
+        }
+        
+        func numberOfPreviewItems(
+            in controller: QLPreviewController
+        ) -> Int {
+            return 1
+        }
+        
+        func previewController(
+            _ controller: QLPreviewController,
+            previewItemAt index: Int
+        ) -> QLPreviewItem {
+            return parent.url as NSURL
+        }
+        
+    }
+}
+
+
+struct SheetView: View {
+    @Environment(\.dismiss) var dismiss
+    @Binding var content : URL?
+    var body: some View {
+        VStack{
+            PreviewController(url: self.content!)
+        }
+    }
+}
 
 struct ContentView: View {
+    
+    @State private var showingContent = false
     
     @ObservedObject var localFiles: LocalFileEngine = LocalFileEngine()
     @State private var document: FileDocumentStruct = FileDocumentStruct()
     @State private var isImporting: Bool = false
     @State private var isImportingEncrypt: Bool = false
     @State private var isImportingDecrypt: Bool = false
+    @State var content : URL? = nil
     
+    func getAtualTypes() -> [UTType]{
+        if self.isImportingEncrypt {
+            return [.pdf, .docx, .png, .jpg, .jpeg, .zip, .image, .tiff, .gif, .pptx, .xlsx, .plainText]
+        }
+        if self.isImportingDecrypt {
+            return [.ncrpt, .zip]
+        }
+        return []
+    }
     
     var body: some View {
         VStack{
             HStack{
-                Text("Encrypt")
+                Text("ncrpt.io")
                     .font(.largeTitle)
                 Spacer()
                 Button(action: {
-//                    let polygone = Polygone()
-//                    polygone.fileEncyptionTest()
-                    isImporting = true
+                    //                    let polygone = Polygone()
+                    //                    polygone.fileEncyptionTest()
                     isImportingDecrypt = false
                     isImportingEncrypt = true
+                    isImporting = true
                 }, label: {
                     Image(systemName: "lock")
                         .font(.system(size: 24))
@@ -79,9 +144,9 @@ struct ContentView: View {
             Spacer()
             Button(action: {
                 localFiles.getLocalFiles()
-                isImporting = true
                 isImportingEncrypt = false
                 isImportingDecrypt = true
+                isImporting = true
             }, label: {
                 Text("Open File")
                     .padding(.horizontal, 55)
@@ -93,7 +158,7 @@ struct ContentView: View {
         }
         .fileImporter(
             isPresented: $isImporting,
-            allowedContentTypes: [.pdf, .docx, .png, .jpg, .jpeg, .zip, .image, .tiff, .gif, .pptx, .xlsx],
+            allowedContentTypes: self.getAtualTypes(),
             allowsMultipleSelection: false
         ) { result in
             do {
@@ -104,9 +169,19 @@ struct ContentView: View {
                     polygone.encryptFile(self.document.url!)
                     localFiles.getLocalFiles()
                 }
+                
+                if self.isImportingDecrypt {
+                    let polygone = Polygone()
+                    let result = polygone.decryptFile(self.document.url!)
+                    self.content = result
+                    showingContent.toggle()
+                }
             } catch {
                 // Handle failure.
             }
+        }
+        .sheet(isPresented: $showingContent) {
+            SheetView(content: self.$content)
         }
         .onAppear{
             self.localFiles.getLocalFiles()

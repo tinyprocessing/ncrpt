@@ -18,7 +18,7 @@ struct AES {
     init?(key: Data, iv: Data) {
         self.key = key
         self.iv  = iv
-        print("AES processing sucess")
+        print("AES processing success")
     }
        
 }

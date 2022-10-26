@@ -27,7 +27,6 @@ class LocalFileEngine: ObservableObject, Identifiable  {
                 appropriateFor: nil,
                 create: true
             )
-            print("documentDirectory", documentDirectory.path)
             // Get the directory contents urls (including subfolders urls)
             let directoryContents = try FileManager.default.contentsOfDirectory(
                 at: documentDirectory,
@@ -40,9 +39,6 @@ class LocalFileEngine: ObservableObject, Identifiable  {
             ncrpt.forEach { url in
                 files.append(fileItem(name: url.lastPathComponent, url: url))
             }
-            
-            print("ncrpt:", ncrpt)
-            
         } catch {
             print(error)
         }

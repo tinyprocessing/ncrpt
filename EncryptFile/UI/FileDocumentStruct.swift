@@ -42,15 +42,15 @@ extension UTType {
         UTType.types(tag: "txt", tagClass: .filenameExtension, conformingTo: nil).first!
     }
     
-    static var pdfcustom: UTType {
-        UTType.types(tag: "pdf", tagClass: .filenameExtension, conformingTo: nil).first!
+    static var ncrpt: UTType {
+        UTType.types(tag: "ncrpt", tagClass: .filenameExtension, conformingTo: nil).first!
     }
 }
 
 
 struct FileDocumentStruct: FileDocument {
     
-    static var readableContentTypes: [UTType] { [] }
+    static var readableContentTypes: [UTType] { [.ncrpt] }
     var url: URL? = nil
     
     init() {}

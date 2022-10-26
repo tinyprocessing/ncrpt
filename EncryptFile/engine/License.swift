@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct License  {
+struct License : Codable {
     var algorithm : String = ""
     var method : String = ""
     var owner : String = ""

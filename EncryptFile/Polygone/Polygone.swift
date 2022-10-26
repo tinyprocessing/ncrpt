@@ -68,7 +68,24 @@ class Polygone: ObservableObject, Identifiable  {
                 let encryptedFile = engine.encryptFile(fileURL: filePath)
                 if let encryptedFileReady = encryptedFile{
                     let fileEngine = FileEngine()
-                    fileEngine.exportNCRPT(encryptedFileReady, filename: url.deletingPathExtension().lastPathComponent)
+                    
+                    var license : License = License()
+                    license.owner = "safir@ncrpt.io"
+                    license.AESKey = engine.exportAES()
+                    license.algorithm = "AES"
+                    license.algorithm = "32"
+                    license.fileMD5 = md5File(url: url) ?? ""
+                    license.fileName = url.deletingPathExtension().lastPathComponent
+                    license.description = "UPP"
+                    license.fileSize = String(format: "%f", fileSize(forURL: url))
+                    license.issuedDate =  String(format: "%f", NSDate().timeIntervalSince1970)
+                    license.publicKey = ""
+                    license.server = "https://secure.ncrpt.io"
+                    license.templateID = ""
+                  
+                    fileEngine.exportNCRPT(encryptedFileReady,
+                                           filename: url.deletingPathExtension().lastPathComponent,
+                                           license: license)
                 }
             }
         }catch{

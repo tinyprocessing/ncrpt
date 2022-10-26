@@ -21,6 +21,8 @@
 		D4F36F7E2909500F00EF7C85 /* LocalFileEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F7D2909500F00EF7C85 /* LocalFileEngine.swift */; };
 		D4F36F802909922400EF7C85 /* License.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F7F2909922400EF7C85 /* License.swift */; };
 		D4F36F832909AE7100EF7C85 /* FileDocumentStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F822909AE7100EF7C85 /* FileDocumentStruct.swift */; };
+		D4F36F862909D96D00EF7C85 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F852909D96D00EF7C85 /* MD5.swift */; };
+		D4F36F882909DA3500EF7C85 /* FileSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F872909DA3500EF7C85 /* FileSize.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		D4F36F7F2909922400EF7C85 /* License.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = License.swift; sourceTree = "<group>"; };
 		D4F36F822909AE7100EF7C85 /* FileDocumentStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDocumentStruct.swift; sourceTree = "<group>"; };
 		D4F36F842909B7A000EF7C85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D4F36F852909D96D00EF7C85 /* MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
+		D4F36F872909DA3500EF7C85 /* FileSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSize.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,9 +100,11 @@
 			isa = PBXGroup;
 			children = (
 				D4F36F6A29086BC800EF7C85 /* EncryptionEngine.swift */,
+				D4F36F7F2909922400EF7C85 /* License.swift */,
 				D4F36F782908870900EF7C85 /* FileEngine.swift */,
 				D4F36F7D2909500F00EF7C85 /* LocalFileEngine.swift */,
-				D4F36F7F2909922400EF7C85 /* License.swift */,
+				D4F36F852909D96D00EF7C85 /* MD5.swift */,
+				D4F36F872909DA3500EF7C85 /* FileSize.swift */,
 				D4F36F6E29086E6C00EF7C85 /* AES */,
 			);
 			path = engine;
@@ -211,12 +217,14 @@
 				D4F36F7E2909500F00EF7C85 /* LocalFileEngine.swift in Sources */,
 				D4F36F6D29086E6900EF7C85 /* AES.swift in Sources */,
 				D4F36F792908870900EF7C85 /* FileEngine.swift in Sources */,
+				D4F36F882909DA3500EF7C85 /* FileSize.swift in Sources */,
 				D4F36F722908717900EF7C85 /* Polygone.swift in Sources */,
 				D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */,
 				D4F36F7029086EA000EF7C85 /* AESHelper.swift in Sources */,
 				D4F36F6B29086BC800EF7C85 /* EncryptionEngine.swift in Sources */,
 				D4F36F832909AE7100EF7C85 /* FileDocumentStruct.swift in Sources */,
 				D4F36F802909922400EF7C85 /* License.swift in Sources */,
+				D4F36F862909D96D00EF7C85 /* MD5.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

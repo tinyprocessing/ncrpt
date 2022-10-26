@@ -33,21 +33,10 @@ class LocalFileEngine: ObservableObject, Identifiable  {
                 at: documentDirectory,
                 includingPropertiesForKeys: nil
             )
-            print("directoryContents:", directoryContents.map { $0.localizedName ?? $0.lastPathComponent })
-            for url in directoryContents {
-                print(url.localizedName ?? url.lastPathComponent)
-            }
-            
-            // if you would like to hide the file extension
-            for var url in directoryContents {
-                url.hasHiddenExtension = true
-            }
-            for url in directoryContents {
-                print(url.localizedName ?? url.lastPathComponent)
-            }
 
             // if you want to get all ncrpt files located at the documents directory:
             let ncrpt = directoryContents.filter(\.isNCRPT)
+            self.objectWillChange.send()
             ncrpt.forEach { url in
                 files.append(fileItem(name: url.lastPathComponent, url: url))
             }

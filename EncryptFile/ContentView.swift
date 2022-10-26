@@ -10,6 +10,11 @@ import SwiftUI
 struct ContentView: View {
     
     @ObservedObject var localFiles: LocalFileEngine = LocalFileEngine()
+    @State private var document: FileDocumentStruct = FileDocumentStruct()
+    @State private var isImporting: Bool = false
+    @State private var isImportingEncrypt: Bool = false
+    @State private var isImportingDecrypt: Bool = false
+    
     
     var body: some View {
         VStack{
@@ -18,8 +23,11 @@ struct ContentView: View {
                     .font(.largeTitle)
                 Spacer()
                 Button(action: {
-                    let polygone = Polygone()
-                    polygone.fileEncyptionTest()
+//                    let polygone = Polygone()
+//                    polygone.fileEncyptionTest()
+                    isImporting = true
+                    isImportingDecrypt = false
+                    isImportingEncrypt = true
                 }, label: {
                     Image(systemName: "lock")
                         .font(.system(size: 24))
@@ -47,7 +55,7 @@ struct ContentView: View {
                             
                             Button(action: {
                                 do {
-                                    try FileManager.default.removeItem(atPath: (file.url?.path())!)
+                                    try FileManager.default.removeItem(atPath: (file.url?.path().removingPercentEncoding)!)
                                     self.localFiles.getLocalFiles()
                                 } catch {
                                     print("Could not delete file, probably read-only filesystem")
@@ -70,8 +78,10 @@ struct ContentView: View {
             }
             Spacer()
             Button(action: {
-                let localFilesEngine = LocalFileEngine()
-                localFilesEngine.getLocalFiles()
+                localFiles.getLocalFiles()
+                isImporting = true
+                isImportingEncrypt = false
+                isImportingDecrypt = true
             }, label: {
                 Text("Open File")
                     .padding(.horizontal, 55)
@@ -80,7 +90,25 @@ struct ContentView: View {
                     .cornerRadius(8.0)
                     .foregroundColor(Color.white)
             })
-        }.onAppear{
+        }
+        .fileImporter(
+            isPresented: $isImporting,
+            allowedContentTypes: [.pdf, .docx, .png, .jpg, .jpeg, .zip, .image, .tiff, .gif, .pptx, .xlsx],
+            allowsMultipleSelection: false
+        ) { result in
+            do {
+                guard let selectedFile: URL = try result.get().first else { return }
+                self.document.url = selectedFile
+                if self.isImportingEncrypt {
+                    let polygone = Polygone()
+                    polygone.encryptFile(self.document.url!)
+                    localFiles.getLocalFiles()
+                }
+            } catch {
+                // Handle failure.
+            }
+        }
+        .onAppear{
             self.localFiles.getLocalFiles()
         }
     }

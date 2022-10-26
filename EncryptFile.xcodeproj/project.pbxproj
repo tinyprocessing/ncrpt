@@ -19,6 +19,8 @@
 		D4F36F792908870900EF7C85 /* FileEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F782908870900EF7C85 /* FileEngine.swift */; };
 		D4F36F7C2908898000EF7C85 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = D4F36F7B2908898000EF7C85 /* ZIPFoundation */; };
 		D4F36F7E2909500F00EF7C85 /* LocalFileEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F7D2909500F00EF7C85 /* LocalFileEngine.swift */; };
+		D4F36F802909922400EF7C85 /* License.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F7F2909922400EF7C85 /* License.swift */; };
+		D4F36F832909AE7100EF7C85 /* FileDocumentStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F822909AE7100EF7C85 /* FileDocumentStruct.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,9 @@
 		D4F36F73290871DE00EF7C85 /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 		D4F36F782908870900EF7C85 /* FileEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileEngine.swift; sourceTree = "<group>"; };
 		D4F36F7D2909500F00EF7C85 /* LocalFileEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileEngine.swift; sourceTree = "<group>"; };
+		D4F36F7F2909922400EF7C85 /* License.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = License.swift; sourceTree = "<group>"; };
+		D4F36F822909AE7100EF7C85 /* FileDocumentStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDocumentStruct.swift; sourceTree = "<group>"; };
+		D4F36F842909B7A000EF7C85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,9 +72,11 @@
 		D4F36F5A29086AA300EF7C85 /* EncryptFile */ = {
 			isa = PBXGroup;
 			children = (
+				D4F36F842909B7A000EF7C85 /* Info.plist */,
 				D4F36F6929086B4700EF7C85 /* engine */,
 				D4F36F5B29086AA300EF7C85 /* EncryptFileApp.swift */,
 				D4F36F5D29086AA300EF7C85 /* ContentView.swift */,
+				D4F36F812909AE5A00EF7C85 /* UI */,
 				D4F36F75290871E200EF7C85 /* Polygone */,
 				D4F36F5F29086AA400EF7C85 /* Assets.xcassets */,
 				D4F36F6129086AA400EF7C85 /* Preview Content */,
@@ -91,6 +98,7 @@
 				D4F36F6A29086BC800EF7C85 /* EncryptionEngine.swift */,
 				D4F36F782908870900EF7C85 /* FileEngine.swift */,
 				D4F36F7D2909500F00EF7C85 /* LocalFileEngine.swift */,
+				D4F36F7F2909922400EF7C85 /* License.swift */,
 				D4F36F6E29086E6C00EF7C85 /* AES */,
 			);
 			path = engine;
@@ -112,6 +120,14 @@
 				D4F36F73290871DE00EF7C85 /* test.txt */,
 			);
 			path = Polygone;
+			sourceTree = "<group>";
+		};
+		D4F36F812909AE5A00EF7C85 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				D4F36F822909AE7100EF7C85 /* FileDocumentStruct.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,6 +215,8 @@
 				D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */,
 				D4F36F7029086EA000EF7C85 /* AESHelper.swift in Sources */,
 				D4F36F6B29086BC800EF7C85 /* EncryptionEngine.swift in Sources */,
+				D4F36F832909AE7100EF7C85 /* FileDocumentStruct.swift in Sources */,
+				D4F36F802909922400EF7C85 /* License.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,11 +348,13 @@
 				DEVELOPMENT_TEAM = GAH72SPMY9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = EncryptFile/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -359,11 +379,13 @@
 				DEVELOPMENT_TEAM = GAH72SPMY9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = EncryptFile/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -11,7 +11,7 @@ class Polygone: ObservableObject, Identifiable  {
     let aesHelper : AESHelper = AESHelper()
     func fileEncyptionTest(){
         do {
-            let password = "randomString"
+            let password = "random"
             print("fileEncyptionTest processing")
             let salt = self.aesHelper.randomSalt()
             let key : Data = try! self.aesHelper.createKey(password: password.data(using: .utf8)!, salt: salt)
@@ -48,5 +48,32 @@ class Polygone: ObservableObject, Identifiable  {
         }catch{
             debugPrint("Error: fileEncyptionTest cannot crypt file")
         }
+    }
+    
+    func encryptFile(_ url: URL){
+        do {
+            let password = "random"
+            print("fileEncyptionTest processing")
+            let salt = self.aesHelper.randomSalt()
+            let key : Data = try! self.aesHelper.createKey(password: password.data(using: .utf8)!, salt: salt)
+            print("fileEncyptionTest key ready")
+            let iv : Data = try! self.aesHelper.randomIv()
+            print("fileEncyptionTest iv ready")
+            var aes : AES? = AES(key: key, iv: iv)
+            print("fileEncyptionTest AES ready")
+            if let aesReady = aes {
+                let engine : EncryptionEngine = EncryptionEngine(aes: aesReady)
+                print("fileEncyptionTest EncryptionEngine ready")
+                var filePath = url
+                let encryptedFile = engine.encryptFile(fileURL: filePath)
+                if let encryptedFileReady = encryptedFile{
+                    let fileEngine = FileEngine()
+                    fileEngine.exportNCRPT(encryptedFileReady, filename: url.deletingPathExtension().lastPathComponent)
+                }
+            }
+        }catch{
+            debugPrint("Error: fileEncyptionTest cannot crypt file")
+        }
+
     }
 }

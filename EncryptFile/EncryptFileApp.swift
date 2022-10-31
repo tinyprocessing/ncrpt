@@ -15,6 +15,8 @@ struct EncryptFileApp: App {
                 .onAppear{
                     let rsa = RSA()
                     rsa.start()
+                    let network = Network()
+                    network.publicServerKey()
                 }
         }
     }

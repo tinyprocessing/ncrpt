@@ -190,7 +190,7 @@
 				236259D32910110B007EC337 /* Models */,
 				236259D0291010FC007EC337 /* ViewModels */,
 				236259C7291010F0007EC337 /* Views */,
-				D4F36F6929086B4700EF7C85 /* engine */,
+				D4F36F6929086B4700EF7C85 /* Engine */,
 				D4F36F5B29086AA300EF7C85 /* EncryptFileApp.swift */,
 				D4F36F5D29086AA300EF7C85 /* ContentView.swift */,
 				D4F36F812909AE5A00EF7C85 /* UI */,
@@ -209,7 +209,7 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		D4F36F6929086B4700EF7C85 /* engine */ = {
+		D4F36F6929086B4700EF7C85 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
 				D4F36F6A29086BC800EF7C85 /* EncryptionEngine.swift */,
@@ -225,7 +225,7 @@
 				2C1BC099290FEE9C00B3AD7C /* Keychain */,
 				D4F36F6E29086E6C00EF7C85 /* AES */,
 			);
-			path = engine;
+			path = Engine;
 			sourceTree = "<group>";
 		};
 		D4F36F6E29086E6C00EF7C85 /* AES */ = {

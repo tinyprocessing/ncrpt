@@ -110,10 +110,14 @@ struct ContentView: View {
                                             Text("\(file.name)")
                                                 .onTapGesture {
                                                     if file.url != nil {
-                                                        let polygone = Polygone()
-                                                        let result = polygone.decryptFile(file.url!)
-                                                        self.content = result
-                                                        showingContent.toggle()
+                                                        DispatchQueue.global(qos: .userInitiated).async {
+                                                            let polygone = Polygone()
+                                                            let result = polygone.decryptFile(file.url!)
+                                                            self.content = result
+                                                            DispatchQueue.main.async {
+                                                                showingContent.toggle()
+                                                            }
+                                                        }
                                                     }
                                                 }
                                         }

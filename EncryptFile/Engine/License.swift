@@ -29,7 +29,7 @@ struct License : Codable {
     var issuedDate : String = ""
     var description : String = ""
     var serverLicense : String = ""
-    var userRights : Rights? = nil
+    var userRights : String? = nil
 }
 
 /// Struct represents user rights

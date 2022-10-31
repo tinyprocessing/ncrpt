@@ -34,6 +34,10 @@ class EncryptionEngine: ObservableObject, Identifiable  {
         }
     }
     
+    func encryptData(data: Data) -> Data?{
+        return crypt(data: data, option: CCOperation(kCCEncrypt))
+    }
+    
     func decrypt(_ encrypted: Data) -> Data? {
         do {
             let fileData = crypt(data: encrypted, option: CCOperation(kCCDecrypt))!

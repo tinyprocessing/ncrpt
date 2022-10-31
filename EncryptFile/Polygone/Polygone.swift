@@ -85,7 +85,10 @@ class Polygone: ObservableObject, Identifiable  {
                     rights.owner = "safir@ncrpt.io"
                     rights.users = ["safir@nrcpt.io", "anisimov@ncrpt.io"]
                     rights.rights = ["OWNER", "VIEW,EDIT"]
-                    license.userRights = rights
+                    let rightsJSONData = try JSONEncoder().encode(rights)
+                    let encryptedFile = engine.encryptData(data: rightsJSONData)
+                    license.userRights = encryptedFile?.base64EncodedString()
+                    
                     log.debug(module: "Polygone", type: #function, object: "License done")
 
                     var rsa = RSA()

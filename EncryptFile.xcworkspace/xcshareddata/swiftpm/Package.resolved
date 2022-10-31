@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "bdecb2c87a21a236dcfe88b21532ad3f0e3d20f4"
+      }
+    },
+    {
+      "identity" : "zipfoundation",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/weichsel/ZIPFoundation.git",
+      "state" : {
+        "revision" : "f6a22e7da26314b38bf9befce34ae8e4b2543090",
+        "version" : "0.9.15"
+      }
+    }
+  ],
+  "version" : 2
+}

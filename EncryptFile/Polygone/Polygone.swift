@@ -83,6 +83,14 @@ class Polygone: ObservableObject, Identifiable  {
                     license.server = "https://secure.ncrpt.io"
                     license.templateID = ""
                     
+                    var rights : Rights = Rights()
+                    rights.owner = "safir@ncrpt.io"
+                    rights.users = ["safir@nrcpt.io", "anisimov@ncrpt.io"]
+                    rights.rights = ["OWNER", "VIEW"]
+                    
+                    var rsa = RSA()
+                    rsa.generatePairKeys()
+                    
                     fileEngine.exportNCRPT(encryptedFileReady,
                                            filename: url.deletingPathExtension().lastPathComponent,
                                            license: license)

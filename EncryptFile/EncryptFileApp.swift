@@ -12,6 +12,10 @@ struct EncryptFileApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear{
+                    let rsa = RSA()
+                    rsa.start()
+                }
         }
     }
 }

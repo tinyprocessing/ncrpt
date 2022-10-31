@@ -29,7 +29,7 @@ class EncryptionEngine: ObservableObject, Identifiable  {
             let fileData = try Data(contentsOf: fileURL)
             return crypt(data: fileData, option: CCOperation(kCCEncrypt))
         }catch {
-            debugPrint("Error: cannot convert file to Data")
+            log.debug(module: "EncryptionEngine", type: #function, object: "Cannot convert file to Data")
             return nil
         }
     }
@@ -39,7 +39,7 @@ class EncryptionEngine: ObservableObject, Identifiable  {
             let fileData = crypt(data: encrypted, option: CCOperation(kCCDecrypt))!
             return fileData
         }catch {
-            debugPrint("Error: decrypt")
+            log.debug(module: "EncryptionEngine", type: #function, object: "Decrypt")
             return nil
         }
     }
@@ -71,7 +71,7 @@ class EncryptionEngine: ObservableObject, Identifiable  {
         }
         
         guard Int32(status) == Int32(kCCSuccess) else {
-            debugPrint("Error: Failed to crypt data. Status \(status)")
+            log.debug(module: "EncryptionEngine", type: #function, object: "Failed to crypt data \(status)")
             return nil
         }
         

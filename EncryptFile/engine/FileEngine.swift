@@ -39,11 +39,11 @@ class FileEngine: ObservableObject, Identifiable  {
             do {
                 try FileManager.default.removeItem(atPath: (fileURLFolder.path().removingPercentEncoding)!)
             } catch {
-                print("Could not delete file, probably read-only filesystem")
+                log.debug(module: "FileEngine", type: #function, object: "Could not delete file, probably read-only filesystem")
             }
             
         }catch{
-            debugPrint("Error exportNCRPT")
+            log.debug(module: "FileEngine", type: #function, object: "Error exportNCRPT")
         }
     }
     

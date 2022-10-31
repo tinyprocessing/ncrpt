@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C1BC09B290FEEB000B3AD7C /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC09A290FEEB000B3AD7C /* Keychain.swift */; };
+		2C1BC09D290FEF3F00B3AD7C /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC09C290FEF3F00B3AD7C /* KeychainHelper.swift */; };
+		2C1BC0A1290FF23000B3AD7C /* RSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC0A0290FF23000B3AD7C /* RSA.swift */; };
+		2C1BC0A4290FFC6700B3AD7C /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC0A3290FFC6700B3AD7C /* Network.swift */; };
+		2C1BC0A7290FFCA800B3AD7C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2C1BC0A6290FFCA800B3AD7C /* Alamofire */; };
+		2C1BC0AA290FFCC400B3AD7C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC0A9290FFCC400B3AD7C /* Log.swift */; };
+		2C1BC0AC290FFD2600B3AD7C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC0AB290FFD2600B3AD7C /* Settings.swift */; };
+		CAC626C503C0B776C3E7A888 /* Pods_EncryptFile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */; };
 		D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F5B29086AA300EF7C85 /* EncryptFileApp.swift */; };
 		D4F36F5E29086AA300EF7C85 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F5D29086AA300EF7C85 /* ContentView.swift */; };
 		D4F36F6029086AA400EF7C85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4F36F5F29086AA400EF7C85 /* Assets.xcassets */; };
@@ -26,6 +34,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C1BC09A290FEEB000B3AD7C /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		2C1BC09C290FEF3F00B3AD7C /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		2C1BC0A0290FF23000B3AD7C /* RSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSA.swift; sourceTree = "<group>"; };
+		2C1BC0A3290FFC6700B3AD7C /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		2C1BC0A9290FFCC400B3AD7C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		2C1BC0AB290FFD2600B3AD7C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		423F50C23B43248D905BF23B /* Pods-EncryptFile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.release.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.release.xcconfig"; sourceTree = "<group>"; };
+		A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EncryptFile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A32B9DE9F01C3CC495A1F0B6 /* Pods-EncryptFile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.debug.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.debug.xcconfig"; sourceTree = "<group>"; };
 		D4F36F5829086AA300EF7C85 /* EncryptFile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EncryptFile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F36F5B29086AA300EF7C85 /* EncryptFileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptFileApp.swift; sourceTree = "<group>"; };
 		D4F36F5D29086AA300EF7C85 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -50,18 +67,72 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C1BC0A7290FFCA800B3AD7C /* Alamofire in Frameworks */,
 				D4F36F7C2908898000EF7C85 /* ZIPFoundation in Frameworks */,
+				CAC626C503C0B776C3E7A888 /* Pods_EncryptFile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C1BC099290FEE9C00B3AD7C /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				2C1BC09A290FEEB000B3AD7C /* Keychain.swift */,
+				2C1BC09C290FEF3F00B3AD7C /* KeychainHelper.swift */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
+		2C1BC09E290FEFB400B3AD7C /* RSA */ = {
+			isa = PBXGroup;
+			children = (
+				2C1BC0A0290FF23000B3AD7C /* RSA.swift */,
+			);
+			path = RSA;
+			sourceTree = "<group>";
+		};
+		2C1BC0A2290FFC5500B3AD7C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				2C1BC0A3290FFC6700B3AD7C /* Network.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		2C1BC0A8290FFCBA00B3AD7C /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				2C1BC0A9290FFCC400B3AD7C /* Log.swift */,
+			);
+			path = Log;
+			sourceTree = "<group>";
+		};
+		61DFDEA360CDE2553ACB5C71 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CA034BDA81E1E67EFB62B69E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A32B9DE9F01C3CC495A1F0B6 /* Pods-EncryptFile.debug.xcconfig */,
+				423F50C23B43248D905BF23B /* Pods-EncryptFile.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		D4F36F4F29086AA300EF7C85 = {
 			isa = PBXGroup;
 			children = (
 				D4F36F5A29086AA300EF7C85 /* EncryptFile */,
 				D4F36F5929086AA300EF7C85 /* Products */,
+				CA034BDA81E1E67EFB62B69E /* Pods */,
+				61DFDEA360CDE2553ACB5C71 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,6 +176,11 @@
 				D4F36F7D2909500F00EF7C85 /* LocalFileEngine.swift */,
 				D4F36F852909D96D00EF7C85 /* MD5.swift */,
 				D4F36F872909DA3500EF7C85 /* FileSize.swift */,
+				2C1BC0AB290FFD2600B3AD7C /* Settings.swift */,
+				2C1BC0A8290FFCBA00B3AD7C /* Log */,
+				2C1BC0A2290FFC5500B3AD7C /* Network */,
+				2C1BC09E290FEFB400B3AD7C /* RSA */,
+				2C1BC099290FEE9C00B3AD7C /* Keychain */,
 				D4F36F6E29086E6C00EF7C85 /* AES */,
 			);
 			path = engine;
@@ -143,9 +219,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4F36F6629086AA400EF7C85 /* Build configuration list for PBXNativeTarget "EncryptFile" */;
 			buildPhases = (
+				1EC991F3B232DACD2CCCB8B6 /* [CP] Check Pods Manifest.lock */,
 				D4F36F5429086AA300EF7C85 /* Sources */,
 				D4F36F5529086AA300EF7C85 /* Frameworks */,
 				D4F36F5629086AA300EF7C85 /* Resources */,
+				376553BFAD24B50C5D6313A6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -154,6 +232,7 @@
 			name = EncryptFile;
 			packageProductDependencies = (
 				D4F36F7B2908898000EF7C85 /* ZIPFoundation */,
+				2C1BC0A6290FFCA800B3AD7C /* Alamofire */,
 			);
 			productName = EncryptFile;
 			productReference = D4F36F5829086AA300EF7C85 /* EncryptFile.app */;
@@ -185,6 +264,7 @@
 			mainGroup = D4F36F4F29086AA300EF7C85;
 			packageReferences = (
 				D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+				2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = D4F36F5929086AA300EF7C85 /* Products */;
 			projectDirPath = "";
@@ -208,6 +288,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1EC991F3B232DACD2CCCB8B6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EncryptFile-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		376553BFAD24B50C5D6313A6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EncryptFile/Pods-EncryptFile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EncryptFile/Pods-EncryptFile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EncryptFile/Pods-EncryptFile-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D4F36F5429086AA300EF7C85 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -215,15 +337,21 @@
 			files = (
 				D4F36F5E29086AA300EF7C85 /* ContentView.swift in Sources */,
 				D4F36F7E2909500F00EF7C85 /* LocalFileEngine.swift in Sources */,
+				2C1BC0A4290FFC6700B3AD7C /* Network.swift in Sources */,
+				2C1BC09B290FEEB000B3AD7C /* Keychain.swift in Sources */,
 				D4F36F6D29086E6900EF7C85 /* AES.swift in Sources */,
 				D4F36F792908870900EF7C85 /* FileEngine.swift in Sources */,
+				2C1BC0AC290FFD2600B3AD7C /* Settings.swift in Sources */,
 				D4F36F882909DA3500EF7C85 /* FileSize.swift in Sources */,
 				D4F36F722908717900EF7C85 /* Polygone.swift in Sources */,
+				2C1BC0AA290FFCC400B3AD7C /* Log.swift in Sources */,
 				D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */,
 				D4F36F7029086EA000EF7C85 /* AESHelper.swift in Sources */,
 				D4F36F6B29086BC800EF7C85 /* EncryptionEngine.swift in Sources */,
 				D4F36F832909AE7100EF7C85 /* FileDocumentStruct.swift in Sources */,
+				2C1BC09D290FEF3F00B3AD7C /* KeychainHelper.swift in Sources */,
 				D4F36F802909922400EF7C85 /* License.swift in Sources */,
+				2C1BC0A1290FF23000B3AD7C /* RSA.swift in Sources */,
 				D4F36F862909D96D00EF7C85 /* MD5.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,6 +475,7 @@
 		};
 		D4F36F6729086AA400EF7C85 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A32B9DE9F01C3CC495A1F0B6 /* Pods-EncryptFile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -378,6 +507,7 @@
 		};
 		D4F36F6829086AA400EF7C85 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 423F50C23B43248D905BF23B /* Pods-EncryptFile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -431,6 +561,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
@@ -442,6 +580,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2C1BC0A6290FFCA800B3AD7C /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		D4F36F7B2908898000EF7C85 /* ZIPFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;

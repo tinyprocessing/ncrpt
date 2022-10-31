@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		236259BA290BB204007EC337 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236259B9290BB204007EC337 /* SideMenu.swift */; };
+		236259BC290BC64E007EC337 /* TeamMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236259BB290BC64E007EC337 /* TeamMenuView.swift */; };
+		236259BE290BE1A4007EC337 /* IconMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236259BD290BE1A4007EC337 /* IconMenuView.swift */; };
+		236259C1290C10CB007EC337 /* GroupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236259C0290C10CB007EC337 /* GroupData.swift */; };
+		236259C3290C2B33007EC337 /* GroupsSideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236259C2290C2B33007EC337 /* GroupsSideView.swift */; };
+		236259C6290FA2F7007EC337 /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236259C5290FA2F7007EC337 /* GroupViewModel.swift */; };
 		D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F5B29086AA300EF7C85 /* EncryptFileApp.swift */; };
 		D4F36F5E29086AA300EF7C85 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F5D29086AA300EF7C85 /* ContentView.swift */; };
 		D4F36F6029086AA400EF7C85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4F36F5F29086AA400EF7C85 /* Assets.xcassets */; };
@@ -26,6 +32,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		236259B9290BB204007EC337 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
+		236259BB290BC64E007EC337 /* TeamMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamMenuView.swift; sourceTree = "<group>"; };
+		236259BD290BE1A4007EC337 /* IconMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconMenuView.swift; sourceTree = "<group>"; };
+		236259C0290C10CB007EC337 /* GroupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupData.swift; sourceTree = "<group>"; };
+		236259C2290C2B33007EC337 /* GroupsSideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSideView.swift; sourceTree = "<group>"; };
+		236259C5290FA2F7007EC337 /* GroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
 		D4F36F5829086AA300EF7C85 /* EncryptFile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EncryptFile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F36F5B29086AA300EF7C85 /* EncryptFileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptFileApp.swift; sourceTree = "<group>"; };
 		D4F36F5D29086AA300EF7C85 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,6 +69,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		236259B8290BB194007EC337 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				236259B9290BB204007EC337 /* SideMenu.swift */,
+				236259BD290BE1A4007EC337 /* IconMenuView.swift */,
+				236259BB290BC64E007EC337 /* TeamMenuView.swift */,
+				236259C2290C2B33007EC337 /* GroupsSideView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		236259BF290C10B1007EC337 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				236259C0290C10CB007EC337 /* GroupData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		236259C4290FA286007EC337 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				236259C5290FA2F7007EC337 /* GroupViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		D4F36F4F29086AA300EF7C85 = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +115,9 @@
 		D4F36F5A29086AA300EF7C85 /* EncryptFile */ = {
 			isa = PBXGroup;
 			children = (
+				236259C4290FA286007EC337 /* ViewModels */,
+				236259BF290C10B1007EC337 /* Models */,
+				236259B8290BB194007EC337 /* Views */,
 				D4F36F842909B7A000EF7C85 /* Info.plist */,
 				D4F36F6929086B4700EF7C85 /* engine */,
 				D4F36F5B29086AA300EF7C85 /* EncryptFileApp.swift */,
@@ -214,17 +256,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4F36F5E29086AA300EF7C85 /* ContentView.swift in Sources */,
+				236259C1290C10CB007EC337 /* GroupData.swift in Sources */,
+				236259C6290FA2F7007EC337 /* GroupViewModel.swift in Sources */,
 				D4F36F7E2909500F00EF7C85 /* LocalFileEngine.swift in Sources */,
 				D4F36F6D29086E6900EF7C85 /* AES.swift in Sources */,
 				D4F36F792908870900EF7C85 /* FileEngine.swift in Sources */,
 				D4F36F882909DA3500EF7C85 /* FileSize.swift in Sources */,
 				D4F36F722908717900EF7C85 /* Polygone.swift in Sources */,
 				D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */,
+				236259C3290C2B33007EC337 /* GroupsSideView.swift in Sources */,
 				D4F36F7029086EA000EF7C85 /* AESHelper.swift in Sources */,
+				236259BA290BB204007EC337 /* SideMenu.swift in Sources */,
 				D4F36F6B29086BC800EF7C85 /* EncryptionEngine.swift in Sources */,
 				D4F36F832909AE7100EF7C85 /* FileDocumentStruct.swift in Sources */,
+				236259BE290BE1A4007EC337 /* IconMenuView.swift in Sources */,
 				D4F36F802909922400EF7C85 /* License.swift in Sources */,
 				D4F36F862909D96D00EF7C85 /* MD5.swift in Sources */,
+				236259BC290BC64E007EC337 /* TeamMenuView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,7 +401,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"EncryptFile/Preview Content\"";
-				DEVELOPMENT_TEAM = GAH72SPMY9;
+				DEVELOPMENT_TEAM = 2Q8CDQHFHQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EncryptFile/Info.plist;
@@ -384,7 +432,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"EncryptFile/Preview Content\"";
-				DEVELOPMENT_TEAM = GAH72SPMY9;
+				DEVELOPMENT_TEAM = 2Q8CDQHFHQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EncryptFile/Info.plist;

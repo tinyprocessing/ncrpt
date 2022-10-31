@@ -23,11 +23,11 @@ class RSA: ObservableObject, Identifiable  {
     }
     
     func start(){
-        print(self.getPublicKey() ?? "RSA key not found")
+        log.debug(module: "RSA", type: #function, object: self.getPublicKey() ?? "RSA key not found")
         let defaults = UserDefaults.standard
         let keychainStatus : Bool = defaults.bool(forKey: "keychain")
         if (keychainStatus == false){
-            print("user is first time")
+            log.debug(module: "RSA", type: #function, object: "User is first time")
             defaults.set(true, forKey: "keychain")
             let keys = self.generatePairKeys()
             if (keys.1 != nil && keys.0 != nil){
@@ -36,7 +36,7 @@ class RSA: ObservableObject, Identifiable  {
                 keychain.helper.removePassword(service: "keychainPrivateKey", account: "NCRPT")
                 keychain.helper.savePassword(service: "keychainPrivateKey", account: "NCRPT", data: keys.0 ?? "")
                 keychain.helper.savePassword(service: "keychainPublicKey", account: "NCRPT", data: keys.1 ?? "")
-                print("keys saved to keychain")
+                log.debug(module: "RSA", type: #function, object: "Keys saved to keychain")
             }
         }
     }

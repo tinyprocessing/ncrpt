@@ -38,7 +38,7 @@ class Settings: ObservableObject, Identifiable {
                     try fileManager.removeItem(at: file)
                 }
                 catch let error as NSError {
-                    debugPrint("Ooops! Something went wrong: \(error)")
+                    log.debug(module: "Settings", type: #function, object: "Something went wrong: \(error)")
                 }
                 
             }

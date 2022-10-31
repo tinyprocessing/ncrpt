@@ -21,9 +21,9 @@ public class Log: ObservableObject, Identifiable, TextOutputStream {
         let date_to_print = dateFormatterGet.string(from: Date())
         
         if (settings.log_allow){
-            print(date_to_print, "[IRM] [\(module)]", type, ":", object, to: &log)
+            print(date_to_print, "[NCRPT] [\(module)]", type, ":", object, to: &log)
         }
-        print(date_to_print, "[IRM] [\(module)]", type, ":", object)
+        print(date_to_print, "[NCRPT] [\(module)]", type, ":", object)
     }
     
     public func write(_ string: String) {
@@ -44,7 +44,7 @@ public class Log: ObservableObject, Identifiable, TextOutputStream {
         dateFormatterGet.dateFormat = "yyyy-MM-dd"
         
             let fm = FileManager.default
-            let log = fm.urls(for: .libraryDirectory, in: .userDomainMask)[0].appendingPathComponent("\(Bundle.main.bundleIdentifier!)/logs/irmviewer_\(dateFormatterGet.string(from: Date())).log")
+            let log = fm.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("\(Bundle.main.bundleIdentifier!)/logs/ncrpt_\(dateFormatterGet.string(from: Date())).log")
             
             if let handle = try? FileHandle(forWritingTo: log) {
                 handle.seekToEndOfFile()

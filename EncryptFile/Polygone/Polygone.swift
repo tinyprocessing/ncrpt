@@ -12,33 +12,32 @@ class Polygone: ObservableObject, Identifiable  {
     func fileEncyptionTest(){
         do {
             let password : String = UUID().uuidString
-            print("fileEncyptionTest processing")
+            log.debug(module: "Polygone", type: #function, object: "Processing keys")
             let salt = self.aesHelper.randomSalt()
             let key : Data = try! self.aesHelper.createKey(password: password.data(using: .utf8)!, salt: salt)
-            print("fileEncyptionTest key ready")
             let iv : Data = try! self.aesHelper.randomIv()
-            print("fileEncyptionTest iv ready")
             var aes : AES? = AES(key: key, iv: iv)
-            print("fileEncyptionTest AES ready")
+            log.debug(module: "Polygone", type: #function, object: "Keys ready")
+            
             if let aesReady = aes {
                 let engine : EncryptionEngine = EncryptionEngine(aes: aesReady)
-                print("fileEncyptionTest EncryptionEngine ready")
+                log.debug(module: "Polygone", type: #function, object: "Engine ready")
                 var filePath = Bundle.main.url(forResource: "test", withExtension: "txt")
                 if let filePathReady = filePath{
                     let encryptedFile = engine.encryptFile(fileURL: filePathReady)
-                    print("fileEncyptionTest encryptedFile done")
-                    print(encryptedFile)
+                    log.debug(module: "Polygone", type: #function, object: "Encryption done")
+                    
                     if let encryptedFileReady = encryptedFile{
-                        //                        Build test with exported AES
+                        
                         let aesExport = engine.exportAES()
                         print(aesExport)
                         let aesImport = aesHelper.importKey(aesExport)
                         aes = AES(key: aesImport.0!, iv: aesImport.1!)
                         engine.aes = aes!
                         
-                        //                        Decrypt with exported AES
+                        
                         let decrypedFile = engine.decrypt(encryptedFileReady)
-                        print("fileEncyptionTest decrypedFile done")
+                        log.debug(module: "Polygone", type: #function, object: "Deencrypt done")
                         let fileEngine = FileEngine()
                         fileEngine.exportNCRPT(encryptedFileReady, filename: "test")
                         
@@ -46,24 +45,23 @@ class Polygone: ObservableObject, Identifiable  {
                 }
             }
         }catch{
-            debugPrint("Error: fileEncyptionTest cannot crypt file")
+            log.debug(module: "Polygone", type: #function, object: "Error: fileEncyptionTest cannot crypt file")
         }
     }
     
     func encryptFile(_ url: URL){
         do {
             let password : String = UUID().uuidString
-            print("fileEncyptionTest processing")
+            log.debug(module: "Polygone", type: #function, object: "Processing keys")
             let salt = self.aesHelper.randomSalt()
             let key : Data = try! self.aesHelper.createKey(password: password.data(using: .utf8)!, salt: salt)
-            print("fileEncyptionTest key ready")
             let iv : Data = try! self.aesHelper.randomIv()
-            print("fileEncyptionTest iv ready")
             var aes : AES? = AES(key: key, iv: iv)
-            print("fileEncyptionTest AES ready")
+            log.debug(module: "Polygone", type: #function, object: "Keys ready")
+            
             if let aesReady = aes {
                 let engine : EncryptionEngine = EncryptionEngine(aes: aesReady)
-                print("fileEncyptionTest EncryptionEngine ready")
+                log.debug(module: "Polygone", type: #function, object: "Encryption done")
                 var filePath = url
                 let encryptedFile = engine.encryptFile(fileURL: filePath)
                 if let encryptedFileReady = encryptedFile{
@@ -86,8 +84,10 @@ class Polygone: ObservableObject, Identifiable  {
                     var rights : Rights = Rights()
                     rights.owner = "safir@ncrpt.io"
                     rights.users = ["safir@nrcpt.io", "anisimov@ncrpt.io"]
-                    rights.rights = ["OWNER", "VIEW"]
-                    
+                    rights.rights = ["OWNER", "VIEW,EDIT"]
+                    license.userRights = rights
+                    log.debug(module: "Polygone", type: #function, object: "License done")
+
                     var rsa = RSA()
                     rsa.generatePairKeys()
                     
@@ -97,7 +97,7 @@ class Polygone: ObservableObject, Identifiable  {
                 }
             }
         }catch{
-            debugPrint("Error: encryptFile cannot encrypt file")
+            log.debug(module: "Polygone", type: #function, object: "Error encrypt")
         }
         
     }
@@ -139,12 +139,11 @@ class Polygone: ObservableObject, Identifiable  {
 
                 
             }
-            
-            print(destinationURL)
-            print(subDirectory)
-            
+            log.debug(module: "Polygone", type: #function, object: "Decrypt ready")
+            log.debug(module: "Polygone", type: #function, object: destinationURL)
         }catch{
-            debugPrint("Error: decryptFile cannot crypt file")
+            log.debug(module: "Polygone", type: #function, object: "Error deencrypt")
+
         }
         
         return nil

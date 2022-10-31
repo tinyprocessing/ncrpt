@@ -55,6 +55,17 @@ struct SheetView: View {
     @Binding var content : URL?
     var body: some View {
         VStack{
+            HStack{
+                Button(action: {
+                    self.dismiss()
+                }, label: {
+                    Text("Close")
+                        .foregroundColor(Color.black)
+                })
+                Spacer()
+            }
+            .padding(.horizontal)
+            .padding(.vertical, 15)
             PreviewController(url: self.content!)
         }
     }
@@ -97,6 +108,14 @@ struct ContentView: View {
                                     HStack(spacing: 15){
                                         HStack(spacing: 5){
                                             Text("\(file.name)")
+                                                .onTapGesture {
+                                                    if file.url != nil {
+                                                        let polygone = Polygone()
+                                                        let result = polygone.decryptFile(file.url!)
+                                                        self.content = result
+                                                        showingContent.toggle()
+                                                    }
+                                                }
                                         }
                                         Spacer()
                                         

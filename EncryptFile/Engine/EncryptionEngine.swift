@@ -30,6 +30,7 @@ class EncryptionEngine: ObservableObject, Identifiable  {
             return crypt(data: fileData, option: CCOperation(kCCEncrypt))
         }catch {
             log.debug(module: "EncryptionEngine", type: #function, object: "Cannot convert file to Data")
+            print(error)
             return nil
         }
     }

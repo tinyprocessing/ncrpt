@@ -10,12 +10,60 @@ import UniformTypeIdentifiers
 import QuickLook
 import QuartzCore
 
+extension UIView {
+    func preventScreenshot() {
+        guard superview != nil else {
+            for subview in subviews {
+                subview.preventScreenshot()
+            }
+            return
+        }
+
+        let guardTextField = UITextField()
+        guardTextField.backgroundColor = .red
+        guardTextField.translatesAutoresizingMaskIntoConstraints = false
+        guardTextField.tag = Int.max
+        guardTextField.isSecureTextEntry = true
+
+        addSubview(guardTextField)
+        guardTextField.isUserInteractionEnabled = false
+        sendSubviewToBack(guardTextField)
+
+        layer.superlayer?.addSublayer(guardTextField.layer)
+        guardTextField.layer.sublayers?.first?.addSublayer(layer)
+
+        guardTextField.centerYAnchor.constraint(
+            equalTo: self.centerYAnchor
+        ).isActive = true
+
+        guardTextField.centerXAnchor.constraint(
+            equalTo: self.centerXAnchor
+        ).isActive = true
+    }
+}
+
 struct PreviewController: UIViewControllerRepresentable {
     let url: URL
     
     func makeUIViewController(context: Context) -> QLPreviewController {
         let controller = QLPreviewController()
         controller.dataSource = context.coordinator
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            controller.view.subviews.forEach { view in
+                view.preventScreenshot()
+                print(view)
+            }
+        }
+        
+        
+        let view = UIView()
+        view.backgroundColor = .red
+        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        
+        
+        view.preventScreenshot()
+//        controller.view.addSubview(view)
+        controller.view.preventScreenshot()
         return controller
     }
     
@@ -48,6 +96,9 @@ struct PreviewController: UIViewControllerRepresentable {
         
     }
 }
+
+
+
 
 
 struct SheetView: View {
@@ -177,6 +228,7 @@ struct ContentView: View {
                         do {
                             guard let selectedFile: URL = try result.get().first else { return }
                             self.document.url = selectedFile
+                            let one = selectedFile.startAccessingSecurityScopedResource()
                             if self.isImportingEncrypt {
                                 let polygone = Polygone()
                                 polygone.encryptFile(self.document.url!)
@@ -223,7 +275,7 @@ struct ContentView: View {
                 )
                 .cornerRadius(isShowMenu ? 20 : 10)
                 .offset(x: isShowMenu ? 300 : 0, y: isShowMenu ? 44 : 0)
-//                .scaleEffect(isShowMenu ? 0.8 : 1)
+                //                .scaleEffect(isShowMenu ? 0.8 : 1)
                 .navigationTitle("ncrpt.io")
                 .navigationBarTitleDisplayMode(.inline)
                 

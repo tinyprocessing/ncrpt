@@ -9,15 +9,25 @@ import SwiftUI
 
 @main
 struct EncryptFileApp: App {
+    
+    @State var isLoggedIn = false
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .onAppear{
-                    let rsa = RSA()
-                    rsa.start()
-                    let network = Network()
-                    network.publicServerKey()
+            Group {
+                if !isLoggedIn {
+                    LoginView(isLoggedIn: $isLoggedIn)
+                } else {
+                    ContentView()
+                        .onAppear{
+                            let rsa = RSA()
+                            rsa.start()
+                            let network = Network()
+                            network.publicServerKey()
+                        }
+                        .transition(.move(edge: .trailing))
                 }
+            }.animation(.default, value: isLoggedIn)
         }
     }
 }

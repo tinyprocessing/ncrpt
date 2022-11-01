@@ -13,6 +13,11 @@
 		236259CF291010F0007EC337 /* IconMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236259CB291010F0007EC337 /* IconMenuView.swift */; };
 		236259D2291010FC007EC337 /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236259D1291010FC007EC337 /* GroupViewModel.swift */; };
 		236259D52910110B007EC337 /* GroupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236259D42910110B007EC337 /* GroupData.swift */; };
+		23994E732910F5D500A832E4 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23994E722910F5D500A832E4 /* RegistrationView.swift */; };
+		23994E752910F5EB00A832E4 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23994E742910F5EB00A832E4 /* LoginView.swift */; };
+		23994E772910F67A00A832E4 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23994E762910F67A00A832E4 /* RegistrationViewModel.swift */; };
+		23994E7A2911925300A832E4 /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23994E792911925300A832E4 /* Color+Ext.swift */; };
+		23994E7C2911927700A832E4 /* View+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23994E7B2911927700A832E4 /* View+Ext.swift */; };
 		2C1BC09B290FEEB000B3AD7C /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC09A290FEEB000B3AD7C /* Keychain.swift */; };
 		2C1BC09D290FEF3F00B3AD7C /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC09C290FEF3F00B3AD7C /* KeychainHelper.swift */; };
 		2C1BC0A1290FF23000B3AD7C /* RSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC0A0290FF23000B3AD7C /* RSA.swift */; };
@@ -47,6 +52,11 @@
 		236259CB291010F0007EC337 /* IconMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconMenuView.swift; sourceTree = "<group>"; };
 		236259D1291010FC007EC337 /* GroupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
 		236259D42910110B007EC337 /* GroupData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupData.swift; sourceTree = "<group>"; };
+		23994E722910F5D500A832E4 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		23994E742910F5EB00A832E4 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		23994E762910F67A00A832E4 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		23994E792911925300A832E4 /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
+		23994E7B2911927700A832E4 /* View+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ext.swift"; sourceTree = "<group>"; };
 		2C1BC09A290FEEB000B3AD7C /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		2C1BC09C290FEF3F00B3AD7C /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		2C1BC0A0290FF23000B3AD7C /* RSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSA.swift; sourceTree = "<group>"; };
@@ -93,6 +103,7 @@
 		236259C7291010F0007EC337 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				23994E712910F58100A832E4 /* Authorization */,
 				236259C8291010F0007EC337 /* TeamMenuView.swift */,
 				236259C9291010F0007EC337 /* GroupsSideView.swift */,
 				236259CA291010F0007EC337 /* SideMenu.swift */,
@@ -105,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				236259D1291010FC007EC337 /* GroupViewModel.swift */,
+				23994E762910F67A00A832E4 /* RegistrationViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -115,6 +127,24 @@
 				236259D42910110B007EC337 /* GroupData.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		23994E712910F58100A832E4 /* Authorization */ = {
+			isa = PBXGroup;
+			children = (
+				23994E722910F5D500A832E4 /* RegistrationView.swift */,
+				23994E742910F5EB00A832E4 /* LoginView.swift */,
+			);
+			path = Authorization;
+			sourceTree = "<group>";
+		};
+		23994E782911920E00A832E4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				23994E792911925300A832E4 /* Color+Ext.swift */,
+				23994E7B2911927700A832E4 /* View+Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		2C1BC099290FEE9C00B3AD7C /* Keychain */ = {
@@ -222,6 +252,7 @@
 				D4F36F852909D96D00EF7C85 /* MD5.swift */,
 				D4F36F872909DA3500EF7C85 /* FileSize.swift */,
 				2C1BC0AB290FFD2600B3AD7C /* Settings.swift */,
+				23994E782911920E00A832E4 /* Extensions */,
 				2C1BC0A8290FFCBA00B3AD7C /* Log */,
 				2C1BC0A2290FFC5500B3AD7C /* Network */,
 				2C1BC09E290FEFB400B3AD7C /* RSA */,
@@ -382,6 +413,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				236259CF291010F0007EC337 /* IconMenuView.swift in Sources */,
+				23994E7A2911925300A832E4 /* Color+Ext.swift in Sources */,
 				236259D52910110B007EC337 /* GroupData.swift in Sources */,
 				D4F36F5E29086AA300EF7C85 /* ContentView.swift in Sources */,
 				D4F36F7E2909500F00EF7C85 /* LocalFileEngine.swift in Sources */,
@@ -391,11 +423,15 @@
 				D4F36F6D29086E6900EF7C85 /* AES.swift in Sources */,
 				D4F36F792908870900EF7C85 /* FileEngine.swift in Sources */,
 				2C1BC0AC290FFD2600B3AD7C /* Settings.swift in Sources */,
+				23994E772910F67A00A832E4 /* RegistrationViewModel.swift in Sources */,
+				23994E752910F5EB00A832E4 /* LoginView.swift in Sources */,
 				D4F36F882909DA3500EF7C85 /* FileSize.swift in Sources */,
 				D4F36F722908717900EF7C85 /* Polygone.swift in Sources */,
 				236259D2291010FC007EC337 /* GroupViewModel.swift in Sources */,
 				2C1BC0AA290FFCC400B3AD7C /* Log.swift in Sources */,
+				23994E732910F5D500A832E4 /* RegistrationView.swift in Sources */,
 				D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */,
+				23994E7C2911927700A832E4 /* View+Ext.swift in Sources */,
 				236259CD291010F0007EC337 /* GroupsSideView.swift in Sources */,
 				D4F36F7029086EA000EF7C85 /* AESHelper.swift in Sources */,
 				D4F36F6B29086BC800EF7C85 /* EncryptionEngine.swift in Sources */,

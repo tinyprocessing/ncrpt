@@ -207,10 +207,12 @@ struct ContentView: View {
                         }
                         Spacer()
                         Button(action: {
-                            localFiles.getLocalFiles()
-                            isImportingEncrypt = false
-                            isImportingDecrypt = true
-                            isImporting = true
+//                            localFiles.getLocalFiles()
+//                            isImportingEncrypt = false
+//                            isImportingDecrypt = true
+//                            isImporting = true
+                            let polygone = Polygone()
+                            polygone.testCertification()
                         }, label: {
                             Text("Open File")
                                 .padding(.horizontal, 55)

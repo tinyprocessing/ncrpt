@@ -26,6 +26,8 @@
 		2C1BC0AA290FFCC400B3AD7C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC0A9290FFCC400B3AD7C /* Log.swift */; };
 		2C1BC0AC290FFD2600B3AD7C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC0AB290FFD2600B3AD7C /* Settings.swift */; };
 		2C1BC0B229105E6C00B3AD7C /* public.pem in Resources */ = {isa = PBXBuildFile; fileRef = 2C1BC0B129105E6B00B3AD7C /* public.pem */; };
+		2C592DB92916946400CC4518 /* Certification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C592DB82916946400CC4518 /* Certification.swift */; };
+		2C592DBB291697D500CC4518 /* mdsafir_ncrptio.pfx in Resources */ = {isa = PBXBuildFile; fileRef = 2C592DBA291697D500CC4518 /* mdsafir_ncrptio.pfx */; };
 		CAC626C503C0B776C3E7A888 /* Pods_EncryptFile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */; };
 		D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F5B29086AA300EF7C85 /* EncryptFileApp.swift */; };
 		D4F36F5E29086AA300EF7C85 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F5D29086AA300EF7C85 /* ContentView.swift */; };
@@ -64,6 +66,8 @@
 		2C1BC0A9290FFCC400B3AD7C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		2C1BC0AB290FFD2600B3AD7C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		2C1BC0B129105E6B00B3AD7C /* public.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = public.pem; sourceTree = "<group>"; };
+		2C592DB82916946400CC4518 /* Certification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Certification.swift; sourceTree = "<group>"; };
+		2C592DBA291697D500CC4518 /* mdsafir_ncrptio.pfx */ = {isa = PBXFileReference; lastKnownFileType = file; path = mdsafir_ncrptio.pfx; sourceTree = "<group>"; };
 		423F50C23B43248D905BF23B /* Pods-EncryptFile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.release.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.release.xcconfig"; sourceTree = "<group>"; };
 		A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EncryptFile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A32B9DE9F01C3CC495A1F0B6 /* Pods-EncryptFile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.debug.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.debug.xcconfig"; sourceTree = "<group>"; };
@@ -152,6 +156,7 @@
 			children = (
 				2C1BC09A290FEEB000B3AD7C /* Keychain.swift */,
 				2C1BC09C290FEF3F00B3AD7C /* KeychainHelper.swift */,
+				2C592DB82916946400CC4518 /* Certification.swift */,
 			);
 			path = Keychain;
 			sourceTree = "<group>";
@@ -274,6 +279,7 @@
 		D4F36F75290871E200EF7C85 /* Polygone */ = {
 			isa = PBXGroup;
 			children = (
+				2C592DBA291697D500CC4518 /* mdsafir_ncrptio.pfx */,
 				D4F36F712908717900EF7C85 /* Polygone.swift */,
 				D4F36F73290871DE00EF7C85 /* test.txt */,
 			);
@@ -356,6 +362,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C592DBB291697D500CC4518 /* mdsafir_ncrptio.pfx in Resources */,
 				D4F36F6329086AA400EF7C85 /* Preview Assets.xcassets in Resources */,
 				2C1BC0B229105E6C00B3AD7C /* public.pem in Resources */,
 				D4F36F74290871DE00EF7C85 /* test.txt in Resources */,
@@ -434,6 +441,7 @@
 				23994E7C2911927700A832E4 /* View+Ext.swift in Sources */,
 				236259CD291010F0007EC337 /* GroupsSideView.swift in Sources */,
 				D4F36F7029086EA000EF7C85 /* AESHelper.swift in Sources */,
+				2C592DB92916946400CC4518 /* Certification.swift in Sources */,
 				D4F36F6B29086BC800EF7C85 /* EncryptionEngine.swift in Sources */,
 				D4F36F832909AE7100EF7C85 /* FileDocumentStruct.swift in Sources */,
 				2C1BC09D290FEF3F00B3AD7C /* KeychainHelper.swift in Sources */,

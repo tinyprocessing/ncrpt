@@ -11,6 +11,18 @@ import Security
 public class KeychainHelper: ObservableObject, Identifiable {
     
     
+    public func deleteKeyChain(){
+        let secItemClasses = [kSecClassGenericPassword, kSecClassInternetPassword, kSecClassCertificate, kSecClassKey, kSecClassIdentity]
+        for itemClass in secItemClasses {
+            let spec: NSDictionary = [kSecClass: itemClass]
+            SecItemDelete(spec)
+        }
+    }
+    
+    private func keychainAccessGroupIdentifier() -> String? {
+        return Bundle.main.bundleIdentifier
+    }
+    
     func updatePassword(service: String, account:String, data: String, _ needLog: Bool = true) {
         
         if (needLog){

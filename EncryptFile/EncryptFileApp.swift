@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct EncryptFileApp: App {
     
-    @State var isLoggedIn = false
+    @State var isLoggedIn = true
     
     var body: some Scene {
         WindowGroup {

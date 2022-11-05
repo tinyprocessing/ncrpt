@@ -1,18 +1,22 @@
 PODS:
+  - GRKOpenSSLFramework (1.0.2.20.2)
   - SwiftyRSA (1.7.0):
     - SwiftyRSA/ObjC (= 1.7.0)
   - SwiftyRSA/ObjC (1.7.0)
 
 DEPENDENCIES:
+  - GRKOpenSSLFramework (= 1.0.2.20.2)
   - SwiftyRSA
 
 SPEC REPOS:
   trunk:
+    - GRKOpenSSLFramework
     - SwiftyRSA
 
 SPEC CHECKSUMS:
+  GRKOpenSSLFramework: 01e3dd58a1d865111ac9439841119ff91a26e1f2
   SwiftyRSA: 8c6dd1ea7db1b8dc4fb517a202f88bb1354bc2c6
 
-PODFILE CHECKSUM: d9176c6a7011a251cd2605bf78a6c231a4baab09
+PODFILE CHECKSUM: 2c48ad603e25fb51934ea31d25fe579af8259e64
 
 COCOAPODS: 1.11.3

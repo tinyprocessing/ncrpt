@@ -105,6 +105,20 @@ class Polygone: ObservableObject, Identifiable  {
         
     }
     
+    func testCertification(){
+        let keychain = Keychain()
+        do {
+            var fileURL = Bundle.main.url(forResource: "mdsafir_ncrptio", withExtension: "pfx")
+            let fileData = try Data(contentsOf: fileURL!)
+//            let _ = keychain.certification.importCertificate(fileData, "8G9ox0pm0YI7epaJHQ9")
+            keychain.certification.getCertificate()
+            print(keychain.certification.loadIdentity())
+        }catch {
+            print(error)
+        }
+       
+    }
+    
     func decryptFile(_ url: URL) -> URL? {
         do {
             let fileManager = FileManager()

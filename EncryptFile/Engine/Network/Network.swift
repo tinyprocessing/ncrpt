@@ -20,7 +20,6 @@ class Network: ObservableObject, Identifiable  {
             let publicKeyClass = try PublicKey(pemEncoded: publicKey)
             log.debug(module: "Network", type: #function, object: try publicKeyClass.pemString())
             rsaServerKey = publicKeyClass
-            encodePOST()
         }catch{
             log.debug(module: "Network", type: #function, object: "error \(error)")
         }
@@ -32,7 +31,6 @@ class Network: ObservableObject, Identifiable  {
             let clear = try ClearMessage(string: message, using: .utf8)
             let encrypted = try clear.encrypted(with: rsaServerKey!, padding: .PKCS1)
             let base64String = encrypted.base64String
-            print(base64String)
         }catch{
             print(error)
         }

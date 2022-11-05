@@ -10,6 +10,29 @@ import ZIPFoundation
 
 class FileEngine: ObservableObject, Identifiable  {
     
+    func byteHeader(_ data: Data,_ ext: String) -> Data{
+        var header = "0000".data(using: .utf8)
+        if ext == "pdf"{
+            header = "0001".data(using: .utf8)
+        }
+        if ext == "docx"{
+            header = "0002".data(using: .utf8)
+        }
+        if ext == "pptx"{
+            header = "0003".data(using: .utf8)
+        }
+        if ext == "xlsx"{
+            header = "0004".data(using: .utf8)
+        }
+        if ext == "jpg"{
+            header = "0005".data(using: .utf8)
+        }
+        if ext == "png"{
+            header = "0006".data(using: .utf8)
+        }
+        return header! + data
+    }
+    
     func exportNCRPT(_ data: Data, filename : String, license: License = License()){
         let fileManager = FileManager.default
         let libraryDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
@@ -34,8 +57,9 @@ class FileEngine: ObservableObject, Identifiable  {
             let jsonData = try JSONEncoder().encode(license)
             try! jsonData.write(to: fileURLLicense)
             try fileManager.zipItem(at: fileURLFolder, to: fileURLNCRPT)
+            var fileURLNCRPTData = try Data(contentsOf: fileURLNCRPT)
+            try! byteHeader(fileURLNCRPTData, license.ext).write(to: fileURLNCRPT)
             print(fileURLNCRPT)
-            
             do {
                 try FileManager.default.removeItem(atPath: (fileURLFolder.path().removingPercentEncoding)!)
             } catch {

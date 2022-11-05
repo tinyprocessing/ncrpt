@@ -80,6 +80,7 @@ class Polygone: ObservableObject, Identifiable  {
                     license.publicKey = ""
                     license.server = "https://secure.ncrpt.io"
                     license.templateID = ""
+                    license.ext = url.pathExtension
                     
                     var rights : Rights = Rights()
                     rights.owner = "safir@ncrpt.io"
@@ -133,7 +134,23 @@ class Polygone: ObservableObject, Identifiable  {
             let tmpUnZipDirectory : String = UUID().uuidString
             destinationURL.appendPathComponent("\(tmpUnZipDirectory)")
             try fileManager.createDirectory(at: destinationURL, withIntermediateDirectories: true, attributes: nil)
-            try fileManager.unzipItem(at: sourceURL, to: destinationURL)
+            
+            
+            let tmpNCRPTFileZip = destinationURL.appending(path: "/file.ncrpt") 
+            var dataNCRPT = try Data(contentsOf: url)
+            dataNCRPT.remove(at: 0)
+            dataNCRPT.remove(at: 0)
+            dataNCRPT.remove(at: 0)
+            dataNCRPT.remove(at: 0)
+            try dataNCRPT.write(to: tmpNCRPTFileZip)
+            try fileManager.unzipItem(at: tmpNCRPTFileZip, to: destinationURL)
+            
+            do {
+                try FileManager.default.removeItem(atPath: (tmpNCRPTFileZip.path().removingPercentEncoding)!)
+            } catch {
+                log.debug(module: "FileEngine", type: #function, object: "Could not delete file, probably read-only filesystem")
+            }
+            
             let subDirectory : URL? = try destinationURL.appending(path: "/").subDirectories().first ?? nil
             
             let primary : URL = (subDirectory?.appending(path: "primary"))!

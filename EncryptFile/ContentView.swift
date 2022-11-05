@@ -91,6 +91,13 @@ struct PreviewController: UIViewControllerRepresentable {
             _ controller: QLPreviewController,
             previewItemAt index: Int
         ) -> QLPreviewItem {
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+//                do {
+//                    try FileManager.default.removeItem(atPath: (self.parent.url.path().removingPercentEncoding)!)
+//                } catch {
+//                    print("error??")
+//                }
+//            }
             return parent.url as NSURL
         }
         
@@ -158,6 +165,9 @@ struct ContentView: View {
                                 ForEach(self.localFiles.files, id:\.self) { file in
                                     HStack(spacing: 15){
                                         HStack(spacing: 5){
+                                            Image(file.ext)
+                                                .resizable()
+                                                .frame(width: 20, height: 20, alignment: .center)
                                             Text("\(file.name)")
                                                 .onTapGesture {
                                                     if file.url != nil {

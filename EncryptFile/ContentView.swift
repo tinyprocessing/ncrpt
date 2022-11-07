@@ -139,6 +139,7 @@ struct ContentView: View {
     @State private var isImportingEncrypt: Bool = false
     @State private var isImportingDecrypt: Bool = false
     @State var content : URL? = nil
+    @State var showProtectionView = false
     
     func getAtualTypes() -> [UTType]{
         if self.isImportingEncrypt {
@@ -274,16 +275,23 @@ struct ContentView: View {
                         Image(systemName: "list.bullet")
                             .foregroundColor(.black)
                     }),
-                    trailing: Button(action: {
-                        //                    let polygone = Polygone()
-                        //                    polygone.fileEncyptionTest()
-                        isImportingDecrypt = false
-                        isImportingEncrypt = true
-                        isImporting = true
-                    }, label: {
-                        Image(systemName: "lock")
-                            .foregroundColor(.black)
-                    })
+                    trailing:
+                        NavigationLink(isActive: $showProtectionView) {
+                                            ProtectionView()
+                        } label: {
+                            Button(action: {
+                                //                    let polygone = Polygone()
+                                //                    polygone.fileEncyptionTest()
+                                
+                                //                        isImportingDecrypt = false
+                                //                        isImportingEncrypt = true
+                                //                        isImporting = true
+                                showProtectionView.toggle()
+                            }, label: {
+                                Image(systemName: "lock")
+                                    .foregroundColor(.black)
+                            })
+                        }
                 )
                 .cornerRadius(isShowMenu ? 20 : 10)
                 .offset(x: isShowMenu ? 300 : 0, y: isShowMenu ? 44 : 0)

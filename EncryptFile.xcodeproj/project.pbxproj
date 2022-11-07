@@ -18,6 +18,12 @@
 		23994E772910F67A00A832E4 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23994E762910F67A00A832E4 /* RegistrationViewModel.swift */; };
 		23994E7A2911925300A832E4 /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23994E792911925300A832E4 /* Color+Ext.swift */; };
 		23994E7C2911927700A832E4 /* View+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23994E7B2911927700A832E4 /* View+Ext.swift */; };
+		23E724702917A14100ECFA19 /* ProtectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7246F2917A14100ECFA19 /* ProtectViewModel.swift */; };
+		23E724722918DD5300ECFA19 /* URL+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E724712918DD5300ECFA19 /* URL+Ext.swift */; };
+		23E7247C29194DC000ECFA19 /* ProtectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7247829194DC000ECFA19 /* ProtectionView.swift */; };
+		23E7247D29194DC000ECFA19 /* UserRightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7247929194DC000ECFA19 /* UserRightsView.swift */; };
+		23E7247E29194DC000ECFA19 /* ProtectionTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7247A29194DC000ECFA19 /* ProtectionTemplateView.swift */; };
+		23E7247F29194DC000ECFA19 /* TemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7247B29194DC000ECFA19 /* TemplateView.swift */; };
 		2C1BC09B290FEEB000B3AD7C /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC09A290FEEB000B3AD7C /* Keychain.swift */; };
 		2C1BC09D290FEF3F00B3AD7C /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC09C290FEF3F00B3AD7C /* KeychainHelper.swift */; };
 		2C1BC0A1290FF23000B3AD7C /* RSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC0A0290FF23000B3AD7C /* RSA.swift */; };
@@ -59,6 +65,12 @@
 		23994E762910F67A00A832E4 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		23994E792911925300A832E4 /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		23994E7B2911927700A832E4 /* View+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ext.swift"; sourceTree = "<group>"; };
+		23E7246F2917A14100ECFA19 /* ProtectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtectViewModel.swift; sourceTree = "<group>"; };
+		23E724712918DD5300ECFA19 /* URL+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Ext.swift"; sourceTree = "<group>"; };
+		23E7247829194DC000ECFA19 /* ProtectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectionView.swift; sourceTree = "<group>"; };
+		23E7247929194DC000ECFA19 /* UserRightsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRightsView.swift; sourceTree = "<group>"; };
+		23E7247A29194DC000ECFA19 /* ProtectionTemplateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectionTemplateView.swift; sourceTree = "<group>"; };
+		23E7247B29194DC000ECFA19 /* TemplateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateView.swift; sourceTree = "<group>"; };
 		2C1BC09A290FEEB000B3AD7C /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		2C1BC09C290FEF3F00B3AD7C /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		2C1BC0A0290FF23000B3AD7C /* RSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSA.swift; sourceTree = "<group>"; };
@@ -107,6 +119,7 @@
 		236259C7291010F0007EC337 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				23E7247729194D9800ECFA19 /* Encryption */,
 				23994E712910F58100A832E4 /* Authorization */,
 				236259C8291010F0007EC337 /* TeamMenuView.swift */,
 				236259C9291010F0007EC337 /* GroupsSideView.swift */,
@@ -121,6 +134,7 @@
 			children = (
 				236259D1291010FC007EC337 /* GroupViewModel.swift */,
 				23994E762910F67A00A832E4 /* RegistrationViewModel.swift */,
+				23E7246F2917A14100ECFA19 /* ProtectViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -147,8 +161,20 @@
 			children = (
 				23994E792911925300A832E4 /* Color+Ext.swift */,
 				23994E7B2911927700A832E4 /* View+Ext.swift */,
+				23E724712918DD5300ECFA19 /* URL+Ext.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		23E7247729194D9800ECFA19 /* Encryption */ = {
+			isa = PBXGroup;
+			children = (
+				23E7247A29194DC000ECFA19 /* ProtectionTemplateView.swift */,
+				23E7247829194DC000ECFA19 /* ProtectionView.swift */,
+				23E7247B29194DC000ECFA19 /* TemplateView.swift */,
+				23E7247929194DC000ECFA19 /* UserRightsView.swift */,
+			);
+			path = Encryption;
 			sourceTree = "<group>";
 		};
 		2C1BC099290FEE9C00B3AD7C /* Keychain */ = {
@@ -428,10 +454,13 @@
 				236259CE291010F0007EC337 /* SideMenu.swift in Sources */,
 				2C1BC09B290FEEB000B3AD7C /* Keychain.swift in Sources */,
 				D4F36F6D29086E6900EF7C85 /* AES.swift in Sources */,
+				23E7247E29194DC000ECFA19 /* ProtectionTemplateView.swift in Sources */,
 				D4F36F792908870900EF7C85 /* FileEngine.swift in Sources */,
 				2C1BC0AC290FFD2600B3AD7C /* Settings.swift in Sources */,
+				23E724702917A14100ECFA19 /* ProtectViewModel.swift in Sources */,
 				23994E772910F67A00A832E4 /* RegistrationViewModel.swift in Sources */,
 				23994E752910F5EB00A832E4 /* LoginView.swift in Sources */,
+				23E7247D29194DC000ECFA19 /* UserRightsView.swift in Sources */,
 				D4F36F882909DA3500EF7C85 /* FileSize.swift in Sources */,
 				D4F36F722908717900EF7C85 /* Polygone.swift in Sources */,
 				236259D2291010FC007EC337 /* GroupViewModel.swift in Sources */,
@@ -439,12 +468,15 @@
 				23994E732910F5D500A832E4 /* RegistrationView.swift in Sources */,
 				D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */,
 				23994E7C2911927700A832E4 /* View+Ext.swift in Sources */,
+				23E724722918DD5300ECFA19 /* URL+Ext.swift in Sources */,
 				236259CD291010F0007EC337 /* GroupsSideView.swift in Sources */,
+				23E7247F29194DC000ECFA19 /* TemplateView.swift in Sources */,
 				D4F36F7029086EA000EF7C85 /* AESHelper.swift in Sources */,
 				2C592DB92916946400CC4518 /* Certification.swift in Sources */,
 				D4F36F6B29086BC800EF7C85 /* EncryptionEngine.swift in Sources */,
 				D4F36F832909AE7100EF7C85 /* FileDocumentStruct.swift in Sources */,
 				2C1BC09D290FEF3F00B3AD7C /* KeychainHelper.swift in Sources */,
+				23E7247C29194DC000ECFA19 /* ProtectionView.swift in Sources */,
 				D4F36F802909922400EF7C85 /* License.swift in Sources */,
 				2C1BC0A1290FF23000B3AD7C /* RSA.swift in Sources */,
 				D4F36F862909D96D00EF7C85 /* MD5.swift in Sources */,

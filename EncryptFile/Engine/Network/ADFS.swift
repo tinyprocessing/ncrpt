@@ -106,8 +106,9 @@ class ADFS: NSObject, ObservableObject, Identifiable, URLSessionDelegate, URLSes
                     let newJWT = json["jwt"].stringValue
                     self.jwt = newJWT
                     print(self.jwt)
+                    print(getDateFromJWT(self.jwt))
                     completion(true)
-                    return 
+                    return
                 }
                 if let httpResponse = response as? HTTPURLResponse {
                     print("jwt \(httpResponse.statusCode)")
@@ -124,3 +125,69 @@ class ADFS: NSObject, ObservableObject, Identifiable, URLSessionDelegate, URLSes
 }
 
 
+func getDateFromJWT(_ base64 : String) -> Date {
+    var time:Double = Date().timeIntervalSince1970
+    if let data = base64.slice(from: ".", to: ".") {
+        print("JWT удалось разбить")
+        if let decodedData = data.base64Decoded() {
+            print("JWT декодирован")
+            print("JWT \(decodedData)")
+            let json = JSON(parseJSON: decodedData)
+            print(json["exp"].stringValue)
+            time = Double(json["exp"].stringValue) ?? 1668552938
+        }else{
+            print("❌ JWT не декодирован")
+            print("JWT base64 \(base64)")
+        }
+    }
+    let date = Date(timeIntervalSince1970: time)
+    return date
+}
+
+extension String {
+    func versionCompare(_ otherVersion: String) -> ComparisonResult {
+        let versionDelimiter = "."
+        
+        var versionComponents = self.components(separatedBy: versionDelimiter) // <1>
+        var otherVersionComponents = otherVersion.components(separatedBy: versionDelimiter)
+        
+        let zeroDiff = versionComponents.count - otherVersionComponents.count // <2>
+        
+        if zeroDiff == 0 { // <3>
+            // Same format, compare normally
+            return self.compare(otherVersion, options: .numeric)
+        } else {
+            let zeros = Array(repeating: "0", count: abs(zeroDiff)) // <4>
+            if zeroDiff > 0 {
+                otherVersionComponents.append(contentsOf: zeros) // <5>
+            } else {
+                versionComponents.append(contentsOf: zeros)
+            }
+            return versionComponents.joined(separator: versionDelimiter)
+                .compare(otherVersionComponents.joined(separator: versionDelimiter), options: .numeric) // <6>
+        }
+    }
+    
+    
+    
+    func slice(from: String, to: String) -> String? {
+        return (range(of: from)?.upperBound).flatMap { substringFrom in
+            (range(of: to, range: substringFrom..<endIndex)?.lowerBound).map { substringTo in
+                String(self[substringFrom..<substringTo])
+            }
+        }
+    }
+}
+
+extension String {
+    func base64Decoded() -> String? {
+        var st = self;
+        st = st.replacingOccurrences(of: "_", with: "/")
+        st = st.replacingOccurrences(of: "-", with: "+")
+        if (self.count % 4 <= 3){
+            st += String(repeating: "=", count: 4 - (self.count % 4))
+        }
+        guard let data = Data(base64Encoded: st) else { return nil }
+        return String(data: data, encoding: .utf8)
+    }
+}

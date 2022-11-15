@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 let settings : Settings = Settings()
 
@@ -48,4 +49,22 @@ class Settings: ObservableObject, Identifiable {
         
     }
 
+    
+    func alert(title: String, message: String, buttonName: String = "ok"){
+        UIApplication.shared.windows.first?.rootViewController?.present(alertView(title: title, message: message, buttonName: buttonName), animated: true)
+    }
+
+    private func alertView(title: String, message: String, buttonName: String = "ok") -> UIAlertController {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.overrideUserInterfaceStyle = .dark
+        alert.view.tintColor = .white
+        
+        let okAction = UIAlertAction (title: buttonName, style: UIAlertAction.Style.cancel, handler: nil)
+        alert.addAction(okAction)
+        
+        return alert
+        
+    }
+
+    
 }

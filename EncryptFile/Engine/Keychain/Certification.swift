@@ -195,7 +195,7 @@ class Certification: ObservableObject, Identifiable  {
         
         let array = result as! [NSDictionary]
        
-        return (array[0]["v_Ref"] as! SecIdentity)
+        return (array[1]["v_Ref"] as! SecIdentity)
        
     }
     

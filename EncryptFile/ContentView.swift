@@ -133,7 +133,7 @@ struct ContentView: View {
     
     @State private var showingContent = false
     @State private var isShowMenu = false
-    @ObservedObject var localFiles: LocalFileEngine = LocalFileEngine()
+    @ObservedObject var localFiles: LocalFileEngine = LocalFileEngine.shared
     @State private var document: FileDocumentStruct = FileDocumentStruct()
     @State private var isImporting: Bool = false
     @State private var isImportingEncrypt: Bool = false
@@ -153,12 +153,14 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             ZStack {
+                ForEach(self.localFiles.files, id:\.self) { file in
+                    Text("хуйня")
+                }
                 if isShowMenu {
                     SideMenu(isShowMenu: $isShowMenu)
                 }
                 ZStack {
                     Color(.white)
-                    
                     VStack{
                         VStack{
                             ScrollView(.vertical, showsIndicators: false){
@@ -209,20 +211,24 @@ struct ContentView: View {
                                     .padding(.horizontal, 10)
                                     .background(Color.secondary.opacity(0.1))
                                     .cornerRadius(10)
+                                    
                                 }
                             }
                             .padding(.horizontal, 20)
                             .padding(.vertical, 5)
                             .frame(height: 200)
+                            
                         }
                         Spacer()
                         Button(action: {
 //                            localFiles.getLocalFiles()
-//                            isImportingEncrypt = false
-//                            isImportingDecrypt = true
-//                            isImporting = true
-                            let polygone = Polygone()
-                            polygone.testCertification()
+                            
+                            isImportingEncrypt = false
+                            isImportingDecrypt = true
+                            isImporting = true
+                            
+//                            let polygone = Polygone()
+//                            polygone.testCertification()
                         }, label: {
                             Text("Open File")
                                 .padding(.horizontal, 55)
@@ -250,8 +256,12 @@ struct ContentView: View {
                             if self.isImportingDecrypt {
                                 let polygone = Polygone()
                                 let result = polygone.decryptFile(self.document.url!)
-                                self.content = result
-                                showingContent.toggle()
+                                if let urlFile = result{
+                                    self.content = result
+                                    showingContent.toggle()
+                                }else{
+                                    Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
+                                }
                             }
                         } catch {
                             // Handle failure.
@@ -259,9 +269,6 @@ struct ContentView: View {
                     }
                     .sheet(isPresented: $showingContent) {
                         SheetView(content: self.$content)
-                    }
-                    .onAppear{
-                        self.localFiles.getLocalFiles()
                     }
                 }
                 .navigationBarItems(
@@ -289,7 +296,9 @@ struct ContentView: View {
                 //                .scaleEffect(isShowMenu ? 0.8 : 1)
                 .navigationTitle("ncrpt.io")
                 .navigationBarTitleDisplayMode(.inline)
-                
+                .onAppear{
+                    self.localFiles.getLocalFiles()
+                }
             }
         }
     }

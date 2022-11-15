@@ -37,9 +37,9 @@ struct EncryptFileApp: App {
                     self.isLoggedIn = false
                 }else{
                     self.isLoggedIn = true
-                    let keychain = Keychain()
-                    keychain.certification.getCertificate()
-                    print(keychain.certification.loadIdentity())
+                    ADFS.shared.jwt { success in
+                        print(success)
+                    }
                 }
                 withAnimation{
                     self.opacity = 1.0

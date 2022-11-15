@@ -153,6 +153,14 @@ class Polygone: ObservableObject, Identifiable  {
             
             let subDirectory : URL? = try destinationURL.appending(path: "/").subDirectories().first ?? nil
             
+            if let _ = subDirectory?.appending(path: "primary") {}else{
+                return nil
+            }
+            
+            if let _ = subDirectory?.appending(path: "license.json") {}else{
+                return nil
+            }
+            
             let primary : URL = (subDirectory?.appending(path: "primary"))!
             let license : URL = (subDirectory?.appending(path: "license.json"))!
 

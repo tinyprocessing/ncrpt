@@ -28,6 +28,7 @@
 		2C1BC0B229105E6C00B3AD7C /* public.pem in Resources */ = {isa = PBXBuildFile; fileRef = 2C1BC0B129105E6B00B3AD7C /* public.pem */; };
 		2C592DB92916946400CC4518 /* Certification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C592DB82916946400CC4518 /* Certification.swift */; };
 		2C592DBB291697D500CC4518 /* mdsafir_ncrptio.pfx in Resources */ = {isa = PBXBuildFile; fileRef = 2C592DBA291697D500CC4518 /* mdsafir_ncrptio.pfx */; };
+		2C75701B292439F20043B464 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 2C75701A292439F20043B464 /* SwiftyJSON */; };
 		CAC626C503C0B776C3E7A888 /* Pods_EncryptFile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */; };
 		D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F5B29086AA300EF7C85 /* EncryptFileApp.swift */; };
 		D4F36F5E29086AA300EF7C85 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F5D29086AA300EF7C85 /* ContentView.swift */; };
@@ -97,6 +98,7 @@
 			files = (
 				2C1BC0A7290FFCA800B3AD7C /* Alamofire in Frameworks */,
 				D4F36F7C2908898000EF7C85 /* ZIPFoundation in Frameworks */,
+				2C75701B292439F20043B464 /* SwiftyJSON in Frameworks */,
 				CAC626C503C0B776C3E7A888 /* Pods_EncryptFile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,6 +317,7 @@
 			packageProductDependencies = (
 				D4F36F7B2908898000EF7C85 /* ZIPFoundation */,
 				2C1BC0A6290FFCA800B3AD7C /* Alamofire */,
+				2C75701A292439F20043B464 /* SwiftyJSON */,
 			);
 			productName = EncryptFile;
 			productReference = D4F36F5829086AA300EF7C85 /* EncryptFile.app */;
@@ -347,6 +350,7 @@
 			packageReferences = (
 				D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */,
+				2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = D4F36F5929086AA300EF7C85 /* Products */;
 			projectDirPath = "";
@@ -665,6 +669,14 @@
 				kind = branch;
 			};
 		};
+		2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
@@ -680,6 +692,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		2C75701A292439F20043B464 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
 		};
 		D4F36F7B2908898000EF7C85 /* ZIPFoundation */ = {
 			isa = XCSwiftPackageProductDependency;

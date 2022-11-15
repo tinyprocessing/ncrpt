@@ -22,7 +22,7 @@ struct LoginView: View {
                     .frame(width: 100)
                 
                 ZStack {
-                    FormField(fieldName: "Email", fieldValue: $vm.email)
+                    FormField(fieldName: "Login", fieldValue: $vm.email)
                         .padding(.top, 50)
                     
                     HStack {
@@ -34,7 +34,7 @@ struct LoginView: View {
                 }
                 
                 ZStack {
-                    FormField(fieldName: "Password", fieldValue: $vm.password, isSecure: true)
+                    FormField(fieldName: "password", fieldValue: $vm.password, isSecure: true)
                     
                     HStack {
                         Spacer()
@@ -47,12 +47,20 @@ struct LoginView: View {
                 
                 Button(action: {
                     //TODO: call backend
+                    print("start login")
+                    if self.isSigningIn == false {
+                        Network.shared.login(username: self.vm.email, password: MD5(string: self.vm.password)) { success in
+                            if success {
+                                self.isLoggedIn = true
+                            }
+                        }
+                    }
                     
-                    isSigningIn = true
-                    sleep(1)
-                    isSigningIn = false
-                    isLoggedIn = true
-                    
+//                    isSigningIn = true
+//                    sleep(1)
+//                    isSigningIn = false
+//                    isLoggedIn = true
+//
                     
                 }) {
                     ZStack{
@@ -118,9 +126,11 @@ struct FormField: View {
                     .padding(.horizontal)
                 
             } else {
-                TextField(fieldName, text: $fieldValue)                 .font(.system(size: 20, weight: .regular, design: .rounded))
+                TextField(fieldName, text: $fieldValue)
+                    .font(.system(size: 20, weight: .regular, design: .rounded))
                     .disableAutocorrection(true)
                     .padding(.horizontal)
+                    .textCase(.lowercase)
             }
 
             Divider()

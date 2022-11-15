@@ -11,6 +11,7 @@ import SwiftUI
 struct EncryptFileApp: App {
     
     @State var isLoggedIn = true
+    @State var opacity : Double = 0.0
     
     var body: some Scene {
         WindowGroup {
@@ -20,14 +21,30 @@ struct EncryptFileApp: App {
                 } else {
                     ContentView()
                         .onAppear{
-                            let rsa = RSA()
-                            rsa.start()
-                            let network = Network()
-                            network.publicServerKey()
+//                            let rsa = RSA()
+//                            rsa.start()
+//                            let network = Network()
+//                            network.publicServerKey()
                         }
                         .transition(.move(edge: .trailing))
                 }
-            }.animation(.default, value: isLoggedIn)
+            }
+            .opacity(self.opacity)
+            .onAppear{
+                let defaults = UserDefaults.standard
+                let username = defaults.string(forKey: "username") ?? ""
+                if username.isEmpty {
+                    self.isLoggedIn = false
+                }else{
+                    self.isLoggedIn = true
+                    let keychain = Keychain()
+                    keychain.certification.getCertificate()
+                    print(keychain.certification.loadIdentity())
+                }
+                withAnimation{
+                    self.opacity = 1.0
+                }
+            }
         }
     }
 }

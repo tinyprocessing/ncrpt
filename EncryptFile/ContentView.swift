@@ -267,11 +267,10 @@ struct ContentView: View {
                 .navigationBarItems(
                     leading: Button(action: {
                         withAnimation(.spring()) {
-                            isShowMenu.toggle()
+                            
                         }
-                        
                     }, label: {
-                        Image(systemName: "list.bullet")
+                        Image(systemName: "gear")
                             .foregroundColor(.black)
                     }),
                     trailing: Button(action: {

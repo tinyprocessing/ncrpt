@@ -43,7 +43,18 @@ func md5File(url: URL) -> String? {
         return Data(digest).base64EncodedString()
 
     } catch {
-        print("Cannot open file:", error.localizedDescription)
+        log.debug(module: "MD5", type: #function, object: "Cannot open file: \(error.localizedDescription)")
         return nil
     }
 }
+
+import CryptoKit
+
+func MD5(string: String) -> String {
+    let digest = Insecure.MD5.hash(data: string.data(using: .utf8) ?? Data())
+
+    return digest.map {
+        String(format: "%02hhx", $0)
+    }.joined()
+}
+

@@ -9,70 +9,35 @@ import Foundation
 
 class Polygone: ObservableObject, Identifiable  {
     let aesHelper : AESHelper = AESHelper()
-    func fileEncyptionTest(){
-        do {
-            let password : String = UUID().uuidString
-            log.debug(module: "Polygone", type: #function, object: "Processing keys")
-            let salt = self.aesHelper.randomSalt()
-            let key : Data = try! self.aesHelper.createKey(password: password.data(using: .utf8)!, salt: salt)
-            let iv : Data = try! self.aesHelper.randomIv()
-            var aes : AES? = AES(key: key, iv: iv)
-            log.debug(module: "Polygone", type: #function, object: "Keys ready")
-            
-            if let aesReady = aes {
-                let engine : EncryptionEngine = EncryptionEngine(aes: aesReady)
-                log.debug(module: "Polygone", type: #function, object: "Engine ready")
-                var filePath = Bundle.main.url(forResource: "test", withExtension: "txt")
-                if let filePathReady = filePath{
-                    let encryptedFile = engine.encryptFile(fileURL: filePathReady)
-                    log.debug(module: "Polygone", type: #function, object: "Encryption done")
-                    
-                    if let encryptedFileReady = encryptedFile{
-                        
-                        let aesExport = engine.exportAES()
-                        print(aesExport)
-                        let aesImport = aesHelper.importKey(aesExport)
-                        aes = AES(key: aesImport.0!, iv: aesImport.1!)
-                        engine.aes = aes!
-                        
-                        
-                        let decrypedFile = engine.decrypt(encryptedFileReady)
-                        log.debug(module: "Polygone", type: #function, object: "Deencrypt done")
-                        let fileEngine = FileEngine()
-                        fileEngine.exportNCRPT(encryptedFileReady, filename: "test")
-                        
-                    }
-                }
-            }
-        }catch{
-            log.debug(module: "Polygone", type: #function, object: "Error: fileEncyptionTest cannot crypt file")
-        }
-    }
     
-    func encryptFile(_ url: URL){
+    func encryptFile(_ url: URL, users: [userItem] = [], completion: @escaping (_ success:Bool) -> Void){
         do {
             let password : String = UUID().uuidString
             log.debug(module: "Polygone", type: #function, object: "Processing keys")
             let salt = self.aesHelper.randomSalt()
             let key : Data = try! self.aesHelper.createKey(password: password.data(using: .utf8)!, salt: salt)
-            let iv : Data = try! self.aesHelper.randomIv()
-            var aes : AES? = AES(key: key, iv: iv)
+            let iv : Data = self.aesHelper.randomIv()
+            let aes : AES? = AES(key: key, iv: iv)
             log.debug(module: "Polygone", type: #function, object: "Keys ready")
             
             if let aesReady = aes {
                 let engine : EncryptionEngine = EncryptionEngine(aes: aesReady)
                 log.debug(module: "Polygone", type: #function, object: "Encryption done")
-                var filePath = url
+                let filePath = url
                 let encryptedFile = engine.encryptFile(fileURL: filePath)
                 if let encryptedFileReady = encryptedFile{
                     let fileEngine = FileEngine()
                     
+                    let certification = Certification()
+                    certification.getCertificate()
+                    let aesKey = engine.exportAES()
+                    let md5Result = md5File(url: url) ?? ""
                     var license : License = License()
-                    license.owner = "safir@ncrpt.io"
-                    license.AESKey = engine.exportAES()
+                    license.owner = certification.certificate.email ?? ""
+                    license.AESKey = "encrypted"
                     license.algorithm = "AES"
                     license.algorithm = "32"
-                    license.fileMD5 = md5File(url: url) ?? ""
+                    license.fileMD5 = md5Result
                     license.fileName = url.lastPathComponent
                     license.description = "UPP"
                     license.fileSize = String(format: "%f", fileSize(forURL: url))
@@ -83,21 +48,26 @@ class Polygone: ObservableObject, Identifiable  {
                     license.ext = url.pathExtension
                     
                     var rights : Rights = Rights()
-                    rights.owner = "safir@ncrpt.io"
-                    rights.users = ["safir@nrcpt.io", "anisimov@ncrpt.io"]
-                    rights.rights = ["OWNER", "VIEW,EDIT"]
+                    rights.owner = certification.certificate.email ?? ""
+                    users.forEach { user in
+                        rights.users.append(user.email)
+                        rights.rights.append(user.rights)
+                    }
                     let rightsJSONData = try JSONEncoder().encode(rights)
                     let encryptedFile = engine.encryptData(data: rightsJSONData)
                     license.userRights = encryptedFile?.base64EncodedString()
                     
                     log.debug(module: "Polygone", type: #function, object: "License done")
-
-                    var rsa = RSA()
-                    rsa.generatePairKeys()
                     
-                    fileEngine.exportNCRPT(encryptedFileReady,
-                                           filename: url.deletingPathExtension().lastPathComponent,
-                                           license: license)
+                    let jsonData = try JSONEncoder().encode(license)
+                    Network.shared.license(license: String(data: jsonData, encoding: .utf8)!, fileAES: aesKey, fileMD5: md5Result) { success in
+                        if success {
+                            fileEngine.exportNCRPT(encryptedFileReady,
+                                                   filename: url.deletingPathExtension().lastPathComponent,
+                                                   license: license)
+                            completion(true)
+                        }
+                    }
                 }
             }
         }catch{
@@ -106,21 +76,7 @@ class Polygone: ObservableObject, Identifiable  {
         
     }
     
-    func testCertification(){
-        let keychain = Keychain()
-        do {
-            var fileURL = Bundle.main.url(forResource: "mdsafir_ncrptio", withExtension: "pfx")
-            let fileData = try Data(contentsOf: fileURL!)
-//            let _ = keychain.certification.importCertificate(fileData, "8G9ox0pm0YI7epaJHQ9")
-            keychain.certification.getCertificate()
-            print(keychain.certification.loadIdentity())
-        }catch {
-            print(error)
-        }
-       
-    }
-    
-    func decryptFile(_ url: URL) -> URL? {
+    func decryptFile(_ url: URL, completion: @escaping (_ url : URL?, _ success:Bool) -> Void) {
         do {
             let fileManager = FileManager()
             let documentDirectory = try FileManager.default.url(
@@ -136,7 +92,7 @@ class Polygone: ObservableObject, Identifiable  {
             try fileManager.createDirectory(at: destinationURL, withIntermediateDirectories: true, attributes: nil)
             
             
-            let tmpNCRPTFileZip = destinationURL.appending(path: "/file.ncrpt") 
+            let tmpNCRPTFileZip = destinationURL.appending(path: "/file.ncrpt")
             var dataNCRPT = try Data(contentsOf: url)
             dataNCRPT.remove(at: 0)
             dataNCRPT.remove(at: 0)
@@ -148,47 +104,57 @@ class Polygone: ObservableObject, Identifiable  {
             do {
                 try FileManager.default.removeItem(atPath: (tmpNCRPTFileZip.path().removingPercentEncoding)!)
             } catch {
+                completion(nil, false)
                 log.debug(module: "FileEngine", type: #function, object: "Could not delete file, probably read-only filesystem")
             }
             
             let subDirectory : URL? = try destinationURL.appending(path: "/").subDirectories().first ?? nil
             
             if let _ = subDirectory?.appending(path: "primary") {}else{
-                return nil
+                completion(nil, false)
             }
             
             if let _ = subDirectory?.appending(path: "license.json") {}else{
-                return nil
+                completion(nil, false)
             }
             
             let primary : URL = (subDirectory?.appending(path: "primary"))!
             let license : URL = (subDirectory?.appending(path: "license.json"))!
-
+            
             let dataLicense = try Data(contentsOf: license, options: .mappedIfSafe)
             let dataPrimary = try Data(contentsOf: primary, options: .mappedIfSafe)
             let json = try JSONSerialization.jsonObject(with: dataLicense, options: .mutableLeaves)
-            if let json = json as? Dictionary<String, AnyObject>, let AESKey = json["AESKey"] as? String {
-                let aesImport = aesHelper.importKey(AESKey)
-                var aes = AES(key: aesImport.0!, iv: aesImport.1!)
-                let engine : EncryptionEngine = EncryptionEngine(aes: aes!)
-                let decrypt = engine.decrypt(dataPrimary)
-                
-                if let fileName = json["fileName"] as? String{
-                    let ready : URL = (subDirectory?.appending(path: "\(fileName)"))!
-                    try decrypt?.write(to: ready)
-                    return ready
+            
+            
+            if let json = json as? Dictionary<String, AnyObject>, let fileMD5 = json["fileMD5"] as? String {
+                Network.shared.licenseDecrypt(fileMD5: fileMD5) { [self] aesServer, success in
+                    if success {
+                        do {
+                            let aesImport = aesHelper.importKey(aesServer)
+                            var aes = AES(key: aesImport.0!, iv: aesImport.1!)
+                            let engine : EncryptionEngine = EncryptionEngine(aes: aes!)
+                            let decrypt = engine.decrypt(dataPrimary)
+                            
+                            if let fileName = json["fileName"] as? String{
+                                let ready : URL = (subDirectory?.appending(path: "\(fileName)"))!
+                                try decrypt?.write(to: ready)
+                                completion(ready, true)
+                                return
+                            }
+                        } catch {
+                            completion(nil, false)
+                            log.debug(module: "FileEngine", type: #function, object: "Could not delete file, probably read-only filesystem")
+                        }
+                    }
                 }
-
-                
             }
+            
             log.debug(module: "Polygone", type: #function, object: "Decrypt ready")
             log.debug(module: "Polygone", type: #function, object: destinationURL)
         }catch{
             log.debug(module: "Polygone", type: #function, object: "Error deencrypt")
-
+            completion(nil, false)
         }
-        
-        return nil
     }
 }
 

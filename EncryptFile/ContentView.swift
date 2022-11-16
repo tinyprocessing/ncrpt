@@ -18,24 +18,24 @@ extension UIView {
             }
             return
         }
-
+        
         let guardTextField = UITextField()
         guardTextField.backgroundColor = .red
         guardTextField.translatesAutoresizingMaskIntoConstraints = false
         guardTextField.tag = Int.max
         guardTextField.isSecureTextEntry = true
-
+        
         addSubview(guardTextField)
         guardTextField.isUserInteractionEnabled = false
         sendSubviewToBack(guardTextField)
-
+        
         layer.superlayer?.addSublayer(guardTextField.layer)
         guardTextField.layer.sublayers?.first?.addSublayer(layer)
-
+        
         guardTextField.centerYAnchor.constraint(
             equalTo: self.centerYAnchor
         ).isActive = true
-
+        
         guardTextField.centerXAnchor.constraint(
             equalTo: self.centerXAnchor
         ).isActive = true
@@ -62,7 +62,7 @@ struct PreviewController: UIViewControllerRepresentable {
         
         
         view.preventScreenshot()
-//        controller.view.addSubview(view)
+        //        controller.view.addSubview(view)
         controller.view.preventScreenshot()
         return controller
     }
@@ -91,13 +91,13 @@ struct PreviewController: UIViewControllerRepresentable {
             _ controller: QLPreviewController,
             previewItemAt index: Int
         ) -> QLPreviewItem {
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-//                do {
-//                    try FileManager.default.removeItem(atPath: (self.parent.url.path().removingPercentEncoding)!)
-//                } catch {
-//                    print("error??")
-//                }
-//            }
+            //            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+            //                do {
+            //                    try FileManager.default.removeItem(atPath: (self.parent.url.path().removingPercentEncoding)!)
+            //                } catch {
+            //                    print("error??")
+            //                }
+            //            }
             return parent.url as NSURL
         }
         
@@ -129,6 +129,7 @@ struct SheetView: View {
     }
 }
 
+
 struct ContentView: View {
     
     @State private var showingContent = false
@@ -139,23 +140,12 @@ struct ContentView: View {
     @State private var isImportingEncrypt: Bool = false
     @State private var isImportingDecrypt: Bool = false
     @State var content : URL? = nil
+    @State var secureOpen: Bool = false
     
-    func getAtualTypes() -> [UTType]{
-        if self.isImportingEncrypt {
-            return [.pdf, .docx, .png, .jpg, .jpeg, .zip, .image, .tiff, .gif, .pptx, .xlsx, .plainText]
-        }
-        if self.isImportingDecrypt {
-            return [.ncrpt, .zip]
-        }
-        return []
-    }
     
     var body: some View {
         NavigationView{
             ZStack {
-                ForEach(self.localFiles.files, id:\.self) { file in
-                    Text("хуйня")
-                }
                 if isShowMenu {
                     SideMenu(isShowMenu: $isShowMenu)
                 }
@@ -175,11 +165,17 @@ struct ContentView: View {
                                                     if file.url != nil {
                                                         DispatchQueue.global(qos: .userInitiated).async {
                                                             let polygone = Polygone()
-                                                            let result = polygone.decryptFile(file.url!)
-                                                            self.content = result
-                                                            DispatchQueue.main.async {
-                                                                showingContent.toggle()
+                                                            polygone.decryptFile(file.url!) { url, success in
+                                                                if success {
+                                                                    self.content = url
+                                                                    DispatchQueue.main.async {
+                                                                        showingContent.toggle()
+                                                                    }
+                                                                }else{
+                                                                    Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
+                                                                }
                                                             }
+                                                            
                                                         }
                                                     }
                                                 }
@@ -221,14 +217,14 @@ struct ContentView: View {
                         }
                         Spacer()
                         Button(action: {
-//                            localFiles.getLocalFiles()
+                            //                            localFiles.getLocalFiles()
                             
                             isImportingEncrypt = false
                             isImportingDecrypt = true
                             isImporting = true
                             
-//                            let polygone = Polygone()
-//                            polygone.testCertification()
+                            //                            let polygone = Polygone()
+                            //                            polygone.testCertification()
                         }, label: {
                             Text("Open File")
                                 .padding(.horizontal, 55)
@@ -240,27 +236,28 @@ struct ContentView: View {
                     }
                     .fileImporter(
                         isPresented: $isImporting,
-                        allowedContentTypes: self.getAtualTypes(),
+                        allowedContentTypes: [.ncrpt, .zip],
                         allowsMultipleSelection: false
                     ) { result in
                         do {
                             guard let selectedFile: URL = try result.get().first else { return }
                             self.document.url = selectedFile
                             let one = selectedFile.startAccessingSecurityScopedResource()
-                            if self.isImportingEncrypt {
-                                let polygone = Polygone()
-                                polygone.encryptFile(self.document.url!)
-                                localFiles.getLocalFiles()
-                            }
+//                            if self.isImportingEncrypt {
+//                                let polygone = Polygone()
+//                                polygone.encryptFile(self.document.url!)
+//                                localFiles.getLocalFiles()
+//                            }
                             
                             if self.isImportingDecrypt {
                                 let polygone = Polygone()
-                                let result = polygone.decryptFile(self.document.url!)
-                                if let urlFile = result{
-                                    self.content = result
-                                    showingContent.toggle()
-                                }else{
-                                    Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
+                                polygone.decryptFile(self.document.url!) { url, success in
+                                    if success {
+                                        self.content = url
+                                        showingContent.toggle()
+                                    }else{
+                                        Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
+                                    }
                                 }
                             }
                         } catch {
@@ -272,35 +269,31 @@ struct ContentView: View {
                     }
                 }
                 .navigationBarItems(
-                    leading: Button(action: {
-                        withAnimation(.spring()) {
-                            
-                        }
-                    }, label: {
-                        Image(systemName: "gear")
-                            .foregroundColor(.black)
-                    }),
-                    trailing: Button(action: {
-                        //                    let polygone = Polygone()
-                        //                    polygone.fileEncyptionTest()
-                        isImportingDecrypt = false
-                        isImportingEncrypt = true
-                        isImporting = true
-                    }, label: {
-                        Image(systemName: "lock")
-                            .foregroundColor(.black)
-                    })
+                    leading:
+                        Button(action: {
+                            withAnimation(.spring()) {
+                                
+                            }
+                        }, label: {
+                            Image(systemName: "gear")
+                                .foregroundColor(.black)
+                        })
+                    ,
+                    trailing:
+                        NavigationLink(destination: SecureFileView(), label: {
+                            Image(systemName: "lock")
+                                .foregroundColor(.black)
+                        })
                 )
                 .cornerRadius(isShowMenu ? 20 : 10)
                 .offset(x: isShowMenu ? 300 : 0, y: isShowMenu ? 44 : 0)
-                //                .scaleEffect(isShowMenu ? 0.8 : 1)
                 .navigationTitle("ncrpt.io")
                 .navigationBarTitleDisplayMode(.inline)
                 .onAppear{
                     self.localFiles.getLocalFiles()
                 }
             }
-        }
+        }.accentColor(.black)
     }
 }
 
@@ -328,3 +321,16 @@ func share(
     return true
 }
 
+
+struct NavigationConfigurator: UIViewControllerRepresentable {
+    var configure: (UINavigationController) -> Void = { _ in }
+    
+    func makeUIViewController(context: UIViewControllerRepresentableContext<NavigationConfigurator>) -> UIViewController {
+        UIViewController()
+    }
+    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<NavigationConfigurator>) {
+        if let nc = uiViewController.navigationController {
+            self.configure(nc)
+        }
+    }
+}

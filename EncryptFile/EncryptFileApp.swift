@@ -37,9 +37,6 @@ struct EncryptFileApp: App {
                     self.isLoggedIn = false
                 }else{
                     self.isLoggedIn = true
-                    ADFS.shared.jwt { success in
-                        print(success)
-                    }
                 }
                 withAnimation{
                     self.opacity = 1.0

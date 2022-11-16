@@ -80,6 +80,16 @@ class ADFS: NSObject, ObservableObject, Identifiable, URLSessionDelegate, URLSes
     }
     
     func jwt(completion: @escaping (_ success:Bool) -> Void){
+        
+        if self.jwt != "" {
+            let time : Double = Date().timeIntervalSince1970
+            let exp : Double = getDateFromJWT(self.jwt).timeIntervalSince1970
+            if time < exp {
+                completion(true)
+                return
+            }
+        }
+        
         let urlString : String = "https://authory.ncrpt.io"
         let headers = [
             "Content-Type": "application/x-www-form-urlencoded"

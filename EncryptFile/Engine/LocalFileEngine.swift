@@ -7,17 +7,18 @@
 
 import Foundation
 
+
+struct fileItem : Identifiable, Hashable {
+    var id: Int = 0
+    var name : String = ""
+    var url : URL? = nil
+    var ext : String = ""
+}
+
 class LocalFileEngine: ObservableObject, Identifiable  {
     
     @Published var files : [fileItem] = []
     static let shared = LocalFileEngine()
-
-    struct fileItem : Identifiable, Hashable {
-        var id: Int = 0
-        var name : String = ""
-        var url : URL? = nil
-        var ext : String = ""
-    }
     
     func decodeFileExtension(_ ext: String) -> String{
         var header = "file"

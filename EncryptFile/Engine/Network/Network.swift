@@ -39,8 +39,39 @@ class Network: ObservableObject, Identifiable  {
                 completion(false)
             }
         }
-        
     }
+    
+    func license(license: String, fileAES: String, fileMD5: String, completion: @escaping (_ success:Bool) -> Void){
+        ADFS.shared.jwt { success in
+            let headers: HTTPHeaders = [.authorization(bearerToken: ADFS.shared.jwt)]
+            AF.request("https://secure.ncrpt.io/license.php", method: .post, parameters: ["fileLicense": license,
+                                                                                           "fileAES": fileAES,
+                                                                                           "fileMD5": fileMD5], headers: headers).responseJSON { [self] (response) in
+                if (response.response?.statusCode == 200) {
+                   completion(true)
+                }else{
+                    completion(false)
+                }
+            }
+        }
+    }
+    
+    func licenseDecrypt(fileMD5: String, completion: @escaping (_ aes : String, _ success:Bool) -> Void){
+        ADFS.shared.jwt { success in
+            let headers: HTTPHeaders = [.authorization(bearerToken: ADFS.shared.jwt)]
+            AF.request("https://secure.ncrpt.io/decrypt.php", method: .post, parameters: ["fileMD5": fileMD5], headers: headers).responseJSON { [self] (response) in
+                if (response.response?.statusCode == 200) {
+                    if (response.value != nil) {
+                        let json = JSON(response.value!)
+                        completion(json["aes"].stringValue, true)
+                    }
+                }else{
+                    completion("", false)
+                }
+            }
+        }
+    }
+    
     
     func publicServerKey(){
         do{

@@ -137,6 +137,9 @@ class Certification: ObservableObject, Identifiable  {
                 
                 print(certificateX509.debugDescription)
                 
+                self.certificate.email = getSubjectPartName(from: subjectX509Name, forKey: "1.2.840.113549.1.9.1")
+                self.certificate.name = getSubjectPartName(from: subjectX509Name, forKey: "2.5.4.4")
+                
                 let structOID = certificationOIDs()
                 let mirror = Mirror(reflecting: structOID)
                 autoreleasepool {
@@ -221,7 +224,7 @@ public class Certificate: NSObject {
     var subject: String?
     var printableSubject: String?
     var certTrustStatus: CertTrust?
-    private(set) var name: String?
+    var name: String?
     private(set) var privateKeyUsageEnabled = false
     private(set) var certificateIsValid = false
     var subjectExtensions: [AnyHashable : Any]?

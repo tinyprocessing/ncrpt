@@ -177,7 +177,7 @@ class Certification: ObservableObject, Identifiable  {
         return partList.joined(separator: ".")
     }
     
-    func loadIdentity() -> SecIdentity? {
+    func loadIdentity(_ inDepth: Int = 0) -> SecIdentity? {
         
         let query = [
             kSecClass: kSecClassIdentity,
@@ -197,8 +197,12 @@ class Certification: ObservableObject, Identifiable  {
         }
         
         let array = result as! [NSDictionary]
-       
-        return (array[1]["v_Ref"] as! SecIdentity)
+        print("array count idenety: ", array.count)
+        if array.count > 1 {
+            return (array[1]["v_Ref"] as! SecIdentity)
+        }else{
+            return (array[0]["v_Ref"] as! SecIdentity)
+        }
        
     }
     

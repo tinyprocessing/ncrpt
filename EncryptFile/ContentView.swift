@@ -248,10 +248,24 @@ struct ContentView: View {
                                             Spacer()
                                             
                                             Menu(content: {
+                                                
                                                 Button(action: {
                                                     share(items: [file.url!])
                                                 }) {
                                                     Label("Share", systemImage: "square.and.arrow.up")
+                                                }
+                                                
+                                                Button(action: {
+                                                    print("show file right")
+                                                }) {
+                                                    Label("Rights", systemImage: "list.clipboard")
+                                                }
+                                                
+                                                Button(role: .destructive, action: {
+                                                    print("revoke file from server")
+                                                }) {
+                                                    Label("Revoke", systemImage: "network")
+                                                        .foregroundColor(.red)
                                                 }
                                                 
                                                 Button(role: .destructive, action: {
@@ -334,7 +348,11 @@ struct ContentView: View {
                  
                     VisualEffect(style: .prominent)
                         .opacity(isShowMenu ? 0.8 : 0)
-                    
+                        .onTapGesture {
+                            withAnimation(.spring()) {
+                                self.isShowMenu = false
+                            }
+                        }
                 }
                 .navigationBarItems(
                     leading:

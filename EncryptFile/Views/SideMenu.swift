@@ -15,7 +15,7 @@ struct SideMenu: View {
     var body: some View {
         ZStack(alignment: .topTrailing) {
             ZStack(alignment: .leading) {
-                Color(.gray).opacity(0.17)
+                Color.init(hex: "4378DB")
                     .ignoresSafeArea()
                 
                 TeamMenuView(viewModel: viewModel)
@@ -28,7 +28,7 @@ struct SideMenu: View {
                 }
             } label: {
                 Image(systemName: "xmark")
-                    .foregroundColor(.black)
+                    .foregroundColor(.white)
                     .padding(.trailing, 20)
                     .padding(.top, 10)
             }

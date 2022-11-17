@@ -247,15 +247,14 @@ struct ContentView: View {
                                             }
                                             Spacer()
                                             
-                                            Menu(":") {
-                                                
+                                            Menu(content: {
                                                 Button(action: {
                                                     share(items: [file.url!])
                                                 }) {
                                                     Label("Share", systemImage: "square.and.arrow.up")
                                                 }
                                                 
-                                                Button(action: {
+                                                Button(role: .destructive, action: {
                                                     do {
                                                         try FileManager.default.removeItem(atPath: (file.url?.path().removingPercentEncoding)!)
                                                         self.localFiles.getLocalFiles()
@@ -264,12 +263,17 @@ struct ContentView: View {
                                                     }
                                                 }) {
                                                     Label("Delete", systemImage: "trash")
+                                                        .foregroundColor(.red)
                                                 }
-                                                
-                                            }
+                                            }, label: {
+                                                Text(":")
+                                                    .modifier(NCRPTTextSemibold(size: 20))
+                                                    .foregroundColor(.black)
+                                                    .padding(10)
+                                            })
                                             .contentShape(Rectangle())
-                                            .padding(10)
                                             .modifier(NCRPTTextMedium(size: 20))
+                                          
                                             
                                             
                                         }
@@ -440,4 +444,11 @@ struct VisualEffect: UIViewRepresentable {
     }
     func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
     } // 3
+}
+
+struct DeleteButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(.red)
+    }
 }

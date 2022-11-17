@@ -22,7 +22,7 @@ struct GroupsSideView: View {
                 .padding()
             
             
-            Text(self.email)
+            Text(self.email.lowercased())
                 .foregroundColor(.white)
                 .modifier(NCRPTTextRegular(size: 16))
                 .padding(.horizontal, 15)
@@ -121,9 +121,13 @@ struct GroupsSideView: View {
             .padding(.horizontal, 15)
             
         }.onAppear{
-            let certification = Certification()
-            certification.getCertificate()
-            self.email = certification.certificate.email ?? ""
+            DispatchQueue.global(qos: .userInitiated).async {
+                let certification = Certification()
+                certification.getCertificate()
+                DispatchQueue.main.async {
+                    self.email = certification.certificate.email ?? ""
+                }
+            }
         }
     }
 }

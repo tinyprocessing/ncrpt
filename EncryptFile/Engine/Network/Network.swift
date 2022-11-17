@@ -60,6 +60,7 @@ class Network: ObservableObject, Identifiable  {
         ADFS.shared.jwt { success in
             let headers: HTTPHeaders = [.authorization(bearerToken: ADFS.shared.jwt)]
             AF.request("https://secure.ncrpt.io/decrypt.php", method: .post, parameters: ["fileMD5": fileMD5], headers: headers).responseJSON { [self] (response) in
+                
                 if (response.response?.statusCode == 200) {
                     if (response.value != nil) {
                         let json = JSON(response.value!)

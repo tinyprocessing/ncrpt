@@ -31,7 +31,7 @@ class Polygone: ObservableObject, Identifiable  {
                     let certification = Certification()
                     certification.getCertificate()
                     let aesKey = engine.exportAES()
-                    let md5Result = md5File(url: url) ?? ""
+                    let md5Result = UUID().uuidString + "." + (md5File(url: url) ?? "")
                     var license : License = License()
                     license.owner = certification.certificate.email ?? ""
                     license.AESKey = "encrypted"

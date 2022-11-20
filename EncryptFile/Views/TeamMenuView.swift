@@ -9,10 +9,11 @@ import SwiftUI
 
 struct TeamMenuView: View {
     @ObservedObject var viewModel: GroupViewModel
+    @ObservedObject var pvm: ProtectViewModel
     
     var body: some View {
         HStack{
-            GroupsSideView(viewModel: viewModel)
+            GroupsSideView(viewModel: viewModel, pvm: pvm)
         }
     }
 }
@@ -20,7 +21,7 @@ struct TeamMenuView: View {
 
 struct GroupMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        TeamMenuView(viewModel: GroupViewModel())
+        TeamMenuView(viewModel: GroupViewModel(), pvm: ProtectViewModel())
     }
 }
 

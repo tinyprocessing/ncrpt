@@ -10,6 +10,7 @@ import SwiftUI
 
 struct GroupsSideView: View {
     @ObservedObject var viewModel: GroupViewModel
+    @ObservedObject var pvm: ProtectViewModel
     @State var email : String = ""
     
     var body: some View {
@@ -32,8 +33,10 @@ struct GroupsSideView: View {
             
             
             VStack(alignment: .leading, spacing: 20){
-                
-                NavigationLink(destination: Text("Templates"), label: {
+                //TODO: add templates here
+                NavigationLink(destination:
+                                AllTemplatesView(pvm: pvm),
+                               label: {
                     HStack(spacing: 10){
                         Image(systemName: "person.and.background.dotted")
                             .font(.system(size: 22))
@@ -134,6 +137,6 @@ struct GroupsSideView: View {
 
 struct GroupsSideView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupsSideView(viewModel: GroupViewModel())
+        GroupsSideView(viewModel: GroupViewModel(), pvm: ProtectViewModel())
     }
 }

@@ -16,11 +16,12 @@ struct ContentView: View {
     @State private var isShowMenu = false
     @ObservedObject var localFiles: LocalFileEngine = LocalFileEngine.shared
     @State private var document: FileDocumentStruct = FileDocumentStruct()
+    @StateObject var pvm = ProtectViewModel()
     @State private var isImporting: Bool = false
     @State private var isImportingEncrypt: Bool = false
     @State private var isImportingDecrypt: Bool = false
     @State var content : URL? = nil
-    @State var secureOpen: Bool = false
+    @State var showProtectionView = false
     
     
     var body: some View {
@@ -29,7 +30,7 @@ struct ContentView: View {
                 Color.init(hex: "F2F5F8")
                     .edgesIgnoringSafeArea(.top)
                 if isShowMenu {
-                    SideMenu(isShowMenu: $isShowMenu)
+                    SideMenu(isShowMenu: $isShowMenu, pvm: pvm)
                 }
                 ZStack(alignment: .bottomTrailing) {
                     Color.white
@@ -333,7 +334,7 @@ struct ContentView: View {
                     }
                     
                     
-                    NavigationLink(destination: SecureFileView(), label: {
+                    NavigationLink(destination: SecureFileView(pvm: pvm), label: {
                         ZStack{
                             Circle()
                                 .fill(Color.init(hex: "4378DB"))
@@ -366,7 +367,7 @@ struct ContentView: View {
                         })
                     ,
                     trailing:
-                        
+
                         Button(action: {
                             
                         }, label: {

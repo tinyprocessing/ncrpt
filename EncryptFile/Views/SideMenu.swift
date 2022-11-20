@@ -11,6 +11,7 @@ struct SideMenu: View {
     @Binding var isShowMenu: Bool
     
     @StateObject var viewModel = GroupViewModel()
+    @ObservedObject var pvm: ProtectViewModel
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
@@ -18,7 +19,7 @@ struct SideMenu: View {
                 Color.init(hex: "4378DB")
                     .ignoresSafeArea()
                 
-                TeamMenuView(viewModel: viewModel)
+                TeamMenuView(viewModel: viewModel, pvm: pvm)
                     .navigationBarHidden(true)
             }
             
@@ -39,7 +40,7 @@ struct SideMenu: View {
 
 struct SideMenu_Previews: PreviewProvider {
     static var previews: some View {
-        SideMenu(isShowMenu: .constant(true), viewModel: GroupViewModel())
+        SideMenu(isShowMenu: .constant(true), viewModel: GroupViewModel(), pvm: ProtectViewModel())
     }
 }
 

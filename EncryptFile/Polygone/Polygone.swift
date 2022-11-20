@@ -10,7 +10,7 @@ import Foundation
 class Polygone: ObservableObject, Identifiable  {
     let aesHelper : AESHelper = AESHelper()
     
-    func encryptFile(_ url: URL, users: [userItem] = [], completion: @escaping (_ success:Bool) -> Void){
+    func encryptFile(_ url: URL, users: [User] = [], completion: @escaping (_ success:Bool) -> Void){
         do {
             let password : String = UUID().uuidString
             log.debug(module: "Polygone", type: #function, object: "Processing keys")
@@ -49,9 +49,13 @@ class Polygone: ObservableObject, Identifiable  {
                     
                     var rights : Rights = Rights()
                     rights.owner = certification.certificate.email ?? ""
+//                    users.forEach { user in
+//                        rights.users.append(user.email)
+//                        rights.rights.append(user.rights)
+//                    }
                     users.forEach { user in
                         rights.users.append(user.email)
-                        rights.rights.append(user.rights)
+                        rights.rights.append(contentsOf: user.rights)
                     }
                     let rightsJSONData = try JSONEncoder().encode(rights)
                     let encryptedFile = engine.encryptData(data: rightsJSONData)

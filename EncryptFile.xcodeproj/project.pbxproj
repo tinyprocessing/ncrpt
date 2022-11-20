@@ -20,10 +20,10 @@
 		23994E7C2911927700A832E4 /* View+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23994E7B2911927700A832E4 /* View+Ext.swift */; };
 		23E724702917A14100ECFA19 /* ProtectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7246F2917A14100ECFA19 /* ProtectViewModel.swift */; };
 		23E724722918DD5300ECFA19 /* URL+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E724712918DD5300ECFA19 /* URL+Ext.swift */; };
-		23E7247C29194DC000ECFA19 /* ProtectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7247829194DC000ECFA19 /* ProtectionView.swift */; };
 		23E7247D29194DC000ECFA19 /* UserRightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7247929194DC000ECFA19 /* UserRightsView.swift */; };
 		23E7247E29194DC000ECFA19 /* ProtectionTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7247A29194DC000ECFA19 /* ProtectionTemplateView.swift */; };
 		23E7247F29194DC000ECFA19 /* TemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7247B29194DC000ECFA19 /* TemplateView.swift */; };
+		23E72481292A124A00ECFA19 /* AllTemplatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E72480292A124A00ECFA19 /* AllTemplatesView.swift */; };
 		2C1BC09B290FEEB000B3AD7C /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC09A290FEEB000B3AD7C /* Keychain.swift */; };
 		2C1BC09D290FEF3F00B3AD7C /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC09C290FEF3F00B3AD7C /* KeychainHelper.swift */; };
 		2C1BC0A1290FF23000B3AD7C /* RSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC0A0290FF23000B3AD7C /* RSA.swift */; };
@@ -32,8 +32,30 @@
 		2C1BC0AA290FFCC400B3AD7C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC0A9290FFCC400B3AD7C /* Log.swift */; };
 		2C1BC0AC290FFD2600B3AD7C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC0AB290FFD2600B3AD7C /* Settings.swift */; };
 		2C1BC0B229105E6C00B3AD7C /* public.pem in Resources */ = {isa = PBXBuildFile; fileRef = 2C1BC0B129105E6B00B3AD7C /* public.pem */; };
+		2C34F3CD29254DFA00820FC4 /* SecureFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C34F3CC29254DFA00820FC4 /* SecureFileView.swift */; };
+		2C34F3E32926617B00820FC4 /* Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C34F3D02926617A00820FC4 /* Poppins-LightItalic.ttf */; };
+		2C34F3E42926617B00820FC4 /* Poppins-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C34F3D12926617A00820FC4 /* Poppins-BoldItalic.ttf */; };
+		2C34F3E52926617B00820FC4 /* Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C34F3D22926617A00820FC4 /* Poppins-BlackItalic.ttf */; };
+		2C34F3E62926617B00820FC4 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C34F3D32926617A00820FC4 /* Poppins-Light.ttf */; };
+		2C34F3E72926617B00820FC4 /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C34F3D42926617A00820FC4 /* Poppins-MediumItalic.ttf */; };
+		2C34F3E82926617B00820FC4 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C34F3D52926617A00820FC4 /* Poppins-SemiBold.ttf */; };
+		2C34F3E92926617B00820FC4 /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C34F3D62926617A00820FC4 /* Poppins-Black.ttf */; };
+		2C34F3EA2926617B00820FC4 /* Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C34F3D72926617B00820FC4 /* Poppins-SemiBoldItalic.ttf */; };
+		2C34F3EB2926617B00820FC4 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C34F3D82926617B00820FC4 /* Poppins-Regular.ttf */; };
+		2C34F3EC2926617B00820FC4 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C34F3D92926617B00820FC4 /* Poppins-ThinItalic.ttf */; };
+		2C34F3ED2926617B00820FC4 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C34F3DA2926617B00820FC4 /* Poppins-Bold.ttf */; };
+		2C34F3EE2926617B00820FC4 /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C34F3DB2926617B00820FC4 /* Poppins-ExtraLight.ttf */; };
+		2C34F3F02926617B00820FC4 /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C34F3DD2926617B00820FC4 /* Poppins-Thin.ttf */; };
+		2C34F3F12926617B00820FC4 /* Poppins-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C34F3DE2926617B00820FC4 /* Poppins-ExtraBoldItalic.ttf */; };
+		2C34F3F22926617B00820FC4 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C34F3DF2926617B00820FC4 /* Poppins-ExtraBold.ttf */; };
+		2C34F3F32926617B00820FC4 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C34F3E02926617B00820FC4 /* Poppins-Italic.ttf */; };
+		2C34F3F42926617B00820FC4 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C34F3E12926617B00820FC4 /* Poppins-Medium.ttf */; };
+		2C34F3F52926617B00820FC4 /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C34F3E22926617B00820FC4 /* Poppins-ExtraLightItalic.ttf */; };
+		2C34F3F72926621000820FC4 /* fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C34F3F62926621000820FC4 /* fonts.swift */; };
 		2C592DB92916946400CC4518 /* Certification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C592DB82916946400CC4518 /* Certification.swift */; };
-		2C592DBB291697D500CC4518 /* mdsafir_ncrptio.pfx in Resources */ = {isa = PBXBuildFile; fileRef = 2C592DBA291697D500CC4518 /* mdsafir_ncrptio.pfx */; };
+		2C75701B292439F20043B464 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 2C75701A292439F20043B464 /* SwiftyJSON */; };
+		2C75701D2924496C0043B464 /* ADFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C75701C2924496C0043B464 /* ADFS.swift */; };
+		2CEF745829267FB7009663C8 /* FilePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEF745729267FB7009663C8 /* FilePreview.swift */; };
 		CAC626C503C0B776C3E7A888 /* Pods_EncryptFile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */; };
 		D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F5B29086AA300EF7C85 /* EncryptFileApp.swift */; };
 		D4F36F5E29086AA300EF7C85 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F5D29086AA300EF7C85 /* ContentView.swift */; };
@@ -67,10 +89,10 @@
 		23994E7B2911927700A832E4 /* View+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ext.swift"; sourceTree = "<group>"; };
 		23E7246F2917A14100ECFA19 /* ProtectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtectViewModel.swift; sourceTree = "<group>"; };
 		23E724712918DD5300ECFA19 /* URL+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Ext.swift"; sourceTree = "<group>"; };
-		23E7247829194DC000ECFA19 /* ProtectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectionView.swift; sourceTree = "<group>"; };
 		23E7247929194DC000ECFA19 /* UserRightsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRightsView.swift; sourceTree = "<group>"; };
 		23E7247A29194DC000ECFA19 /* ProtectionTemplateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectionTemplateView.swift; sourceTree = "<group>"; };
 		23E7247B29194DC000ECFA19 /* TemplateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateView.swift; sourceTree = "<group>"; };
+		23E72480292A124A00ECFA19 /* AllTemplatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTemplatesView.swift; sourceTree = "<group>"; };
 		2C1BC09A290FEEB000B3AD7C /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		2C1BC09C290FEF3F00B3AD7C /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		2C1BC0A0290FF23000B3AD7C /* RSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSA.swift; sourceTree = "<group>"; };
@@ -78,8 +100,29 @@
 		2C1BC0A9290FFCC400B3AD7C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		2C1BC0AB290FFD2600B3AD7C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		2C1BC0B129105E6B00B3AD7C /* public.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = public.pem; sourceTree = "<group>"; };
+		2C34F3CC29254DFA00820FC4 /* SecureFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureFileView.swift; sourceTree = "<group>"; };
+		2C34F3D02926617A00820FC4 /* Poppins-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
+		2C34F3D12926617A00820FC4 /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
+		2C34F3D22926617A00820FC4 /* Poppins-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BlackItalic.ttf"; sourceTree = "<group>"; };
+		2C34F3D32926617A00820FC4 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
+		2C34F3D42926617A00820FC4 /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
+		2C34F3D52926617A00820FC4 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		2C34F3D62926617A00820FC4 /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Black.ttf"; sourceTree = "<group>"; };
+		2C34F3D72926617B00820FC4 /* Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		2C34F3D82926617B00820FC4 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		2C34F3D92926617B00820FC4 /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
+		2C34F3DA2926617B00820FC4 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		2C34F3DB2926617B00820FC4 /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
+		2C34F3DD2926617B00820FC4 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Thin.ttf"; sourceTree = "<group>"; };
+		2C34F3DE2926617B00820FC4 /* Poppins-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		2C34F3DF2926617B00820FC4 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
+		2C34F3E02926617B00820FC4 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.ttf"; sourceTree = "<group>"; };
+		2C34F3E12926617B00820FC4 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		2C34F3E22926617B00820FC4 /* Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		2C34F3F62926621000820FC4 /* fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fonts.swift; sourceTree = "<group>"; };
 		2C592DB82916946400CC4518 /* Certification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Certification.swift; sourceTree = "<group>"; };
-		2C592DBA291697D500CC4518 /* mdsafir_ncrptio.pfx */ = {isa = PBXFileReference; lastKnownFileType = file; path = mdsafir_ncrptio.pfx; sourceTree = "<group>"; };
+		2C75701C2924496C0043B464 /* ADFS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADFS.swift; sourceTree = "<group>"; };
+		2CEF745729267FB7009663C8 /* FilePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePreview.swift; sourceTree = "<group>"; };
 		423F50C23B43248D905BF23B /* Pods-EncryptFile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.release.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.release.xcconfig"; sourceTree = "<group>"; };
 		A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EncryptFile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A32B9DE9F01C3CC495A1F0B6 /* Pods-EncryptFile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.debug.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.debug.xcconfig"; sourceTree = "<group>"; };
@@ -109,6 +152,7 @@
 			files = (
 				2C1BC0A7290FFCA800B3AD7C /* Alamofire in Frameworks */,
 				D4F36F7C2908898000EF7C85 /* ZIPFoundation in Frameworks */,
+				2C75701B292439F20043B464 /* SwiftyJSON in Frameworks */,
 				CAC626C503C0B776C3E7A888 /* Pods_EncryptFile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -170,9 +214,9 @@
 			isa = PBXGroup;
 			children = (
 				23E7247A29194DC000ECFA19 /* ProtectionTemplateView.swift */,
-				23E7247829194DC000ECFA19 /* ProtectionView.swift */,
 				23E7247B29194DC000ECFA19 /* TemplateView.swift */,
 				23E7247929194DC000ECFA19 /* UserRightsView.swift */,
+				23E72480292A124A00ECFA19 /* AllTemplatesView.swift */,
 			);
 			path = Encryption;
 			sourceTree = "<group>";
@@ -199,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				2C1BC0A3290FFC6700B3AD7C /* Network.swift */,
+				2C75701C2924496C0043B464 /* ADFS.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -209,6 +254,40 @@
 				2C1BC0A9290FFCC400B3AD7C /* Log.swift */,
 			);
 			path = Log;
+			sourceTree = "<group>";
+		};
+		2C34F3CE2926616600820FC4 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				2C34F3CF2926616F00820FC4 /* Poppins */,
+				2C34F3F62926621000820FC4 /* fonts.swift */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		2C34F3CF2926616F00820FC4 /* Poppins */ = {
+			isa = PBXGroup;
+			children = (
+				2C34F3D62926617A00820FC4 /* Poppins-Black.ttf */,
+				2C34F3D22926617A00820FC4 /* Poppins-BlackItalic.ttf */,
+				2C34F3DA2926617B00820FC4 /* Poppins-Bold.ttf */,
+				2C34F3D12926617A00820FC4 /* Poppins-BoldItalic.ttf */,
+				2C34F3DF2926617B00820FC4 /* Poppins-ExtraBold.ttf */,
+				2C34F3DE2926617B00820FC4 /* Poppins-ExtraBoldItalic.ttf */,
+				2C34F3DB2926617B00820FC4 /* Poppins-ExtraLight.ttf */,
+				2C34F3E22926617B00820FC4 /* Poppins-ExtraLightItalic.ttf */,
+				2C34F3E02926617B00820FC4 /* Poppins-Italic.ttf */,
+				2C34F3D32926617A00820FC4 /* Poppins-Light.ttf */,
+				2C34F3D02926617A00820FC4 /* Poppins-LightItalic.ttf */,
+				2C34F3E12926617B00820FC4 /* Poppins-Medium.ttf */,
+				2C34F3D42926617A00820FC4 /* Poppins-MediumItalic.ttf */,
+				2C34F3D82926617B00820FC4 /* Poppins-Regular.ttf */,
+				2C34F3D52926617A00820FC4 /* Poppins-SemiBold.ttf */,
+				2C34F3D72926617B00820FC4 /* Poppins-SemiBoldItalic.ttf */,
+				2C34F3DD2926617B00820FC4 /* Poppins-Thin.ttf */,
+				2C34F3D92926617B00820FC4 /* Poppins-ThinItalic.ttf */,
+			);
+			path = Poppins;
 			sourceTree = "<group>";
 		};
 		61DFDEA360CDE2553ACB5C71 /* Frameworks */ = {
@@ -249,6 +328,7 @@
 		D4F36F5A29086AA300EF7C85 /* EncryptFile */ = {
 			isa = PBXGroup;
 			children = (
+				2C34F3CE2926616600820FC4 /* Fonts */,
 				D4F36F842909B7A000EF7C85 /* Info.plist */,
 				236259D32910110B007EC337 /* Models */,
 				236259D0291010FC007EC337 /* ViewModels */,
@@ -256,6 +336,8 @@
 				D4F36F6929086B4700EF7C85 /* Engine */,
 				D4F36F5B29086AA300EF7C85 /* EncryptFileApp.swift */,
 				D4F36F5D29086AA300EF7C85 /* ContentView.swift */,
+				2C34F3CC29254DFA00820FC4 /* SecureFileView.swift */,
+				2CEF745729267FB7009663C8 /* FilePreview.swift */,
 				D4F36F812909AE5A00EF7C85 /* UI */,
 				D4F36F75290871E200EF7C85 /* Polygone */,
 				D4F36F5F29086AA400EF7C85 /* Assets.xcassets */,
@@ -305,7 +387,6 @@
 		D4F36F75290871E200EF7C85 /* Polygone */ = {
 			isa = PBXGroup;
 			children = (
-				2C592DBA291697D500CC4518 /* mdsafir_ncrptio.pfx */,
 				D4F36F712908717900EF7C85 /* Polygone.swift */,
 				D4F36F73290871DE00EF7C85 /* test.txt */,
 			);
@@ -341,6 +422,7 @@
 			packageProductDependencies = (
 				D4F36F7B2908898000EF7C85 /* ZIPFoundation */,
 				2C1BC0A6290FFCA800B3AD7C /* Alamofire */,
+				2C75701A292439F20043B464 /* SwiftyJSON */,
 			);
 			productName = EncryptFile;
 			productReference = D4F36F5829086AA300EF7C85 /* EncryptFile.app */;
@@ -373,6 +455,7 @@
 			packageReferences = (
 				D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */,
+				2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = D4F36F5929086AA300EF7C85 /* Products */;
 			projectDirPath = "";
@@ -388,10 +471,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C592DBB291697D500CC4518 /* mdsafir_ncrptio.pfx in Resources */,
 				D4F36F6329086AA400EF7C85 /* Preview Assets.xcassets in Resources */,
+				2C34F3E52926617B00820FC4 /* Poppins-BlackItalic.ttf in Resources */,
+				2C34F3F02926617B00820FC4 /* Poppins-Thin.ttf in Resources */,
+				2C34F3EB2926617B00820FC4 /* Poppins-Regular.ttf in Resources */,
+				2C34F3E32926617B00820FC4 /* Poppins-LightItalic.ttf in Resources */,
+				2C34F3EE2926617B00820FC4 /* Poppins-ExtraLight.ttf in Resources */,
+				2C34F3E62926617B00820FC4 /* Poppins-Light.ttf in Resources */,
+				2C34F3EC2926617B00820FC4 /* Poppins-ThinItalic.ttf in Resources */,
+				2C34F3F32926617B00820FC4 /* Poppins-Italic.ttf in Resources */,
 				2C1BC0B229105E6C00B3AD7C /* public.pem in Resources */,
+				2C34F3ED2926617B00820FC4 /* Poppins-Bold.ttf in Resources */,
+				2C34F3EA2926617B00820FC4 /* Poppins-SemiBoldItalic.ttf in Resources */,
+				2C34F3F42926617B00820FC4 /* Poppins-Medium.ttf in Resources */,
+				2C34F3E82926617B00820FC4 /* Poppins-SemiBold.ttf in Resources */,
+				2C34F3F12926617B00820FC4 /* Poppins-ExtraBoldItalic.ttf in Resources */,
+				2C34F3E42926617B00820FC4 /* Poppins-BoldItalic.ttf in Resources */,
+				2C34F3F52926617B00820FC4 /* Poppins-ExtraLightItalic.ttf in Resources */,
 				D4F36F74290871DE00EF7C85 /* test.txt in Resources */,
+				2C34F3F22926617B00820FC4 /* Poppins-ExtraBold.ttf in Resources */,
+				2C34F3E92926617B00820FC4 /* Poppins-Black.ttf in Resources */,
+				2C34F3E72926617B00820FC4 /* Poppins-MediumItalic.ttf in Resources */,
 				D4F36F6029086AA400EF7C85 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -450,6 +550,7 @@
 				236259D52910110B007EC337 /* GroupData.swift in Sources */,
 				D4F36F5E29086AA300EF7C85 /* ContentView.swift in Sources */,
 				D4F36F7E2909500F00EF7C85 /* LocalFileEngine.swift in Sources */,
+				2C75701D2924496C0043B464 /* ADFS.swift in Sources */,
 				2C1BC0A4290FFC6700B3AD7C /* Network.swift in Sources */,
 				236259CE291010F0007EC337 /* SideMenu.swift in Sources */,
 				2C1BC09B290FEEB000B3AD7C /* Keychain.swift in Sources */,
@@ -463,9 +564,13 @@
 				23E7247D29194DC000ECFA19 /* UserRightsView.swift in Sources */,
 				D4F36F882909DA3500EF7C85 /* FileSize.swift in Sources */,
 				D4F36F722908717900EF7C85 /* Polygone.swift in Sources */,
+				2CEF745829267FB7009663C8 /* FilePreview.swift in Sources */,
 				236259D2291010FC007EC337 /* GroupViewModel.swift in Sources */,
+				2C34F3CD29254DFA00820FC4 /* SecureFileView.swift in Sources */,
 				2C1BC0AA290FFCC400B3AD7C /* Log.swift in Sources */,
+				2C34F3F72926621000820FC4 /* fonts.swift in Sources */,
 				23994E732910F5D500A832E4 /* RegistrationView.swift in Sources */,
+				23E72481292A124A00ECFA19 /* AllTemplatesView.swift in Sources */,
 				D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */,
 				23994E7C2911927700A832E4 /* View+Ext.swift in Sources */,
 				23E724722918DD5300ECFA19 /* URL+Ext.swift in Sources */,
@@ -476,7 +581,6 @@
 				D4F36F6B29086BC800EF7C85 /* EncryptionEngine.swift in Sources */,
 				D4F36F832909AE7100EF7C85 /* FileDocumentStruct.swift in Sources */,
 				2C1BC09D290FEF3F00B3AD7C /* KeychainHelper.swift in Sources */,
-				23E7247C29194DC000ECFA19 /* ProtectionView.swift in Sources */,
 				D4F36F802909922400EF7C85 /* License.swift in Sources */,
 				2C1BC0A1290FF23000B3AD7C /* RSA.swift in Sources */,
 				D4F36F862909D96D00EF7C85 /* MD5.swift in Sources */,
@@ -614,6 +718,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EncryptFile/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NCRPT;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -646,6 +752,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EncryptFile/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NCRPT;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -697,6 +805,14 @@
 				kind = branch;
 			};
 		};
+		2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
@@ -712,6 +828,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		2C75701A292439F20043B464 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
 		};
 		D4F36F7B2908898000EF7C85 /* ZIPFoundation */ = {
 			isa = XCSwiftPackageProductDependency;

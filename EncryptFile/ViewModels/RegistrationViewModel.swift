@@ -10,8 +10,8 @@ import Combine
 
 class RegistrationViewModel: ObservableObject {
     // Input
-    @Published var email = ""
-    @Published var password = ""
+    @Published var email = "mdsafir"
+    @Published var password = "8G9ox0pm0YI7epaJHQ9"
     @Published var passwordConfirm = ""
     
     // Output
@@ -31,7 +31,7 @@ class RegistrationViewModel: ObservableObject {
             .map { email in
                 //Check if it's email
                 let regex = try! NSRegularExpression(pattern: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}", options: .caseInsensitive)
-                return regex.firstMatch(in: email, options: [], range: NSRange(location: 0, length: email.count)) != nil
+                return regex.firstMatch(in: email, options: [], range: NSRange(location: 0, length: email.count)) == nil && email.count > 5
             }
             .assign(to: \.isMailValid, on: self)
             .store(in: &cancellableSet)

@@ -8,10 +8,71 @@
 import Foundation
 import Alamofire
 import SwiftyRSA
+import SwiftyJSON
 
 class Network: ObservableObject, Identifiable  {
     
     @Published var rsaServerKey : PublicKey? = nil
+    
+    static let shared = Network()
+    
+    func login(username: String, password: String, completion: @escaping (_ success:Bool) -> Void){
+        let usernameServer : String = username.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        
+        AF.request("https://api.ncrpt.io/certificate.php", method: .post, parameters: ["name":usernameServer, "password": password], encoding: URLEncoding.default).responseJSON { [self] (response) in
+            if (response.value != nil) {
+                let json = JSON(response.value!)
+                let pfx = json["pfx"].stringValue
+                let passwordServer = json["password"].stringValue
+                if pfx != nil {
+                    let decodedData = Data(base64Encoded: pfx)!
+                    let keychain = Keychain()
+                    if keychain.certification.importCertificate(decodedData, passwordServer) {
+                        let defaults = UserDefaults.standard
+                        defaults.set(username.lowercased(), forKey: "username")
+                        completion(true)
+                    }else{
+                        completion(false)
+                    }
+                }
+            }else{
+                completion(false)
+            }
+        }
+    }
+    
+    func license(license: String, fileAES: String, fileMD5: String, completion: @escaping (_ success:Bool) -> Void){
+        ADFS.shared.jwt { success in
+            let headers: HTTPHeaders = [.authorization(bearerToken: ADFS.shared.jwt)]
+            AF.request("https://secure.ncrpt.io/license.php", method: .post, parameters: ["fileLicense": license,
+                                                                                           "fileAES": fileAES,
+                                                                                           "fileMD5": fileMD5], headers: headers).responseJSON { [self] (response) in
+                if (response.response?.statusCode == 200) {
+                   completion(true)
+                }else{
+                    completion(false)
+                }
+            }
+        }
+    }
+    
+    func licenseDecrypt(fileMD5: String, completion: @escaping (_ aes : String, _ success:Bool) -> Void){
+        ADFS.shared.jwt { success in
+            let headers: HTTPHeaders = [.authorization(bearerToken: ADFS.shared.jwt)]
+            AF.request("https://secure.ncrpt.io/decrypt.php", method: .post, parameters: ["fileMD5": fileMD5], headers: headers).responseJSON { [self] (response) in
+                
+                if (response.response?.statusCode == 200) {
+                    if (response.value != nil) {
+                        let json = JSON(response.value!)
+                        completion(json["aes"].stringValue, true)
+                    }
+                }else{
+                    completion("", false)
+                }
+            }
+        }
+    }
+    
     
     func publicServerKey(){
         do{
@@ -36,3 +97,5 @@ class Network: ObservableObject, Identifiable  {
         }
     }
 }
+
+

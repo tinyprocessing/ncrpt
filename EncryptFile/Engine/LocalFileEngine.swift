@@ -7,16 +7,18 @@
 
 import Foundation
 
+
+struct fileItem : Identifiable, Hashable {
+    var id: Int = 0
+    var name : String = ""
+    var url : URL? = nil
+    var ext : String = ""
+}
+
 class LocalFileEngine: ObservableObject, Identifiable  {
     
     @Published var files : [fileItem] = []
-    
-    struct fileItem : Identifiable, Hashable {
-        var id: Int = 0
-        var name : String = ""
-        var url : URL? = nil
-        var ext : String = ""
-    }
+    static let shared = LocalFileEngine()
     
     func decodeFileExtension(_ ext: String) -> String{
         var header = "file"
@@ -42,6 +44,7 @@ class LocalFileEngine: ObservableObject, Identifiable  {
     }
     
     func getLocalFiles(){
+        
         self.files.removeAll()
         do {
             // Get the document directory url
@@ -78,7 +81,9 @@ class LocalFileEngine: ObservableObject, Identifiable  {
                     do {
                         let fileURLNCRPTData = try Data(contentsOf: url)
                         let fileExtension = String(decoding: fileURLNCRPTData[0...3], as: UTF8.self)
+                        self.objectWillChange.send()
                         files.append(fileItem(name: url.lastPathComponent, url: url, ext: decodeFileExtension(fileExtension)))
+                        print(url)
                     }catch{
                         print("getLocalFiles error")
                     }

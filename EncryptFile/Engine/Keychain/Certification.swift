@@ -137,6 +137,9 @@ class Certification: ObservableObject, Identifiable  {
                 
                 print(certificateX509.debugDescription)
                 
+                self.certificate.email = getSubjectPartName(from: subjectX509Name, forKey: "1.2.840.113549.1.9.1")
+                self.certificate.name = getSubjectPartName(from: subjectX509Name, forKey: "2.5.4.4")
+                
                 let structOID = certificationOIDs()
                 let mirror = Mirror(reflecting: structOID)
                 autoreleasepool {
@@ -174,7 +177,7 @@ class Certification: ObservableObject, Identifiable  {
         return partList.joined(separator: ".")
     }
     
-    func loadIdentity() -> SecIdentity? {
+    func loadIdentity(_ inDepth: Int = 0) -> SecIdentity? {
         
         let query = [
             kSecClass: kSecClassIdentity,
@@ -194,8 +197,12 @@ class Certification: ObservableObject, Identifiable  {
         }
         
         let array = result as! [NSDictionary]
-       
-        return (array[0]["v_Ref"] as! SecIdentity)
+        print("array count idenety: ", array.count)
+        if array.count > 1 {
+            return (array[1]["v_Ref"] as! SecIdentity)
+        }else{
+            return (array[0]["v_Ref"] as! SecIdentity)
+        }
        
     }
     
@@ -221,7 +228,7 @@ public class Certificate: NSObject {
     var subject: String?
     var printableSubject: String?
     var certTrustStatus: CertTrust?
-    private(set) var name: String?
+    var name: String?
     private(set) var privateKeyUsageEnabled = false
     private(set) var certificateIsValid = false
     var subjectExtensions: [AnyHashable : Any]?

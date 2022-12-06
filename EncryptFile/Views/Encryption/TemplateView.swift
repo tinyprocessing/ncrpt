@@ -44,8 +44,9 @@ struct TemplateView: View {
             }
             //User list
             Section(header: Text("User list")){
-                Text("Downloaded list 1")
-                Text("Downloaded list 2")
+                ForEach(template?.users ?? [], id: \.self) { item in
+                    Text(item)
+                }
             }
             
             //permissions

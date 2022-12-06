@@ -123,9 +123,9 @@
 		2C592DB82916946400CC4518 /* Certification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Certification.swift; sourceTree = "<group>"; };
 		2C75701C2924496C0043B464 /* ADFS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADFS.swift; sourceTree = "<group>"; };
 		2CEF745729267FB7009663C8 /* FilePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePreview.swift; sourceTree = "<group>"; };
-		423F50C23B43248D905BF23B /* Pods-EncryptFile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.release.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.release.xcconfig"; sourceTree = "<group>"; };
+		3AE40F6516B80AD996D0E26C /* Pods-EncryptFile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.release.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.release.xcconfig"; sourceTree = "<group>"; };
 		A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EncryptFile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A32B9DE9F01C3CC495A1F0B6 /* Pods-EncryptFile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.debug.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.debug.xcconfig"; sourceTree = "<group>"; };
+		A1D9F4C2828C34ED673B7C13 /* Pods-EncryptFile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.debug.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.debug.xcconfig"; sourceTree = "<group>"; };
 		D4F36F5829086AA300EF7C85 /* EncryptFile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EncryptFile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F36F5B29086AA300EF7C85 /* EncryptFileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptFileApp.swift; sourceTree = "<group>"; };
 		D4F36F5D29086AA300EF7C85 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -160,6 +160,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A19F29C9B04D17EC16F73E8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A1D9F4C2828C34ED673B7C13 /* Pods-EncryptFile.debug.xcconfig */,
+				3AE40F6516B80AD996D0E26C /* Pods-EncryptFile.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		236259C7291010F0007EC337 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,22 +308,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		CA034BDA81E1E67EFB62B69E /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A32B9DE9F01C3CC495A1F0B6 /* Pods-EncryptFile.debug.xcconfig */,
-				423F50C23B43248D905BF23B /* Pods-EncryptFile.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		D4F36F4F29086AA300EF7C85 = {
 			isa = PBXGroup;
 			children = (
 				D4F36F5A29086AA300EF7C85 /* EncryptFile */,
 				D4F36F5929086AA300EF7C85 /* Products */,
-				CA034BDA81E1E67EFB62B69E /* Pods */,
 				61DFDEA360CDE2553ACB5C71 /* Frameworks */,
+				0A19F29C9B04D17EC16F73E8 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -453,9 +454,9 @@
 			);
 			mainGroup = D4F36F4F29086AA300EF7C85;
 			packageReferences = (
-				D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
-				2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */,
-				2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation.git" */,
+				2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire.git" */,
+				2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON.git" */,
 			);
 			productRefGroup = D4F36F5929086AA300EF7C85 /* Products */;
 			projectDirPath = "";
@@ -707,7 +708,7 @@
 		};
 		D4F36F6729086AA400EF7C85 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A32B9DE9F01C3CC495A1F0B6 /* Pods-EncryptFile.debug.xcconfig */;
+			baseConfigurationReference = A1D9F4C2828C34ED673B7C13 /* Pods-EncryptFile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -741,7 +742,7 @@
 		};
 		D4F36F6829086AA400EF7C85 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 423F50C23B43248D905BF23B /* Pods-EncryptFile.release.xcconfig */;
+			baseConfigurationReference = 3AE40F6516B80AD996D0E26C /* Pods-EncryptFile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -797,7 +798,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -805,7 +806,7 @@
 				kind = branch;
 			};
 		};
-		2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+		2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
 			requirement = {
@@ -813,7 +814,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+		D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
 			requirement = {
@@ -826,17 +827,17 @@
 /* Begin XCSwiftPackageProductDependency section */
 		2C1BC0A6290FFCA800B3AD7C /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = 2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire.git" */;
 			productName = Alamofire;
 		};
 		2C75701A292439F20043B464 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			package = 2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON.git" */;
 			productName = SwiftyJSON;
 		};
 		D4F36F7B2908898000EF7C85 /* ZIPFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			package = D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation.git" */;
 			productName = ZIPFoundation;
 		};
 /* End XCSwiftPackageProductDependency section */

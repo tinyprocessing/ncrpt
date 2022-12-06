@@ -19,7 +19,20 @@ class ProtectViewModel: ObservableObject {
     
     @Published var selectedTemplated: UUID = UUID()
     
-    let permissionSet = ["View", "Edit", "Owner", "Docedit", "Comment", "Export", "Forward", "Print", "Reply", "Replyall",  "Extract", "Viewrightsdata", "Editrightsdata", "Objmodel"]
+    let permissionSet = ["View", "Edit", "Owner"]
+    /*
+     "Docedit",
+     "Comment",
+     "Export",
+     "Forward",
+     "Print",
+     "Reply",
+     "Replyall",
+     "Extract",
+     "Viewrightsdata",
+     "Editrightsdata",
+     "Objmodel"
+     */
     
     init() {
         getSampleTempl()
@@ -29,16 +42,15 @@ class ProtectViewModel: ObservableObject {
     //Samples to UI
     func getSampleTempl() {
         templates = [
-            Template(name: "Managers", users: [], rights: ["Owner"]),
+            Template(name: "Developers", users: ["mdsafir@ncrpt.io", "kaanisimov@ncrpt.io"], rights: ["Owner"]),
             Template(name: "Accountants", users: [], rights: ["View", "Edit"]),
-            Template(name: "Staff", users: [], rights: ["View"]),
         ]
     }
     
     func getSampleRecentUsers() {
-        recentUsers = [User(email: "safir@ncrpt.io", rights: ["View"]),
-                       User(email: "anisimov@ncrpt.io", rights: ["View", "Edit"]),
-                       User(email: "sozinov@ncrpt.io", rights: ["Owner"])]
+        recentUsers = [User(email: "mdsafir@ncrpt.io", rights: ["View"]),
+                       User(email: "kaanisimov@ncrpt.io", rights: ["View", "Edit"]),
+                       User(email: "nasozinov@ncrpt.io", rights: ["Owner"])]
     }
     
     //helper methods

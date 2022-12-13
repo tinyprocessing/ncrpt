@@ -10,290 +10,226 @@ import UniformTypeIdentifiers
 import QuickLook
 import QuartzCore
 
-extension UIView {
-    func preventScreenshot() {
-        guard superview != nil else {
-            for subview in subviews {
-                subview.preventScreenshot()
-            }
-            return
-        }
-        
-        let guardTextField = UITextField()
-        guardTextField.backgroundColor = .red
-        guardTextField.translatesAutoresizingMaskIntoConstraints = false
-        guardTextField.tag = Int.max
-        guardTextField.isSecureTextEntry = true
-        
-        addSubview(guardTextField)
-        guardTextField.isUserInteractionEnabled = false
-        sendSubviewToBack(guardTextField)
-        
-        layer.superlayer?.addSublayer(guardTextField.layer)
-        guardTextField.layer.sublayers?.first?.addSublayer(layer)
-        
-        guardTextField.centerYAnchor.constraint(
-            equalTo: self.centerYAnchor
-        ).isActive = true
-        
-        guardTextField.centerXAnchor.constraint(
-            equalTo: self.centerXAnchor
-        ).isActive = true
-    }
-}
-
-struct PreviewController: UIViewControllerRepresentable {
-    let url: URL
-    
-    func makeUIViewController(context: Context) -> QLPreviewController {
-        let controller = QLPreviewController()
-        controller.dataSource = context.coordinator
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            controller.view.subviews.forEach { view in
-                view.preventScreenshot()
-                print(view)
-            }
-        }
-        
-        
-        let view = UIView()
-        view.backgroundColor = .red
-        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-        
-        
-        view.preventScreenshot()
-        //        controller.view.addSubview(view)
-        controller.view.preventScreenshot()
-        return controller
-    }
-    
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(parent: self)
-    }
-    
-    func updateUIViewController(
-        _ uiViewController: QLPreviewController, context: Context) {}
-    
-    class Coordinator: QLPreviewControllerDataSource {
-        let parent: PreviewController
-        
-        init(parent: PreviewController) {
-            self.parent = parent
-        }
-        
-        func numberOfPreviewItems(
-            in controller: QLPreviewController
-        ) -> Int {
-            return 1
-        }
-        
-        func previewController(
-            _ controller: QLPreviewController,
-            previewItemAt index: Int
-        ) -> QLPreviewItem {
-            //            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-            //                do {
-            //                    try FileManager.default.removeItem(atPath: (self.parent.url.path().removingPercentEncoding)!)
-            //                } catch {
-            //                    print("error??")
-            //                }
-            //            }
-            return parent.url as NSURL
-        }
-        
-    }
-}
-
-
-
-
-
-struct SheetView: View {
-    @Environment(\.dismiss) var dismiss
-    @Binding var content : URL?
-    var body: some View {
-        VStack{
-            HStack{
-                Button(action: {
-                    self.dismiss()
-                }, label: {
-                    Text("Close")
-                        .foregroundColor(Color.black)
-                })
-                Spacer()
-            }
-            .padding(.horizontal)
-            .padding(.vertical, 15)
-            PreviewController(url: self.content!)
-        }
-    }
-}
-
-
 struct ContentView: View {
     
     @State private var showingContent = false
     @State private var isShowMenu = false
     @ObservedObject var localFiles: LocalFileEngine = LocalFileEngine.shared
     @State private var document: FileDocumentStruct = FileDocumentStruct()
+    @StateObject var pvm = ProtectViewModel()
     @State private var isImporting: Bool = false
     @State private var isImportingEncrypt: Bool = false
     @State private var isImportingDecrypt: Bool = false
-    @State var content : URL? = nil
-    @State var secureOpen: Bool = false
+    @ObservedObject var content : ProtectViewModel = ProtectViewModel()
+    @State var showProtectionView = false
     
     
     var body: some View {
         NavigationView{
             ZStack {
+                Color.init(hex: "F2F5F8")
+                    .edgesIgnoringSafeArea(.top)
                 if isShowMenu {
-                    SideMenu(isShowMenu: $isShowMenu)
+                    SideMenu(isShowMenu: $isShowMenu, pvm: pvm)
                 }
-                ZStack {
-                    Color(.white)
+                ZStack(alignment: .bottomTrailing) {
+                    Color.white
                     VStack{
-                        VStack{
-                            ScrollView(.vertical, showsIndicators: false){
-                                ForEach(self.localFiles.files, id:\.self) { file in
-                                    HStack(spacing: 15){
-                                        HStack(spacing: 5){
-                                            Image(file.ext)
-                                                .resizable()
-                                                .frame(width: 20, height: 20, alignment: .center)
-                                            Text("\(file.name)")
-                                                .onTapGesture {
-                                                    if file.url != nil {
-                                                        DispatchQueue.global(qos: .userInitiated).async {
-                                                            let polygone = Polygone()
-                                                            polygone.decryptFile(file.url!) { url, success in
-                                                                if success {
-                                                                    self.content = url
-                                                                    DispatchQueue.main.async {
-                                                                        showingContent.toggle()
-                                                                    }
-                                                                }else{
-                                                                    Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
-                                                                }
+                        if self.localFiles.files.count > 0 {
+                            VStack(spacing: 0){
+                                HStack{
+                                    Text("Recent Files")
+                                        .modifier(NCRPTTextSemibold(size: 18))
+                                        .foregroundColor(Color.init(hex: "21205A"))
+                                    Spacer()
+                                }
+                                .padding(.horizontal, 20)
+                                .padding(.top)
+                                
+                                ScrollView(.vertical, showsIndicators: false){
+                                    VStack(spacing: 0){
+                                        ForEach(self.localFiles.files, id:\.self) { file in
+                                            HStack(spacing: 15){
+                                                HStack(spacing: 10){
+                                                    Image(file.ext)
+                                                        .resizable()
+                                                        .frame(width: 20, height: 20, alignment: .center)
+                                                    Text("\(file.name)")
+                                                        .modifier(NCRPTTextMedium(size: 16))
+                                                        .onTapGesture {
+                                                            self.content.chosenFiles = []
+                                                            DispatchQueue.main.async {
+                                                                showingContent.toggle()
                                                             }
                                                             
+                                                            if file.url != nil {
+                                                                DispatchQueue.global(qos: .userInitiated).async {
+                                                                    let polygone = Polygone()
+                                                                    polygone.decryptFile(file.url!) { url, success in
+                                                                        if success {
+                                                                            self.content.objectWillChange.send()
+                                                                            self.content.chosenFiles = [Attach(url: url)]
+                                                                            self.content.objectWillChange.send()
+                                                                        }else{
+                                                                            Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
+                                                                        }
+                                                                    }
+                                                                    
+                                                                }
+                                                            }
                                                         }
-                                                    }
                                                 }
-                                        }
-                                        Spacer()
-                                        
-                                        Button(action: {
-                                            share(items: [file.url!])
-                                        }, label: {
-                                            Image(systemName: "square.and.arrow.up")
-                                                .font(.system(size: 18))
-                                                .foregroundColor(Color.black)
-                                        })
-                                        
-                                        Button(action: {
-                                            do {
-                                                try FileManager.default.removeItem(atPath: (file.url?.path().removingPercentEncoding)!)
-                                                self.localFiles.getLocalFiles()
-                                            } catch {
-                                                print("Could not delete file, probably read-only filesystem")
+                                                Spacer()
+                                                
+                                                Menu(content: {
+                                                    
+                                                    Button(action: {
+                                                        share(items: [file.url!])
+                                                    }) {
+                                                        Label("Share", systemImage: "square.and.arrow.up")
+                                                    }
+                                                    
+                                                    Button(action: {
+                                                        print("show file right")
+                                                    }) {
+                                                        Label("Rights", systemImage: "list.clipboard")
+                                                    }
+                                                    
+                                                    Button(role: .destructive, action: {
+                                                        print("revoke file from server")
+                                                    }) {
+                                                        Label("Revoke", systemImage: "network")
+                                                            .foregroundColor(.red)
+                                                    }
+                                                    
+                                                    Button(role: .destructive, action: {
+                                                        do {
+                                                            try FileManager.default.removeItem(atPath: (file.url?.path().removingPercentEncoding)!)
+                                                            self.localFiles.getLocalFiles()
+                                                        } catch {
+                                                            print("Could not delete file, probably read-only filesystem")
+                                                        }
+                                                    }) {
+                                                        Label("Delete", systemImage: "trash")
+                                                            .foregroundColor(.red)
+                                                    }
+                                                }, label: {
+                                                    Text(":")
+                                                        .modifier(NCRPTTextSemibold(size: 20))
+                                                        .foregroundColor(.black)
+                                                        .padding(10)
+                                                })
+                                                .contentShape(Rectangle())
+                                                .modifier(NCRPTTextMedium(size: 20))
+                                                
+                                                
+                                                
                                             }
-                                        }, label: {
-                                            Image(systemName: "trash")
-                                                .font(.system(size: 18))
-                                                .foregroundColor(Color.red)
-                                        })
+                                        }
                                     }
-                                    .padding(.vertical, 10)
-                                    .padding(.horizontal, 10)
-                                    .background(Color.secondary.opacity(0.1))
-                                    .cornerRadius(10)
-                                    
                                 }
+                                .padding(.horizontal, 20)
                             }
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 5)
-                            .frame(height: 200)
-                            
+                            Spacer()
+                        }else{
+                            Spacer()
+                            HStack{
+                                Spacer()
+                                Text("No files yet")
+                                    .modifier(NCRPTTextSemibold(size: 18))
+                                    .foregroundColor(Color.init(hex: "21205A"))
+                                Spacer()
+                            }
+                            Spacer()
                         }
-                        Spacer()
-                        Button(action: {
-                            //                            localFiles.getLocalFiles()
-                            
-                            isImportingEncrypt = false
-                            isImportingDecrypt = true
-                            isImporting = true
-                            
-                            //                            let polygone = Polygone()
-                            //                            polygone.testCertification()
-                        }, label: {
-                            Text("Open File")
-                                .padding(.horizontal, 55)
-                                .padding(.vertical, 10)
-                                .background(Color.black)
-                                .cornerRadius(8.0)
-                                .foregroundColor(Color.white)
-                        })
                     }
                     .fileImporter(
                         isPresented: $isImporting,
-                        allowedContentTypes: [.ncrpt, .zip],
+                        allowedContentTypes: [.ncrpt],
                         allowsMultipleSelection: false
                     ) { result in
                         do {
                             guard let selectedFile: URL = try result.get().first else { return }
                             self.document.url = selectedFile
                             let one = selectedFile.startAccessingSecurityScopedResource()
-//                            if self.isImportingEncrypt {
-//                                let polygone = Polygone()
-//                                polygone.encryptFile(self.document.url!)
-//                                localFiles.getLocalFiles()
-//                            }
+                           
+                            self.content.chosenFiles = []
+                            DispatchQueue.main.async {
+                                showingContent.toggle()
+                            }
                             
-                            if self.isImportingDecrypt {
-                                let polygone = Polygone()
-                                polygone.decryptFile(self.document.url!) { url, success in
-                                    if success {
-                                        self.content = url
-                                        showingContent.toggle()
-                                    }else{
-                                        Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
-                                    }
+                            let polygone = Polygone()
+                            polygone.decryptFile(self.document.url!) { url, success in
+                                if success {
+                                    self.content.chosenFiles = [Attach(url: url)]
+                                }else{
+                                    Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
                                 }
                             }
                         } catch {
                             // Handle failure.
                         }
                     }
-                    .sheet(isPresented: $showingContent) {
-                        SheetView(content: self.$content)
+                    
+                    NavigationLink(destination: SheetView(content: self.content), isActive: $showingContent) {
+                        EmptyView()
                     }
+                    
+                    NavigationLink(destination: SecureFileView(pvm: pvm), label: {
+                        ZStack{
+                            Circle()
+                                .fill(Color.init(hex: "4378DB"))
+                                .frame(width: 64, height: 64, alignment: .center)
+                                .padding(.horizontal)
+                            Image("lock")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 22, height: 22, alignment: .center)
+                        }
+                        .shadow(radius: 5)
+                        .padding(.bottom, 5)
+                    })
+                 
+                    VisualEffect(style: .prominent)
+                        .opacity(isShowMenu ? 0.8 : 0)
+                        .onTapGesture {
+                            withAnimation(.spring()) {
+                                self.isShowMenu = false
+                            }
+                        }
                 }
                 .navigationBarItems(
                     leading:
                         Button(action: {
                             withAnimation(.spring()) {
-                                
+                                self.isShowMenu = true
                             }
                         }, label: {
-                            Image(systemName: "gear")
+                            Image(systemName: "slider.horizontal.3")
                                 .foregroundColor(.black)
                         })
                     ,
                     trailing:
-                        NavigationLink(destination: SecureFileView(), label: {
-                            Image(systemName: "lock")
+
+                        Button(action: {
+                            self.isImporting.toggle()
+                        }, label: {
+                            Image(systemName: "plus")
                                 .foregroundColor(.black)
                         })
                 )
-                .cornerRadius(isShowMenu ? 20 : 10)
-                .offset(x: isShowMenu ? 300 : 0, y: isShowMenu ? 44 : 0)
+                .cornerRadius(20)
+                .offset(x: isShowMenu ? 210 : 0, y: isShowMenu ? 44 : 0)
                 .navigationTitle("ncrpt.io")
                 .navigationBarTitleDisplayMode(.inline)
                 .onAppear{
                     self.localFiles.getLocalFiles()
                 }
+               
             }
-        }.accentColor(.black)
+        }
+        .background(.red)
+        .accentColor(.black)
     }
 }
 
@@ -332,5 +268,49 @@ struct NavigationConfigurator: UIViewControllerRepresentable {
         if let nc = uiViewController.navigationController {
             self.configure(nc)
         }
+    }
+}
+
+extension Color {
+    init(hex: String) {
+        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+        var int: UInt64 = 0
+        Scanner(string: hex).scanHexInt64(&int)
+        let a, r, g, b: UInt64
+        switch hex.count {
+        case 3: // RGB (12-bit)
+            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
+        case 6: // RGB (24-bit)
+            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
+        case 8: // ARGB (32-bit)
+            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+        default:
+            (a, r, g, b) = (1, 1, 1, 0)
+        }
+        
+        self.init(
+            .sRGB,
+            red: Double(r) / 255,
+            green: Double(g) / 255,
+            blue:  Double(b) / 255,
+            opacity: Double(a) / 255
+        )
+    }
+}
+
+
+struct VisualEffect: UIViewRepresentable {
+    @State var style : UIBlurEffect.Style // 1
+    func makeUIView(context: Context) -> UIVisualEffectView {
+        return UIVisualEffectView(effect: UIBlurEffect(style: style)) // 2
+    }
+    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
+    } // 3
+}
+
+struct DeleteButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(.red)
     }
 }

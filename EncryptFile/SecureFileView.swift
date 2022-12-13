@@ -8,170 +8,192 @@
 import SwiftUI
 
 
-struct userItem : Identifiable, Hashable {
-    var id: Int = 0
-    var email : String = ""
-    var rights : String = ""
-}
-
-
 struct SecureFileView: View {
-    
+    @ObservedObject var pvm: ProtectViewModel
     @State var files : [fileItem] = []
-    @State var users : [userItem] = []
     @State private var isImporting: Bool = false
     @State private var presentAddUsers = false
     @State private var username: String = ""
+    
+    @State private var showNewUser = false
+    @State private var showEditUser = false
+    @State private var showNewTemplate = false
+    @State private var showEditTemplate = false
 
     var body: some View {
         VStack{
             ZStack(alignment: .bottom){
-                ScrollView(.vertical, showsIndicators: false) {
-                    Button(action: {
-                        self.isImporting.toggle()
-                    }, label: {
-                        HStack(spacing: 0) {
-                            Spacer()
-                            Image(systemName: "plus.circle")
-                                .foregroundColor(.black)
-                                .font(.system(size: 22, weight: .light, design: .rounded))
-                                .padding(.horizontal, 10)
-                            Text("Select file")
-                            Spacer()
-                        }
-                        .frame(height: 50, alignment: .leading)
-                        .background(Color.secondary.opacity(0.1))
-                        .cornerRadius(10)
-                        .padding()
-                    })
+                Form {
                     
-                    VStack{
-                        if self.files.count > 0 {
+                    //MARK: - Templates
+                    Section(header: Text("Protect by template")) {
+                        ForEach(pvm.templates) { templ in
                             HStack{
-                                Text("Selected files:")
-                                Spacer()
-                            }
-                        }
-                        ForEach(self.files, id:\.self) { file in
-                            HStack(spacing: 15){
-                                HStack(spacing: 5){
-                                    Image("file")
-                                        .resizable()
-                                        .frame(width: 20, height: 20, alignment: .center)
-                                    Text("\(file.name.lowercased())")
-                                }
-                                Spacer()
-                                
-                                Button(action: {
-                                    var tmp : [fileItem] = []
-                                    self.files.forEach { arrayFile in
-                                        if arrayFile.url != file.url{
-                                            tmp.append(arrayFile)
-                                        }
+                                Image(systemName: pvm.isCurTemplate( templ) ? "checkmark.square" : "square")
+                                    .foregroundColor(pvm.isCurTemplate(templ) ? .green : .secondary)
+                                    .onTapGesture {
+                                        pvm.selectTemplate(templ.id)
                                     }
-                                    self.files = tmp
-                                }, label: {
-                                    Image(systemName: "trash")
-                                        .font(.system(size: 18))
-                                        .foregroundColor(Color.red)
-                                })
+                                Text(templ.name)
+                                Spacer()
+                                Button {
+                                    showEditTemplate.toggle()
+                                } label: {
+                                    Image(systemName: "info.circle")
+                                }
+                                .foregroundColor(Color(0x1d3557))
+                                .overlay(
+                                    NavigationLink(
+                                        destination: { TemplateView(vm: pvm, template: templ, selectedRights: templ.rights) },
+                                        label: { EmptyView() }
+                                    ).opacity(0)
+                                )
+                                
                             }
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 10)
-                            .background(Color.secondary.opacity(0.1))
-                            .cornerRadius(10)
+                            
                         }
-                    }.padding(.horizontal)
-                    
-                    VStack{
-                        HStack{
-                            Text("Select users:")
-                            Spacer()
-                        }
+                        .onDelete(perform: deleteTemplate)
                         
-                        Button(action: {
-                            self.presentAddUsers.toggle()
-                        }, label: {
-                            HStack(spacing: 0) {
+                        Button {
+                            showNewTemplate.toggle()
+                        } label: {
+                            HStack{
                                 Spacer()
                                 Image(systemName: "plus.circle")
-                                    .foregroundColor(.black)
-                                    .font(.system(size: 22, weight: .light, design: .rounded))
-                                    .padding(.horizontal, 10)
-                                Text("add users")
+                                Text("Add new template")
                                 Spacer()
-                            }
-                            .frame(height: 50, alignment: .leading)
-                            .background(Color.secondary.opacity(0.1))
-                            .cornerRadius(10)
-                        })
-                        .alert("New User", isPresented: $presentAddUsers, actions: {
-                            TextField("Email", text: $username)
-                                .textCase(.lowercase)
-                                .autocorrectionDisabled()
-                            Button("Add", action: {
-                                self.users.append(userItem(id: self.users.count+1, email: self.username, rights: "VIEW"))
-                                self.username = ""
-                            })
-                            Button("Cancel", role: .cancel, action: {})
-                        }, message: {
-                            Text("Please enter your username and password.")
-                        })
+                            }.foregroundColor(Color(0x1d3557))
+                        }
+                        .overlay(
+                            NavigationLink(
+                                destination: { TemplateView(vm: pvm, isNewTemplate: true) },
+                                label: { EmptyView() }
+                            ).opacity(0)
+                        )
                         
-                        ForEach(self.users, id:\.self) { user in
-                            HStack(spacing: 15){
-                                HStack(spacing: 5){
-                                    Image(systemName: "person")
-                                        .frame(width: 20, height: 20, alignment: .center)
-                                    Text("\(user.email)")
+                    }
+                    
+                    //MARK: - Users
+                    Section(header: Text("Users")) {
+                        ForEach(pvm.recentUsers){ user in
+                            HStack{
+                                Image(systemName: pvm.isSelUser(user) ? "checkmark.square" : "square")
+                                    .foregroundColor(pvm.isSelUser(user) ? .green : .secondary)
+                                    .onTapGesture {
+                                        pvm.addSelectUser(user)
+                                    }
+                                VStack(alignment: .leading) {
+                                    Text(user.email)
+                                    Text(user.allRights)
+                                        .foregroundColor(.secondary)
+                                        .font(.system(size: 10))
                                 }
                                 Spacer()
-                                
-                                Button(action: {
-                                    var tmp : [userItem] = []
-                                    self.users.forEach { arrayUser in
-                                        if arrayUser.email != user.email{
-                                            tmp.append(arrayUser)
-                                        }
-                                    }
-                                    self.users = tmp
-                                }, label: {
-                                    Image(systemName: "trash")
-                                        .font(.system(size: 18))
-                                        .foregroundColor(Color.red)
-                                })
+                                Button {
+                                    showEditUser.toggle()
+                                } label: {
+                                    Image(systemName: "chevron.right")
+                                }.foregroundColor(Color(0x1d3557))
+                                    .overlay(
+                                        NavigationLink(
+                                            destination: { UserRightsView(vm: pvm, user: user, selectedRights: user.rights) },
+                                            label: { EmptyView() }
+                                        ).opacity(0)
+                                    )
                             }
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 10)
-                            .background(Color.secondary.opacity(0.1))
-                            .cornerRadius(10)
                         }
+                        .onDelete(perform: deleteUser)
+                        Button {
+                            showNewUser.toggle()
+                        } label: {
+                            HStack{
+                                Spacer()
+                                Image(systemName: "plus.circle")
+                                Text("Add new user")
+                                Spacer()
+                            }.foregroundColor(Color(0x1d3557))
+                        }
+                        .overlay(
+                            NavigationLink(
+                                destination: { UserRightsView(vm: pvm, isNewUser: true) },
+                                label: { EmptyView() }
+                            ).opacity(0)
+                        )
                         
-                    }.padding()
+                    }
+                    //MARK: - Files
+                    Section(header: Text("Selected files")) {
+                        ForEach(pvm.chosenFiles, id:\.self){ file in
+                            HStack {
+                                Text(file.name)
+                                Spacer()
+                                Text(file.size)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .onDelete(perform: deleteFile)
+                        
+                        
+                        Button {
+                            isImporting = true
+                        } label: {
+                            HStack{
+                                Spacer()
+                                Image(systemName: "plus.circle")
+                                Text("Add file")
+                                Spacer()
+                            }.foregroundColor(Color(0x1d3557))
+                            
+                        }
+                    }
+                    .fileImporter(
+                        isPresented: $isImporting,
+                        allowedContentTypes: pvm.getAtualTypes(),
+                        allowsMultipleSelection: false
+                    ) { result in
+                        do {
+                            guard let selectedFile: URL = try result.get().first else { return }
+                            pvm.addFileURL(selectedFile)
+                        } catch {
+                            // Handle failure.
+                        }
+                    }
+                    
                     
                 }
                 
-                
                 Button(action: {
+                    print("----Ecrypting-----")
+                    print("-template: \(pvm.templates.first{$0.id == pvm.selectedTemplated}?.name)")
+                    print("-files: \(pvm.chosenFiles)")
+                    
+                    //Check chosen files
                     let polygone = Polygone()
-                    if self.files.count > 0 {
-                        polygone.encryptFile((self.files.first?.url)!, users: self.users) { success in
+                    if pvm.chosenFiles.count > 0 {
+                        polygone.encryptFile((pvm.chosenFiles.first?.url)!, users: pvm.selectedResentUsers) { success in
                             print(success)
                             Settings.shared.alert(title: "Success", message: "Your files are protected, you can find them on home page")
                         }
                     }
                 }, label: {
-                    Text("protect file")
-                        .padding(.horizontal, 55)
-                        .padding(.vertical, 10)
-                        .background(self.files.count > 0 && self.users.count > 0 ? Color.black : Color.black.opacity(0.1))
-                        .cornerRadius(8.0)
-                        .foregroundColor(Color.white)
+                    HStack {
+                        Spacer()
+                        Text("protect file")
+                            .padding(.horizontal, 55)
+                            .padding(.vertical, 10)
+                            .background(pvm.chosenFiles.count > 0 && pvm.selectedResentUsers.count > 0 ? Color.init(hex: "4378DB") : Color.init(hex: "4378DB").opacity(0.1))
+                            .cornerRadius(8.0)
+                            .foregroundColor(Color.white)
+                        Spacer()
+                    }
+                    
+                    
                 })
+                
             }
             .fileImporter(
                 isPresented: $isImporting,
-                allowedContentTypes: [.pdf, .docx, .png, .jpg, .jpeg, .zip, .image, .tiff, .gif, .pptx, .xlsx, .plainText],
+                allowedContentTypes: pvm.getAtualTypes(),
                 allowsMultipleSelection: true
             ) { result in
                 do {
@@ -180,6 +202,8 @@ struct SecureFileView: View {
                         files.forEach { file in
                             file.startAccessingSecurityScopedResource()
                             self.files.append(fileItem(id: 0, name: file.lastPathComponent, url: file, ext: file.pathExtension.lowercased()))
+                            
+                            pvm.addFileURL(file)
                         }
                     }
                 } catch {
@@ -190,10 +214,23 @@ struct SecureFileView: View {
         .navigationTitle("protection")
         .navigationBarTitleDisplayMode(.inline)
     }
+    
+    
+    func deleteUser(at offsets: IndexSet) {
+        pvm.recentUsers.remove(atOffsets: offsets)
+    }
+    
+    func deleteFile(at offsets: IndexSet) {
+        pvm.chosenFiles.remove(atOffsets: offsets)
+    }
+    
+    func deleteTemplate(at offsets: IndexSet) {
+        pvm.templates.remove(atOffsets: offsets)
+    }
 }
 
 struct SecureFileView_Previews: PreviewProvider {
     static var previews: some View {
-        SecureFileView()
+        SecureFileView(pvm: ProtectViewModel())
     }
 }

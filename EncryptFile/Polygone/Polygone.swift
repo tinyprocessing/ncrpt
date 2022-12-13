@@ -10,7 +10,7 @@ import Foundation
 class Polygone: ObservableObject, Identifiable  {
     let aesHelper : AESHelper = AESHelper()
     
-    func encryptFile(_ url: URL, users: [userItem] = [], completion: @escaping (_ success:Bool) -> Void){
+    func encryptFile(_ url: URL, users: [User] = [], completion: @escaping (_ success:Bool) -> Void){
         do {
             let password : String = UUID().uuidString
             log.debug(module: "Polygone", type: #function, object: "Processing keys")
@@ -31,7 +31,7 @@ class Polygone: ObservableObject, Identifiable  {
                     let certification = Certification()
                     certification.getCertificate()
                     let aesKey = engine.exportAES()
-                    let md5Result = md5File(url: url) ?? ""
+                    let md5Result = UUID().uuidString + "." + (md5File(url: url) ?? "")
                     var license : License = License()
                     license.owner = certification.certificate.email ?? ""
                     license.AESKey = "encrypted"
@@ -49,9 +49,13 @@ class Polygone: ObservableObject, Identifiable  {
                     
                     var rights : Rights = Rights()
                     rights.owner = certification.certificate.email ?? ""
+//                    users.forEach { user in
+//                        rights.users.append(user.email)
+//                        rights.rights.append(user.rights)
+//                    }
                     users.forEach { user in
                         rights.users.append(user.email)
-                        rights.rights.append(user.rights)
+                        rights.rights.append(contentsOf: user.rights)
                     }
                     let rightsJSONData = try JSONEncoder().encode(rights)
                     let encryptedFile = engine.encryptData(data: rightsJSONData)
@@ -127,8 +131,8 @@ class Polygone: ObservableObject, Identifiable  {
             
             
             if let json = json as? Dictionary<String, AnyObject>, let fileMD5 = json["fileMD5"] as? String {
-                Network.shared.licenseDecrypt(fileMD5: fileMD5) { [self] aesServer, success in
-                    if success {
+                Network.shared.licenseDecrypt(fileMD5: fileMD5) { [self] aesServer, rights, success  in
+                    if (success != nil) {
                         do {
                             let aesImport = aesHelper.importKey(aesServer)
                             var aes = AES(key: aesImport.0!, iv: aesImport.1!)

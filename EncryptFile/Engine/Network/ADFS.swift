@@ -56,8 +56,12 @@ class ADFS: NSObject, ObservableObject, Identifiable, URLSessionDelegate, URLSes
             print(challenge.protectionSpace.authenticationMethod)
             
             if (challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodClientCertificate){
-                    let keychain = Keychain()
-                    let identity = keychain.certification.loadIdentity()!
+                let keychain = Keychain()
+                var identity : SecIdentity? = nil
+                identity = keychain.certification.loadIdentity(1)
+                if identity == nil {
+                    identity = keychain.certification.loadIdentity(0)
+                }
                     let config = URLCredential(identity: keychain.certification.loadIdentity()!,
                                                certificates: nil,
                                                persistence: .forSession)

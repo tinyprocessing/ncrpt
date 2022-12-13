@@ -11,14 +11,15 @@ struct SideMenu: View {
     @Binding var isShowMenu: Bool
     
     @StateObject var viewModel = GroupViewModel()
+    @ObservedObject var pvm: ProtectViewModel
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
             ZStack(alignment: .leading) {
-                Color(.gray).opacity(0.17)
+                Color.init(hex: "4378DB")
                     .ignoresSafeArea()
                 
-                TeamMenuView(viewModel: viewModel)
+                TeamMenuView(viewModel: viewModel, pvm: pvm)
                     .navigationBarHidden(true)
             }
             
@@ -28,7 +29,7 @@ struct SideMenu: View {
                 }
             } label: {
                 Image(systemName: "xmark")
-                    .foregroundColor(.black)
+                    .foregroundColor(.white)
                     .padding(.trailing, 20)
                     .padding(.top, 10)
             }
@@ -39,7 +40,7 @@ struct SideMenu: View {
 
 struct SideMenu_Previews: PreviewProvider {
     static var previews: some View {
-        SideMenu(isShowMenu: .constant(true), viewModel: GroupViewModel())
+        SideMenu(isShowMenu: .constant(true), viewModel: GroupViewModel(), pvm: ProtectViewModel())
     }
 }
 

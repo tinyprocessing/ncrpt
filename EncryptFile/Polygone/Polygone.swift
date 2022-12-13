@@ -131,8 +131,8 @@ class Polygone: ObservableObject, Identifiable  {
             
             
             if let json = json as? Dictionary<String, AnyObject>, let fileMD5 = json["fileMD5"] as? String {
-                Network.shared.licenseDecrypt(fileMD5: fileMD5) { [self] aesServer, success in
-                    if success {
+                Network.shared.licenseDecrypt(fileMD5: fileMD5) { [self] aesServer, rights, success  in
+                    if (success != nil) {
                         do {
                             let aesImport = aesHelper.importKey(aesServer)
                             var aes = AES(key: aesImport.0!, iv: aesImport.1!)

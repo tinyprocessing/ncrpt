@@ -112,21 +112,20 @@ struct PreviewController: UIViewControllerRepresentable {
 
 struct SheetView: View {
     @Environment(\.dismiss) var dismiss
-    @Binding var content : URL?
+    @ObservedObject var content : ProtectViewModel
     var body: some View {
         VStack{
-            HStack{
-                Button(action: {
-                    self.dismiss()
-                }, label: {
-                    Text("Close")
-                        .foregroundColor(Color.black)
-                })
-                Spacer()
+            if self.content.chosenFiles.count > 0 {
+                PreviewController(url: (self.content.chosenFiles.first?.url!)!)
+            }else{
+                VStack{
+                    ActivityIndicator(isAnimating: .constant(true), style: .large)
+                        .foregroundColor(.secondary)
+                    
+                    Text("Decrypting file")
+                        .modifier(NCRPTTextMedium(size: 16))
+                }
             }
-            .padding(.horizontal)
-            .padding(.vertical, 15)
-            PreviewController(url: self.content!)
         }
     }
 }

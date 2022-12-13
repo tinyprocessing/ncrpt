@@ -57,6 +57,7 @@
 		2C75701D2924496C0043B464 /* ADFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C75701C2924496C0043B464 /* ADFS.swift */; };
 		2CEF745829267FB7009663C8 /* FilePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEF745729267FB7009663C8 /* FilePreview.swift */; };
 		CAC626C503C0B776C3E7A888 /* Pods_EncryptFile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */; };
+		D49D419F2949273A00C66F0E /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D419E2949273A00C66F0E /* ActivityIndicator.swift */; };
 		D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F5B29086AA300EF7C85 /* EncryptFileApp.swift */; };
 		D4F36F5E29086AA300EF7C85 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F5D29086AA300EF7C85 /* ContentView.swift */; };
 		D4F36F6029086AA400EF7C85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4F36F5F29086AA400EF7C85 /* Assets.xcassets */; };
@@ -126,6 +127,7 @@
 		3AE40F6516B80AD996D0E26C /* Pods-EncryptFile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.release.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.release.xcconfig"; sourceTree = "<group>"; };
 		A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EncryptFile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1D9F4C2828C34ED673B7C13 /* Pods-EncryptFile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.debug.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.debug.xcconfig"; sourceTree = "<group>"; };
+		D49D419E2949273A00C66F0E /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		D4F36F5829086AA300EF7C85 /* EncryptFile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EncryptFile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F36F5B29086AA300EF7C85 /* EncryptFileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptFileApp.swift; sourceTree = "<group>"; };
 		D4F36F5D29086AA300EF7C85 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -166,7 +168,6 @@
 				A1D9F4C2828C34ED673B7C13 /* Pods-EncryptFile.debug.xcconfig */,
 				3AE40F6516B80AD996D0E26C /* Pods-EncryptFile.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -398,6 +399,7 @@
 			isa = PBXGroup;
 			children = (
 				D4F36F822909AE7100EF7C85 /* FileDocumentStruct.swift */,
+				D49D419E2949273A00C66F0E /* ActivityIndicator.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -454,9 +456,9 @@
 			);
 			mainGroup = D4F36F4F29086AA300EF7C85;
 			packageReferences = (
-				D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation.git" */,
-				2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire.git" */,
-				2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON.git" */,
+				D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+				2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */,
+				2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = D4F36F5929086AA300EF7C85 /* Products */;
 			projectDirPath = "";
@@ -562,6 +564,7 @@
 				23E724702917A14100ECFA19 /* ProtectViewModel.swift in Sources */,
 				23994E772910F67A00A832E4 /* RegistrationViewModel.swift in Sources */,
 				23994E752910F5EB00A832E4 /* LoginView.swift in Sources */,
+				D49D419F2949273A00C66F0E /* ActivityIndicator.swift in Sources */,
 				23E7247D29194DC000ECFA19 /* UserRightsView.swift in Sources */,
 				D4F36F882909DA3500EF7C85 /* FileSize.swift in Sources */,
 				D4F36F722908717900EF7C85 /* Polygone.swift in Sources */,
@@ -798,7 +801,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire.git" */ = {
+		2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -806,7 +809,7 @@
 				kind = branch;
 			};
 		};
-		2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON.git" */ = {
+		2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
 			requirement = {
@@ -814,7 +817,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation.git" */ = {
+		D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
 			requirement = {
@@ -827,17 +830,17 @@
 /* Begin XCSwiftPackageProductDependency section */
 		2C1BC0A6290FFCA800B3AD7C /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire.git" */;
+			package = 2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
 		2C75701A292439F20043B464 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON.git" */;
+			package = 2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
 		};
 		D4F36F7B2908898000EF7C85 /* ZIPFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation.git" */;
+			package = D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
 		};
 /* End XCSwiftPackageProductDependency section */

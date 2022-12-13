@@ -45,10 +45,10 @@ class Network: ObservableObject, Identifiable  {
         ADFS.shared.jwt { success in
             let headers: HTTPHeaders = [.authorization(bearerToken: ADFS.shared.jwt)]
             AF.request("https://secure.ncrpt.io/license.php", method: .post, parameters: ["fileLicense": license,
-                                                                                           "fileAES": fileAES,
-                                                                                           "fileMD5": fileMD5], headers: headers).responseJSON { [self] (response) in
+                                                                                          "fileAES": fileAES,
+                                                                                          "fileMD5": fileMD5], headers: headers).responseJSON { [self] (response) in
                 if (response.response?.statusCode == 200) {
-                   completion(true)
+                    completion(true)
                 }else{
                     completion(false)
                 }
@@ -56,7 +56,7 @@ class Network: ObservableObject, Identifiable  {
         }
     }
     
-    func licenseDecrypt(fileMD5: String, completion: @escaping (_ aes : String, _ success:Bool) -> Void){
+    func licenseDecrypt(fileMD5: String, completion: @escaping (_ aes : String, _ rights: Rights?, _ success:Bool) -> Void){
         ADFS.shared.jwt { success in
             let headers: HTTPHeaders = [.authorization(bearerToken: ADFS.shared.jwt)]
             AF.request("https://secure.ncrpt.io/decrypt.php", method: .post, parameters: ["fileMD5": fileMD5], headers: headers).responseJSON { [self] (response) in
@@ -64,11 +64,36 @@ class Network: ObservableObject, Identifiable  {
                 if (response.response?.statusCode == 200) {
                     if (response.value != nil) {
                         let json = JSON(response.value!)
-                        print(json)
-                        completion(json["aes"].stringValue, true)
+                        
+                        let owner = json["owner"].stringValue
+                        let rightsAllUsers = json["rightsAllUsers"]
+                        // Users array
+                        var users : [String] = []
+                        rightsAllUsers["users"].arrayValue.forEach { user in
+                            users.append(user.stringValue)
+                        }
+                        
+                        // Rights array
+                        var rights : [String] = []
+                        rightsAllUsers["rights"].arrayValue.forEach { right in
+                            rights.append(right.stringValue)
+                        }
+
+                        print("---USER INFORMATION---")
+                        print(users)
+                        print(rights)
+                        print(owner)
+                        
+                        var rightsDecrypted : Rights = Rights()
+                        rightsDecrypted.owner = owner
+                        rightsDecrypted.users = users
+                        rightsDecrypted.rights = rights
+                        
+                        
+                        completion(json["aes"].stringValue, rightsDecrypted, true)
                     }
                 }else{
-                    completion("", false)
+                    completion("", nil, false)
                 }
             }
         }

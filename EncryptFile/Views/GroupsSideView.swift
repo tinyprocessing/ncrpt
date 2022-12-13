@@ -23,12 +23,6 @@ struct GroupsSideView: View {
                 .padding()
             
             
-            Text(self.email.lowercased())
-                .foregroundColor(.white)
-                .modifier(NCRPTTextRegular(size: 16))
-                .padding(.horizontal, 15)
-                .underline()
-            
             Spacer()
             
             
@@ -84,20 +78,20 @@ struct GroupsSideView: View {
                     }
                 })
                 
-                VStack(alignment: .leading, spacing: 20){
-                    NavigationLink(destination: Text("License"), label: {
-                        Text("License")
-                            .foregroundColor(.white)
-                            .modifier(NCRPTTextRegular(size: 16))
-                    })
-                    
-                    NavigationLink(destination: Text("Logging"), label: {
-                        Text("Logging")
-                            .foregroundColor(.white)
-                            .modifier(NCRPTTextRegular(size: 16))
-                    })
-                    
-                }.padding(.top, 30)
+//                VStack(alignment: .leading, spacing: 20){
+//                    NavigationLink(destination: Text("License"), label: {
+//                        Text("License")
+//                            .foregroundColor(.white)
+//                            .modifier(NCRPTTextRegular(size: 16))
+//                    })
+//
+//                    NavigationLink(destination: Text("Logging"), label: {
+//                        Text("Logging")
+//                            .foregroundColor(.white)
+//                            .modifier(NCRPTTextRegular(size: 16))
+//                    })
+//
+//                }.padding(.top, 30)
                 
                 
             }
@@ -105,21 +99,32 @@ struct GroupsSideView: View {
             .padding(.horizontal, 15)
             
             Spacer()
-            
-            Button(action: {
-                
-            }, label: {
-                HStack(spacing: 10){
-                    Image(systemName: "rectangle.portrait.and.arrow.right")
-                        .font(.system(size: 22))
-                        .foregroundColor(.white)
-                        .frame(width: 30)
-                    
-                    Text("Log out")
+            VStack(spacing: 10){
+                HStack{
+                    Text(self.email.lowercased())
                         .foregroundColor(.white)
                         .modifier(NCRPTTextRegular(size: 16))
+                        .underline()
+                    Spacer()
                 }
-            })
+                
+                Button(action: {
+                    
+                }, label: {
+                    HStack(spacing: 10){
+                        Image(systemName: "rectangle.portrait.and.arrow.right")
+                            .font(.system(size: 22))
+                            .foregroundColor(.white)
+                            .frame(width: 30)
+                        
+                        Text("Log out")
+                            .foregroundColor(.white)
+                            .modifier(NCRPTTextRegular(size: 16))
+                        
+                        Spacer()
+                    }
+                })
+            }
             .padding(.vertical, 35)
             .padding(.horizontal, 15)
             

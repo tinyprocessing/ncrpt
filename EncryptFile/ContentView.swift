@@ -35,179 +35,179 @@ struct ContentView: View {
                 ZStack(alignment: .bottomTrailing) {
                     Color.white
                     VStack{
-                        VStack{
-                            HStack{
-                                Text("Folders")
-                                    .modifier(NCRPTTextSemibold(size: 18))
-                                    .foregroundColor(Color.init(hex: "21205A"))
-                                Spacer()
-                            }
-                            .padding(.horizontal, 20)
-                            .padding(.top, 15)
-                            
-                            VStack(spacing: 15){
-                                HStack{
-                                    Button(action: {
-                                        
-                                    }, label: {
-                                        ZStack{
-                                            RoundedRectangle(cornerRadius: 16)
-                                                .fill(Color.init(hex: "4378DB").opacity(0.16))
-                                                .frame(height: 125)
-                                            HStack{
-                                                VStack(alignment: .leading, spacing: 15){
-                                                    Image("blueFolder")
-                                                        .resizable()
-                                                        .aspectRatio(contentMode: .fit)
-                                                        .frame(width: 30, height: 30, alignment: .center)
-                                                    
-                                                    Text("Work")
-                                                        .modifier(NCRPTTextMedium(size: 15))
-                                                        .foregroundColor(Color.init(hex: "4378DB"))
-                                                    
-                                                    Text("0 files")
-                                                        .modifier(NCRPTTextRegular(size: 14))
-                                                        .foregroundColor(Color.init(hex: "4378DB").opacity(0.7))
-                                                }
-                                                Spacer()
-                                                VStack{
-                                                    Text(":")
-                                                        .modifier(NCRPTTextSemibold(size: 20))
-                                                        .foregroundColor(Color.init(hex: "4378DB"))
-                                                        .padding(10)
-                                                    Spacer()
-                                                }
-                                                
-                                            }
-                                            .padding(.horizontal, 10)
-                                            .frame(height: 125)
-                                        }
-                                    })
-                                    
-                                    Spacer(minLength: 15)
-                                    
-                                    Button(action: {
-                                        
-                                    }, label: {
-                                        ZStack{
-                                            RoundedRectangle(cornerRadius: 16)
-                                                .fill(Color.init(hex: "F0A714").opacity(0.16))
-                                                .frame(height: 125)
-                                            HStack{
-                                                VStack(alignment: .leading, spacing: 15){
-                                                    Image("yellowFolder")
-                                                        .resizable()
-                                                        .aspectRatio(contentMode: .fit)
-                                                        .frame(width: 30, height: 30, alignment: .center)
-                                                    
-                                                    Text("iCloud")
-                                                        .modifier(NCRPTTextMedium(size: 15))
-                                                        .foregroundColor(Color.init(hex: "F0A714"))
-                                                    
-                                                    Text("0 files")
-                                                        .modifier(NCRPTTextRegular(size: 14))
-                                                        .foregroundColor(Color.init(hex: "F0A714").opacity(0.7))
-                                                    
-                                                }
-                                                Spacer()
-                                                VStack{
-                                                    Text(":")
-                                                        .modifier(NCRPTTextSemibold(size: 20))
-                                                        .foregroundColor(Color.init(hex: "F0A714"))
-                                                        .padding(10)
-                                                    Spacer()
-                                                }
-                                                
-                                            }
-                                            .padding(.horizontal, 10)
-                                            .frame(height: 125)
-                                            
-                                        }
-                                    })
-                                    
-                                }.padding(.horizontal, 20)
-                                HStack{
-                                    Button(action: {
-                                        
-                                    }, label: {
-                                        ZStack{
-                                            RoundedRectangle(cornerRadius: 16)
-                                                .fill(Color.init(hex: "F35555").opacity(0.16))
-                                                .frame(height: 125)
-                                            HStack{
-                                                VStack(alignment: .leading, spacing: 15){
-                                                    Image("redFolder")
-                                                        .resizable()
-                                                        .aspectRatio(contentMode: .fit)
-                                                        .frame(width: 30, height: 30, alignment: .center)
-                                                    
-                                                    Text("Shared")
-                                                        .modifier(NCRPTTextMedium(size: 15))
-                                                        .foregroundColor(Color.init(hex: "F35555"))
-                                                    
-                                                    Text("0 files")
-                                                        .modifier(NCRPTTextRegular(size: 14))
-                                                        .foregroundColor(Color.init(hex: "F35555").opacity(0.7))
-                                                }
-                                                Spacer()
-                                                VStack{
-                                                    Text(":")
-                                                        .modifier(NCRPTTextSemibold(size: 20))
-                                                        .foregroundColor(Color.init(hex: "F35555"))
-                                                        .padding(10)
-                                                    Spacer()
-                                                }
-                                                
-                                            }
-                                            .padding(.horizontal, 10)
-                                            .frame(height: 125)
-                                        }
-                                    })
-                                    
-                                    Spacer(minLength: 15)
-                                    
-                                    Button(action: {
-                                        
-                                    }, label: {
-                                        ZStack{
-                                            RoundedRectangle(cornerRadius: 16)
-                                                .fill(Color.init(hex: "28A164").opacity(0.16))
-                                                .frame(height: 125)
-                                            HStack{
-                                                VStack(alignment: .leading, spacing: 15){
-                                                    Image("greenFolder")
-                                                        .resizable()
-                                                        .aspectRatio(contentMode: .fit)
-                                                        .frame(width: 30, height: 30, alignment: .center)
-                                                    
-                                                    Text("My Files")
-                                                        .modifier(NCRPTTextMedium(size: 15))
-                                                        .foregroundColor(Color.init(hex: "28A164"))
-                                                    
-                                                    Text("0 files")
-                                                        .modifier(NCRPTTextRegular(size: 14))
-                                                        .foregroundColor(Color.init(hex: "28A164").opacity(0.7))
-                                                    
-                                                }
-                                                Spacer()
-                                                VStack{
-                                                    Text(":")
-                                                        .modifier(NCRPTTextSemibold(size: 20))
-                                                        .foregroundColor(Color.init(hex: "28A164"))
-                                                        .padding(10)
-                                                    Spacer()
-                                                }
-                                                
-                                            }
-                                            .padding(.horizontal, 10)
-                                            .frame(height: 125)
-                                            
-                                        }
-                                    })
-                                    
-                                }.padding(.horizontal, 20)
-                            }
-                            
+                        VStack(spacing: 0){
+//                            HStack{
+//                                Text("Folders")
+//                                    .modifier(NCRPTTextSemibold(size: 18))
+//                                    .foregroundColor(Color.init(hex: "21205A"))
+//                                Spacer()
+//                            }
+//                            .padding(.horizontal, 20)
+//                            .padding(.top, 15)
+//
+//                            VStack(spacing: 15){
+//                                HStack{
+//                                    Button(action: {
+//
+//                                    }, label: {
+//                                        ZStack{
+//                                            RoundedRectangle(cornerRadius: 16)
+//                                                .fill(Color.init(hex: "4378DB").opacity(0.16))
+//                                                .frame(height: 125)
+//                                            HStack{
+//                                                VStack(alignment: .leading, spacing: 15){
+//                                                    Image("blueFolder")
+//                                                        .resizable()
+//                                                        .aspectRatio(contentMode: .fit)
+//                                                        .frame(width: 30, height: 30, alignment: .center)
+//
+//                                                    Text("Work")
+//                                                        .modifier(NCRPTTextMedium(size: 15))
+//                                                        .foregroundColor(Color.init(hex: "4378DB"))
+//
+//                                                    Text("0 files")
+//                                                        .modifier(NCRPTTextRegular(size: 14))
+//                                                        .foregroundColor(Color.init(hex: "4378DB").opacity(0.7))
+//                                                }
+//                                                Spacer()
+//                                                VStack{
+//                                                    Text(":")
+//                                                        .modifier(NCRPTTextSemibold(size: 20))
+//                                                        .foregroundColor(Color.init(hex: "4378DB"))
+//                                                        .padding(10)
+//                                                    Spacer()
+//                                                }
+//
+//                                            }
+//                                            .padding(.horizontal, 10)
+//                                            .frame(height: 125)
+//                                        }
+//                                    })
+//
+//                                    Spacer(minLength: 15)
+//
+//                                    Button(action: {
+//
+//                                    }, label: {
+//                                        ZStack{
+//                                            RoundedRectangle(cornerRadius: 16)
+//                                                .fill(Color.init(hex: "F0A714").opacity(0.16))
+//                                                .frame(height: 125)
+//                                            HStack{
+//                                                VStack(alignment: .leading, spacing: 15){
+//                                                    Image("yellowFolder")
+//                                                        .resizable()
+//                                                        .aspectRatio(contentMode: .fit)
+//                                                        .frame(width: 30, height: 30, alignment: .center)
+//
+//                                                    Text("iCloud")
+//                                                        .modifier(NCRPTTextMedium(size: 15))
+//                                                        .foregroundColor(Color.init(hex: "F0A714"))
+//
+//                                                    Text("0 files")
+//                                                        .modifier(NCRPTTextRegular(size: 14))
+//                                                        .foregroundColor(Color.init(hex: "F0A714").opacity(0.7))
+//
+//                                                }
+//                                                Spacer()
+//                                                VStack{
+//                                                    Text(":")
+//                                                        .modifier(NCRPTTextSemibold(size: 20))
+//                                                        .foregroundColor(Color.init(hex: "F0A714"))
+//                                                        .padding(10)
+//                                                    Spacer()
+//                                                }
+//
+//                                            }
+//                                            .padding(.horizontal, 10)
+//                                            .frame(height: 125)
+//
+//                                        }
+//                                    })
+//
+//                                }.padding(.horizontal, 20)
+//                                HStack{
+//                                    Button(action: {
+//
+//                                    }, label: {
+//                                        ZStack{
+//                                            RoundedRectangle(cornerRadius: 16)
+//                                                .fill(Color.init(hex: "F35555").opacity(0.16))
+//                                                .frame(height: 125)
+//                                            HStack{
+//                                                VStack(alignment: .leading, spacing: 15){
+//                                                    Image("redFolder")
+//                                                        .resizable()
+//                                                        .aspectRatio(contentMode: .fit)
+//                                                        .frame(width: 30, height: 30, alignment: .center)
+//
+//                                                    Text("Shared")
+//                                                        .modifier(NCRPTTextMedium(size: 15))
+//                                                        .foregroundColor(Color.init(hex: "F35555"))
+//
+//                                                    Text("0 files")
+//                                                        .modifier(NCRPTTextRegular(size: 14))
+//                                                        .foregroundColor(Color.init(hex: "F35555").opacity(0.7))
+//                                                }
+//                                                Spacer()
+//                                                VStack{
+//                                                    Text(":")
+//                                                        .modifier(NCRPTTextSemibold(size: 20))
+//                                                        .foregroundColor(Color.init(hex: "F35555"))
+//                                                        .padding(10)
+//                                                    Spacer()
+//                                                }
+//
+//                                            }
+//                                            .padding(.horizontal, 10)
+//                                            .frame(height: 125)
+//                                        }
+//                                    })
+//
+//                                    Spacer(minLength: 15)
+//
+//                                    Button(action: {
+//
+//                                    }, label: {
+//                                        ZStack{
+//                                            RoundedRectangle(cornerRadius: 16)
+//                                                .fill(Color.init(hex: "28A164").opacity(0.16))
+//                                                .frame(height: 125)
+//                                            HStack{
+//                                                VStack(alignment: .leading, spacing: 15){
+//                                                    Image("greenFolder")
+//                                                        .resizable()
+//                                                        .aspectRatio(contentMode: .fit)
+//                                                        .frame(width: 30, height: 30, alignment: .center)
+//
+//                                                    Text("My Files")
+//                                                        .modifier(NCRPTTextMedium(size: 15))
+//                                                        .foregroundColor(Color.init(hex: "28A164"))
+//
+//                                                    Text("0 files")
+//                                                        .modifier(NCRPTTextRegular(size: 14))
+//                                                        .foregroundColor(Color.init(hex: "28A164").opacity(0.7))
+//
+//                                                }
+//                                                Spacer()
+//                                                VStack{
+//                                                    Text(":")
+//                                                        .modifier(NCRPTTextSemibold(size: 20))
+//                                                        .foregroundColor(Color.init(hex: "28A164"))
+//                                                        .padding(10)
+//                                                    Spacer()
+//                                                }
+//
+//                                            }
+//                                            .padding(.horizontal, 10)
+//                                            .frame(height: 125)
+//
+//                                        }
+//                                    })
+//
+//                                }.padding(.horizontal, 20)
+//                            }
+//
                             HStack{
                                 Text("Recent Files")
                                     .modifier(NCRPTTextSemibold(size: 18))
@@ -345,6 +345,8 @@ struct ContentView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 22, height: 22, alignment: .center)
                         }
+                        .shadow(radius: 5)
+                        .padding(.bottom, 5)
                     })
                  
                     VisualEffect(style: .prominent)

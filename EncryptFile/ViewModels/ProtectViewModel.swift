@@ -43,7 +43,7 @@ class ProtectViewModel: ObservableObject {
     func getSampleTempl() {
         templates = [
             Template(name: "Developers", users: ["mdsafir@ncrpt.io", "kaanisimov@ncrpt.io"], rights: ["Owner"]),
-            Template(name: "Accountants", users: [], rights: ["View", "Edit"]),
+            Template(name: "Accountants", users: ["nasozinov@ncrpt.io"], rights: ["View", "Edit"]),
         ]
     }
     

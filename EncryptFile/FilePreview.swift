@@ -127,5 +127,17 @@ struct SheetView: View {
                 }
             }
         }
+        .navigationBarItems(
+            leading:
+                EmptyView()
+            ,
+            trailing:
+                Button(action: {
+                    
+                }, label: {
+                    Image(systemName: "list.clipboard")
+                        .foregroundColor(.black)
+                })
+        )
     }
 }

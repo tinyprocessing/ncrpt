@@ -230,6 +230,23 @@ struct ContentView: View {
         }
         .background(.red)
         .accentColor(.black)
+        .onOpenURL { url in
+            self.content.chosenFiles = []
+            showingContent = false
+            
+            DispatchQueue.main.async {
+                showingContent.toggle()
+            }
+            
+            let polygone = Polygone()
+            polygone.decryptFile(url) { url, success in
+                if success {
+                    self.content.chosenFiles = [Attach(url: url)]
+                }else{
+                    Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
+                }
+            }
+        }
     }
 }
 

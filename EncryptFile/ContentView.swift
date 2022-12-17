@@ -97,17 +97,42 @@ struct ContentView: View {
                                                     
                                                     Button(role: .destructive, action: {
                                                         print("revoke file from server")
+                                                        Settings.shared.alertViewWithCompletion(title: "Sure?", message: "File will be revoked and deleted from server and device.") { result in
+                                                            if result {
+                                                                let polygone = Polygone()
+                                                                let md5 = polygone.getFileMD5(file.url!)
+                                                                if let md5 = md5 {
+                                                                    Network.shared.revoke(fileMD5: md5) { success in
+                                                                        if success {
+                                                                            do {
+                                                                                try FileManager.default.removeItem(atPath: (file.url?.path().removingPercentEncoding)!)
+                                                                                self.localFiles.getLocalFiles()
+                                                                            } catch {
+                                                                                print("Could not delete file, probably read-only filesystem")
+                                                                            }
+                                                                        }else{
+                                                                            Settings.shared.alert(title: "Error", message: "Server is not able to revoke", buttonName: "close")
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+
                                                     }) {
                                                         Label("Revoke", systemImage: "network")
                                                             .foregroundColor(.red)
                                                     }
                                                     
                                                     Button(role: .destructive, action: {
-                                                        do {
-                                                            try FileManager.default.removeItem(atPath: (file.url?.path().removingPercentEncoding)!)
-                                                            self.localFiles.getLocalFiles()
-                                                        } catch {
-                                                            print("Could not delete file, probably read-only filesystem")
+                                                        Settings.shared.alertViewWithCompletion(title: "Sure?", message: "File will be deleted from device.") { result in
+                                                            if result {
+                                                                do {
+                                                                    try FileManager.default.removeItem(atPath: (file.url?.path().removingPercentEncoding)!)
+                                                                    self.localFiles.getLocalFiles()
+                                                                } catch {
+                                                                    print("Could not delete file, probably read-only filesystem")
+                                                                }
+                                                            }
                                                         }
                                                     }) {
                                                         Label("Delete", systemImage: "trash")

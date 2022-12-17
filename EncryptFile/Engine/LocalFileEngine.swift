@@ -67,7 +67,8 @@ class LocalFileEngine: ObservableObject, Identifiable  {
                         do {
                             try FileManager.default.removeItem(atPath: (item.path().removingPercentEncoding)!)
                         } catch {
-                            print("error??")
+                            print("removeItem error")
+                            print(error)
                         }
                     }
                 }

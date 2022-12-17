@@ -25,18 +25,18 @@ class LocalFileEngine: ObservableObject, Identifiable  {
         if ext == "0001"{
             header = "pdf"
         }
-        if ext == "0002"{
-            header = "docx"
-        }
-        if ext == "0003"{
-            header = "pptx"
-        }
-        if ext == "0004"{
-            header = "xlsx"
-        }
-        if ext == "0005"{
-            header = "jpg"
-        }
+//        if ext == "0002"{
+//            header = "docx"
+//        }
+//        if ext == "0003"{
+//            header = "pptx"
+//        }
+//        if ext == "0004"{
+//            header = "xlsx"
+//        }
+//        if ext == "0005"{
+//            header = "jpg"
+//        }
         if ext == "0006"{
             header = "png"
         }

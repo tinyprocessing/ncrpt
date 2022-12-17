@@ -109,7 +109,7 @@ struct GroupsSideView: View {
                 }
                 
                 Button(action: {
-                    
+                    Settings.shared.logout()
                 }, label: {
                     HStack(spacing: 10){
                         Image(systemName: "rectangle.portrait.and.arrow.right")

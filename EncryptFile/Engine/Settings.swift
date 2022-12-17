@@ -23,6 +23,15 @@ class Settings: ObservableObject, Identifiable {
     
     var allowDebug : Bool = true
      
+    func logout(){
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
+        
+        let keychain = Keychain()
+        keychain.helper.deleteKeyChain()
+    }
+    
     func cleanLogs(){
         
         var cacheURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.absoluteString

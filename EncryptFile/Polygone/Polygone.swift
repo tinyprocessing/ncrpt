@@ -55,7 +55,7 @@ class Polygone: ObservableObject, Identifiable  {
 //                    }
                     users.forEach { user in
                         rights.users.append(user.email)
-                        rights.rights.append(contentsOf: user.rights)
+                        rights.rights.append(user.allRights)
                     }
                     let rightsJSONData = try JSONEncoder().encode(rights)
                     let encryptedFile = engine.encryptData(data: rightsJSONData)

@@ -83,9 +83,9 @@ class LocalFileEngine: ObservableObject, Identifiable  {
                         let fileExtension = String(decoding: fileURLNCRPTData[0...3], as: UTF8.self)
                         self.objectWillChange.send()
                         files.append(fileItem(name: url.lastPathComponent, url: url, ext: decodeFileExtension(fileExtension)))
-                        print(url)
+//                        print(url)
                     }catch{
-                        print("getLocalFiles error")
+//                        print("getLocalFiles error")
                     }
                 }
             }

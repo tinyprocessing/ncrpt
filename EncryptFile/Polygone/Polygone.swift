@@ -132,7 +132,7 @@ class Polygone: ObservableObject, Identifiable  {
             
             if let json = json as? Dictionary<String, AnyObject>, let fileMD5 = json["fileMD5"] as? String {
                 Network.shared.licenseDecrypt(fileMD5: fileMD5) { [self] aesServer, rights, success  in
-                    if (success != nil) {
+                    if (success == true) {
                         do {
                             let aesImport = aesHelper.importKey(aesServer)
                             var aes = AES(key: aesImport.0!, iv: aesImport.1!)
@@ -149,6 +149,8 @@ class Polygone: ObservableObject, Identifiable  {
                             completion(nil, false)
                             log.debug(module: "FileEngine", type: #function, object: "Could not delete file, probably read-only filesystem")
                         }
+                    }else{
+                        completion(nil, false)
                     }
                 }
             }

@@ -50,7 +50,15 @@ class FileEngine: ObservableObject, Identifiable  {
         let fileURLSecure = libraryDirectory[0].appendingPathComponent("/\(fileDirectory)/primary")
         let fileURLLicense = libraryDirectory[0].appendingPathComponent("/\(fileDirectory)/license.json")
         let fileURLFolder = libraryDirectory[0].appendingPathComponent("/\(fileDirectory)")
-        let fileURLNCRPT = libraryDirectory[0].appendingPathComponent("\(filename).ncrpt")
+        var fileFullName = "\(filename).ncrpt"
+        
+        LocalFileEngine.shared.getLocalFiles()
+        let filesWithSameName = LocalFileEngine.shared.files.filter({ $0.name == fileFullName})
+        if filesWithSameName.count > 0 {
+            fileFullName = "\(filename)_\(filesWithSameName.count+1).ncrpt"
+        }
+        
+        let fileURLNCRPT = libraryDirectory[0].appendingPathComponent(fileFullName)
 
         do {
             try! data.write(to: fileURLSecure)
@@ -67,6 +75,7 @@ class FileEngine: ObservableObject, Identifiable  {
             }
             
         }catch{
+            print(error)
             log.debug(module: "FileEngine", type: #function, object: "Error exportNCRPT")
         }
     }

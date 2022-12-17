@@ -25,18 +25,18 @@ class LocalFileEngine: ObservableObject, Identifiable  {
         if ext == "0001"{
             header = "pdf"
         }
-        if ext == "0002"{
-            header = "docx"
-        }
-        if ext == "0003"{
-            header = "pptx"
-        }
-        if ext == "0004"{
-            header = "xlsx"
-        }
-        if ext == "0005"{
-            header = "jpg"
-        }
+//        if ext == "0002"{
+//            header = "docx"
+//        }
+//        if ext == "0003"{
+//            header = "pptx"
+//        }
+//        if ext == "0004"{
+//            header = "xlsx"
+//        }
+//        if ext == "0005"{
+//            header = "jpg"
+//        }
         if ext == "0006"{
             header = "png"
         }
@@ -67,7 +67,8 @@ class LocalFileEngine: ObservableObject, Identifiable  {
                         do {
                             try FileManager.default.removeItem(atPath: (item.path().removingPercentEncoding)!)
                         } catch {
-                            print("error??")
+                            print("removeItem error")
+                            print(error)
                         }
                     }
                 }
@@ -83,9 +84,9 @@ class LocalFileEngine: ObservableObject, Identifiable  {
                         let fileExtension = String(decoding: fileURLNCRPTData[0...3], as: UTF8.self)
                         self.objectWillChange.send()
                         files.append(fileItem(name: url.lastPathComponent, url: url, ext: decodeFileExtension(fileExtension)))
-                        print(url)
+//                        print(url)
                     }catch{
-                        print("getLocalFiles error")
+//                        print("getLocalFiles error")
                     }
                 }
             }

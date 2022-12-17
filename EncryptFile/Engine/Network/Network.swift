@@ -99,6 +99,21 @@ class Network: ObservableObject, Identifiable  {
         }
     }
     
+    func revoke(fileMD5: String, completion: @escaping (_ success:Bool) -> Void){
+        ADFS.shared.jwt { success in
+            let headers: HTTPHeaders = [.authorization(bearerToken: ADFS.shared.jwt)]
+            AF.request("https://secure.ncrpt.io/revoke.php", method: .post, parameters: ["fileMD5": fileMD5], headers: headers).responseJSON { [self] (response) in
+                
+                if (response.response?.statusCode == 200) {
+                    completion(true)
+                }else{
+                    completion(false)
+                }
+            }
+        }
+    }
+    
+    
     
     func publicServerKey(){
         do{

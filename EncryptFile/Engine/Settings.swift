@@ -23,6 +23,15 @@ class Settings: ObservableObject, Identifiable {
     
     var allowDebug : Bool = true
      
+    func logout(){
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
+        
+        let keychain = Keychain()
+        keychain.helper.deleteKeyChain()
+    }
+    
     func cleanLogs(){
         
         var cacheURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.absoluteString
@@ -63,6 +72,23 @@ class Settings: ObservableObject, Identifiable {
         alert.addAction(okAction)
         
         return alert
+    }
+    
+    func alertViewWithCompletion(title: String, message: String, buttonName: String = "ok", completion: @escaping (_ success:Bool) -> Void) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.overrideUserInterfaceStyle = .dark
+        alert.view.tintColor = .white
+        
+        let yesAction = UIAlertAction (title: "Yes", style: UIAlertAction.Style.destructive, handler: { _ in
+            completion(true)
+        })
+        let noAction = UIAlertAction (title: "No", style: UIAlertAction.Style.cancel, handler: { _ in
+            completion(false)
+        })
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        
+        UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true)
         
     }
 

@@ -55,7 +55,7 @@ class Polygone: ObservableObject, Identifiable  {
 //                    }
                     users.forEach { user in
                         rights.users.append(user.email)
-                        rights.rights.append(contentsOf: user.rights)
+                        rights.rights.append(user.allRights)
                     }
                     let rightsJSONData = try JSONEncoder().encode(rights)
                     let encryptedFile = engine.encryptData(data: rightsJSONData)
@@ -78,6 +78,64 @@ class Polygone: ObservableObject, Identifiable  {
             log.debug(module: "Polygone", type: #function, object: "Error encrypt")
         }
         
+    }
+    
+    func getFileMD5(_ url: URL) -> String? {
+        do {
+            let fileManager = FileManager()
+            let documentDirectory = try FileManager.default.url(
+                for: .documentDirectory,
+                in: .userDomainMask,
+                appropriateFor: nil,
+                create: true
+            )
+            var destinationURL = documentDirectory
+            let tmpUnZipDirectory : String = UUID().uuidString
+            destinationURL.appendPathComponent("\(tmpUnZipDirectory)")
+            try fileManager.createDirectory(at: destinationURL, withIntermediateDirectories: true, attributes: nil)
+            
+            
+            let tmpNCRPTFileZip = destinationURL.appending(path: "/file.ncrpt")
+            var dataNCRPT = try Data(contentsOf: url)
+            dataNCRPT.remove(at: 0)
+            dataNCRPT.remove(at: 0)
+            dataNCRPT.remove(at: 0)
+            dataNCRPT.remove(at: 0)
+            try dataNCRPT.write(to: tmpNCRPTFileZip)
+            try fileManager.unzipItem(at: tmpNCRPTFileZip, to: destinationURL)
+            
+            do {
+                try FileManager.default.removeItem(atPath: (tmpNCRPTFileZip.path().removingPercentEncoding)!)
+            } catch {
+               return nil
+            }
+            
+            let subDirectory : URL? = try destinationURL.appending(path: "/").subDirectories().first ?? nil
+            
+            if let _ = subDirectory?.appending(path: "primary") {}else{
+                return nil
+            }
+            
+            if let _ = subDirectory?.appending(path: "license.json") {}else{
+                return nil
+            }
+            
+            let primary : URL = (subDirectory?.appending(path: "primary"))!
+            let license : URL = (subDirectory?.appending(path: "license.json"))!
+            
+            let dataLicense = try Data(contentsOf: license, options: .mappedIfSafe)
+            let dataPrimary = try Data(contentsOf: primary, options: .mappedIfSafe)
+            let json = try JSONSerialization.jsonObject(with: dataLicense, options: .mutableLeaves)
+            
+            
+            if let json = json as? Dictionary<String, AnyObject>, let fileMD5 = json["fileMD5"] as? String {
+                return fileMD5
+            }
+            
+        }catch{
+            return nil
+        }
+        return nil 
     }
     
     func decryptFile(_ url: URL, completion: @escaping (_ url : URL?, _ success:Bool) -> Void) {
@@ -132,7 +190,7 @@ class Polygone: ObservableObject, Identifiable  {
             
             if let json = json as? Dictionary<String, AnyObject>, let fileMD5 = json["fileMD5"] as? String {
                 Network.shared.licenseDecrypt(fileMD5: fileMD5) { [self] aesServer, rights, success  in
-                    if (success != nil) {
+                    if (success == true) {
                         do {
                             let aesImport = aesHelper.importKey(aesServer)
                             var aes = AES(key: aesImport.0!, iv: aesImport.1!)
@@ -149,6 +207,8 @@ class Polygone: ObservableObject, Identifiable  {
                             completion(nil, false)
                             log.debug(module: "FileEngine", type: #function, object: "Could not delete file, probably read-only filesystem")
                         }
+                    }else{
+                        completion(nil, false)
                     }
                 }
             }

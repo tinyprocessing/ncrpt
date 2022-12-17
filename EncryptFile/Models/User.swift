@@ -14,7 +14,7 @@ struct User: Identifiable, Codable, Hashable {
     var rights: Set<String>
     
     var allRights: String {
-        rights.joined(separator: ", ")
+        rights.joined(separator: ",")
     }
     
     init(id: UUID = UUID(), name: String = "", email: String = "", rights: Set<String> = Set<String>()) {

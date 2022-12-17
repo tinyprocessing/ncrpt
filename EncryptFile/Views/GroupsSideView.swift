@@ -42,7 +42,7 @@ struct GroupsSideView: View {
                     }
                 })
                 
-                NavigationLink(destination: Text("Notifications"), label: {
+                NavigationLink(destination: NotificationsView(), label: {
                     HStack(spacing: 10){
                         Image(systemName: "bell")
                             .font(.system(size: 22))
@@ -109,7 +109,7 @@ struct GroupsSideView: View {
                 }
                 
                 Button(action: {
-                    
+                    Settings.shared.logout()
                 }, label: {
                     HStack(spacing: 10){
                         Image(systemName: "rectangle.portrait.and.arrow.right")

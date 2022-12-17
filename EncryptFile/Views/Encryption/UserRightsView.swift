@@ -12,6 +12,7 @@ struct UserRightsView: View {
     @StateObject var vm: ProtectViewModel
     @State var user: User?
     @State var isNewUser = false
+    @State var nameFieldInput = ""
     @State var emailFieldInput = ""
     @State var selectedRights = Set<String>()
     
@@ -24,18 +25,30 @@ struct UserRightsView: View {
             Section(){
                 VStack(alignment: .leading) {
                     if isNewUser {
+                        TextField("Type name", text: $nameFieldInput)
+                            .frame(height: 30)
+                            .padding(.horizontal, 10)
+                        Divider()
                         TextField("Type email", text: $emailFieldInput)
                             .frame(height: 30)
                             .padding(.horizontal, 10)
                     } else {
                         TextField("", text: Binding<String>(
+                            get: { self.nameFieldInput },
+                            set: {
+                                self.nameFieldInput = $0
+                                self.user?.name = self.nameFieldInput
+                            }))
+                        .frame(height: 30)
+                        Divider()
+                        TextField("", text: Binding<String>(
                             get: { self.emailFieldInput },
                             set: {
                                 self.emailFieldInput = $0
                                 self.user?.email = self.emailFieldInput
-                        })).onAppear(perform: loadMail)
-                            .frame(height: 30)
-                            .padding(.horizontal, 10)
+                            }))
+                        .frame(height: 30)
+                        .onAppear(perform: loadMail)
                     }
                     
                 }
@@ -71,12 +84,16 @@ struct UserRightsView: View {
                 if !emailFieldInput.isEmpty {
                     if isNewUser {
                         //add new user
-                        vm.recentUsers.append(User(email: emailFieldInput, rights: selectedRights))
+                        vm.addNewUser(User(name: nameFieldInput,
+                                           email: emailFieldInput,
+                                           rights: selectedRights),
+                                      new: true)
                     } else {
                         //edit user
-                        if let inx = vm.recentUsers.firstIndex(where: { $0.id == user?.id }) {
-                            vm.recentUsers[inx] = User(email: emailFieldInput, rights: selectedRights)
-                        }
+                        vm.addNewUser(User(id: user!.id,
+                                           name: nameFieldInput,
+                                           email: emailFieldInput,
+                                           rights: selectedRights))
                     }
                     
                     self.presentation.wrappedValue.dismiss()
@@ -94,6 +111,7 @@ struct UserRightsView: View {
 
     
     func loadMail() {
+        self.nameFieldInput = user?.name ?? ""
         self.emailFieldInput = user?.email ?? ""
     }
 

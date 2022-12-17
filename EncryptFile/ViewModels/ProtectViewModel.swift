@@ -35,25 +35,33 @@ class ProtectViewModel: ObservableObject {
      */
     
     init() {
-        getSampleTempl()
-        getSampleRecentUsers()
-    }
-    
-    //Samples to UI
-    func getSampleTempl() {
-        templates = [
-            Template(name: "Developers", users: ["mdsafir@ncrpt.io", "kaanisimov@ncrpt.io"], rights: ["Owner"]),
-            Template(name: "Accountants", users: ["nasozinov@ncrpt.io"], rights: ["View", "Edit"]),
-        ]
-    }
-    
-    func getSampleRecentUsers() {
-        recentUsers = [User(email: "mdsafir@ncrpt.io", rights: ["View"]),
-                       User(email: "kaanisimov@ncrpt.io", rights: ["View", "Edit"]),
-                       User(email: "nasozinov@ncrpt.io", rights: ["Owner"])]
+        loadTemplates()
+        loadUsers()
     }
     
     //helper methods
+    
+    private func loadTemplates() {
+        LocalStorageEngine.loadTemplates { result in
+            switch result {
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            case .success(let templates):
+                self.templates = templates
+            }
+        }
+    }
+    
+    private func loadUsers() {
+        LocalStorageEngine.loadUsers { result in
+            switch result {
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            case .success(let users):
+                self.recentUsers = users
+            }
+        }
+    }
     
     func isCurTemplate(_ templ: Template) -> Bool {
         return selectedTemplated == templ.id
@@ -80,10 +88,6 @@ class ProtectViewModel: ObservableObject {
         }
     }
     
-    func addNewUser(_ user: User) {
-        recentUsers.append(user)
-    }
-    
     func addFileURL(_ url: URL) {
         if !chosenFiles.contains(where: { $0.url == url }) {
             chosenFiles.append(Attach(url: url))
@@ -94,42 +98,70 @@ class ProtectViewModel: ObservableObject {
         return [.pdf, .docx, .png, .jpg, .jpeg, .zip, .image, .tiff, .gif, .pptx, .xlsx, .plainText]
     }
     
-}
-
-struct Template: Identifiable, Hashable {
-    let id = UUID()
-    var name: String = ""
-    var users: [String] = []
-    var rights: Set<String>
-    
-    var allRights: String {
-        rights.joined(separator: ", ")
-    }
-}
-
-struct User: Identifiable, Hashable {
-    let id = UUID()
-    var name: String = ""
-    var email: String = ""
-    var rights: Set<String>
-    
-    var allRights: String {
-        rights.joined(separator: ", ")
-    }
-}
-
-struct Attach: Hashable {
-    var url: URL?
-    var size: String {
-        let isAccessing = url?.startAccessingSecurityScopedResource() ?? false
-        if isAccessing {
-            return url?.fileSize() ?? ""
+    func addTemplate(_ temp: Template, new: Bool = false) {
+        if new {
+            templates.append(temp)
+        } else {
+            if let inx = templates.firstIndex(where: { $0.id == temp.id }) {
+                templates[inx] = temp
+            }
         }
-        return ""
+        LocalStorageEngine.saveTemplates(templates: templates) { result in
+            if case .failure(let error) = result {
+                fatalError(error.localizedDescription)
+            }
+        }
     }
-    var name: String {
-        url?.lastPathComponent ?? ""
+    
+    func addNewUser(_ user: User, new: Bool = false) {
+        if new {
+            recentUsers.append(user)
+        } else {
+            if let inx = recentUsers.firstIndex(where: { $0.id == user.id }) {
+                recentUsers[inx] = user
+            }
+        }
+        LocalStorageEngine.saveUsers(users: recentUsers) { result in
+            if case .failure(let error) = result {
+                fatalError(error.localizedDescription)
+            }
+        }
     }
-    var ext : String = ""
+    
+    func removeTemplate(at offset: IndexSet) {
+        templates.remove(atOffsets: offset)
+        LocalStorageEngine.saveTemplates(templates: templates) { result in
+            if case .failure(let error) = result {
+                fatalError(error.localizedDescription)
+            }
+        }
+    }
+    
+    func removeUser(at offset: IndexSet) {
+        recentUsers.remove(atOffsets: offset)
+        LocalStorageEngine.saveUsers(users: recentUsers) { result in
+            if case .failure(let error) = result {
+                fatalError(error.localizedDescription)
+            }
+        }
+    }
+    
 }
 
+
+extension ProtectViewModel {
+    
+    //Samples to UI
+    static func getSampleTempl() -> [Template] {
+        return [
+            Template(name: "Developers",  rights: ["Owner"]),
+            Template(name: "Accountants",  rights: ["View", "Edit"]),
+        ]
+    }
+    
+    static func getSampleRecentUsers() -> [User] {
+        return [User(email: "mdsafir@ncrpt.io", rights: ["View"]),
+                User(email: "kaanisimov@ncrpt.io", rights: ["View", "Edit"]),
+                User(email: "nasozinov@ncrpt.io", rights: ["Owner"])]
+    }
+}

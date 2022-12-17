@@ -59,7 +59,7 @@ struct AllTemplatesView: View {
     }
     
     func deleteTemplate(at offsets: IndexSet) {
-        pvm.templates.remove(atOffsets: offsets)
+        pvm.removeTemplate(at: offsets)
     }
 }
 

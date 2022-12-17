@@ -22,7 +22,7 @@ extension UIView {
         }
         
         let guardTextField = UITextField()
-        guardTextField.backgroundColor = .red
+        guardTextField.backgroundColor = .white
         guardTextField.translatesAutoresizingMaskIntoConstraints = false
         guardTextField.tag = Int.max
         guardTextField.isSecureTextEntry = true
@@ -113,10 +113,20 @@ struct PreviewController: UIViewControllerRepresentable {
 struct SheetView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var content : ProtectViewModel
+    
+    @State var opacity : Double = 0.01
     var body: some View {
         VStack{
             if self.content.chosenFiles.count > 0 {
                 PreviewController(url: (self.content.chosenFiles.first?.url!)!)
+                    .opacity(self.opacity)
+                    .onAppear{
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                            withAnimation{
+                                self.opacity = 1.0
+                            }
+                        })
+                    }
             }else{
                 VStack{
                     ActivityIndicator(isAnimating: .constant(true), style: .large)

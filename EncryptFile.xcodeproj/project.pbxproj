@@ -24,6 +24,10 @@
 		23E7247E29194DC000ECFA19 /* ProtectionTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7247A29194DC000ECFA19 /* ProtectionTemplateView.swift */; };
 		23E7247F29194DC000ECFA19 /* TemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7247B29194DC000ECFA19 /* TemplateView.swift */; };
 		23E72481292A124A00ECFA19 /* AllTemplatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E72480292A124A00ECFA19 /* AllTemplatesView.swift */; };
+		23F8553F294CC1450068F285 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F8553E294CC1450068F285 /* Template.swift */; };
+		23F85541294CC15C0068F285 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F85540294CC15C0068F285 /* User.swift */; };
+		23F85543294CC1890068F285 /* Attach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F85542294CC1890068F285 /* Attach.swift */; };
+		23F85545294DDC4C0068F285 /* LocalStorageEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F85544294DDC4C0068F285 /* LocalStorageEngine.swift */; };
 		2C1BC09B290FEEB000B3AD7C /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC09A290FEEB000B3AD7C /* Keychain.swift */; };
 		2C1BC09D290FEF3F00B3AD7C /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC09C290FEF3F00B3AD7C /* KeychainHelper.swift */; };
 		2C1BC0A1290FF23000B3AD7C /* RSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC0A0290FF23000B3AD7C /* RSA.swift */; };
@@ -94,6 +98,10 @@
 		23E7247A29194DC000ECFA19 /* ProtectionTemplateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectionTemplateView.swift; sourceTree = "<group>"; };
 		23E7247B29194DC000ECFA19 /* TemplateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateView.swift; sourceTree = "<group>"; };
 		23E72480292A124A00ECFA19 /* AllTemplatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTemplatesView.swift; sourceTree = "<group>"; };
+		23F8553E294CC1450068F285 /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
+		23F85540294CC15C0068F285 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		23F85542294CC1890068F285 /* Attach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attach.swift; sourceTree = "<group>"; };
+		23F85544294DDC4C0068F285 /* LocalStorageEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageEngine.swift; sourceTree = "<group>"; };
 		2C1BC09A290FEEB000B3AD7C /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		2C1BC09C290FEF3F00B3AD7C /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		2C1BC0A0290FF23000B3AD7C /* RSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSA.swift; sourceTree = "<group>"; };
@@ -198,6 +206,9 @@
 			isa = PBXGroup;
 			children = (
 				236259D42910110B007EC337 /* GroupData.swift */,
+				23F8553E294CC1450068F285 /* Template.swift */,
+				23F85540294CC15C0068F285 /* User.swift */,
+				23F85542294CC1890068F285 /* Attach.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -364,6 +375,7 @@
 				D4F36F7F2909922400EF7C85 /* License.swift */,
 				D4F36F782908870900EF7C85 /* FileEngine.swift */,
 				D4F36F7D2909500F00EF7C85 /* LocalFileEngine.swift */,
+				23F85544294DDC4C0068F285 /* LocalStorageEngine.swift */,
 				D4F36F852909D96D00EF7C85 /* MD5.swift */,
 				D4F36F872909DA3500EF7C85 /* FileSize.swift */,
 				2C1BC0AB290FFD2600B3AD7C /* Settings.swift */,
@@ -572,6 +584,7 @@
 				236259D2291010FC007EC337 /* GroupViewModel.swift in Sources */,
 				2C34F3CD29254DFA00820FC4 /* SecureFileView.swift in Sources */,
 				2C1BC0AA290FFCC400B3AD7C /* Log.swift in Sources */,
+				23F85543294CC1890068F285 /* Attach.swift in Sources */,
 				2C34F3F72926621000820FC4 /* fonts.swift in Sources */,
 				23994E732910F5D500A832E4 /* RegistrationView.swift in Sources */,
 				23E72481292A124A00ECFA19 /* AllTemplatesView.swift in Sources */,
@@ -581,6 +594,8 @@
 				236259CD291010F0007EC337 /* GroupsSideView.swift in Sources */,
 				23E7247F29194DC000ECFA19 /* TemplateView.swift in Sources */,
 				D4F36F7029086EA000EF7C85 /* AESHelper.swift in Sources */,
+				23F8553F294CC1450068F285 /* Template.swift in Sources */,
+				23F85545294DDC4C0068F285 /* LocalStorageEngine.swift in Sources */,
 				2C592DB92916946400CC4518 /* Certification.swift in Sources */,
 				D4F36F6B29086BC800EF7C85 /* EncryptionEngine.swift in Sources */,
 				D4F36F832909AE7100EF7C85 /* FileDocumentStruct.swift in Sources */,
@@ -589,6 +604,7 @@
 				2C1BC0A1290FF23000B3AD7C /* RSA.swift in Sources */,
 				D4F36F862909D96D00EF7C85 /* MD5.swift in Sources */,
 				236259CC291010F0007EC337 /* TeamMenuView.swift in Sources */,
+				23F85541294CC15C0068F285 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

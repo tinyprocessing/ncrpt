@@ -42,12 +42,6 @@ struct TemplateView: View {
                 }
                 
             }
-            //User list
-            Section(header: Text("User list")){
-                ForEach(template?.users ?? [], id: \.self) { item in
-                    Text(item)
-                }
-            }
             
             //permissions
             Section(header: Text("Choose permissions")) {
@@ -79,12 +73,10 @@ struct TemplateView: View {
                 if !templateFieldInput.isEmpty {
                     if isNewTemplate {
                         //add new template
-                        vm.templates.append(Template(name: templateFieldInput, rights: selectedRights))
+                        vm.addTemplate(Template(name: templateFieldInput, rights: selectedRights), new: true)
                     } else {
                         //edit template
-                        if let inx = vm.templates.firstIndex(where: { $0.id == template?.id }) {
-                            vm.templates[inx] = Template(name: templateFieldInput, rights: selectedRights)
-                        }
+                        vm.addTemplate(Template(id: template!.id, name: templateFieldInput, rights: selectedRights))
                     }
                     
                     self.presentation.wrappedValue.dismiss()

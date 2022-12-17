@@ -217,7 +217,7 @@ struct SecureFileView: View {
     
     
     func deleteUser(at offsets: IndexSet) {
-        pvm.recentUsers.remove(atOffsets: offsets)
+        pvm.removeUser(at: offsets)
     }
     
     func deleteFile(at offsets: IndexSet) {
@@ -225,7 +225,7 @@ struct SecureFileView: View {
     }
     
     func deleteTemplate(at offsets: IndexSet) {
-        pvm.templates.remove(atOffsets: offsets)
+        pvm.removeTemplate(at: offsets)
     }
 }
 

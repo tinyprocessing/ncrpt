@@ -42,7 +42,7 @@ struct GroupsSideView: View {
                     }
                 })
                 
-                NavigationLink(destination: Text("Notifications"), label: {
+                NavigationLink(destination: NotificationsView(), label: {
                     HStack(spacing: 10){
                         Image(systemName: "bell")
                             .font(.system(size: 22))

@@ -62,6 +62,8 @@
 		2CEF745829267FB7009663C8 /* FilePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEF745729267FB7009663C8 /* FilePreview.swift */; };
 		CAC626C503C0B776C3E7A888 /* Pods_EncryptFile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */; };
 		D49D419F2949273A00C66F0E /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D419E2949273A00C66F0E /* ActivityIndicator.swift */; };
+		D4A308B8294E208300CAEB5F /* APINotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A308B7294E208300CAEB5F /* APINotifications.swift */; };
+		D4A308BB294E22C200CAEB5F /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A308BA294E22C200CAEB5F /* NotificationsView.swift */; };
 		D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F5B29086AA300EF7C85 /* EncryptFileApp.swift */; };
 		D4F36F5E29086AA300EF7C85 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F5D29086AA300EF7C85 /* ContentView.swift */; };
 		D4F36F6029086AA400EF7C85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4F36F5F29086AA400EF7C85 /* Assets.xcassets */; };
@@ -136,6 +138,8 @@
 		A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EncryptFile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1D9F4C2828C34ED673B7C13 /* Pods-EncryptFile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.debug.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.debug.xcconfig"; sourceTree = "<group>"; };
 		D49D419E2949273A00C66F0E /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		D4A308B7294E208300CAEB5F /* APINotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APINotifications.swift; sourceTree = "<group>"; };
+		D4A308BA294E22C200CAEB5F /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		D4F36F5829086AA300EF7C85 /* EncryptFile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EncryptFile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F36F5B29086AA300EF7C85 /* EncryptFileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptFileApp.swift; sourceTree = "<group>"; };
 		D4F36F5D29086AA300EF7C85 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -182,6 +186,7 @@
 		236259C7291010F0007EC337 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D4A308B9294E22AE00CAEB5F /* SideMenu */,
 				23E7247729194D9800ECFA19 /* Encryption */,
 				23994E712910F58100A832E4 /* Authorization */,
 				236259C8291010F0007EC337 /* TeamMenuView.swift */,
@@ -266,6 +271,7 @@
 			children = (
 				2C1BC0A3290FFC6700B3AD7C /* Network.swift */,
 				2C75701C2924496C0043B464 /* ADFS.swift */,
+				D4A308B7294E208300CAEB5F /* APINotifications.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -318,6 +324,14 @@
 				A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D4A308B9294E22AE00CAEB5F /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				D4A308BA294E22C200CAEB5F /* NotificationsView.swift */,
+			);
+			path = SideMenu;
 			sourceTree = "<group>";
 		};
 		D4F36F4F29086AA300EF7C85 = {
@@ -581,6 +595,7 @@
 				D4F36F882909DA3500EF7C85 /* FileSize.swift in Sources */,
 				D4F36F722908717900EF7C85 /* Polygone.swift in Sources */,
 				2CEF745829267FB7009663C8 /* FilePreview.swift in Sources */,
+				D4A308B8294E208300CAEB5F /* APINotifications.swift in Sources */,
 				236259D2291010FC007EC337 /* GroupViewModel.swift in Sources */,
 				2C34F3CD29254DFA00820FC4 /* SecureFileView.swift in Sources */,
 				2C1BC0AA290FFCC400B3AD7C /* Log.swift in Sources */,
@@ -603,6 +618,7 @@
 				D4F36F802909922400EF7C85 /* License.swift in Sources */,
 				2C1BC0A1290FF23000B3AD7C /* RSA.swift in Sources */,
 				D4F36F862909D96D00EF7C85 /* MD5.swift in Sources */,
+				D4A308BB294E22C200CAEB5F /* NotificationsView.swift in Sources */,
 				236259CC291010F0007EC337 /* TeamMenuView.swift in Sources */,
 				23F85541294CC15C0068F285 /* User.swift in Sources */,
 			);

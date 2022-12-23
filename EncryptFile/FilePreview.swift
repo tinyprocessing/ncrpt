@@ -44,12 +44,26 @@ extension UIView {
     }
 }
 
+class QLPreviewControllerNew: QLPreviewController {
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(UIResponderStandardEditActions.paste(_:)) || action == #selector(UIResponderStandardEditActions.copy(_:)) {
+            return false
+        }
+        return super.canPerformAction(action, withSender: sender)
+    }
+}
+
 struct PreviewController: UIViewControllerRepresentable {
     let url: URL
     
     func makeUIViewController(context: Context) -> QLPreviewController {
-        let controller = QLPreviewController()
+        let controller = QLPreviewControllerNew()
+        
         controller.dataSource = context.coordinator
+        controller.delegate = context.coordinator
+        
+        
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             controller.view.subviews.forEach { view in
                 view.preventScreenshot()
@@ -76,8 +90,18 @@ struct PreviewController: UIViewControllerRepresentable {
     func updateUIViewController(
         _ uiViewController: QLPreviewController, context: Context) {}
     
-    class Coordinator: QLPreviewControllerDataSource {
+    class Coordinator: NSObject, QLPreviewControllerDataSource, QLPreviewControllerDelegate {
         let parent: PreviewController
+        
+        func previewController(_ controller: QLPreviewController, editingModeFor previewItem: QLPreviewItem) -> QLPreviewItemEditingMode {
+            return .disabled
+        }
+        
+        func previewController(_ controller: QLPreviewController, shouldOpen url: URL, for item: QLPreviewItem) -> Bool {
+            return false
+        }
+        
+        
         
         init(parent: PreviewController) {
             self.parent = parent
@@ -100,6 +124,7 @@ struct PreviewController: UIViewControllerRepresentable {
             //                    print("error??")
             //                }
             //            }
+            
             return parent.url as NSURL
         }
         

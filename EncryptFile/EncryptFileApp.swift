@@ -31,6 +31,7 @@ struct EncryptFileApp: App {
             }
             .opacity(self.opacity)
             .onAppear{
+                Settings.shared.cleanCache()
                 let defaults = UserDefaults.standard
                 let username = defaults.string(forKey: "username") ?? ""
                 if username.isEmpty {

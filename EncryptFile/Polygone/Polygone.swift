@@ -142,7 +142,7 @@ class Polygone: ObservableObject, Identifiable  {
         do {
             let fileManager = FileManager()
             let documentDirectory = try FileManager.default.url(
-                for: .documentDirectory,
+                for: .cachesDirectory,
                 in: .userDomainMask,
                 appropriateFor: nil,
                 create: true

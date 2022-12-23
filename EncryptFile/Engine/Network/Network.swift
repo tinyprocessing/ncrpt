@@ -64,7 +64,7 @@ class Network: ObservableObject, Identifiable  {
                 if (response.response?.statusCode == 200) {
                     if (response.value != nil) {
                         let json = JSON(response.value!)
-                        
+                        print(json)
                         let owner = json["owner"].stringValue
                         let rightsAllUsers = json["rightsAllUsers"]
                         // Users array

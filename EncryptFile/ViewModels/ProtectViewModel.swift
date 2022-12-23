@@ -20,7 +20,9 @@ class ProtectViewModel: ObservableObject {
     @Published var selectedTemplated: UUID = UUID()
     @Published var rights: Rights? = nil
     
-    let permissionSet = ["View", "Edit", "Owner"]
+    let permissionSet = ["View",
+                         "Copy",
+                         "Owner"]
     /*
      "Docedit",
      "Comment",
@@ -42,7 +44,7 @@ class ProtectViewModel: ObservableObject {
     
     //helper methods
     
-    private func loadTemplates() {
+    func loadTemplates() {
         LocalStorageEngine.loadTemplates { result in
             switch result {
             case .failure(let error):
@@ -53,7 +55,7 @@ class ProtectViewModel: ObservableObject {
         }
     }
     
-    private func loadUsers() {
+    func loadUsers() {
         LocalStorageEngine.loadUsers { result in
             switch result {
             case .failure(let error):
@@ -96,7 +98,7 @@ class ProtectViewModel: ObservableObject {
     }
     //UTType
     func getAtualTypes() -> [UTType]{
-        return [.pdf, .docx, .png, .jpg, .jpeg, .zip, .image, .tiff, .gif, .pptx, .xlsx, .plainText]
+        return [.item]
     }
     
     func addTemplate(_ temp: Template, new: Bool = false) {

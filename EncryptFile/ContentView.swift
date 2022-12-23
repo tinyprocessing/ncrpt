@@ -283,6 +283,7 @@ struct ContentView: View {
             }
         }
         .background(.red)
+        .navigationViewStyle(StackNavigationViewStyle())
         .accentColor(.black)
         .onOpenURL { url in
             self.content.chosenFiles = []

@@ -191,6 +191,10 @@ struct SecureFileView: View {
                 })
                 
             }
+            .onAppear{
+                self.pvm.loadUsers()
+                self.pvm.loadTemplates()
+            }
             .fileImporter(
                 isPresented: $isImporting,
                 allowedContentTypes: pvm.getAtualTypes(),

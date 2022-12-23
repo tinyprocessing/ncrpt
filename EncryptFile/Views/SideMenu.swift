@@ -16,7 +16,7 @@ struct SideMenu: View {
     var body: some View {
         ZStack(alignment: .topTrailing) {
             ZStack(alignment: .leading) {
-                Color.init(hex: "4378DB")
+                Color.init(hex: "F2F3F4")
                     .ignoresSafeArea()
                 
                 TeamMenuView(viewModel: viewModel, pvm: pvm)

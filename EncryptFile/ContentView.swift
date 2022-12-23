@@ -216,7 +216,7 @@ struct ContentView: View {
                     })
                  
                     VisualEffect(style: .prominent)
-                        .opacity(isShowMenu ? 0.8 : 0)
+                        .opacity(isShowMenu ? 0.6 : 0)
                         .onTapGesture {
                             withAnimation(.spring()) {
                                 self.isShowMenu = false
@@ -244,7 +244,7 @@ struct ContentView: View {
                         })
                 )
                 .cornerRadius(20)
-                .offset(x: isShowMenu ? 210 : 0, y: isShowMenu ? 44 : 0)
+                .offset(x: isShowMenu ? 210 : 0)
                 .navigationTitle("ncrpt.io")
                 .navigationBarTitleDisplayMode(.inline)
                 .onAppear{

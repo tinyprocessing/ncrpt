@@ -80,6 +80,8 @@
 		D4F36F832909AE7100EF7C85 /* FileDocumentStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F822909AE7100EF7C85 /* FileDocumentStruct.swift */; };
 		D4F36F862909D96D00EF7C85 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F852909D96D00EF7C85 /* MD5.swift */; };
 		D4F36F882909DA3500EF7C85 /* FileSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F872909DA3500EF7C85 /* FileSize.swift */; };
+		D4FFFD8C2956111F0018C730 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD8B2956111F0018C730 /* SettingsView.swift */; };
+		D4FFFD8E295611FA0018C730 /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD8D295611FA0018C730 /* SupportView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -157,6 +159,8 @@
 		D4F36F842909B7A000EF7C85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D4F36F852909D96D00EF7C85 /* MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
 		D4F36F872909DA3500EF7C85 /* FileSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSize.swift; sourceTree = "<group>"; };
+		D4FFFD8B2956111F0018C730 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D4FFFD8D295611FA0018C730 /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,6 +334,8 @@
 			isa = PBXGroup;
 			children = (
 				D4A308BA294E22C200CAEB5F /* NotificationsView.swift */,
+				D4FFFD8B2956111F0018C730 /* SettingsView.swift */,
+				D4FFFD8D295611FA0018C730 /* SupportView.swift */,
 			);
 			path = SideMenu;
 			sourceTree = "<group>";
@@ -604,6 +610,7 @@
 				23994E732910F5D500A832E4 /* RegistrationView.swift in Sources */,
 				23E72481292A124A00ECFA19 /* AllTemplatesView.swift in Sources */,
 				D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */,
+				D4FFFD8C2956111F0018C730 /* SettingsView.swift in Sources */,
 				23994E7C2911927700A832E4 /* View+Ext.swift in Sources */,
 				23E724722918DD5300ECFA19 /* URL+Ext.swift in Sources */,
 				236259CD291010F0007EC337 /* GroupsSideView.swift in Sources */,
@@ -613,6 +620,7 @@
 				23F85545294DDC4C0068F285 /* LocalStorageEngine.swift in Sources */,
 				2C592DB92916946400CC4518 /* Certification.swift in Sources */,
 				D4F36F6B29086BC800EF7C85 /* EncryptionEngine.swift in Sources */,
+				D4FFFD8E295611FA0018C730 /* SupportView.swift in Sources */,
 				D4F36F832909AE7100EF7C85 /* FileDocumentStruct.swift in Sources */,
 				2C1BC09D290FEF3F00B3AD7C /* KeychainHelper.swift in Sources */,
 				D4F36F802909922400EF7C85 /* License.swift in Sources */,
@@ -754,7 +762,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EncryptFile/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NCRPT;
+				INFOPLIST_KEY_CFBundleDisplayName = ncrpt;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -788,7 +796,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EncryptFile/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NCRPT;
+				INFOPLIST_KEY_CFBundleDisplayName = ncrpt;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -13,6 +13,8 @@ import QuartzCore
 struct ContentView: View {
     
     @State private var showingContent = false
+    @State private var showingRights = false
+
     @State private var isShowMenu = false
     @ObservedObject var localFiles: LocalFileEngine = LocalFileEngine.shared
     @State private var document: FileDocumentStruct = FileDocumentStruct()
@@ -65,10 +67,11 @@ struct ContentView: View {
                                                             if file.url != nil {
                                                                 DispatchQueue.global(qos: .userInitiated).async {
                                                                     let polygone = Polygone()
-                                                                    polygone.decryptFile(file.url!) { url, success in
+                                                                    polygone.decryptFile(file.url!) { url, rights, success  in
                                                                         if success {
                                                                             self.content.objectWillChange.send()
                                                                             self.content.chosenFiles = [Attach(url: url)]
+                                                                            self.content.rights = rights
                                                                             self.content.objectWillChange.send()
                                                                         }else{
                                                                             Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
@@ -90,7 +93,28 @@ struct ContentView: View {
                                                     }
                                                     
                                                     Button(action: {
-                                                        print("show file right")
+                                                        
+                                                        if file.url != nil {
+                                                            DispatchQueue.global(qos: .userInitiated).async {
+                                                                let polygone = Polygone()
+                                                                polygone.decryptFile(file.url!) { url, rights, success  in
+                                                                    if success {
+                                                                        self.content.objectWillChange.send()
+                                                                        self.content.chosenFiles = [Attach(url: url)]
+                                                                        self.content.rights = rights
+                                                                        self.content.objectWillChange.send()
+                                                                        
+                                                                        DispatchQueue.main.async {
+                                                                            showingRights.toggle()
+                                                                        }
+                                                                        
+                                                                    }else{
+                                                                        Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
+                                                                    }
+                                                                }
+                                                                
+                                                            }
+                                                        }
                                                     }) {
                                                         Label("Rights", systemImage: "list.clipboard")
                                                     }
@@ -184,9 +208,10 @@ struct ContentView: View {
                             }
                             
                             let polygone = Polygone()
-                            polygone.decryptFile(self.document.url!) { url, success in
+                            polygone.decryptFile(self.document.url!) { url, rights, success in
                                 if success {
                                     self.content.chosenFiles = [Attach(url: url)]
+                                    self.content.rights = rights
                                 }else{
                                     Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
                                 }
@@ -197,6 +222,10 @@ struct ContentView: View {
                     }
                     
                     NavigationLink(destination: SheetView(content: self.content), isActive: $showingContent) {
+                        EmptyView()
+                    }
+                    
+                    NavigationLink(destination: RightsView(content: self.content), isActive: $showingRights) {
                         EmptyView()
                     }
                     
@@ -264,9 +293,10 @@ struct ContentView: View {
             }
             
             let polygone = Polygone()
-            polygone.decryptFile(url) { url, success in
+            polygone.decryptFile(url) { url, rights, success in
                 if success {
                     self.content.chosenFiles = [Attach(url: url)]
+                    self.content.rights = rights
                 }else{
                     Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
                 }

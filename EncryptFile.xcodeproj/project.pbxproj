@@ -82,6 +82,7 @@
 		D4F36F882909DA3500EF7C85 /* FileSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F872909DA3500EF7C85 /* FileSize.swift */; };
 		D4FFFD8C2956111F0018C730 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD8B2956111F0018C730 /* SettingsView.swift */; };
 		D4FFFD8E295611FA0018C730 /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD8D295611FA0018C730 /* SupportView.swift */; };
+		D4FFFD90295629F10018C730 /* RightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD8F295629F10018C730 /* RightsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -161,6 +162,7 @@
 		D4F36F872909DA3500EF7C85 /* FileSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSize.swift; sourceTree = "<group>"; };
 		D4FFFD8B2956111F0018C730 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D4FFFD8D295611FA0018C730 /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
+		D4FFFD8F295629F10018C730 /* RightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -371,6 +373,7 @@
 				D4F36F5D29086AA300EF7C85 /* ContentView.swift */,
 				2C34F3CC29254DFA00820FC4 /* SecureFileView.swift */,
 				2CEF745729267FB7009663C8 /* FilePreview.swift */,
+				D4FFFD8F295629F10018C730 /* RightsView.swift */,
 				D4F36F812909AE5A00EF7C85 /* UI */,
 				D4F36F75290871E200EF7C85 /* Polygone */,
 				D4F36F5F29086AA400EF7C85 /* Assets.xcassets */,
@@ -611,6 +614,7 @@
 				23E72481292A124A00ECFA19 /* AllTemplatesView.swift in Sources */,
 				D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */,
 				D4FFFD8C2956111F0018C730 /* SettingsView.swift in Sources */,
+				D4FFFD90295629F10018C730 /* RightsView.swift in Sources */,
 				23994E7C2911927700A832E4 /* View+Ext.swift in Sources */,
 				23E724722918DD5300ECFA19 /* URL+Ext.swift in Sources */,
 				236259CD291010F0007EC337 /* GroupsSideView.swift in Sources */,

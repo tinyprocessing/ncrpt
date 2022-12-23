@@ -138,7 +138,7 @@ class Polygone: ObservableObject, Identifiable  {
         return nil 
     }
     
-    func decryptFile(_ url: URL, completion: @escaping (_ url : URL?, _ success:Bool) -> Void) {
+    func decryptFile(_ url: URL, completion: @escaping (_ url : URL?, _ rights: Rights?, _ success:Bool) -> Void) {
         do {
             let fileManager = FileManager()
             let documentDirectory = try FileManager.default.url(
@@ -166,18 +166,18 @@ class Polygone: ObservableObject, Identifiable  {
             do {
                 try FileManager.default.removeItem(atPath: (tmpNCRPTFileZip.path().removingPercentEncoding)!)
             } catch {
-                completion(nil, false)
+                completion(nil, nil, false)
                 log.debug(module: "FileEngine", type: #function, object: "Could not delete file, probably read-only filesystem")
             }
             
             let subDirectory : URL? = try destinationURL.appending(path: "/").subDirectories().first ?? nil
             
             if let _ = subDirectory?.appending(path: "primary") {}else{
-                completion(nil, false)
+                completion(nil, nil, false)
             }
             
             if let _ = subDirectory?.appending(path: "license.json") {}else{
-                completion(nil, false)
+                completion(nil, nil, false)
             }
             
             let primary : URL = (subDirectory?.appending(path: "primary"))!
@@ -200,15 +200,15 @@ class Polygone: ObservableObject, Identifiable  {
                             if let fileName = json["fileName"] as? String{
                                 let ready : URL = (subDirectory?.appending(path: "\(fileName)"))!
                                 try decrypt?.write(to: ready)
-                                completion(ready, true)
+                                completion(ready, rights, true)
                                 return
                             }
                         } catch {
-                            completion(nil, false)
+                            completion(nil, nil, false)
                             log.debug(module: "FileEngine", type: #function, object: "Could not delete file, probably read-only filesystem")
                         }
                     }else{
-                        completion(nil, false)
+                        completion(nil, nil, false)
                     }
                 }
             }
@@ -217,7 +217,7 @@ class Polygone: ObservableObject, Identifiable  {
             log.debug(module: "Polygone", type: #function, object: destinationURL)
         }catch{
             log.debug(module: "Polygone", type: #function, object: "Error deencrypt")
-            completion(nil, false)
+            completion(nil, nil, false)
         }
     }
 }

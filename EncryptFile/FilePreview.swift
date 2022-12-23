@@ -137,16 +137,18 @@ struct SheetView: View {
                 }
             }
         }
+        .navigationTitle("viewer")
+        .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(
             leading:
                 EmptyView()
             ,
             trailing:
-                Button(action: {
-                    
-                }, label: {
-                    Image(systemName: "list.clipboard")
-                        .foregroundColor(.black)
+                NavigationLink(destination: RightsView(content: self.content), label: {
+                    HStack{
+                        Image(systemName: "list.clipboard")
+                            .foregroundColor(.black)
+                    }.clipShape(Rectangle())
                 })
         )
     }

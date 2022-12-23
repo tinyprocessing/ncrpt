@@ -18,6 +18,7 @@ class ProtectViewModel: ObservableObject {
     @Published var untilDate: Date = Date()
     
     @Published var selectedTemplated: UUID = UUID()
+    @Published var rights: Rights? = nil
     
     let permissionSet = ["View", "Edit", "Owner"]
     /*

@@ -29,7 +29,7 @@ class Network: ObservableObject, Identifiable  {
                     let keychain = Keychain()
                     if keychain.certification.importCertificate(decodedData, passwordServer) {
                         let defaults = UserDefaults.standard
-                        defaults.set(username.lowercased(), forKey: "username")
+                        defaults.set(username.lowercased(), forKey: UserDefaults.Keys.AuthorizationUsername.rawValue)
                         completion(true)
                     }else{
                         completion(false)

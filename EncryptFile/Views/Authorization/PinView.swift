@@ -182,8 +182,14 @@ struct PinFieldView: View {
     func add(_ char: String){
         
         if self.wrongAttempt {
+            let impactMed = UIImpactFeedbackGenerator(style: .heavy)
+            impactMed.impactOccurred()
             return
         }
+        
+        let impactMed = UIImpactFeedbackGenerator(style: .light)
+        impactMed.impactOccurred()
+        
         if self.pin.count < 5 && self.api.ui == .pin {
             self.pin.append(char)
         }
@@ -285,9 +291,9 @@ struct PinFieldView: View {
     }
     
     var body: some View {
-        VStack(alignment: .center, spacing: 30){
+        VStack(alignment: .center, spacing: 40){
             
-            VStack(spacing: 15){
+            VStack(spacing: 20){
                 if (self.api.ui == .pin){
                     Text("Enter pin code")
                         .foregroundColor(Color.black)
@@ -315,7 +321,7 @@ struct PinFieldView: View {
             }
             
             //            FIRST ROW
-            HStack(spacing: 40){
+            HStack(spacing: 55){
                 
                 Button(action: {
                     self.add("1")
@@ -323,7 +329,8 @@ struct PinFieldView: View {
                     Text("1")
                         .padding(15)
                         .foregroundColor(.black)
-                        .font(.system(size: 30))
+                        .font(.system(size: 40))
+                        .fontWeight(Font.Weight.light)
                 }).buttonStyle(PinButtonStyle())
                 
                 Button(action: {
@@ -332,7 +339,8 @@ struct PinFieldView: View {
                     Text("2")
                         .padding(15)
                         .foregroundColor(.black)
-                        .font(.system(size: 30))
+                        .font(.system(size: 40))
+                        .fontWeight(Font.Weight.light)
                 }).buttonStyle(PinButtonStyle())
                 
                 Button(action: {
@@ -341,14 +349,14 @@ struct PinFieldView: View {
                     Text("3")
                         .padding(15)
                         .foregroundColor(.black)
-                        .font(.system(size: 30))
-                    
+                        .font(.system(size: 40))
+                        .fontWeight(Font.Weight.light)
                 }).buttonStyle(PinButtonStyle())
             }
             
             //            SECOND ROW
             
-            HStack(spacing: 40){
+            HStack(spacing: 55){
                 
                 Button(action: {
                     self.add("4")
@@ -356,7 +364,8 @@ struct PinFieldView: View {
                     Text("4")
                         .padding(15)
                         .foregroundColor(.black)
-                        .font(.system(size: 30))
+                        .font(.system(size: 40))
+                        .fontWeight(Font.Weight.light)
                 }).buttonStyle(PinButtonStyle())
                 
                 Button(action: {
@@ -365,7 +374,8 @@ struct PinFieldView: View {
                     Text("5")
                         .padding(15)
                         .foregroundColor(.black)
-                        .font(.system(size: 30))
+                        .font(.system(size: 40))
+                        .fontWeight(Font.Weight.light)
                 }).buttonStyle(PinButtonStyle())
                 
                 Button(action: {
@@ -374,12 +384,13 @@ struct PinFieldView: View {
                     Text("6")
                         .padding(15)
                         .foregroundColor(.black)
-                        .font(.system(size: 30))
+                        .font(.system(size: 40))
+                        .fontWeight(Font.Weight.light)
                 }).buttonStyle(PinButtonStyle())
                 
             }
             //            THIRD ROW
-            HStack(spacing: 40){
+            HStack(spacing: 55){
                 
                 Button(action: {
                     self.add("7")
@@ -387,7 +398,8 @@ struct PinFieldView: View {
                     Text("7")
                         .padding(15)
                         .foregroundColor(.black)
-                        .font(.system(size: 30))
+                        .font(.system(size: 40))
+                        .fontWeight(Font.Weight.light)
                 }).buttonStyle(PinButtonStyle())
                 
                 Button(action: {
@@ -396,7 +408,8 @@ struct PinFieldView: View {
                     Text("8")
                         .padding(15)
                         .foregroundColor(.black)
-                        .font(.system(size: 30))
+                        .font(.system(size: 40))
+                        .fontWeight(Font.Weight.light)
                 }).buttonStyle(PinButtonStyle())
                 Button(action: {
                     self.add("9")
@@ -404,29 +417,32 @@ struct PinFieldView: View {
                     Text("9")
                         .padding(15)
                         .foregroundColor(.black)
-                        .font(.system(size: 30))
+                        .font(.system(size: 40))
+                        .fontWeight(Font.Weight.light)
                 }).buttonStyle(PinButtonStyle())
             }
-            HStack(spacing: 40){
+            HStack(spacing: 55){
                 Button(action: {
-                    let context = LAContext()
-                    if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
-                        context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Please authenticate to proceed.") { (success, error) in
-                            if success {
-                                DispatchQueue.main.async {
-                                    withAnimation{
-                                        NCRPTWatchSDK.shared.ui = .loading
+                    if self.api.ui == .pin {
+                        let context = LAContext()
+                        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+                            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Please authenticate to proceed.") { (success, error) in
+                                if success {
+                                    DispatchQueue.main.async {
+                                        withAnimation{
+                                            NCRPTWatchSDK.shared.ui = .loading
+                                        }
                                     }
-                                }
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    withAnimation{
-                                        NCRPTWatchSDK.shared.ui = .ready
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        withAnimation{
+                                            NCRPTWatchSDK.shared.ui = .ready
+                                        }
+                                        //close screen
                                     }
-                                    //close screen
+                                } else {
+                                    guard let error = error else { return }
+                                    print(error.localizedDescription)
                                 }
-                            } else {
-                                guard let error = error else { return }
-                                print(error.localizedDescription)
                             }
                         }
                     }
@@ -434,7 +450,9 @@ struct PinFieldView: View {
                     Image(systemName: "faceid")
                         .padding(15)
                         .foregroundColor(.black)
-                        .font(.system(size: 30))
+                        .font(.system(size: 40))
+                        .fontWeight(Font.Weight.light)
+                        .opacity(self.api.ui == .pin ? 1.0 : 0)
                 }).buttonStyle(PinButtonStyle())
                 Button(action: {
                     self.add("0")
@@ -442,7 +460,8 @@ struct PinFieldView: View {
                     Text("0")
                         .padding(15)
                         .foregroundColor(.black)
-                        .font(.system(size: 30))
+                        .font(.system(size: 40))
+                        .fontWeight(Font.Weight.light)
                 }).buttonStyle(PinButtonStyle())
                 Button(action: {
                     self.remove()
@@ -450,7 +469,8 @@ struct PinFieldView: View {
                     Image(systemName: "xmark.square")
                         .padding(15)
                         .foregroundColor(.black)
-                        .font(.system(size: 30))
+                        .font(.system(size: 40))
+                        .fontWeight(Font.Weight.light)
                     
                 }).buttonStyle(PinButtonStyle())
             }

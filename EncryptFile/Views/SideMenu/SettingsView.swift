@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct SettingsView: View {
     @State var email : String = ""
@@ -17,6 +18,7 @@ struct SettingsView: View {
     @State private var trustNetwork = true
     @State private var crashReporting = true
     @State private var compress = true
+    @State private var faceID = true
 
     var body: some View {
         VStack(alignment: .leading){
@@ -68,6 +70,11 @@ struct SettingsView: View {
                             Toggle("", isOn: $compress)
                                 .offset(x: -5)
                                 .tint(Color.init(hex: "21205A"))
+                                .onChange(of: self.compress, perform: { newValue in
+                                    print(newValue)
+                                    let defaults = UserDefaults.standard
+                                    defaults.set(newValue, forKey: UserDefaults.Keys.SettingsCompress.rawValue)
+                                })
                         }
                         
                     }
@@ -99,6 +106,11 @@ struct SettingsView: View {
                             Toggle("", isOn: $rsa)
                                 .offset(x: -5)
                                 .tint(Color.init(hex: "21205A"))
+                                .onChange(of: self.rsa, perform: { newValue in
+                                    print(newValue)
+                                    let defaults = UserDefaults.standard
+                                    defaults.set(newValue, forKey: UserDefaults.Keys.SettingsRSA.rawValue)
+                                })
                         }
                         HStack{
                             VStack(alignment: .leading){
@@ -112,6 +124,11 @@ struct SettingsView: View {
                             Toggle("", isOn: $trustNetwork)
                                 .offset(x: -5)
                                 .tint(Color.init(hex: "21205A"))
+                                .onChange(of: self.trustNetwork, perform: { newValue in
+                                    print(newValue)
+                                    let defaults = UserDefaults.standard
+                                    defaults.set(newValue, forKey: UserDefaults.Keys.SettingsTrust.rawValue)
+                                })
                                 
                         }
                         HStack{
@@ -121,7 +138,27 @@ struct SettingsView: View {
                             Toggle("", isOn: $crashReporting)
                                 .offset(x: -5)
                                 .tint(Color.init(hex: "21205A"))
+                                .onChange(of: self.crashReporting, perform: { newValue in
+                                    print(newValue)
+                                    let defaults = UserDefaults.standard
+                                    defaults.set(newValue, forKey: UserDefaults.Keys.SettingsCrashReporting.rawValue)
+                                })
                         }
+                        
+                        HStack{
+                            Text("Face ID")
+                                .modifier(NCRPTTextMedium(size: 16))
+                            Spacer()
+                            Toggle("", isOn: $faceID)
+                                .offset(x: -5)
+                                .tint(Color.init(hex: "21205A"))
+                                .onChange(of: self.faceID, perform: { newValue in
+                                    print(newValue)
+                                    let defaults = UserDefaults.standard
+                                    defaults.set(newValue, forKey: UserDefaults.Keys.SettingsFaceID.rawValue)
+                                })
+                        }
+                        
                         
 //                        NavigationLink(destination: PinEntryView(), label: {
 //                            HStack{
@@ -161,6 +198,12 @@ struct SettingsView: View {
         .navigationTitle("settings")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear{
+            let defaults = UserDefaults.standard
+            self.faceID = defaults.bool(forKey: UserDefaults.Keys.SettingsFaceID.rawValue)
+            self.trustNetwork = defaults.bool(forKey: UserDefaults.Keys.SettingsTrust.rawValue)
+            self.crashReporting = defaults.bool(forKey: UserDefaults.Keys.SettingsCrashReporting.rawValue)
+            self.rsa = defaults.bool(forKey: UserDefaults.Keys.SettingsRSA.rawValue)
+            self.compress = defaults.bool(forKey: UserDefaults.Keys.SettingsCompress.rawValue)
             DispatchQueue.global(qos: .userInitiated).async {
                 let certification = Certification()
                 certification.getCertificate()

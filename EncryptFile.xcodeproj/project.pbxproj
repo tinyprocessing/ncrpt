@@ -86,6 +86,7 @@
 		D4FFFD92295740ED0018C730 /* PinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD91295740ED0018C730 /* PinView.swift */; };
 		D4FFFD94295742500018C730 /* NCRPTWatchSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD93295742500018C730 /* NCRPTWatchSDK.swift */; };
 		D4FFFD96295743B70018C730 /* NCRPTAuthSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD95295743B70018C730 /* NCRPTAuthSDK.swift */; };
+		D4FFFD99295761DA0018C730 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD98295761DA0018C730 /* Defaults.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -169,6 +170,7 @@
 		D4FFFD91295740ED0018C730 /* PinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinView.swift; sourceTree = "<group>"; };
 		D4FFFD93295742500018C730 /* NCRPTWatchSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NCRPTWatchSDK.swift; sourceTree = "<group>"; };
 		D4FFFD95295743B70018C730 /* NCRPTAuthSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NCRPTAuthSDK.swift; sourceTree = "<group>"; };
+		D4FFFD98295761DA0018C730 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,6 +374,7 @@
 		D4F36F5A29086AA300EF7C85 /* EncryptFile */ = {
 			isa = PBXGroup;
 			children = (
+				D4FFFD97295761CE0018C730 /* Helpers */,
 				2C34F3CE2926616600820FC4 /* Fonts */,
 				D4F36F842909B7A000EF7C85 /* Info.plist */,
 				236259D32910110B007EC337 /* Models */,
@@ -446,6 +449,14 @@
 				D49D419E2949273A00C66F0E /* ActivityIndicator.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		D4FFFD97295761CE0018C730 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D4FFFD98295761DA0018C730 /* Defaults.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -619,6 +630,7 @@
 				2C34F3CD29254DFA00820FC4 /* SecureFileView.swift in Sources */,
 				2C1BC0AA290FFCC400B3AD7C /* Log.swift in Sources */,
 				23F85543294CC1890068F285 /* Attach.swift in Sources */,
+				D4FFFD99295761DA0018C730 /* Defaults.swift in Sources */,
 				2C34F3F72926621000820FC4 /* fonts.swift in Sources */,
 				23994E732910F5D500A832E4 /* RegistrationView.swift in Sources */,
 				23E72481292A124A00ECFA19 /* AllTemplatesView.swift in Sources */,

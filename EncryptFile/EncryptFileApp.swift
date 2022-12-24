@@ -54,37 +54,38 @@ struct EncryptFileApp: App {
                 log.debug(module: "EncryptFileApp", type: #function, object: "Application Started")
                 Settings.shared.cleanCache()
                 let defaults = UserDefaults.standard
-                let username = defaults.string(forKey: "username") ?? ""
+                let username = defaults.string(forKey: UserDefaults.Keys.AuthorizationUsername.rawValue) ?? ""
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                     if username.isEmpty {
-                        log.debug(type: "EncryptFileApp", object: "User is logged")
+                        defaults.reset()
+                        log.debug(type: "EncryptFileApp", object: "User is not logged")
                         self.api.ui = .auth
                     }else{
                         log.debug(type: "EncryptFileApp", object: "User need pin code")
                         self.api.ui = .pin
-                        
-                        let context = LAContext()
-                        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
-                            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Please authenticate to proceed.") { (success, error) in
-                                if success {
-                                    DispatchQueue.main.async {
-                                        withAnimation{
-                                            NCRPTWatchSDK.shared.ui = .loading
+                        if defaults.bool(forKey: UserDefaults.Keys.SettingsFaceID.rawValue) {
+                            let context = LAContext()
+                            if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+                                context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Please authenticate to proceed.") { (success, error) in
+                                    if success {
+                                        DispatchQueue.main.async {
+                                            withAnimation{
+                                                NCRPTWatchSDK.shared.ui = .loading
+                                            }
                                         }
-                                    }
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                        withAnimation{
-                                            NCRPTWatchSDK.shared.ui = .ready
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                            withAnimation{
+                                                NCRPTWatchSDK.shared.ui = .ready
+                                            }
+                                            //close screen
                                         }
-                                        //close screen
+                                    } else {
+                                        guard let error = error else { return }
+                                        print(error.localizedDescription)
                                     }
-                                } else {
-                                    guard let error = error else { return }
-                                    print(error.localizedDescription)
                                 }
                             }
                         }
-                        
                     }
                 })
             }

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 let settings : Settings = Settings()
 
@@ -25,15 +26,24 @@ class Settings: ObservableObject, Identifiable {
     
     func logout(){
         let domain = Bundle.main.bundleIdentifier!
-        UserDefaults.standard.removeObject(forKey: "username")
+        
+        UserDefaults.standard.reset()
         
         let keychain = Keychain()
         keychain.helper.deleteKeyChain()
         
         cleanCache()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-            NCRPTWatchSDK.shared.ui = .auth
-        })
+        
+        DispatchQueue.main.async {
+            withAnimation{
+                NCRPTWatchSDK.shared.ui = .loading
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            withAnimation{
+                NCRPTWatchSDK.shared.ui = .auth
+            }
+        }
     }
     
     func cleanCache(){

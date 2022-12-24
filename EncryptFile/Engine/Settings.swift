@@ -25,13 +25,15 @@ class Settings: ObservableObject, Identifiable {
     
     func logout(){
         let domain = Bundle.main.bundleIdentifier!
-        UserDefaults.standard.removePersistentDomain(forName: domain)
-        UserDefaults.standard.synchronize()
+        UserDefaults.standard.removeObject(forKey: "username")
         
         let keychain = Keychain()
         keychain.helper.deleteKeyChain()
         
         cleanCache()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            NCRPTWatchSDK.shared.ui = .auth
+        })
     }
     
     func cleanCache(){
@@ -116,8 +118,8 @@ class Settings: ObservableObject, Identifiable {
     
     private func alertView(title: String, message: String, buttonName: String = "ok") -> UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.overrideUserInterfaceStyle = .dark
-        alert.view.tintColor = .white
+        alert.overrideUserInterfaceStyle = .light
+        alert.view.tintColor = .black
         
         let okAction = UIAlertAction (title: buttonName, style: UIAlertAction.Style.cancel, handler: nil)
         alert.addAction(okAction)
@@ -127,8 +129,8 @@ class Settings: ObservableObject, Identifiable {
     
     func alertViewWithCompletion(title: String, message: String, buttonName: String = "ok", completion: @escaping (_ success:Bool) -> Void) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.overrideUserInterfaceStyle = .dark
-        alert.view.tintColor = .white
+        alert.overrideUserInterfaceStyle = .light
+        alert.view.tintColor = .black
         
         let yesAction = UIAlertAction (title: "Yes", style: UIAlertAction.Style.destructive, handler: { _ in
             completion(true)

@@ -12,6 +12,20 @@ import UIKit
 import UniformTypeIdentifiers
 import QuickLook
 
+
+
+class RestrictedTextField: UITextField {
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        OperationQueue.main.addOperation({
+            UIMenuController.shared.setMenuVisible(false, animated: false)
+        })
+        if action == #selector(UIResponderStandardEditActions.paste(_:))  || action == #selector(UIResponderStandardEditActions.copy(_:)) || action == #selector(UIResponderStandardEditActions.cut(_:)){
+            return false
+        }
+        return super.canPerformAction(action, withSender: sender)
+    }
+}
+
 extension UIView {
     func preventScreenshot() {
         guard superview != nil else {
@@ -21,12 +35,12 @@ extension UIView {
             return
         }
         
-        let guardTextField = UITextField()
+        let guardTextField = RestrictedTextField()
         guardTextField.backgroundColor = .white
         guardTextField.translatesAutoresizingMaskIntoConstraints = false
         guardTextField.tag = Int.max
         guardTextField.isSecureTextEntry = true
-        
+        print(interactions)
         addSubview(guardTextField)
         guardTextField.isUserInteractionEnabled = false
         sendSubviewToBack(guardTextField)
@@ -45,24 +59,81 @@ extension UIView {
 }
 
 class QLPreviewControllerNew: QLPreviewController {
+    
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        if action == #selector(UIResponderStandardEditActions.paste(_:)) || action == #selector(UIResponderStandardEditActions.copy(_:)) {
-            return false
+       return false
+    }
+}
+
+var deep = 0
+func removeAllStaff<T>(_ view: inout T){
+    if deep > 500 {
+        return
+    }
+    deep += 1
+    if type(of: view) == EncryptFile.QLPreviewControllerNew.self {
+        let viewsCheck = view as! QLPreviewControllerNew
+        var tmp = viewsCheck.navigationController
+        removeAllStaff(&tmp)
+    }
+    if view is UINavigationController {
+        let viewsCheck = view as! UINavigationController
+        viewsCheck.viewControllers.forEach { controller in
+            var tmp = controller
+            removeAllStaff(&tmp)
         }
-        return super.canPerformAction(action, withSender: sender)
+    }
+    if view is  UIViewController {
+        let viewsCheck = view as! UIViewController
+        viewsCheck.children.forEach { controller in
+            var tmp = controller
+            removeAllStaff(&tmp)
+        }
+        print(viewsCheck.view.interactions)
+        viewsCheck.view.subviews.forEach { controller in
+            var tmp = controller
+            removeAllStaff(&tmp)
+        }
+    }
+    if view is UIView {
+        let viewsCheck = view as? UIView
+        if viewsCheck != nil {
+            print(viewsCheck!.interactions)
+            if viewsCheck!.interactions.count > 0{
+                viewsCheck!.interactions.forEach { iter in
+                    viewsCheck!.removeInteraction(iter)
+                    viewsCheck!.isUserInteractionEnabled = false
+                }
+            }
+            viewsCheck!.subviews.forEach { controller in
+                var tmp = controller
+                removeAllStaff(&tmp)
+            }
+        }
     }
 }
 
 struct PreviewController: UIViewControllerRepresentable {
     let url: URL
+    var controller = QLPreviewControllerNew()
+    
+    func removeAllSubviews(subviews: [UIView]){
+        subviews.forEach { view in
+            view.interactions.forEach { iter in
+                print(iter)
+                view.removeInteraction(iter)
+            }
+            removeAllSubviews(subviews: view.subviews)
+        }
+    }
     
     func makeUIViewController(context: Context) -> QLPreviewController {
-        let controller = QLPreviewControllerNew()
+        
         
         controller.dataSource = context.coordinator
         controller.delegate = context.coordinator
         
-        
+
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             controller.view.subviews.forEach { view in
@@ -71,14 +142,6 @@ struct PreviewController: UIViewControllerRepresentable {
             }
         }
         
-        
-        let view = UIView()
-        view.backgroundColor = .red
-        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-        
-        
-        view.preventScreenshot()
-        //        controller.view.addSubview(view)
         controller.view.preventScreenshot()
         return controller
     }
@@ -139,6 +202,10 @@ struct SheetView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var content : ProtectViewModel
     
+    @State var currentDate = Date.now
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
+    
     @State var opacity : Double = 0.01
     var body: some View {
         VStack{
@@ -164,6 +231,7 @@ struct SheetView: View {
         }
         .navigationTitle("viewer")
         .navigationBarTitleDisplayMode(.inline)
+        
         .navigationBarItems(
             leading:
                 EmptyView()

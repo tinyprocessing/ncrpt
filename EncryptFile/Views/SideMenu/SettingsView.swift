@@ -11,6 +11,8 @@ struct SettingsView: View {
     @State var email : String = ""
     @State var server : String = "https://security.ncrpt.io"
     
+    @ObservedObject var api: NCRPTWatchSDK = NCRPTWatchSDK.shared
+
     @State private var rsa = true
     @State private var trustNetwork = true
     @State private var crashReporting = true
@@ -120,16 +122,19 @@ struct SettingsView: View {
                                 .offset(x: -5)
                                 .tint(Color.init(hex: "21205A"))
                         }
-                        NavigationLink(destination: Text("PIN"), label: {
-                            HStack{
-                                Text("PIN & FaceID")
-                                    .modifier(NCRPTTextMedium(size: 16))
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .padding(.leading)
-                                    .opacity(0.7)
-                            }.clipShape(Rectangle())
-                        })
+                        
+//                        NavigationLink(destination: PinEntryView(), label: {
+//                            HStack{
+//                                Text("PIN & FaceID")
+//                                    .modifier(NCRPTTextMedium(size: 16))
+//                                Spacer()
+//                                Image(systemName: "chevron.right")
+//                                    .padding(.leading)
+//                                    .opacity(0.7)
+//                            }.clipShape(Rectangle())
+//                        }).simultaneousGesture(TapGesture().onEnded{
+//                            self.api.ui = .pinCreate
+//                        })
                     }
                     VStack(alignment: .leading, spacing: 15){
                         HStack{

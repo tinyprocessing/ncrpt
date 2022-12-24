@@ -83,6 +83,9 @@
 		D4FFFD8C2956111F0018C730 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD8B2956111F0018C730 /* SettingsView.swift */; };
 		D4FFFD8E295611FA0018C730 /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD8D295611FA0018C730 /* SupportView.swift */; };
 		D4FFFD90295629F10018C730 /* RightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD8F295629F10018C730 /* RightsView.swift */; };
+		D4FFFD92295740ED0018C730 /* PinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD91295740ED0018C730 /* PinView.swift */; };
+		D4FFFD94295742500018C730 /* NCRPTWatchSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD93295742500018C730 /* NCRPTWatchSDK.swift */; };
+		D4FFFD96295743B70018C730 /* NCRPTAuthSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD95295743B70018C730 /* NCRPTAuthSDK.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -163,6 +166,9 @@
 		D4FFFD8B2956111F0018C730 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D4FFFD8D295611FA0018C730 /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
 		D4FFFD8F295629F10018C730 /* RightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightsView.swift; sourceTree = "<group>"; };
+		D4FFFD91295740ED0018C730 /* PinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinView.swift; sourceTree = "<group>"; };
+		D4FFFD93295742500018C730 /* NCRPTWatchSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NCRPTWatchSDK.swift; sourceTree = "<group>"; };
+		D4FFFD95295743B70018C730 /* NCRPTAuthSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NCRPTAuthSDK.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +235,9 @@
 			children = (
 				23994E722910F5D500A832E4 /* RegistrationView.swift */,
 				23994E742910F5EB00A832E4 /* LoginView.swift */,
+				D4FFFD91295740ED0018C730 /* PinView.swift */,
+				D4FFFD93295742500018C730 /* NCRPTWatchSDK.swift */,
+				D4FFFD95295743B70018C730 /* NCRPTAuthSDK.swift */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -595,6 +604,7 @@
 				D4F36F6D29086E6900EF7C85 /* AES.swift in Sources */,
 				23E7247E29194DC000ECFA19 /* ProtectionTemplateView.swift in Sources */,
 				D4F36F792908870900EF7C85 /* FileEngine.swift in Sources */,
+				D4FFFD96295743B70018C730 /* NCRPTAuthSDK.swift in Sources */,
 				2C1BC0AC290FFD2600B3AD7C /* Settings.swift in Sources */,
 				23E724702917A14100ECFA19 /* ProtectViewModel.swift in Sources */,
 				23994E772910F67A00A832E4 /* RegistrationViewModel.swift in Sources */,
@@ -615,10 +625,12 @@
 				D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */,
 				D4FFFD8C2956111F0018C730 /* SettingsView.swift in Sources */,
 				D4FFFD90295629F10018C730 /* RightsView.swift in Sources */,
+				D4FFFD92295740ED0018C730 /* PinView.swift in Sources */,
 				23994E7C2911927700A832E4 /* View+Ext.swift in Sources */,
 				23E724722918DD5300ECFA19 /* URL+Ext.swift in Sources */,
 				236259CD291010F0007EC337 /* GroupsSideView.swift in Sources */,
 				23E7247F29194DC000ECFA19 /* TemplateView.swift in Sources */,
+				D4FFFD94295742500018C730 /* NCRPTWatchSDK.swift in Sources */,
 				D4F36F7029086EA000EF7C85 /* AESHelper.swift in Sources */,
 				23F8553F294CC1450068F285 /* Template.swift in Sources */,
 				23F85545294DDC4C0068F285 /* LocalStorageEngine.swift in Sources */,

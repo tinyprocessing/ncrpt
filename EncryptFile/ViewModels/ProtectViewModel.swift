@@ -20,6 +20,8 @@ class ProtectViewModel: ObservableObject {
     @Published var selectedTemplated: UUID = UUID()
     @Published var rights: Rights? = nil
     
+    static let shared = ProtectViewModel()
+    
     let permissionSet = ["View",
                          "Copy",
                          "Owner"]

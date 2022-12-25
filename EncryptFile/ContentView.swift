@@ -22,7 +22,7 @@ struct ContentView: View {
     @State private var isImporting: Bool = false
     @State private var isImportingEncrypt: Bool = false
     @State private var isImportingDecrypt: Bool = false
-    @ObservedObject var content : ProtectViewModel = ProtectViewModel()
+    @ObservedObject var content : ProtectViewModel = ProtectViewModel.shared
     @State var showProtectionView = false
     
     

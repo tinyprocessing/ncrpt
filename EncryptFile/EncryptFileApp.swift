@@ -50,6 +50,10 @@ struct EncryptFileApp: App {
             .navigationViewStyle(StackNavigationViewStyle())
             .accentColor(.black)
             .onAppear{
+                
+                let rsa = RSA()
+                rsa.start()
+                
                 api.setupSecureView()
                 log.debug(module: "EncryptFileApp", type: #function, object: "Application Started")
                 Settings.shared.cleanCache()

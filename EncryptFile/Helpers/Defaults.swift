@@ -16,6 +16,8 @@ extension UserDefaults {
         case SettingsRSA
         case SettingsCompress
         case SettingsServer
+        
+        case RSASetup
     }
     
     func reset() {
@@ -28,6 +30,7 @@ extension UserDefaults {
         set(true, forKey: UserDefaults.Keys.SettingsCompress.rawValue)
         set("https://secure.ncrpt.io", forKey: UserDefaults.Keys.SettingsServer.rawValue)
 
+        set(false, forKey: UserDefaults.Keys.RSASetup.rawValue)
     }
 }
 

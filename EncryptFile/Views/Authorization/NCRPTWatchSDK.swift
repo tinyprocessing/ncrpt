@@ -42,19 +42,23 @@ class NCRPTWatchSDK: NSObject, ObservableObject, Identifiable {
  
     func setupSecureView(){
         NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: OperationQueue.main) { (notification) in
-            self.needBlur = false
+            withAnimation{
+                self.needBlur = false
+            }
         }
         NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: OperationQueue.main) { (notification) in
-            self.needBlur = false
+            withAnimation{
+                self.needBlur = false
+            }
         }
         NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: OperationQueue.main) { [self] (notification) in
             if (self.ui == .pinCreate){
                 self.ui = .auth
                 Settings.shared.logout()
             }
-//            withAnimation{
+            withAnimation{
                 needBlur = true
-//            }
+            }
         }
     }
     

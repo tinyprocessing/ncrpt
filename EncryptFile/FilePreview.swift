@@ -200,7 +200,7 @@ struct PreviewController: UIViewControllerRepresentable {
 
 struct SheetView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var content : ProtectViewModel
+    @ObservedObject var content : ProtectViewModel = ProtectViewModel.shared
     
     @State var currentDate = Date.now
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()

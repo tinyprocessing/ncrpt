@@ -27,7 +27,10 @@ struct AllTemplatesView: View {
                         .foregroundColor(Color(0x1d3557))
                         .overlay(
                             NavigationLink(
-                                destination: { TemplateView(vm: pvm, template: templ, selectedRights: templ.rights) },
+                                destination: { TemplateView(vm: pvm,
+                                                            template: templ,
+                                                            selectedRights: templ.rights,
+                                                            usersInTamplate: Array(templ.users)) },
                                 label: { EmptyView() }
                             ).opacity(0)
                         )

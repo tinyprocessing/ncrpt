@@ -14,89 +14,148 @@ struct TemplateView: View {
     @State var isNewTemplate = false
     @State var templateFieldInput = ""
     @State var selectedRights = Set<String>()
+    @State var usersInTamplate = [User]()
     
- 
+    @State private var showNewUser = false
+    @State private var showEditUser = false
+    
     @State var chosenPermission = ""
-
+    
     var body: some View {
-        
-        Form {
-            //header
-            Section(header: Text("Name of Template")){
-                VStack(alignment: .leading) {
-                    if isNewTemplate {
-                        TextField("Type new template name", text: $templateFieldInput)
-                            .frame(height: 30)
-                            .padding(.horizontal, 10)
-                    } else {
-                        TextField("", text: Binding<String>(
-                            get: { self.templateFieldInput },
-                            set: {
-                                self.templateFieldInput = $0
-                                self.template?.name = self.templateFieldInput
-                        })).onAppear(perform: loadTemplate)
-                            .frame(height: 30)
-                            .padding(.horizontal, 10)
+            Form {
+                //MARK: template header
+                Section(header: Text("Name of Template")){
+                    VStack(alignment: .leading) {
+                        if isNewTemplate {
+                            TextField("Type new template name", text: $templateFieldInput)
+                                .frame(height: 30)
+                                .padding(.horizontal, 10)
+                        } else {
+                            TextField("", text: Binding<String>(
+                                get: { self.templateFieldInput },
+                                set: {
+                                    self.templateFieldInput = $0
+                                    self.template?.name = self.templateFieldInput
+                                }))
+                            .onAppear(perform: loadTemplate)
+                                .frame(height: 30)
+                            
+                        }
+                        
                     }
                     
                 }
                 
-            }
-            
-            //permissions
-            Section(header: Text("Choose permissions")) {
-                List(selection: $selectedRights) {
-                    ForEach(vm.permissionSet, id: \.self) { item in
-                        HStack {
-                            Text("\(item)")
+                //MARK: users
+                Section(header: Text("Users")) {
+                    ForEach(usersInTamplate){ user in
+                        HStack{
+                            VStack(alignment: .leading) {
+                                Text(user.name)
+                                Text(user.email)
+                                    .foregroundColor(.secondary)
+                                    .font(.system(size: 10))
+                            }
                             Spacer()
-                            Image(systemName: selectedRights.contains(item) ? "checkmark.square" : "square")
-                                .foregroundColor(selectedRights.contains(item) ? .green : .secondary)
+                            Button {
+                                showEditUser.toggle()
+                            } label: {
+                                Image(systemName: "chevron.right")
+                            }.foregroundColor(Color(0x1d3557))
+                                .overlay(
+                                    NavigationLink(
+                                        destination: {
+                                            TemplateUserView(vm: vm, user: user, selectedRights: user.rights, usersInTamplate: $usersInTamplate) },
+                                        label: { EmptyView() }
+                                    ).opacity(0)
+                                )
                         }
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            if  selectedRights.contains(item) {
-                                selectedRights.remove(item)
-                            }
-                            else{
-                                selectedRights.insert(item)
-                            }
-                            print(selectedRights)
+                    }
+                    .onDelete(perform: deleteUser)
+                    Button {
+                        showNewUser.toggle()
+                    } label: {
+                        HStack{
+                            Spacer()
+                            Image(systemName: "plus.circle")
+                            Text("Add new user")
+                            Spacer()
+                        }.foregroundColor(Color(0x1d3557))
+                    }
+                    .overlay(
+                        NavigationLink(
+                            destination: {
+                                TemplateUserView(vm: vm, isNewUser: true, usersInTamplate: $usersInTamplate)
+                            },
+                            label: { EmptyView() }
+                        ).opacity(0)
+                    )
+                }
+
+                
+                //MARK: permissions
+//                Section(header: Text("Choose permissions")) {
+//                    List(selection: $selectedRights) {
+//                        ForEach(vm.permissionSet, id: \.self) { item in
+//                            HStack {
+//                                Text("\(item)")
+//                                Spacer()
+//                                Image(systemName: selectedRights.contains(item) ? "checkmark.square" : "square")
+//                                    .foregroundColor(selectedRights.contains(item) ? .green : .secondary)
+//                            }
+//                            .contentShape(Rectangle())
+//                            .onTapGesture {
+//                                if  selectedRights.contains(item) {
+//                                    selectedRights.remove(item)
+//                                }
+//                                else{
+//                                    selectedRights.insert(item)
+//                                }
+//                                print(selectedRights)
+//                            }
+//                            
+//                        }
+//                    }
+//                }
+                
+                //MARK: safe/edit user button
+                Button {
+                    if !templateFieldInput.isEmpty {
+                        if isNewTemplate {
+                            //add new template
+                            vm.addTemplate(Template(name: templateFieldInput,
+                                                    rights: selectedRights,
+                                                    users: Set(usersInTamplate)),
+                                           new: true)
+                        } else {
+                            //edit template
+                            vm.addTemplate(Template(id: template!.id,
+                                                    name: templateFieldInput,
+                                                    rights: selectedRights,
+                                                    users: Set(usersInTamplate)))
                         }
-   
+
+                        self.presentation.wrappedValue.dismiss()
                     }
+                } label: {
+                    Text(isNewTemplate ? "Add template" : "Edit template")
+                        .font(.system(.body, design: .rounded))
+                        .foregroundColor(Color(0x1d3557))
+                        .bold()
+                        .frame(minWidth: 0, maxWidth: .infinity)
                 }
-            }
-            
-            //MARK: safe/edit user button
-            Button {
-                if !templateFieldInput.isEmpty {
-                    if isNewTemplate {
-                        //add new template
-                        vm.addTemplate(Template(name: templateFieldInput, rights: selectedRights), new: true)
-                    } else {
-                        //edit template
-                        vm.addTemplate(Template(id: template!.id, name: templateFieldInput, rights: selectedRights))
-                    }
-                    
-                    self.presentation.wrappedValue.dismiss()
-                }
-            } label: {
-                Text(isNewTemplate ? "Add template" : "Edit template")
-                    .font(.system(.body, design: .rounded))
-                    .foregroundColor(Color(0x1d3557))
-                    .bold()
-                    .frame(minWidth: 0, maxWidth: .infinity)
-            }
-        }
-        .navigationTitle(isNewTemplate ? "New template" : "Edit template")
+            }.navigationTitle(isNewTemplate ? "New template" : "Edit template")
     }
     
     
     func loadTemplate() {
-        self.templateFieldInput = template?.name ?? ""
+        templateFieldInput = template?.name ?? ""
     }
-
+    
+    func deleteUser(at offsets: IndexSet) {
+        usersInTamplate.remove(atOffsets: offsets)
+    }
+    
 }
 
 struct TemplateView_Previews: PreviewProvider {

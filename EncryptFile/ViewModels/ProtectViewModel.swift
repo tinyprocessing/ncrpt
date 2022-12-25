@@ -48,7 +48,8 @@ class ProtectViewModel: ObservableObject {
         LocalStorageEngine.loadTemplates { result in
             switch result {
             case .failure(let error):
-                fatalError(error.localizedDescription)
+                self.templates = []
+                print("ошибка чтения шаблонов \(error.localizedDescription)")
             case .success(let templates):
                 self.templates = templates
             }
@@ -59,7 +60,8 @@ class ProtectViewModel: ObservableObject {
         LocalStorageEngine.loadUsers { result in
             switch result {
             case .failure(let error):
-                fatalError(error.localizedDescription)
+                self.recentUsers = []
+                print("ошибка чтения recentUsers \(error.localizedDescription)")
             case .success(let users):
                 self.recentUsers = users
             }

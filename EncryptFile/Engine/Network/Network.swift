@@ -97,8 +97,16 @@ class Network: ObservableObject, Identifiable  {
                         rightsDecrypted.users = users
                         rightsDecrypted.rights = rights
                         
-                        
-                        completion(json["aes"].stringValue, rightsDecrypted, true)
+                        do{
+                            let encrypted = try EncryptedMessage(base64Encoded:json["aes"].stringValue)
+                            let privateKeyPEM = keychain.helper.loadPassword(service: "keychainPrivateKey", account: "NCRPT") ?? ""
+                            let privateKey = try PrivateKey(pemEncoded: privateKeyPEM)
+                            let result = try encrypted.decrypted(with: privateKey, padding: .PKCS1)
+                            completion(try result.string(encoding: .utf8), rightsDecrypted, true)
+                        }catch{
+                            print(error)
+                            completion("", nil, false)
+                        }
                     }else{
                         completion("", nil, false)
                     }

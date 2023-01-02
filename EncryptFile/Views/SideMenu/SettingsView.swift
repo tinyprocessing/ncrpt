@@ -9,6 +9,9 @@ import SwiftUI
 import Combine
 
 struct SettingsView: View {
+    @AppStorage("appearance")
+    var appearance: Appearance = .automatic
+    
     @State var email : String = ""
     @State var server : String = "https://security.ncrpt.io"
     
@@ -25,6 +28,17 @@ struct SettingsView: View {
             ScrollView(.vertical, showsIndicators: false){
                 VStack(alignment: .leading, spacing: 15){
                     VStack(alignment: .leading, spacing: 15){
+                        Text("UI")
+                            .modifier(NCRPTTextSemibold(size: 18))
+                            .foregroundColor(Color.init(hex: "21205A"))
+                        Picker("Pick", selection: $appearance) {
+                            ForEach(Appearance.allCases) { appearance in
+                                Text(appearance.name).tag(appearance)
+                            }
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .padding(.bottom, 10)
+
                         HStack{
                             Text("General")
                                 .modifier(NCRPTTextSemibold(size: 18))

@@ -24,6 +24,18 @@
 		23E7247E29194DC000ECFA19 /* ProtectionTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7247A29194DC000ECFA19 /* ProtectionTemplateView.swift */; };
 		23E7247F29194DC000ECFA19 /* TemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7247B29194DC000ECFA19 /* TemplateView.swift */; };
 		23E72481292A124A00ECFA19 /* AllTemplatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E72480292A124A00ECFA19 /* AllTemplatesView.swift */; };
+		23ED89BA296326410052E031 /* HiddenContainerRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED89B7296326410052E031 /* HiddenContainerRecognizer.swift */; };
+		23ED89BB296326410052E031 /* ScreenshotInvincibleContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED89B8296326410052E031 /* ScreenshotInvincibleContainer.swift */; };
+		23ED89BC296326410052E031 /* ScreenshotProtectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED89B9296326410052E031 /* ScreenshotProtectController.swift */; };
+		23ED89BF2963264A0052E031 /* UIView+SnapshotSafeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED89BE2963264A0052E031 /* UIView+SnapshotSafeController.swift */; };
+		23ED89C3296326520052E031 /* ScreenshotInvincibleContainerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED89C1296326520052E031 /* ScreenshotInvincibleContainerProtocol.swift */; };
+		23ED89C4296326520052E031 /* ScreenshotProtectControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED89C2296326520052E031 /* ScreenshotProtectControllerProtocol.swift */; };
+		23ED89C9296326570052E031 /* SnaphotSafeViewSwiftUIBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED89C6296326570052E031 /* SnaphotSafeViewSwiftUIBridge.swift */; };
+		23ED89CA296326570052E031 /* View+SnaphotSafeViewSwiftUIBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED89C7296326570052E031 /* View+SnaphotSafeViewSwiftUIBridge.swift */; };
+		23ED89CB296326570052E031 /* SnaphotSafeViewSwiftUIBridgeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED89C8296326570052E031 /* SnaphotSafeViewSwiftUIBridgeProtocol.swift */; };
+		23ED89CD2963307F0052E031 /* FileWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED89CC2963307F0052E031 /* FileWebView.swift */; };
+		23ED89CF296331030052E031 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED89CE296331030052E031 /* SheetView.swift */; };
+		23ED89D12963347A0052E031 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED89D02963347A0052E031 /* Appearance.swift */; };
 		23F8553F294CC1450068F285 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F8553E294CC1450068F285 /* Template.swift */; };
 		23F85541294CC15C0068F285 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F85540294CC15C0068F285 /* User.swift */; };
 		23F85543294CC1890068F285 /* Attach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F85542294CC1890068F285 /* Attach.swift */; };
@@ -59,7 +71,7 @@
 		2C592DB92916946400CC4518 /* Certification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C592DB82916946400CC4518 /* Certification.swift */; };
 		2C75701B292439F20043B464 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 2C75701A292439F20043B464 /* SwiftyJSON */; };
 		2C75701D2924496C0043B464 /* ADFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C75701C2924496C0043B464 /* ADFS.swift */; };
-		2CEF745829267FB7009663C8 /* FilePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEF745729267FB7009663C8 /* FilePreview.swift */; };
+		2CEF745829267FB7009663C8 /* QLFilePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEF745729267FB7009663C8 /* QLFilePreviewController.swift */; };
 		CAC626C503C0B776C3E7A888 /* Pods_EncryptFile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */; };
 		D49D419F2949273A00C66F0E /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D419E2949273A00C66F0E /* ActivityIndicator.swift */; };
 		D4A308B8294E208300CAEB5F /* APINotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A308B7294E208300CAEB5F /* APINotifications.swift */; };
@@ -107,6 +119,18 @@
 		23E7247A29194DC000ECFA19 /* ProtectionTemplateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectionTemplateView.swift; sourceTree = "<group>"; };
 		23E7247B29194DC000ECFA19 /* TemplateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateView.swift; sourceTree = "<group>"; };
 		23E72480292A124A00ECFA19 /* AllTemplatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTemplatesView.swift; sourceTree = "<group>"; };
+		23ED89B7296326410052E031 /* HiddenContainerRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HiddenContainerRecognizer.swift; sourceTree = "<group>"; };
+		23ED89B8296326410052E031 /* ScreenshotInvincibleContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotInvincibleContainer.swift; sourceTree = "<group>"; };
+		23ED89B9296326410052E031 /* ScreenshotProtectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotProtectController.swift; sourceTree = "<group>"; };
+		23ED89BE2963264A0052E031 /* UIView+SnapshotSafeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+SnapshotSafeController.swift"; sourceTree = "<group>"; };
+		23ED89C1296326520052E031 /* ScreenshotInvincibleContainerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotInvincibleContainerProtocol.swift; sourceTree = "<group>"; };
+		23ED89C2296326520052E031 /* ScreenshotProtectControllerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotProtectControllerProtocol.swift; sourceTree = "<group>"; };
+		23ED89C6296326570052E031 /* SnaphotSafeViewSwiftUIBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnaphotSafeViewSwiftUIBridge.swift; sourceTree = "<group>"; };
+		23ED89C7296326570052E031 /* View+SnaphotSafeViewSwiftUIBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+SnaphotSafeViewSwiftUIBridge.swift"; sourceTree = "<group>"; };
+		23ED89C8296326570052E031 /* SnaphotSafeViewSwiftUIBridgeProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnaphotSafeViewSwiftUIBridgeProtocol.swift; sourceTree = "<group>"; };
+		23ED89CC2963307F0052E031 /* FileWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileWebView.swift; sourceTree = "<group>"; };
+		23ED89CE296331030052E031 /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
+		23ED89D02963347A0052E031 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 		23F8553E294CC1450068F285 /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		23F85540294CC15C0068F285 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		23F85542294CC1890068F285 /* Attach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attach.swift; sourceTree = "<group>"; };
@@ -140,7 +164,7 @@
 		2C34F3F62926621000820FC4 /* fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fonts.swift; sourceTree = "<group>"; };
 		2C592DB82916946400CC4518 /* Certification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Certification.swift; sourceTree = "<group>"; };
 		2C75701C2924496C0043B464 /* ADFS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADFS.swift; sourceTree = "<group>"; };
-		2CEF745729267FB7009663C8 /* FilePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePreview.swift; sourceTree = "<group>"; };
+		2CEF745729267FB7009663C8 /* QLFilePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLFilePreviewController.swift; sourceTree = "<group>"; };
 		3AE40F6516B80AD996D0E26C /* Pods-EncryptFile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.release.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.release.xcconfig"; sourceTree = "<group>"; };
 		A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EncryptFile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1D9F4C2828C34ED673B7C13 /* Pods-EncryptFile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.debug.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.debug.xcconfig"; sourceTree = "<group>"; };
@@ -207,6 +231,8 @@
 				236259C9291010F0007EC337 /* GroupsSideView.swift */,
 				236259CA291010F0007EC337 /* SideMenu.swift */,
 				236259CB291010F0007EC337 /* IconMenuView.swift */,
+				23ED89CC2963307F0052E031 /* FileWebView.swift */,
+				23ED89CE296331030052E031 /* SheetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -228,6 +254,7 @@
 				23F8553E294CC1450068F285 /* Template.swift */,
 				23F85540294CC15C0068F285 /* User.swift */,
 				23F85542294CC1890068F285 /* Attach.swift */,
+				23ED89D02963347A0052E031 /* Appearance.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -264,6 +291,54 @@
 				23FFE8DC295844B70018A354 /* TemplateUserView.swift */,
 			);
 			path = Encryption;
+			sourceTree = "<group>";
+		};
+		23ED89B5296326240052E031 /* SnapshotSafeView */ = {
+			isa = PBXGroup;
+			children = (
+				23ED89C5296326570052E031 /* SwiftUIBridge */,
+				23ED89C0296326520052E031 /* Protocols */,
+				23ED89BD2963264A0052E031 /* Library */,
+				23ED89B6296326410052E031 /* Core */,
+			);
+			path = SnapshotSafeView;
+			sourceTree = "<group>";
+		};
+		23ED89B6296326410052E031 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				23ED89B7296326410052E031 /* HiddenContainerRecognizer.swift */,
+				23ED89B8296326410052E031 /* ScreenshotInvincibleContainer.swift */,
+				23ED89B9296326410052E031 /* ScreenshotProtectController.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		23ED89BD2963264A0052E031 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				23ED89BE2963264A0052E031 /* UIView+SnapshotSafeController.swift */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		23ED89C0296326520052E031 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				23ED89C1296326520052E031 /* ScreenshotInvincibleContainerProtocol.swift */,
+				23ED89C2296326520052E031 /* ScreenshotProtectControllerProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		23ED89C5296326570052E031 /* SwiftUIBridge */ = {
+			isa = PBXGroup;
+			children = (
+				23ED89C6296326570052E031 /* SnaphotSafeViewSwiftUIBridge.swift */,
+				23ED89C7296326570052E031 /* View+SnaphotSafeViewSwiftUIBridge.swift */,
+				23ED89C8296326570052E031 /* SnaphotSafeViewSwiftUIBridgeProtocol.swift */,
+			);
+			path = SwiftUIBridge;
 			sourceTree = "<group>";
 		};
 		2C1BC099290FEE9C00B3AD7C /* Keychain */ = {
@@ -385,10 +460,11 @@
 				D4F36F5B29086AA300EF7C85 /* EncryptFileApp.swift */,
 				D4F36F5D29086AA300EF7C85 /* ContentView.swift */,
 				2C34F3CC29254DFA00820FC4 /* SecureFileView.swift */,
-				2CEF745729267FB7009663C8 /* FilePreview.swift */,
+				2CEF745729267FB7009663C8 /* QLFilePreviewController.swift */,
 				D4FFFD8F295629F10018C730 /* RightsView.swift */,
 				D4F36F812909AE5A00EF7C85 /* UI */,
 				D4F36F75290871E200EF7C85 /* Polygone */,
+				23ED89B5296326240052E031 /* SnapshotSafeView */,
 				D4F36F5F29086AA400EF7C85 /* Assets.xcassets */,
 				D4F36F6129086AA400EF7C85 /* Preview Content */,
 			);
@@ -603,17 +679,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				236259CF291010F0007EC337 /* IconMenuView.swift in Sources */,
+				23ED89BF2963264A0052E031 /* UIView+SnapshotSafeController.swift in Sources */,
 				23FFE8DD295844B70018A354 /* TemplateUserView.swift in Sources */,
 				23994E7A2911925300A832E4 /* Color+Ext.swift in Sources */,
+				23ED89BC296326410052E031 /* ScreenshotProtectController.swift in Sources */,
 				236259D52910110B007EC337 /* GroupData.swift in Sources */,
+				23ED89CB296326570052E031 /* SnaphotSafeViewSwiftUIBridgeProtocol.swift in Sources */,
 				D4F36F5E29086AA300EF7C85 /* ContentView.swift in Sources */,
 				D4F36F7E2909500F00EF7C85 /* LocalFileEngine.swift in Sources */,
 				2C75701D2924496C0043B464 /* ADFS.swift in Sources */,
 				2C1BC0A4290FFC6700B3AD7C /* Network.swift in Sources */,
 				236259CE291010F0007EC337 /* SideMenu.swift in Sources */,
+				23ED89BA296326410052E031 /* HiddenContainerRecognizer.swift in Sources */,
+				23ED89C3296326520052E031 /* ScreenshotInvincibleContainerProtocol.swift in Sources */,
 				2C1BC09B290FEEB000B3AD7C /* Keychain.swift in Sources */,
 				D4F36F6D29086E6900EF7C85 /* AES.swift in Sources */,
+				23ED89CF296331030052E031 /* SheetView.swift in Sources */,
+				23ED89C4296326520052E031 /* ScreenshotProtectControllerProtocol.swift in Sources */,
 				23E7247E29194DC000ECFA19 /* ProtectionTemplateView.swift in Sources */,
+				23ED89CD2963307F0052E031 /* FileWebView.swift in Sources */,
 				D4F36F792908870900EF7C85 /* FileEngine.swift in Sources */,
 				D4FFFD96295743B70018C730 /* NCRPTAuthSDK.swift in Sources */,
 				2C1BC0AC290FFD2600B3AD7C /* Settings.swift in Sources */,
@@ -621,24 +705,28 @@
 				23994E772910F67A00A832E4 /* RegistrationViewModel.swift in Sources */,
 				23994E752910F5EB00A832E4 /* LoginView.swift in Sources */,
 				D49D419F2949273A00C66F0E /* ActivityIndicator.swift in Sources */,
+				23ED89CA296326570052E031 /* View+SnaphotSafeViewSwiftUIBridge.swift in Sources */,
 				23E7247D29194DC000ECFA19 /* UserRightsView.swift in Sources */,
 				D4F36F882909DA3500EF7C85 /* FileSize.swift in Sources */,
 				D4F36F722908717900EF7C85 /* Polygone.swift in Sources */,
-				2CEF745829267FB7009663C8 /* FilePreview.swift in Sources */,
+				2CEF745829267FB7009663C8 /* QLFilePreviewController.swift in Sources */,
 				D4A308B8294E208300CAEB5F /* APINotifications.swift in Sources */,
 				236259D2291010FC007EC337 /* GroupViewModel.swift in Sources */,
 				2C34F3CD29254DFA00820FC4 /* SecureFileView.swift in Sources */,
 				2C1BC0AA290FFCC400B3AD7C /* Log.swift in Sources */,
 				23F85543294CC1890068F285 /* Attach.swift in Sources */,
+				23ED89BB296326410052E031 /* ScreenshotInvincibleContainer.swift in Sources */,
 				D4FFFD99295761DA0018C730 /* Defaults.swift in Sources */,
 				2C34F3F72926621000820FC4 /* fonts.swift in Sources */,
 				23994E732910F5D500A832E4 /* RegistrationView.swift in Sources */,
 				23E72481292A124A00ECFA19 /* AllTemplatesView.swift in Sources */,
+				23ED89C9296326570052E031 /* SnaphotSafeViewSwiftUIBridge.swift in Sources */,
 				D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */,
 				D4FFFD8C2956111F0018C730 /* SettingsView.swift in Sources */,
 				D4FFFD90295629F10018C730 /* RightsView.swift in Sources */,
 				D4FFFD92295740ED0018C730 /* PinView.swift in Sources */,
 				23994E7C2911927700A832E4 /* View+Ext.swift in Sources */,
+				23ED89D12963347A0052E031 /* Appearance.swift in Sources */,
 				23E724722918DD5300ECFA19 /* URL+Ext.swift in Sources */,
 				236259CD291010F0007EC337 /* GroupsSideView.swift in Sources */,
 				23E7247F29194DC000ECFA19 /* TemplateView.swift in Sources */,

@@ -11,6 +11,7 @@ import LocalAuthentication
 
 @main
 struct EncryptFileApp: App {
+    @AppStorage("appearance") var appearance: Appearance = .automatic
     
     @State var isLoggedIn = true
     @State var opacity : Double = 1.0
@@ -49,6 +50,7 @@ struct EncryptFileApp: App {
             .opacity(self.opacity)
             .navigationViewStyle(StackNavigationViewStyle())
             .accentColor(.black)
+            .preferredColorScheme(appearance.getColorScheme())
             .onAppear{
                 
                 let rsa = RSA()

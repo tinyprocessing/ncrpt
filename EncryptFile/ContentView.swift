@@ -6,9 +6,6 @@
 //
 
 import SwiftUI
-import UniformTypeIdentifiers
-import QuickLook
-import QuartzCore
 
 struct ContentView: View {
     

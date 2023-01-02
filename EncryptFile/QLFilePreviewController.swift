@@ -113,6 +113,7 @@ func removeAllStaff<T>(_ view: inout T){
     }
 }
 
+//MARK: - PreviewController
 struct PreviewController: UIViewControllerRepresentable {
     let url: URL
     var controller = QLPreviewControllerNew()
@@ -191,58 +192,5 @@ struct PreviewController: UIViewControllerRepresentable {
             return parent.url as NSURL
         }
         
-    }
-}
-
-
-
-
-
-struct SheetView: View {
-    @Environment(\.dismiss) var dismiss
-    @ObservedObject var content : ProtectViewModel = ProtectViewModel.shared
-    
-    @State var currentDate = Date.now
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-
-    
-    @State var opacity : Double = 0.01
-    var body: some View {
-        VStack{
-            if self.content.chosenFiles.count > 0 {
-                PreviewController(url: (self.content.chosenFiles.first?.url!)!)
-                    .opacity(self.opacity)
-                    .onAppear{
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                            withAnimation{
-                                self.opacity = 1.0
-                            }
-                        })
-                    }
-            }else{
-                VStack{
-                    ActivityIndicator(isAnimating: .constant(true), style: .large)
-                        .foregroundColor(.secondary)
-                    
-                    Text("Decrypting file")
-                        .modifier(NCRPTTextMedium(size: 16))
-                }
-            }
-        }
-        .navigationTitle("viewer")
-        .navigationBarTitleDisplayMode(.inline)
-        
-        .navigationBarItems(
-            leading:
-                EmptyView()
-            ,
-            trailing:
-                NavigationLink(destination: RightsView(content: self.content), label: {
-                    HStack{
-                        Image(systemName: "list.clipboard")
-                            .foregroundColor(.black)
-                    }.clipShape(Rectangle())
-                })
-        )
     }
 }

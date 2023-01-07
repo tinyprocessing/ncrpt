@@ -22,7 +22,7 @@ struct SheetView: View {
 //                PreviewController(url: (self.content.chosenFiles.first?.url!)!)
                 FileWebView(url: (self.content.chosenFiles.first?.url!)!)
                     .hiddenFromSystemSnaphot(when: true)
-
+                    
                     .opacity(self.opacity)
                     .onAppear{
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {

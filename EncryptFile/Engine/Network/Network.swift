@@ -70,6 +70,7 @@ class Network: ObservableObject, Identifiable  {
             let keychain = Keychain()
             var publicKey = keychain.helper.loadPassword(service: "keychainPublicKey", account: "NCRPT") ?? ""
             publicKey = publicKey.data(using: .utf8)?.base64EncodedString() ?? ""
+            print(publicKey)
             AF.request("https://secure.ncrpt.io/decrypt.php", method: .post, parameters: ["fileMD5": fileMD5,
                                                                                           "public": publicKey], headers: headers).responseJSON { [self] (response) in
                 

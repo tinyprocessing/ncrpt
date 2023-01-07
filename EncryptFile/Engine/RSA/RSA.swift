@@ -42,8 +42,6 @@ class RSA: ObservableObject, Identifiable  {
                 keychain.helper.removePassword(service: "keychainPrivateKey", account: "NCRPT")
                 keychain.helper.savePassword(service: "keychainPrivateKey", account: "NCRPT", data: keys.0 ?? "")
                 keychain.helper.savePassword(service: "keychainPublicKey", account: "NCRPT", data: keys.1 ?? "")
-                print(keys.1!)
-                print(keys.0!)
                 log.debug(module: "RSA", type: #function, object: "Keys saved to keychain")
             }
         }

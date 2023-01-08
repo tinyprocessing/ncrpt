@@ -16,13 +16,15 @@ struct RightsView: View {
                 if !rights.users.isEmpty {
                     ScrollView(.vertical, showsIndicators: false){
                         VStack(alignment: .leading, spacing: 5){
-                            ForEach(Array(zip(rights.users, rights.rights)), id: \.0) { item in
+                            let value = Array(zip(rights.id, zip(rights.users, rights.rights)))
+                            ForEach(value, id: \.0) { (id, arg1) in
+                                let (userValue, rightValue) = arg1
                                 VStack{
                                     HStack{
                                         VStack(alignment: .leading, spacing: 5){
-                                            Text(item.0)
+                                            Text(userValue)
                                                 .modifier(NCRPTTextMedium(size: 16))
-                                            Text(item.1.lowercased().replacingOccurrences(of: ",", with: ", "))
+                                            Text(rightValue.lowercased().replacingOccurrences(of: ",", with: ", "))
                                                 .modifier(NCRPTTextMedium(size: 14))
                                                 .opacity(0.7)
                                         }

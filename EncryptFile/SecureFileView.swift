@@ -14,7 +14,7 @@ struct SecureFileView: View {
     @State private var isImporting: Bool = false
     @State private var presentAddUsers = false
     @State private var username: String = ""
-    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var showNewUser = false
     @State private var showEditUser = false
     @State private var showNewTemplate = false
@@ -44,7 +44,10 @@ struct SecureFileView: View {
                                 .foregroundColor(Color(0x1d3557))
                                 .overlay(
                                     NavigationLink(
-                                        destination: { TemplateView(vm: pvm, template: templ, selectedRights: templ.rights) },
+                                        destination: {  TemplateView(vm: pvm,
+                                                                     template: templ,
+                                                                     selectedRights: templ.rights,
+                                                                     usersInTamplate: Array(templ.users)) },
                                         label: { EmptyView() }
                                     ).opacity(0)
                                 )
@@ -167,12 +170,24 @@ struct SecureFileView: View {
                     print("-template: \(pvm.templates.first{$0.id == pvm.selectedTemplated}?.name)")
                     print("-files: \(pvm.chosenFiles)")
                     
+                    let template = pvm.templates.first{$0.id == pvm.selectedTemplated}
+                    if template != nil {
+                        template!.users.forEach { user in
+                            pvm.selectedResentUsers.append(user)
+                        }
+                    }
                     //Check chosen files
                     let polygone = Polygone()
                     if pvm.chosenFiles.count > 0 {
                         polygone.encryptFile((pvm.chosenFiles.first?.url)!, users: pvm.selectedResentUsers) { success in
                             print(success)
-                            Settings.shared.alert(title: "Success", message: "Your files are protected, you can find them on home page")
+                            if success {
+                                Settings.shared.alert(title: "Success", message: "Your files are protected, you can find them on home page")
+                                self.pvm.clear()
+                                self.presentationMode.wrappedValue.dismiss()
+                            }else{
+                                Settings.shared.alert(title: "Error", message: "File is not protected, try again later")
+                            }
                         }
                     }
                 }, label: {
@@ -181,7 +196,7 @@ struct SecureFileView: View {
                         Text("protect file")
                             .padding(.horizontal, 55)
                             .padding(.vertical, 10)
-                            .background(pvm.chosenFiles.count > 0 && pvm.selectedResentUsers.count > 0 ? Color.init(hex: "4378DB") : Color.init(hex: "4378DB").opacity(0.1))
+                            .background(pvm.chosenFiles.count > 0 && (pvm.selectedResentUsers.count > 0 || pvm.templates.first{$0.id == pvm.selectedTemplated} != nil) ? Color.init(hex: "4378DB") : Color.init(hex: "4378DB").opacity(0.1))
                             .cornerRadius(8.0)
                             .foregroundColor(Color.white)
                         Spacer()

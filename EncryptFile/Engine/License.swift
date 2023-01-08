@@ -63,6 +63,7 @@ struct License : Codable {
 ///
 /// OBJMODEL
 struct Rights : Codable {
+    var id : [Int] = []
     var owner : String = ""
     var users : [String] = []
     var rights : [String] = []

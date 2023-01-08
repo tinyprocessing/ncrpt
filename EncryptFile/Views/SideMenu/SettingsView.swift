@@ -10,7 +10,7 @@ import Combine
 
 struct SettingsView: View {
     @AppStorage("appearance")
-    var appearance: Appearance = .automatic
+    var appearance: Appearance = .light
     
     @State var email : String = ""
     @State var server : String = "https://security.ncrpt.io"
@@ -28,16 +28,16 @@ struct SettingsView: View {
             ScrollView(.vertical, showsIndicators: false){
                 VStack(alignment: .leading, spacing: 15){
                     VStack(alignment: .leading, spacing: 15){
-                        Text("UI")
-                            .modifier(NCRPTTextSemibold(size: 18))
-                            .foregroundColor(Color.init(hex: "21205A"))
-                        Picker("Pick", selection: $appearance) {
-                            ForEach(Appearance.allCases) { appearance in
-                                Text(appearance.name).tag(appearance)
-                            }
-                        }
-                        .pickerStyle(SegmentedPickerStyle())
-                        .padding(.bottom, 10)
+//                        Text("UI")
+//                            .modifier(NCRPTTextSemibold(size: 18))
+//                            .foregroundColor(Color.init(hex: "21205A"))
+//                        Picker("Pick", selection: $appearance) {
+//                            ForEach(Appearance.allCases) { appearance in
+//                                Text(appearance.name).tag(appearance)
+//                            }
+//                        }
+//                        .pickerStyle(SegmentedPickerStyle())
+//                        .padding(.bottom, 10)
 
                         HStack{
                             Text("General")
@@ -55,7 +55,7 @@ struct SettingsView: View {
                                 .opacity(0.7)
                         }
                         
-                        NavigationLink(destination: Text("Certificates"), label: {
+                        NavigationLink(destination: CertificationView(), label: {
                             HStack{
                                 Text("Certificates")
                                     .modifier(NCRPTTextMedium(size: 16))
@@ -66,7 +66,7 @@ struct SettingsView: View {
                             }.clipShape(Rectangle())
                         })
                         
-                        NavigationLink(destination: Text("Certificates"), label: {
+                        NavigationLink(destination: Text("Logs"), label: {
                             HStack{
                                 Text("Logs")
                                     .modifier(NCRPTTextMedium(size: 16))
@@ -108,24 +108,24 @@ struct SettingsView: View {
                                 .padding(.leading)
                                 .opacity(0.7)
                         }
-                        HStack{
-                            VStack(alignment: .leading){
-                                Text("RSA Connection")
-                                    .modifier(NCRPTTextMedium(size: 16))
-                                Text("This setting helps to protect the connection between the server and the client with its own ncrpt protocol")
-                                    .modifier(NCRPTTextMedium(size: 14))
-                                    .opacity(0.5)
-                            }
-                            Spacer()
-                            Toggle("", isOn: $rsa)
-                                .offset(x: -5)
-                                .tint(Color.init(hex: "21205A"))
-                                .onChange(of: self.rsa, perform: { newValue in
-                                    print(newValue)
-                                    let defaults = UserDefaults.standard
-                                    defaults.set(newValue, forKey: UserDefaults.Keys.SettingsRSA.rawValue)
-                                })
-                        }
+//                        HStack{
+//                            VStack(alignment: .leading){
+//                                Text("RSA Connection")
+//                                    .modifier(NCRPTTextMedium(size: 16))
+//                                Text("This setting helps to protect the connection between the server and the client with its own ncrpt protocol")
+//                                    .modifier(NCRPTTextMedium(size: 14))
+//                                    .opacity(0.5)
+//                            }
+//                            Spacer()
+//                            Toggle("", isOn: $rsa)
+//                                .offset(x: -5)
+//                                .tint(Color.init(hex: "21205A"))
+//                                .onChange(of: self.rsa, perform: { newValue in
+//                                    print(newValue)
+//                                    let defaults = UserDefaults.standard
+//                                    defaults.set(newValue, forKey: UserDefaults.Keys.SettingsRSA.rawValue)
+//                                })
+//                        }
                         HStack{
                             VStack(alignment: .leading){
                                 Text("Trust connection")
@@ -194,7 +194,7 @@ struct SettingsView: View {
                                 .foregroundColor(Color.init(hex: "21205A"))
                             Spacer()
                         }
-                        NavigationLink(destination: Text("Network"), label: {
+                        NavigationLink(destination: NetworkView(), label: {
                             HStack{
                                 Text("System Information")
                                     .modifier(NCRPTTextMedium(size: 16))
@@ -218,6 +218,7 @@ struct SettingsView: View {
             self.crashReporting = defaults.bool(forKey: UserDefaults.Keys.SettingsCrashReporting.rawValue)
             self.rsa = defaults.bool(forKey: UserDefaults.Keys.SettingsRSA.rawValue)
             self.compress = defaults.bool(forKey: UserDefaults.Keys.SettingsCompress.rawValue)
+            self.server = defaults.string(forKey: UserDefaults.Keys.SettingsServer.rawValue) ?? Settings.shared.server
             DispatchQueue.global(qos: .userInitiated).async {
                 let certification = Certification()
                 certification.getCertificate()

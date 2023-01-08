@@ -11,6 +11,7 @@ import CommonCrypto
 import Security
 import openssl
 
+
 fileprivate typealias X509 = OpaquePointer
 
 class Certification: ObservableObject, Identifiable  {
@@ -121,7 +122,9 @@ class Certification: ObservableObject, Identifiable  {
             var firstByte: UnsafePointer? = data.bytes.assumingMemoryBound(to: UInt8.self)
             let certificateX509 = d2i_X509(nil, &firstByte, data.length)
             let subjectX509Name = X509_get_subject_name(certificateX509)
+            
             if (subjectX509Name != nil) {
+                self.certificate.certificationOIDs = []
                 let organizationUnitName = getSubjectPartName(from: subjectX509Name, forKey: "2.5.4.11") ?? ""
                 print(organizationUnitName)
                 
@@ -140,13 +143,28 @@ class Certification: ObservableObject, Identifiable  {
                 self.certificate.email = getSubjectPartName(from: subjectX509Name, forKey: "1.2.840.113549.1.9.1")
                 self.certificate.name = getSubjectPartName(from: subjectX509Name, forKey: "2.5.4.4")
                 
+                self.certificate.certificationOIDs.append(CertificateOID(name: "Name",
+                                                                         value: getSubjectPartName(from: subjectX509Name,
+                                                                                                   forKey: "2.5.4.4") ?? "-"))
+                self.certificate.certificationOIDs.append(CertificateOID(name: "Email",
+                                                                         value: getSubjectPartName(from: subjectX509Name,
+                                                                                                   forKey: "1.2.840.113549.1.9.1") ?? "-"))
+                self.certificate.certificationOIDs.append(CertificateOID(name: "serialNumber",
+                                                                         value: String(describing: serialNumber)))
+
+                
                 let structOID = certificationOIDs()
                 let mirror = Mirror(reflecting: structOID)
+                
                 autoreleasepool {
                     for child in mirror.children  {
                         let value = getSubjectPartName(from: subjectX509Name, forKey: child.value as! String) ?? ""
                         if value.count > 0 {
                             print("key: \(child.label), value: \(value)")
+                            var oid = CertificateOID()
+                            oid.name = (child.label ?? "-").replacingOccurrences(of: "kSecOID", with: "")
+                            oid.value = String(describing: value)
+                            self.certificate.certificationOIDs.append(oid)
                         }
                     }
                 }
@@ -232,8 +250,14 @@ public class Certificate: NSObject {
     private(set) var privateKeyUsageEnabled = false
     private(set) var certificateIsValid = false
     var subjectExtensions: [AnyHashable : Any]?
+    var certificationOIDs : [CertificateOID] = []
 }
 
+struct CertificateOID: Identifiable, Hashable {
+    var id: Int = 0
+    var name : String = ""
+    var value : String = ""
+}
 
 enum CertTrust : Int {
     case noError = 0

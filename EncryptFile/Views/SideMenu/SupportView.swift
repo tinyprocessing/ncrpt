@@ -72,6 +72,9 @@ struct WebView: UIViewRepresentable {
         
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             self.viewModel.isLoading = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                webView.evaluateJavaScript("document.getElementsByClassName('t-tildalabel')[0].remove()")
+            })
         }
     }
     
@@ -90,7 +93,7 @@ struct WebView: UIViewRepresentable {
 
 
 struct SupportView: View {
-    @StateObject var model = WebViewModel(url: "https://ncrpt.io")
+    @StateObject var model = WebViewModel(url: "https://ncrpt.io/support")
     var body: some View {
         VStack(alignment: .leading){
             LoadingView(isShowing: self.$model.isLoading) {

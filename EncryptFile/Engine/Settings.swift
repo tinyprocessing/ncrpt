@@ -21,6 +21,7 @@ class Settings: ObservableObject, Identifiable {
     var log_allow : Bool = true
     
     var email : String = "help@ncrpt.io"
+    var server : String = "https://secure.ncrpt.io"
     
     var allowDebug : Bool = true
     

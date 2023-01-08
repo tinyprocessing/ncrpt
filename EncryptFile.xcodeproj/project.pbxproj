@@ -73,6 +73,9 @@
 		2C75701D2924496C0043B464 /* ADFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C75701C2924496C0043B464 /* ADFS.swift */; };
 		2CEF745829267FB7009663C8 /* QLFilePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEF745729267FB7009663C8 /* QLFilePreviewController.swift */; };
 		CAC626C503C0B776C3E7A888 /* Pods_EncryptFile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */; };
+		D401A767296A373B003F3BF8 /* Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D401A766296A373B003F3BF8 /* Interface.swift */; };
+		D401A76A296A380E003F3BF8 /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D401A769296A380E003F3BF8 /* NetworkView.swift */; };
+		D401A76C296A3D38003F3BF8 /* CertificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D401A76B296A3D38003F3BF8 /* CertificationView.swift */; };
 		D49D419F2949273A00C66F0E /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D419E2949273A00C66F0E /* ActivityIndicator.swift */; };
 		D4A308B8294E208300CAEB5F /* APINotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A308B7294E208300CAEB5F /* APINotifications.swift */; };
 		D4A308BB294E22C200CAEB5F /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A308BA294E22C200CAEB5F /* NotificationsView.swift */; };
@@ -168,6 +171,9 @@
 		3AE40F6516B80AD996D0E26C /* Pods-EncryptFile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.release.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.release.xcconfig"; sourceTree = "<group>"; };
 		A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EncryptFile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1D9F4C2828C34ED673B7C13 /* Pods-EncryptFile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.debug.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.debug.xcconfig"; sourceTree = "<group>"; };
+		D401A766296A373B003F3BF8 /* Interface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interface.swift; sourceTree = "<group>"; };
+		D401A769296A380E003F3BF8 /* NetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
+		D401A76B296A3D38003F3BF8 /* CertificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationView.swift; sourceTree = "<group>"; };
 		D49D419E2949273A00C66F0E /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		D4A308B7294E208300CAEB5F /* APINotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APINotifications.swift; sourceTree = "<group>"; };
 		D4A308BA294E22C200CAEB5F /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
@@ -293,7 +299,7 @@
 			path = Encryption;
 			sourceTree = "<group>";
 		};
-		23ED89B5296326240052E031 /* SnapshotSafeView */ = {
+		23ED89B5296326240052E031 /* ProtectScreen */ = {
 			isa = PBXGroup;
 			children = (
 				23ED89C5296326570052E031 /* SwiftUIBridge */,
@@ -301,7 +307,7 @@
 				23ED89BD2963264A0052E031 /* Library */,
 				23ED89B6296326410052E031 /* Core */,
 			);
-			path = SnapshotSafeView;
+			path = ProtectScreen;
 			sourceTree = "<group>";
 		};
 		23ED89B6296326410052E031 /* Core */ = {
@@ -365,6 +371,7 @@
 				2C1BC0A3290FFC6700B3AD7C /* Network.swift */,
 				2C75701C2924496C0043B464 /* ADFS.swift */,
 				D4A308B7294E208300CAEB5F /* APINotifications.swift */,
+				D401A766296A373B003F3BF8 /* Interface.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -419,9 +426,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D401A768296A37FB003F3BF8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D401A769296A380E003F3BF8 /* NetworkView.swift */,
+				D401A76B296A3D38003F3BF8 /* CertificationView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		D4A308B9294E22AE00CAEB5F /* SideMenu */ = {
 			isa = PBXGroup;
 			children = (
+				D401A768296A37FB003F3BF8 /* Views */,
 				D4A308BA294E22C200CAEB5F /* NotificationsView.swift */,
 				D4FFFD8B2956111F0018C730 /* SettingsView.swift */,
 				D4FFFD8D295611FA0018C730 /* SupportView.swift */,
@@ -464,7 +481,7 @@
 				D4FFFD8F295629F10018C730 /* RightsView.swift */,
 				D4F36F812909AE5A00EF7C85 /* UI */,
 				D4F36F75290871E200EF7C85 /* Polygone */,
-				23ED89B5296326240052E031 /* SnapshotSafeView */,
+				23ED89B5296326240052E031 /* ProtectScreen */,
 				D4F36F5F29086AA400EF7C85 /* Assets.xcassets */,
 				D4F36F6129086AA400EF7C85 /* Preview Content */,
 			);
@@ -695,7 +712,9 @@
 				2C1BC09B290FEEB000B3AD7C /* Keychain.swift in Sources */,
 				D4F36F6D29086E6900EF7C85 /* AES.swift in Sources */,
 				23ED89CF296331030052E031 /* SheetView.swift in Sources */,
+				D401A76C296A3D38003F3BF8 /* CertificationView.swift in Sources */,
 				23ED89C4296326520052E031 /* ScreenshotProtectControllerProtocol.swift in Sources */,
+				D401A76A296A380E003F3BF8 /* NetworkView.swift in Sources */,
 				23E7247E29194DC000ECFA19 /* ProtectionTemplateView.swift in Sources */,
 				23ED89CD2963307F0052E031 /* FileWebView.swift in Sources */,
 				D4F36F792908870900EF7C85 /* FileEngine.swift in Sources */,
@@ -733,6 +752,7 @@
 				D4FFFD94295742500018C730 /* NCRPTWatchSDK.swift in Sources */,
 				D4F36F7029086EA000EF7C85 /* AESHelper.swift in Sources */,
 				23F8553F294CC1450068F285 /* Template.swift in Sources */,
+				D401A767296A373B003F3BF8 /* Interface.swift in Sources */,
 				23F85545294DDC4C0068F285 /* LocalStorageEngine.swift in Sources */,
 				2C592DB92916946400CC4518 /* Certification.swift in Sources */,
 				D4F36F6B29086BC800EF7C85 /* EncryptionEngine.swift in Sources */,

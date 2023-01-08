@@ -14,7 +14,7 @@ struct RegistrationView: View {
         VStack {
             Text("Create an \naccount")
                 .multilineTextAlignment(.center)
-                .font(.system(.largeTitle, design: .rounded))
+                .modifier(NCRPTTextSemibold(size: 25))
                 .bold()
                 .padding(.bottom, 70)
             
@@ -32,7 +32,7 @@ struct RegistrationView: View {
 
             
             FormField(fieldName: "Password", fieldValue: $vm.password, isSecure: true)
-            VStack {
+            VStack(spacing: 10) {
                 RequirementText(iconName: vm.isPasswordLengthValid ? "checkmark.circle":"xmark.square",
                                 iconColor: vm.isPasswordLengthValid ? .green : .secondary,
                                 text: "A minimum of 8 characters", isStrikeThrough: vm.isPasswordLengthValid)
@@ -59,16 +59,16 @@ struct RegistrationView: View {
                 // Call backend
             }) {
                 Text("Registry")
-                    .font(.system(.body, design: .rounded))
+                    .modifier(NCRPTTextMedium(size: 16))
                     .foregroundColor(.white)
                     .bold()
                     .padding()
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .if(vm.canRegister) { view in
-                        view.background(LinearGradient(gradient: Gradient(colors: [Color(0x1d3557), Color(0xa8dadc)]), startPoint: .leading, endPoint: .trailing))
+                        view.background(Color.init(hex: "4378DB"))
                     }
                     .if(!vm.canRegister) { view in
-                        view.background(LinearGradient(gradient: Gradient(colors: [Color(0x1d3557), Color(0xa8dadc)]), startPoint: .leading, endPoint: .trailing)).opacity(0.5)
+                        view.background(Color.init(hex: "4378DB")).opacity(0.5)
                     }
                     .cornerRadius(10)
                     .padding(.horizontal)
@@ -99,7 +99,7 @@ struct RequirementText: View {
             Image(systemName: iconName)
                 .foregroundColor(iconColor)
             Text(text)
-                .font(.system(.body, design: .rounded))
+                .modifier(NCRPTTextMedium(size: 16))
                 .foregroundColor(.secondary)
                 .strikethrough(isStrikeThrough)
             Spacer()

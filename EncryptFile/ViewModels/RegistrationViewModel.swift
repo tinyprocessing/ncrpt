@@ -12,6 +12,8 @@ class RegistrationViewModel: ObservableObject {
     // Input
     @Published var email = "mdsafir"
     @Published var password = "8G9ox0pm0YI7epaJHQ9"
+//    @Published var email = "kaanisimov"
+//    @Published var password = "qjkLnMT55y743F8vNmQ"
     @Published var passwordConfirm = ""
     
     // Output

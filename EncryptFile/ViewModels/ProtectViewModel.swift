@@ -18,8 +18,13 @@ class ProtectViewModel: ObservableObject {
     @Published var untilDate: Date = Date()
     
     @Published var selectedTemplated: UUID = UUID()
+    @Published var rights: Rights? = nil
     
-    let permissionSet = ["View", "Edit", "Owner"]
+    static let shared = ProtectViewModel()
+    
+    let permissionSet = ["View",
+                         "Copy",
+                         "Owner"]
     /*
      "Docedit",
      "Comment",
@@ -41,22 +46,24 @@ class ProtectViewModel: ObservableObject {
     
     //helper methods
     
-    private func loadTemplates() {
+    func loadTemplates() {
         LocalStorageEngine.loadTemplates { result in
             switch result {
             case .failure(let error):
-                fatalError(error.localizedDescription)
+                self.templates = []
+                print("ошибка чтения шаблонов \(error.localizedDescription)")
             case .success(let templates):
                 self.templates = templates
             }
         }
     }
     
-    private func loadUsers() {
+    func loadUsers() {
         LocalStorageEngine.loadUsers { result in
             switch result {
             case .failure(let error):
-                fatalError(error.localizedDescription)
+                self.recentUsers = []
+                print("ошибка чтения recentUsers \(error.localizedDescription)")
             case .success(let users):
                 self.recentUsers = users
             }
@@ -95,7 +102,7 @@ class ProtectViewModel: ObservableObject {
     }
     //UTType
     func getAtualTypes() -> [UTType]{
-        return [.pdf, .docx, .png, .jpg, .jpeg, .zip, .image, .tiff, .gif, .pptx, .xlsx, .plainText]
+        return [.item]
     }
     
     func addTemplate(_ temp: Template, new: Bool = false) {

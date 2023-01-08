@@ -11,9 +11,13 @@ import CommonCrypto
 struct AESHelper {
     
     func importKey(_ base64: String) -> (Data?, Data?) {
-        let keyBase64 = base64.components(separatedBy: ".")[0]
-        let ivBase64 = base64.components(separatedBy: ".")[1]
-        return (Data(base64Encoded: keyBase64), Data(base64Encoded: ivBase64))
+        if base64.components(separatedBy: ".").count > 1 {
+            let keyBase64 =  base64.components(separatedBy: ".")[0]
+            let ivBase64 = base64.components(separatedBy: ".")[1]
+            return (Data(base64Encoded: keyBase64), Data(base64Encoded: ivBase64))
+        }else{
+            return (nil, nil)
+        }
     }
     
     func createKey(password: Data, salt: Data) throws -> Data {

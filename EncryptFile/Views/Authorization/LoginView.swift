@@ -11,12 +11,14 @@ import Combine
 struct LoginView: View {
     @ObservedObject private var vm = RegistrationViewModel()
     @State var isSigningIn = false
-    @Binding var isLoggedIn: Bool
+    
+    @ObservedObject var api: NCRPTWatchSDK = NCRPTWatchSDK.shared
+
     
     var body: some View {
         NavigationView {
             VStack(spacing: 30) {
-                Image("logo")
+                Image("NCRPTBlue")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 100)
@@ -47,34 +49,38 @@ struct LoginView: View {
                 
                 Button(action: {
                     //TODO: call backend
-                    print("start login")
+                    log.debug(type: "LoginView", object: "Start authorize user \(self.vm.email)")
+                    self.api.ui = .loading
                     if self.isSigningIn == false {
                         Network.shared.login(username: self.vm.email, password: MD5(string: self.vm.password)) { success in
                             if success {
-                                self.isLoggedIn = true
+                                log.debug(type: "LoginView", object: "Success authorize user \(self.vm.email)")
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                                    self.api.ui = .pinCreate
+                                })
+                            }else{
+                                log.debug(type: "LoginView", object: "🛑 Error authorize user \(self.vm.email)")
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                                    self.api.ui = .auth
+                                    Settings.shared.alert(title: "Error", message: "Service failed to authorize", buttonName: "Repeat")
+                                })
                             }
                         }
                     }
                     
-//                    isSigningIn = true
-//                    sleep(1)
-//                    isSigningIn = false
-//                    isLoggedIn = true
-//
-                    
                 }) {
                     ZStack{
                         Text(isSigningIn ? "" : "Login")
-                            .font(.system(.body, design: .rounded))
+                            .modifier(NCRPTTextMedium(size: 16))
                             .foregroundColor(.white)
                             .bold()
                             .padding()
                             .frame(minWidth: 0, maxWidth: .infinity)
                             .if(vm.canLogin) { view in
-                                view.background(LinearGradient(gradient: Gradient(colors: [Color(0x1d3557), Color(0xa8dadc)]), startPoint: .leading, endPoint: .trailing))
+                                view.background(Color.init(hex: "4378DB"))
                             }
                             .if(!vm.canLogin) { view in
-                                view.background(LinearGradient(gradient: Gradient(colors: [Color(0x1d3557), Color(0xa8dadc)]), startPoint: .leading, endPoint: .trailing)).opacity(0.5)
+                                view.background(Color.init(hex: "4378DB")).opacity(0.5)
                             }
                             .cornerRadius(10)
                             .padding(.horizontal)
@@ -85,14 +91,14 @@ struct LoginView: View {
                 
                 HStack {
                     Text("Don't have an account?")
-                        .font(.system(.body, design: .rounded))
+                        .modifier(NCRPTTextMedium(size: 16))
                         .bold()
                     
                     NavigationLink(destination: RegistrationView()) {
                         Text("Create one")
-                            .font(.system(.body, design: .rounded))
+                            .modifier(NCRPTTextMedium(size: 16))
                             .bold()
-                            .foregroundColor(Color(0x457b9d))
+                            .foregroundColor(Color.init(hex: "4378DB"))
                     }
                     .navigationTitle("")
                 }.padding(.top, 50)
@@ -106,12 +112,6 @@ struct LoginView: View {
 
 }
 
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView(isLoggedIn: .constant(false))
-    }
-}
-
 
 struct FormField: View {
     var fieldName = ""
@@ -122,12 +122,12 @@ struct FormField: View {
         VStack {
             if isSecure {
                 SecureField(fieldName, text: $fieldValue)
-                    .font(.system(size: 20, weight: .regular, design: .rounded))
+                    .modifier(NCRPTTextMedium(size: 20))
                     .padding(.horizontal)
                 
             } else {
                 TextField(fieldName, text: $fieldValue)
-                    .font(.system(size: 20, weight: .regular, design: .rounded))
+                    .modifier(NCRPTTextMedium(size: 20))
                     .disableAutocorrection(true)
                     .padding(.horizontal)
                     .textCase(.lowercase)

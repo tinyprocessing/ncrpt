@@ -6,13 +6,12 @@
 //
 
 import SwiftUI
-import UniformTypeIdentifiers
-import QuickLook
-import QuartzCore
 
 struct ContentView: View {
     
     @State private var showingContent = false
+    @State private var showingRights = false
+
     @State private var isShowMenu = false
     @ObservedObject var localFiles: LocalFileEngine = LocalFileEngine.shared
     @State private var document: FileDocumentStruct = FileDocumentStruct()
@@ -20,7 +19,7 @@ struct ContentView: View {
     @State private var isImporting: Bool = false
     @State private var isImportingEncrypt: Bool = false
     @State private var isImportingDecrypt: Bool = false
-    @ObservedObject var content : ProtectViewModel = ProtectViewModel()
+    @ObservedObject var content : ProtectViewModel = ProtectViewModel.shared
     @State var showProtectionView = false
     
     
@@ -65,10 +64,11 @@ struct ContentView: View {
                                                             if file.url != nil {
                                                                 DispatchQueue.global(qos: .userInitiated).async {
                                                                     let polygone = Polygone()
-                                                                    polygone.decryptFile(file.url!) { url, success in
+                                                                    polygone.decryptFile(file.url!) { url, rights, success  in
                                                                         if success {
                                                                             self.content.objectWillChange.send()
                                                                             self.content.chosenFiles = [Attach(url: url)]
+                                                                            self.content.rights = rights
                                                                             self.content.objectWillChange.send()
                                                                         }else{
                                                                             Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
@@ -90,7 +90,28 @@ struct ContentView: View {
                                                     }
                                                     
                                                     Button(action: {
-                                                        print("show file right")
+                                                        
+                                                        if file.url != nil {
+                                                            DispatchQueue.global(qos: .userInitiated).async {
+                                                                let polygone = Polygone()
+                                                                polygone.decryptFile(file.url!) { url, rights, success  in
+                                                                    if success {
+                                                                        self.content.objectWillChange.send()
+                                                                        self.content.chosenFiles = [Attach(url: url)]
+                                                                        self.content.rights = rights
+                                                                        self.content.objectWillChange.send()
+                                                                        
+                                                                        DispatchQueue.main.async {
+                                                                            showingRights.toggle()
+                                                                        }
+                                                                        
+                                                                    }else{
+                                                                        Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
+                                                                    }
+                                                                }
+                                                                
+                                                            }
+                                                        }
                                                     }) {
                                                         Label("Rights", systemImage: "list.clipboard")
                                                     }
@@ -184,9 +205,10 @@ struct ContentView: View {
                             }
                             
                             let polygone = Polygone()
-                            polygone.decryptFile(self.document.url!) { url, success in
+                            polygone.decryptFile(self.document.url!) { url, rights, success in
                                 if success {
                                     self.content.chosenFiles = [Attach(url: url)]
+                                    self.content.rights = rights
                                 }else{
                                     Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
                                 }
@@ -197,6 +219,10 @@ struct ContentView: View {
                     }
                     
                     NavigationLink(destination: SheetView(content: self.content), isActive: $showingContent) {
+                        EmptyView()
+                    }
+                    
+                    NavigationLink(destination: RightsView(content: self.content), isActive: $showingRights) {
                         EmptyView()
                     }
                     
@@ -216,7 +242,7 @@ struct ContentView: View {
                     })
                  
                     VisualEffect(style: .prominent)
-                        .opacity(isShowMenu ? 0.8 : 0)
+                        .opacity(isShowMenu ? 0.6 : 0)
                         .onTapGesture {
                             withAnimation(.spring()) {
                                 self.isShowMenu = false
@@ -244,7 +270,7 @@ struct ContentView: View {
                         })
                 )
                 .cornerRadius(20)
-                .offset(x: isShowMenu ? 210 : 0, y: isShowMenu ? 44 : 0)
+                .offset(x: isShowMenu ? 210 : 0)
                 .navigationTitle("ncrpt.io")
                 .navigationBarTitleDisplayMode(.inline)
                 .onAppear{
@@ -254,6 +280,7 @@ struct ContentView: View {
             }
         }
         .background(.red)
+        .navigationViewStyle(StackNavigationViewStyle())
         .accentColor(.black)
         .onOpenURL { url in
             self.content.chosenFiles = []
@@ -264,9 +291,10 @@ struct ContentView: View {
             }
             
             let polygone = Polygone()
-            polygone.decryptFile(url) { url, success in
+            polygone.decryptFile(url) { url, rights, success in
                 if success {
                     self.content.chosenFiles = [Attach(url: url)]
+                    self.content.rights = rights
                 }else{
                     Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
                 }
@@ -299,19 +327,6 @@ func share(
     return true
 }
 
-
-struct NavigationConfigurator: UIViewControllerRepresentable {
-    var configure: (UINavigationController) -> Void = { _ in }
-    
-    func makeUIViewController(context: UIViewControllerRepresentableContext<NavigationConfigurator>) -> UIViewController {
-        UIViewController()
-    }
-    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<NavigationConfigurator>) {
-        if let nc = uiViewController.navigationController {
-            self.configure(nc)
-        }
-    }
-}
 
 extension Color {
     init(hex: String) {

@@ -13,10 +13,11 @@ struct GroupsSideView: View {
     @ObservedObject var pvm: ProtectViewModel
     @State var email : String = ""
     
+    @State var sideColor : Color = .black
     var body: some View {
         VStack(alignment: .leading) {
             
-            Image("NCRPT")
+            Image("NCRPTBlue")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 100, height: 100, alignment: .center)
@@ -34,11 +35,11 @@ struct GroupsSideView: View {
                     HStack(spacing: 10){
                         Image(systemName: "person.and.background.dotted")
                             .font(.system(size: 22))
-                            .foregroundColor(.white)
+                            .foregroundColor(sideColor)
                             .frame(width: 30)
                         Text("Templates")
-                            .foregroundColor(.white)
-                            .modifier(NCRPTTextRegular(size: 16))
+                            .foregroundColor(sideColor)
+                            .modifier(NCRPTTextMedium(size: 16))
                     }
                 })
                 
@@ -46,35 +47,35 @@ struct GroupsSideView: View {
                     HStack(spacing: 10){
                         Image(systemName: "bell")
                             .font(.system(size: 22))
-                            .foregroundColor(.white)
+                            .foregroundColor(sideColor)
                             .frame(width: 30)
                         Text("Notifications")
-                            .foregroundColor(.white)
-                            .modifier(NCRPTTextRegular(size: 16))
+                            .foregroundColor(sideColor)
+                            .modifier(NCRPTTextMedium(size: 16))
                     }
                 })
                 
-                NavigationLink(destination: Text("Settings"), label: {
+                NavigationLink(destination: SettingsView(), label: {
                     HStack(spacing: 10){
                         Image(systemName: "gear")
                             .font(.system(size: 22))
-                            .foregroundColor(.white)
+                            .foregroundColor(sideColor)
                             .frame(width: 30)
                         Text("Settings")
-                            .foregroundColor(.white)
-                            .modifier(NCRPTTextRegular(size: 16))
+                            .foregroundColor(sideColor)
+                            .modifier(NCRPTTextMedium(size: 16))
                     }
                 })
                 
-                NavigationLink(destination: Text("Support"), label: {
+                NavigationLink(destination: SupportView(), label: {
                     HStack(spacing: 10){
                         Image(systemName: "questionmark.circle")
                             .font(.system(size: 22))
-                            .foregroundColor(.white)
+                            .foregroundColor(sideColor)
                             .frame(width: 30)
                         Text("Support")
-                            .foregroundColor(.white)
-                            .modifier(NCRPTTextRegular(size: 16))
+                            .foregroundColor(sideColor)
+                            .modifier(NCRPTTextMedium(size: 16))
                     }
                 })
                 
@@ -102,8 +103,8 @@ struct GroupsSideView: View {
             VStack(spacing: 10){
                 HStack{
                     Text(self.email.lowercased())
-                        .foregroundColor(.white)
-                        .modifier(NCRPTTextRegular(size: 16))
+                        .foregroundColor(sideColor)
+                        .modifier(NCRPTTextMedium(size: 16))
                         .underline()
                     Spacer()
                 }
@@ -114,12 +115,12 @@ struct GroupsSideView: View {
                     HStack(spacing: 10){
                         Image(systemName: "rectangle.portrait.and.arrow.right")
                             .font(.system(size: 22))
-                            .foregroundColor(.white)
+                            .foregroundColor(sideColor)
                             .frame(width: 30)
                         
                         Text("Log out")
-                            .foregroundColor(.white)
-                            .modifier(NCRPTTextRegular(size: 16))
+                            .foregroundColor(sideColor)
+                            .modifier(NCRPTTextMedium(size: 16))
                         
                         Spacer()
                     }

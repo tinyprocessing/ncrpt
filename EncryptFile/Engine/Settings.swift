@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 let settings : Settings = Settings()
 
@@ -20,16 +21,77 @@ class Settings: ObservableObject, Identifiable {
     var log_allow : Bool = true
     
     var email : String = "help@ncrpt.io"
+    var server : String = "https://secure.ncrpt.io"
     
     var allowDebug : Bool = true
-     
+    
     func logout(){
         let domain = Bundle.main.bundleIdentifier!
-        UserDefaults.standard.removePersistentDomain(forName: domain)
-        UserDefaults.standard.synchronize()
+        
+        UserDefaults.standard.reset()
         
         let keychain = Keychain()
         keychain.helper.deleteKeyChain()
+        
+        cleanCache()
+        
+        DispatchQueue.main.async {
+            withAnimation{
+                NCRPTWatchSDK.shared.ui = .loading
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            withAnimation{
+                NCRPTWatchSDK.shared.ui = .auth
+            }
+        }
+    }
+    
+    func cleanCache(){
+        
+        do {
+            // Get the document directory url
+            let documentDirectory = try FileManager.default.url(
+                for: .cachesDirectory,
+                in: .userDomainMask,
+                appropriateFor: nil,
+                create: true
+            )
+            // Get the directory contents urls (including subfolders urls)
+            let directoryContents = try FileManager.default.contentsOfDirectory(
+                at: documentDirectory,
+                includingPropertiesForKeys: nil
+            )
+            
+            directoryContents.forEach { item in
+                print("clean system - ", item.localizedName)
+                let name = item.localizedName ?? ""
+                if item.typeIdentifier == "public.folder" && !item.isNCRPT && !name.contains("thenoco.co.EncryptFile") {
+                    DispatchQueue.main.asyncAfter(deadline: .now()){
+                        do {
+                            try FileManager.default.removeItem(atPath: (item.path().removingPercentEncoding)!)
+                        } catch {
+                            print("removeItem error")
+                            print(error)
+                        }
+                    }
+                }
+            }
+            
+        } catch {
+            print(error)
+        }
+        
+        do {
+            let tmpDirURL = FileManager.default.temporaryDirectory
+            let tmpDirectory = try FileManager.default.contentsOfDirectory(atPath: tmpDirURL.path)
+            try tmpDirectory.forEach { file in
+                let fileUrl = tmpDirURL.appendingPathComponent(file)
+                try FileManager.default.removeItem(atPath: fileUrl.path)
+            }
+        } catch {
+            //catch the error somehow
+        }
     }
     
     func cleanLogs(){
@@ -57,16 +119,18 @@ class Settings: ObservableObject, Identifiable {
         }
         
     }
-
+    
     
     func alert(title: String, message: String, buttonName: String = "ok"){
-        UIApplication.shared.windows.first?.rootViewController?.present(alertView(title: title, message: message, buttonName: buttonName), animated: true)
+        DispatchQueue.main.async {
+            UIApplication.shared.windows.first?.rootViewController?.present(self.alertView(title: title, message: message, buttonName: buttonName), animated: true)
+        }
     }
-
+    
     private func alertView(title: String, message: String, buttonName: String = "ok") -> UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.overrideUserInterfaceStyle = .dark
-        alert.view.tintColor = .white
+        alert.overrideUserInterfaceStyle = .light
+        alert.view.tintColor = .black
         
         let okAction = UIAlertAction (title: buttonName, style: UIAlertAction.Style.cancel, handler: nil)
         alert.addAction(okAction)
@@ -76,8 +140,8 @@ class Settings: ObservableObject, Identifiable {
     
     func alertViewWithCompletion(title: String, message: String, buttonName: String = "ok", completion: @escaping (_ success:Bool) -> Void) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.overrideUserInterfaceStyle = .dark
-        alert.view.tintColor = .white
+        alert.overrideUserInterfaceStyle = .light
+        alert.view.tintColor = .black
         
         let yesAction = UIAlertAction (title: "Yes", style: UIAlertAction.Style.destructive, handler: { _ in
             completion(true)
@@ -91,6 +155,6 @@ class Settings: ObservableObject, Identifiable {
         UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true)
         
     }
-
+    
     
 }

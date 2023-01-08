@@ -16,7 +16,8 @@ class ADFS: NSObject, ObservableObject, Identifiable, URLSessionDelegate, URLSes
     static let shared = ADFS()
     
     @Published var jwt : String = "";
-    
+    @Published var publicKey : String = "";
+    @Published var rsaServerKey : PublicKey? = nil
     
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         
@@ -117,10 +118,15 @@ class ADFS: NSObject, ObservableObject, Identifiable, URLSessionDelegate, URLSes
                 completion(false)
             } else {
                 if let json = try? JSON(data: data!) {
-                    let newJWT = json["jwt"].stringValue
-                    self.jwt = newJWT
-                    print(self.jwt)
-                    print(getDateFromJWT(self.jwt))
+                    self.jwt = json["jwt"].stringValue
+                    self.publicKey = json["public"].stringValue
+                    do{
+                        let publicKeyClass = try PublicKey(pemEncoded: self.publicKey)
+                        log.debug(module: "ADFS", type: #function, object: "RSA Public Key Imported")
+                        self.rsaServerKey = publicKeyClass
+                    }catch{
+                        log.debug(module: "ADFS", type: #function, object: "RSA error \(error)")
+                    }
                     completion(true)
                     return
                 }

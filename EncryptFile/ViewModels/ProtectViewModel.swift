@@ -22,8 +22,22 @@ class ProtectViewModel: ObservableObject {
     
     static let shared = ProtectViewModel()
     
+    func clear(){
+        self.templates = []
+        self.recentUsers = []
+        self.selectedResentUsers = []
+        self.chosenFiles = []
+        self.isRightsNoExpired = true
+        self.untilDate = Date()
+        self.rights = nil
+        
+        loadTemplates()
+        loadUsers()
+    }
+    
     let permissionSet = ["View",
                          "Copy",
+                         "Edit",
                          "Owner"]
     /*
      "Docedit",

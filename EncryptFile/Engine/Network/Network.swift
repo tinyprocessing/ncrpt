@@ -93,8 +93,15 @@ class Network: ObservableObject, Identifiable  {
                             rights.append(right.stringValue)
                         }
                         
+                        // ID array
+                        var ids : [Int] = []
+                        rightsAllUsers["users"].arrayValue.forEach { right in
+                            ids.append(ids.count+1)
+                        }
+                        
                         var rightsDecrypted : Rights = Rights()
                         rightsDecrypted.owner = owner
+                        rightsDecrypted.id = ids
                         rightsDecrypted.users = users
                         rightsDecrypted.rights = rights
                         

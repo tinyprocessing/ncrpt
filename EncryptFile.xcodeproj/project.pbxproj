@@ -36,6 +36,7 @@
 		23ED89CD2963307F0052E031 /* FileWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED89CC2963307F0052E031 /* FileWebView.swift */; };
 		23ED89CF296331030052E031 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED89CE296331030052E031 /* SheetView.swift */; };
 		23ED89D12963347A0052E031 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED89D02963347A0052E031 /* Appearance.swift */; };
+		23ED89D3296DBC120052E031 /* PDFKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED89D2296DBC120052E031 /* PDFKitView.swift */; };
 		23F8553F294CC1450068F285 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F8553E294CC1450068F285 /* Template.swift */; };
 		23F85541294CC15C0068F285 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F85540294CC15C0068F285 /* User.swift */; };
 		23F85543294CC1890068F285 /* Attach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F85542294CC1890068F285 /* Attach.swift */; };
@@ -134,6 +135,7 @@
 		23ED89CC2963307F0052E031 /* FileWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileWebView.swift; sourceTree = "<group>"; };
 		23ED89CE296331030052E031 /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		23ED89D02963347A0052E031 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
+		23ED89D2296DBC120052E031 /* PDFKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitView.swift; sourceTree = "<group>"; };
 		23F8553E294CC1450068F285 /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		23F85540294CC15C0068F285 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		23F85542294CC1890068F285 /* Attach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attach.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				236259CB291010F0007EC337 /* IconMenuView.swift */,
 				23ED89CC2963307F0052E031 /* FileWebView.swift */,
 				23ED89CE296331030052E031 /* SheetView.swift */,
+				23ED89D2296DBC120052E031 /* PDFKitView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -741,6 +744,7 @@
 				23E72481292A124A00ECFA19 /* AllTemplatesView.swift in Sources */,
 				23ED89C9296326570052E031 /* SnaphotSafeViewSwiftUIBridge.swift in Sources */,
 				D4F36F5C29086AA300EF7C85 /* EncryptFileApp.swift in Sources */,
+				23ED89D3296DBC120052E031 /* PDFKitView.swift in Sources */,
 				D4FFFD8C2956111F0018C730 /* SettingsView.swift in Sources */,
 				D4FFFD90295629F10018C730 /* RightsView.swift in Sources */,
 				D4FFFD92295740ED0018C730 /* PinView.swift in Sources */,

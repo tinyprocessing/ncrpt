@@ -19,5 +19,7 @@ struct Attach: Hashable {
     var name: String {
         url?.lastPathComponent ?? ""
     }
-    var ext : String = ""
+    var ext : String {
+        url?.pathExtension ?? ""
+    }
 }

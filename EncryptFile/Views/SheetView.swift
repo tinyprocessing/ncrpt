@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PDFKit
 
 struct SheetView: View {
     @Environment(\.dismiss) var dismiss
@@ -18,19 +19,31 @@ struct SheetView: View {
     @State var opacity : Double = 0.01
     var body: some View {
         ZStack{
-            if self.content.chosenFiles.count > 0 {
-//                PreviewController(url: (self.content.chosenFiles.first?.url!)!)
-                FileWebView(url: (self.content.chosenFiles.first?.url!)!)
-                    .hiddenFromSystemSnaphot(when: true)
-                    
-                    .opacity(self.opacity)
-                    .onAppear{
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                            withAnimation{
-                                self.opacity = 1.0
-                            }
-                        })
-                    }
+            if content.chosenFiles.count > 0 {
+                if isPDFFile() {
+                    let pdfDoc = PDFDocument(url: (content.chosenFiles.first?.url!)!)!
+                    PDFKitView(show: pdfDoc)
+                        .hiddenFromSystemSnaphot(when: true)
+                        .opacity(self.opacity)
+                        .onAppear{
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                                withAnimation{
+                                    self.opacity = 1.0
+                                }
+                            })
+                        }
+                } else {
+                    FileWebView(url: (content.chosenFiles.first?.url!)!)
+                        .hiddenFromSystemSnaphot(when: true)
+                        .opacity(self.opacity)
+                        .onAppear{
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                                withAnimation{
+                                    self.opacity = 1.0
+                                }
+                            })
+                        }
+                }
             }else{
                 VStack{
                     ActivityIndicator(isAnimating: .constant(true), style: .large)
@@ -56,5 +69,9 @@ struct SheetView: View {
                     }.clipShape(Rectangle())
                 })
         )
+    }
+    
+    private func isPDFFile() -> Bool {
+        return content.chosenFiles.first?.ext == "pdf"
     }
 }

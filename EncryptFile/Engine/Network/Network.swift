@@ -14,6 +14,17 @@ class Network: ObservableObject, Identifiable  {
     
     static let shared = Network()
     
+    func registration(username: String, password: String, completion: @escaping (_ success:Bool) -> Void){
+        let usernameServer : String = username.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        AF.request("https://api.ncrpt.io/registration.php", method: .post, parameters: ["name":usernameServer, "password": password], encoding: URLEncoding.default).responseJSON { [self] (response) in
+            if (response.response?.statusCode == 200) {
+                completion(true)
+            }else{
+                completion(false)
+            }
+        }
+    }
+    
     func login(username: String, password: String, completion: @escaping (_ success:Bool) -> Void){
         let usernameServer : String = username.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         
@@ -99,6 +110,14 @@ class Network: ObservableObject, Identifiable  {
                             ids.append(ids.count+1)
                         }
                         
+                        if rightsAllUsers.isEmpty {
+                            let certification = Certification()
+                            certification.getCertificate()
+                            users.append(certification.certificate.email ?? "my rights")
+                            rights.append(json["rights"].stringValue)
+                            ids.append(0)
+                        }
+                        
                         var rightsDecrypted : Rights = Rights()
                         rightsDecrypted.owner = owner
                         rightsDecrypted.id = ids
@@ -132,6 +151,26 @@ class Network: ObservableObject, Identifiable  {
                 
                 if (response.response?.statusCode == 200) {
                     completion(true)
+                }else{
+                    completion(false)
+                }
+            }
+        }
+    }
+    
+    
+    func contacts(completion: @escaping (_ success:Bool) -> Void){
+        ADFS.shared.jwt { success in
+            let headers: HTTPHeaders = [.authorization(bearerToken: ADFS.shared.jwt)]
+            AF.request("https://api.ncrpt.io/contacts.php", headers: headers).responseJSON { [self] (response) in
+                if (response.response?.statusCode == 200) {
+                    if (response.value != nil) {
+                        let json = JSON(response.value!)
+                        print(json)
+                        completion(true)
+                    }else{
+                        completion(false)
+                    }
                 }else{
                     completion(false)
                 }

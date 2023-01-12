@@ -17,7 +17,11 @@ class Network: ObservableObject, Identifiable  {
     func registration(username: String, password: String, completion: @escaping (_ success:Bool) -> Void){
         let usernameServer : String = username.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         AF.request("https://api.ncrpt.io/registration.php", method: .post, parameters: ["name":usernameServer, "password": password], encoding: URLEncoding.default).responseJSON { [self] (response) in
-            completion(true)
+            if (response.response?.statusCode == 200) {
+                completion(true)
+            }else{
+                completion(false)
+            }
         }
     }
     

@@ -52,7 +52,7 @@ struct LoginView: View {
                     log.debug(type: "LoginView", object: "Start authorize user \(self.vm.email)")
                     self.api.ui = .loading
                     if self.isSigningIn == false {
-                        Network.shared.login(username: self.vm.email, password: MD5(string: self.vm.password)) { success in
+                        Network.shared.login(username: self.vm.email.lowercased(), password: MD5(string: self.vm.password)) { success in
                             if success {
                                 log.debug(type: "LoginView", object: "Success authorize user \(self.vm.email)")
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {

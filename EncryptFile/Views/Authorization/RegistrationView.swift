@@ -9,17 +9,19 @@ import SwiftUI
 
 struct RegistrationView: View {
     @ObservedObject private var vm = RegistrationViewModel()
-    
+    @ObservedObject var api: NCRPTWatchSDK = NCRPTWatchSDK.shared
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
     var body: some View {
         VStack {
-            Text("Create an \naccount")
+            Text("Create an\naccount")
                 .multilineTextAlignment(.center)
                 .modifier(NCRPTTextSemibold(size: 25))
                 .bold()
                 .padding(.bottom, 70)
             
             ZStack {
-                FormField(fieldName: "Email", fieldValue: $vm.email)
+                FormField(fieldName: "Login", fieldValue: $vm.email)
                 
                 HStack {
                     Spacer()
@@ -56,7 +58,20 @@ struct RegistrationView: View {
                 .padding(.bottom, 50)
             
             Button(action: {
-                // Call backend
+                Network.shared.registration(username: self.vm.email.lowercased(), password: MD5(string: self.vm.password)) { success in
+                    if success {
+                        log.debug(type: "RegistrationView", object: "Success registration user \(self.vm.email)")
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                            presentationMode.wrappedValue.dismiss()
+                        })
+                    }else{
+                        log.debug(type: "RegistrationView", object: "🛑 Error registration user \(self.vm.email)")
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                            self.api.ui = .auth
+                            Settings.shared.alert(title: "Error", message: "Service failed to authorize", buttonName: "Repeat")
+                        })
+                    }
+                }
             }) {
                 Text("Registry")
                     .modifier(NCRPTTextMedium(size: 16))
@@ -77,6 +92,7 @@ struct RegistrationView: View {
             
         }
         .padding()
+        .ignoresSafeArea(.keyboard)
     }
 }
 

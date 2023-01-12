@@ -55,7 +55,6 @@ struct EncryptFileApp: App {
                 
                 let rsa = RSA()
                 rsa.start()
-                
                 api.setupSecureView()
                 log.debug(module: "EncryptFileApp", type: #function, object: "Application Started")
                 Settings.shared.cleanCache()

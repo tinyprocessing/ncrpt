@@ -14,6 +14,13 @@ class Network: ObservableObject, Identifiable  {
     
     static let shared = Network()
     
+    func registration(username: String, password: String, completion: @escaping (_ success:Bool) -> Void){
+        let usernameServer : String = username.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        AF.request("https://api.ncrpt.io/registration.php", method: .post, parameters: ["name":usernameServer, "password": password], encoding: URLEncoding.default).responseJSON { [self] (response) in
+            completion(true)
+        }
+    }
+    
     func login(username: String, password: String, completion: @escaping (_ success:Bool) -> Void){
         let usernameServer : String = username.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         
@@ -97,6 +104,14 @@ class Network: ObservableObject, Identifiable  {
                         var ids : [Int] = []
                         rightsAllUsers["users"].arrayValue.forEach { right in
                             ids.append(ids.count+1)
+                        }
+                        
+                        if rightsAllUsers.isEmpty {
+                            let certification = Certification()
+                            certification.getCertificate()
+                            users.append(certification.certificate.email ?? "my rights")
+                            rights.append(json["rights"].stringValue)
+                            ids.append(0)
                         }
                         
                         var rightsDecrypted : Rights = Rights()

@@ -155,6 +155,26 @@ class Network: ObservableObject, Identifiable  {
     }
     
     
+    func contacts(completion: @escaping (_ success:Bool) -> Void){
+        ADFS.shared.jwt { success in
+            let headers: HTTPHeaders = [.authorization(bearerToken: ADFS.shared.jwt)]
+            AF.request("https://api.ncrpt.io/contacts.php", headers: headers).responseJSON { [self] (response) in
+                if (response.response?.statusCode == 200) {
+                    if (response.value != nil) {
+                        let json = JSON(response.value!)
+                        print(json)
+                        completion(true)
+                    }else{
+                        completion(false)
+                    }
+                }else{
+                    completion(false)
+                }
+            }
+        }
+    }
+    
+    
     func encodeAF(_ body: String) -> String{
         do{
             let clear = try ClearMessage(string: body, using: .utf8)

@@ -282,6 +282,11 @@ struct ContentView: View {
         .background(.red)
         .navigationViewStyle(StackNavigationViewStyle())
         .accentColor(.black)
+        .onAppear{
+            Network.shared.contacts { result in
+                
+            }
+        }
         .onOpenURL { url in
             self.content.chosenFiles = []
             showingContent = false

@@ -242,15 +242,15 @@ let panel = NSOpenPanel()
 extension NSOpenPanel {
     
     static func openImage(completion: @escaping (_ url: URL?, _ data: Data?, _ type: UTType?) -> ()) {
-        NcrptMacOS.panel.allowsMultipleSelection = false
-        NcrptMacOS.panel.canChooseFiles = true
-        NcrptMacOS.panel.canChooseDirectories = false
-        NcrptMacOS.panel.allowedContentTypes = [.ncrpt]
-        NcrptMacOS.panel.canChooseFiles = true
-        NcrptMacOS.panel.begin { (result) in
+        NCRPT.panel.allowsMultipleSelection = false
+        NCRPT.panel.canChooseFiles = true
+        NCRPT.panel.canChooseDirectories = false
+        NCRPT.panel.allowedContentTypes = [.ncrpt]
+        NCRPT.panel.canChooseFiles = true
+        NCRPT.panel.begin { (result) in
             if result == .OK {
-                let urll = NcrptMacOS.panel.urls.first!
-                completion(NcrptMacOS.panel.urls.first!, nil,
+                let urll = NCRPT.panel.urls.first!
+                completion(NCRPT.panel.urls.first!, nil,
                            UTType.types(tag: "ncrpt", tagClass: .filenameExtension, conformingTo: nil).first!)
             }
         }

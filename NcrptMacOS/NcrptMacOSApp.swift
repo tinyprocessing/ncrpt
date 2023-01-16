@@ -53,7 +53,7 @@ struct MenuCommands: Commands {
                 let dateFormatterGet = DateFormatter()
                 dateFormatterGet.dateFormat = "yyyy-MM-dd"
                 
-                showInFinderAndSelectLastComponent(of: FileManager.default.urls(for: .libraryDirectory,
+                showInFinderAndSelectLastComponent(of: FileManager.default.urls(for: .documentDirectory,
                                                                                 in: .userDomainMask)[0].appendingPathComponent("\(Bundle.main.bundleIdentifier!)/logs/ncrpt_\(dateFormatterGet.string(from: Date())).log"))
             } label: {
                 Text("Logs")
@@ -89,7 +89,7 @@ struct MenuCommands: Commands {
     }
     
     var aboutAppButton: some View {
-        Button("О программе") {
+        Button("About ncrpt.io") {
 //            let contentView = AboutAppView().padding()
 //
 //            window = NSWindow(

@@ -42,7 +42,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let username = defaults.string(forKey: UserDefaults.Keys.AuthorizationUsername.rawValue) ?? ""
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
             if username.isEmpty {
-                Network.shared.login(username: "mdsafir", password: MD5(string: "")) { success in
+                Network.shared.login(username: "mdsafir", password: MD5(string: "r")) { success in
                     if success {
                         log.debug(type: "Login", object: "Success authorize user")
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {

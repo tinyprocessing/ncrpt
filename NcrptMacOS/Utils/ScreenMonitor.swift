@@ -24,6 +24,7 @@ public class PrivacyMonitor: ObservableObject, Identifiable {
     @objc func getCurrentProcess(){
         DispatchQueue.global(qos: .userInitiated).async {
             let result = shell(" ps aux | grep -E 'zoom.us*|Skype*|AnnotationKit*|screen*'")
+            let resultKill = shell(" pkill 'screencapture'")
             let myStrings = result.components(separatedBy: .newlines)
             var state : Bool = false
             for string in myStrings {
@@ -60,7 +61,7 @@ public class PrivacyMonitor: ObservableObject, Identifiable {
     
     func start(){
         DispatchQueue.global(qos: .userInitiated).async {
-            self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.getCurrentProcess), userInfo: nil, repeats: true)
+            self.timer = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(self.getCurrentProcess), userInfo: nil, repeats: true)
             RunLoop.current.add(self.timer, forMode: .common)
             RunLoop.current.run()
         }

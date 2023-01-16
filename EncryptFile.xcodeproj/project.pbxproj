@@ -228,7 +228,7 @@
 		D401A769296A380E003F3BF8 /* NetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
 		D401A76B296A3D38003F3BF8 /* CertificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationView.swift; sourceTree = "<group>"; };
 		D47D66B129757319004282D5 /* EncryptFile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EncryptFile.entitlements; sourceTree = "<group>"; };
-		D47D66B629759206004282D5 /* NcrptMacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NcrptMacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D47D66B629759206004282D5 /* NCRPT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NCRPT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D47D66B829759206004282D5 /* NcrptMacOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NcrptMacOSApp.swift; sourceTree = "<group>"; };
 		D47D66BA29759206004282D5 /* NcrptMacOSDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NcrptMacOSDocument.swift; sourceTree = "<group>"; };
 		D47D66BE29759208004282D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -641,7 +641,7 @@
 			isa = PBXGroup;
 			children = (
 				D4F36F5829086AA300EF7C85 /* EncryptFile.app */,
-				D47D66B629759206004282D5 /* NcrptMacOS.app */,
+				D47D66B629759206004282D5 /* NCRPT.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -780,7 +780,7 @@
 				D47D66F42975B529004282D5 /* ZIPFoundation */,
 			);
 			productName = NcrptMacOS;
-			productReference = D47D66B629759206004282D5 /* NcrptMacOS.app */;
+			productReference = D47D66B629759206004282D5 /* NCRPT.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D4F36F5729086AA300EF7C85 /* EncryptFile */ = {
@@ -1116,7 +1116,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NcrptMacOS/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NCRPT;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Encrypt LTD";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1124,7 +1124,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ncrpt.io.macosviewer;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = NCRPT;
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1148,7 +1148,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NcrptMacOS/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NCRPT;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Encrypt LTD";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1156,7 +1156,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ncrpt.io.macosviewer;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = NCRPT;
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

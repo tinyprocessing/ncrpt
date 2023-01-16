@@ -66,30 +66,34 @@ struct SettingsView: View {
                             }.clipShape(Rectangle())
                         })
                         
-                        NavigationLink(destination: Text("Logs"), label: {
-                            HStack{
-                                Text("Logs")
-                                    .modifier(NCRPTTextMedium(size: 16))
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .padding(.leading)
-                                    .opacity(0.7)
-                            }.clipShape(Rectangle())
-                        })
-                        
                         HStack{
-                            Text("Compress Files")
+                            Text("Share Logs")
                                 .modifier(NCRPTTextMedium(size: 16))
                             Spacer()
-                            Toggle("", isOn: $compress)
-                                .offset(x: -5)
-                                .tint(Color.init(hex: "21205A"))
-                                .onChange(of: self.compress, perform: { newValue in
-                                    print(newValue)
-                                    let defaults = UserDefaults.standard
-                                    defaults.set(newValue, forKey: UserDefaults.Keys.SettingsCompress.rawValue)
-                                })
+                            
+                            Button(action: {
+                                Settings.shared.shareLogs()
+                            }, label: {
+                                Image(systemName: "square.and.arrow.up")
+                                    .padding(.leading)
+                                    .opacity(0.7)
+                                    .clipShape(Rectangle())
+                            })
                         }
+                        
+//                        HStack{
+//                            Text("Compress Files")
+//                                .modifier(NCRPTTextMedium(size: 16))
+//                            Spacer()
+//                            Toggle("", isOn: $compress)
+//                                .offset(x: -5)
+//                                .tint(Color.init(hex: "21205A"))
+//                                .onChange(of: self.compress, perform: { newValue in
+//                                    print(newValue)
+//                                    let defaults = UserDefaults.standard
+//                                    defaults.set(newValue, forKey: UserDefaults.Keys.SettingsCompress.rawValue)
+//                                })
+//                        }
                         
                     }
                     VStack(alignment: .leading, spacing: 15){

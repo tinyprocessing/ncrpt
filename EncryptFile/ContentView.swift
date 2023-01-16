@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var showingContent = false
+    
     @State private var showingRights = false
 
     @State private var isShowMenu = false
@@ -21,7 +21,6 @@ struct ContentView: View {
     @State private var isImportingDecrypt: Bool = false
     @ObservedObject var content : ProtectViewModel = ProtectViewModel.shared
     @State var showProtectionView = false
-    
     
     var body: some View {
         NavigationView{
@@ -50,7 +49,8 @@ struct ContentView: View {
                                         ForEach(self.localFiles.files, id:\.self) { file in
                                             HStack(spacing: 15){
                                                 HStack(spacing: 10){
-                                                    Image(file.ext)
+                                                    // file.ext
+                                                    Image("file")
                                                         .resizable()
                                                         .frame(width: 20, height: 20, alignment: .center)
                                                     Text("\(file.name)")
@@ -58,7 +58,7 @@ struct ContentView: View {
                                                         .onTapGesture {
                                                             self.content.chosenFiles = []
                                                             DispatchQueue.main.async {
-                                                                showingContent.toggle()
+                                                                self.content.showingContent.toggle()
                                                             }
                                                             
                                                             if file.url != nil {
@@ -71,7 +71,10 @@ struct ContentView: View {
                                                                             self.content.rights = rights
                                                                             self.content.objectWillChange.send()
                                                                         }else{
-                                                                            Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
+                                                                            Settings.shared.alert(title: "Error", message: "You do not have enough permissions to open this file, contact your administrator.", buttonName: "close")
+                                                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                                                                self.content.showingContent.toggle()
+                                                                            }
                                                                         }
                                                                     }
                                                                     
@@ -106,7 +109,7 @@ struct ContentView: View {
                                                                         }
                                                                         
                                                                     }else{
-                                                                        Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
+                                                                        Settings.shared.alert(title: "Error", message: "You do not have enough permissions to open this file, contact your administrator.", buttonName: "close")
                                                                     }
                                                                 }
                                                                 
@@ -201,7 +204,7 @@ struct ContentView: View {
                            
                             self.content.chosenFiles = []
                             DispatchQueue.main.async {
-                                showingContent.toggle()
+                                self.content.showingContent.toggle()
                             }
                             
                             let polygone = Polygone()
@@ -210,7 +213,10 @@ struct ContentView: View {
                                     self.content.chosenFiles = [Attach(url: url)]
                                     self.content.rights = rights
                                 }else{
-                                    Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
+                                    Settings.shared.alert(title: "Error", message: "You do not have enough permissions to open this file, contact your administrator.", buttonName: "close")
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        self.content.showingContent.toggle()
+                                    }
                                 }
                             }
                         } catch {
@@ -218,7 +224,7 @@ struct ContentView: View {
                         }
                     }
                     
-                    NavigationLink(destination: SheetView(content: self.content), isActive: $showingContent) {
+                    NavigationLink(destination: SheetView(content: self.content), isActive: self.$content.showingContent) {
                         EmptyView()
                     }
                     
@@ -284,10 +290,10 @@ struct ContentView: View {
         .accentColor(.black)
         .onOpenURL { url in
             self.content.chosenFiles = []
-            showingContent = false
+            self.content.showingContent = false
             
             DispatchQueue.main.async {
-                showingContent.toggle()
+                self.content.showingContent.toggle()
             }
             
             let polygone = Polygone()
@@ -296,7 +302,10 @@ struct ContentView: View {
                     self.content.chosenFiles = [Attach(url: url)]
                     self.content.rights = rights
                 }else{
-                    Settings.shared.alert(title: "Error", message: "File is not supported", buttonName: "close")
+                    Settings.shared.alert(title: "Error", message: "You do not have enough permissions to open this file, contact your administrator.", buttonName: "close")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.content.showingContent.toggle()
+                    }
                 }
             }
         }

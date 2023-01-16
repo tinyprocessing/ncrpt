@@ -62,7 +62,7 @@ class LocalFileEngine: ObservableObject, Identifiable  {
             
             directoryContents.forEach { item in
                 let name = item.localizedName ?? ""
-                if item.typeIdentifier == "public.folder" && !item.isNCRPT && !name.contains("thenoco.co.EncryptFile") {
+                if item.typeIdentifier == "public.folder" && !item.isNCRPT && !name.contains("ncrpt.io.iosviewer") {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1){
                         do {
                             try FileManager.default.removeItem(atPath: (item.path().removingPercentEncoding)!)

@@ -110,9 +110,9 @@ class Settings: ObservableObject, Identifiable {
             directoryContents.forEach { item in
                 log.debug(module: "Settings", type: #function, object: "clean - \(item.localizedName ?? "*filename*")")
                 let name = item.localizedName ?? ""
-                if name.contains("thenoco.co.EncryptFile") {
+                if name.contains("ncrpt.io.iosviewer") {
                     do {
-                        let LogsDirectory = documentDirectory.appendingPathComponent("thenoco.co.EncryptFile/")
+                        let LogsDirectory = documentDirectory.appendingPathComponent("ncrpt.io.iosviewer/")
                         let LogsDirectoryContents = try FileManager.default.contentsOfDirectory(
                             at: LogsDirectory,
                             includingPropertiesForKeys: nil
@@ -131,7 +131,7 @@ class Settings: ObservableObject, Identifiable {
                         log.debug(module: "Settings", type: #function, object: "Error - \(error)")
                     }
                 }
-                if item.typeIdentifier == "public.folder" && !item.isNCRPT && !name.contains("thenoco.co.EncryptFile") {
+                if item.typeIdentifier == "public.folder" && !item.isNCRPT && !name.contains("ncrpt.io.iosviewer") {
                     DispatchQueue.main.asyncAfter(deadline: .now()){
                         do {
                             try FileManager.default.removeItem(atPath: (item.path().removingPercentEncoding)!)

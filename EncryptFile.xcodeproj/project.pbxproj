@@ -136,6 +136,13 @@
 		D4FE31752975C14100357DCC /* EncryptionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F6A29086BC800EF7C85 /* EncryptionEngine.swift */; };
 		D4FE31762975C15700357DCC /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC0A9290FFCC400B3AD7C /* Log.swift */; };
 		D4FE31782975C1A400357DCC /* Polygone.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE31772975C1A400357DCC /* Polygone.swift */; };
+		D4FE317A2975C8DB00357DCC /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE31792975C8DB00357DCC /* Network.swift */; };
+		D4FE317B2975C92000357DCC /* License.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F7F2909922400EF7C85 /* License.swift */; };
+		D4FE317D2975C94300357DCC /* ADFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE317C2975C94300357DCC /* ADFS.swift */; };
+		D4FE317E2975C97200357DCC /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD98295761DA0018C730 /* Defaults.swift */; };
+		D4FE317F2975C9B900357DCC /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F852909D96D00EF7C85 /* MD5.swift */; };
+		D4FE31812975D22F00357DCC /* RSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE31802975D22F00357DCC /* RSA.swift */; };
+		D4FE31822975F25E00357DCC /* LocalFileEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F7D2909500F00EF7C85 /* LocalFileEngine.swift */; };
 		D4FFFD8C2956111F0018C730 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD8B2956111F0018C730 /* SettingsView.swift */; };
 		D4FFFD8E295611FA0018C730 /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD8D295611FA0018C730 /* SupportView.swift */; };
 		D4FFFD90295629F10018C730 /* RightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD8F295629F10018C730 /* RightsView.swift */; };
@@ -276,6 +283,9 @@
 		D4FE31612975BEDC00357DCC /* SwiftyRSA+ObjC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwiftyRSA+ObjC.swift"; sourceTree = "<group>"; };
 		D4FE31622975BEDC00357DCC /* SwiftyRSAError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyRSAError.swift; sourceTree = "<group>"; };
 		D4FE31772975C1A400357DCC /* Polygone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygone.swift; sourceTree = "<group>"; };
+		D4FE31792975C8DB00357DCC /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		D4FE317C2975C94300357DCC /* ADFS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADFS.swift; sourceTree = "<group>"; };
+		D4FE31802975D22F00357DCC /* RSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSA.swift; sourceTree = "<group>"; };
 		D4FFFD8B2956111F0018C730 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D4FFFD8D295611FA0018C730 /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
 		D4FFFD8F295629F10018C730 /* RightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightsView.swift; sourceTree = "<group>"; };
@@ -542,6 +552,8 @@
 		D47D66B729759206004282D5 /* NcrptMacOS */ = {
 			isa = PBXGroup;
 			children = (
+				D4FE317C2975C94300357DCC /* ADFS.swift */,
+				D4FE31792975C8DB00357DCC /* Network.swift */,
 				D4FE31542975BEDC00357DCC /* SwiftyRSA */,
 				D47D66D72975AF27004282D5 /* Viewers */,
 				D47D66D22975ADF3004282D5 /* Decrypt */,
@@ -580,6 +592,7 @@
 			children = (
 				D47D66D32975AE01004282D5 /* ContentDecrypt.swift */,
 				D4FE31772975C1A400357DCC /* Polygone.swift */,
+				D4FE31802975D22F00357DCC /* RSA.swift */,
 			);
 			path = Decrypt;
 			sourceTree = "<group>";
@@ -822,9 +835,9 @@
 			);
 			mainGroup = D4F36F4F29086AA300EF7C85;
 			packageReferences = (
-				D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation.git" */,
-				2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire.git" */,
-				2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON.git" */,
+				D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+				2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */,
+				2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = D4F36F5929086AA300EF7C85 /* Products */;
 			projectDirPath = "";
@@ -967,15 +980,21 @@
 				D4FE316F2975BEDC00357DCC /* SwiftyRSA.swift in Sources */,
 				D4FE31732975C09A00357DCC /* AESHelper.swift in Sources */,
 				D47D66D12975AD4D004282D5 /* Finder.swift in Sources */,
+				D4FE317A2975C8DB00357DCC /* Network.swift in Sources */,
 				D47D66F32975B50B004282D5 /* Certification.swift in Sources */,
 				D4FE31662975BEDC00357DCC /* EncryptedMessage.swift in Sources */,
 				D4FE316D2975BEDC00357DCC /* Key.swift in Sources */,
+				D4FE317E2975C97200357DCC /* Defaults.swift in Sources */,
+				D4FE31822975F25E00357DCC /* LocalFileEngine.swift in Sources */,
 				D47D66CB29759A91004282D5 /* ScreenMonitor.swift in Sources */,
 				D4FE31702975BEDC00357DCC /* SwiftyRSA+ObjC.swift in Sources */,
 				D47D66BB29759206004282D5 /* NcrptMacOSDocument.swift in Sources */,
 				D4FE31742975C0CB00357DCC /* AES.swift in Sources */,
 				D4FE31682975BEDC00357DCC /* Message.swift in Sources */,
 				D4FE316A2975BEDC00357DCC /* X509Certificate.swift in Sources */,
+				D4FE317D2975C94300357DCC /* ADFS.swift in Sources */,
+				D4FE317F2975C9B900357DCC /* MD5.swift in Sources */,
+				D4FE317B2975C92000357DCC /* License.swift in Sources */,
 				D47D66D92975AF48004282D5 /* QuickView.swift in Sources */,
 				D4FE316C2975BEDC00357DCC /* PrivateKey.swift in Sources */,
 				D4FE31752975C14100357DCC /* EncryptionEngine.swift in Sources */,
@@ -991,6 +1010,7 @@
 				D4FE31692975BEDC00357DCC /* Asn1Parser.swift in Sources */,
 				D47D66CE29759AE4004282D5 /* Strings.swift in Sources */,
 				D4FE31762975C15700357DCC /* Log.swift in Sources */,
+				D4FE31812975D22F00357DCC /* RSA.swift in Sources */,
 				D47D66DB2975AF76004282D5 /* PDFView.swift in Sources */,
 				D47D66DE2975B099004282D5 /* VisualView.swift in Sources */,
 				D4FE31672975BEDC00357DCC /* ClearMessage.swift in Sources */,
@@ -1103,7 +1123,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = thenoco.co.NcrptMacOS;
+				PRODUCT_BUNDLE_IDENTIFIER = ncrpt.io.macosviewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1135,7 +1155,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = thenoco.co.NcrptMacOS;
+				PRODUCT_BUNDLE_IDENTIFIER = ncrpt.io.macosviewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1364,7 +1384,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire.git" */ = {
+		2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -1372,7 +1392,7 @@
 				kind = branch;
 			};
 		};
-		2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON.git" */ = {
+		2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
 			requirement = {
@@ -1380,7 +1400,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation.git" */ = {
+		D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
 			requirement = {
@@ -1393,32 +1413,32 @@
 /* Begin XCSwiftPackageProductDependency section */
 		2C1BC0A6290FFCA800B3AD7C /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire.git" */;
+			package = 2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
 		2C75701A292439F20043B464 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON.git" */;
+			package = 2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
 		};
 		D47D66E42975B33C004282D5 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire.git" */;
+			package = 2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
 		D47D66EA2975B347004282D5 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON.git" */;
+			package = 2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
 		};
 		D47D66F42975B529004282D5 /* ZIPFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation.git" */;
+			package = D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
 		};
 		D4F36F7B2908898000EF7C85 /* ZIPFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation.git" */;
+			package = D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -40,7 +40,20 @@ class LocalFileEngine: ObservableObject, Identifiable  {
         if ext == "0006"{
             header = "png"
         }
+        if ext == "0007"{
+            header = "gif"
+        }
         return header
+    }
+    func getFileExtension(url: URL) -> String {
+        do {
+            let fileURLNCRPTData = try Data(contentsOf: url)
+            let fileExtension = String(decoding: fileURLNCRPTData[0...3], as: UTF8.self)
+            return decodeFileExtension(fileExtension)
+        }catch {
+            return "file"
+            print(error)
+        }
     }
     
     func getLocalFiles(){

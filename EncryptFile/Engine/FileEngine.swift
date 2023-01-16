@@ -30,6 +30,9 @@ class FileEngine: ObservableObject, Identifiable  {
         if ext == "png"{
             header = "0006".data(using: .utf8)
         }
+        if ext == "gif"{
+            header = "0007".data(using: .utf8)
+        }
         return header! + data
     }
     
@@ -66,8 +69,8 @@ class FileEngine: ObservableObject, Identifiable  {
             try! jsonData.write(to: fileURLLicense)
             try fileManager.zipItem(at: fileURLFolder, to: fileURLNCRPT)
             var fileURLNCRPTData = try Data(contentsOf: fileURLNCRPT)
-            try! byteHeader(fileURLNCRPTData, license.ext).write(to: fileURLNCRPT)
-            print(fileURLNCRPT)
+            try! byteHeader(fileURLNCRPTData, license.ext.lowercased()).write(to: fileURLNCRPT)
+            
             do {
                 try FileManager.default.removeItem(atPath: (fileURLFolder.path().removingPercentEncoding)!)
             } catch {

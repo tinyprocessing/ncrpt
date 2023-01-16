@@ -30,6 +30,7 @@ public class Log: ObservableObject, Identifiable, TextOutputStream {
         
         var path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         path += "/\(Bundle.main.bundleIdentifier!)/logs"
+        
         let url = URL(fileURLWithPath: path)
         
         do {

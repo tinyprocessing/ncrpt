@@ -30,7 +30,39 @@ struct FileView: View {
     var body: some View {
         ZStack {
             if (self.decrypt.url == nil) {
-               EmptyView()
+                if self.decrypt.error != nil {
+                    VStack{
+                        configureIcon("Error", size: 145)
+                            .padding(.bottom, 20)
+                        
+                        VStack(spacing: 20){
+                            Text(self.decrypt.error!.title)
+                                .font(.title)
+                                .padding(.bottom, 10)
+                            
+                            if #available(macOS 12.0, *) {
+                                Text(self.decrypt.error!.about)
+                                    .font(.title3)
+                                    .frame(width: 450)
+                                    .multilineTextAlignment(.center)
+                                    .lineSpacing(10)
+                                    .textSelection(.enabled)
+                                
+                            } else {
+                                Text(self.decrypt.error!.about)
+                                    .frame(width: 450)
+                                    .multilineTextAlignment(.center)
+                                    .lineSpacing(10)
+                            }
+                        }
+                        
+                        Spacer()
+                            .frame(height: 30)
+                        
+                    }
+                }else{
+                    ActivityIndicator()
+                }
             }else {
                 if !canViewDocument() {
                     VisualEffectView(material: .popover, blendingMode: .behindWindow, emphasized: false)
@@ -69,7 +101,7 @@ struct FileView: View {
                                                             .font(.system(size: 19))
                                                             .padding(.bottom, 10)
 
-                                                        Text("")
+                                                        Text("Your device is trying to take a screenshot. The screen will be protected.")
                                                             .frame(width: 450)
                                                             .multilineTextAlignment(.center)
                                                             .lineSpacing(10)
@@ -113,9 +145,86 @@ struct FileView: View {
             }
         }
         
-        .frame(minWidth: 400,
-               minHeight: 500,
+        .toolbar {
+            
+           
+            ToolbarItem {
+                if self.decrypt.secure {
+                    Button(action: {
+                        isPopover.toggle()
+                    }, label: {
+                        Image(systemName: "lock.shield")
+                            .foregroundColor(.black)
+                            
+                    })
+                    .popover(isPresented: self.$isPopover, arrowEdge: .bottom) {
+                        EmptyView()
+                            .frame(minWidth: 720,
+                                   idealWidth: 720,
+                                   maxWidth: 720,
+                                   minHeight: 100,
+                                   alignment: .center)
+                    }
+                    .help("Rights")
+                }
+            }
+            
+            
+            ToolbarItem{
+                Text(self.file.fileURL!.lastPathComponent)
+                    .font(.title3)
+                    .padding(.vertical, 10)
+            }
+            
+            ToolbarItem{
+                Spacer()
+            }
+            
+            
+            ToolbarItem {
+                if (self.decrypt.url?.pathExtension.lowercased() == "pdf") {
+                    if false {
+                        Button(action: {
+                            decrypt.objectWillChange.send()
+                            if let url_print = decrypt.url {
+                                let document = PDFDocument(url: url_print)
+                                let printInfo = NSPrintInfo()
+                                
+                                printInfo.horizontalPagination = .fit
+                                printInfo.verticalPagination = .fit
+                                printInfo.isHorizontallyCentered = true
+                                printInfo.isVerticallyCentered = true
+                                printInfo.leftMargin = 0
+                                printInfo.rightMargin = 0
+                                printInfo.topMargin = 0
+                                printInfo.bottomMargin = 0
+                                printInfo.jobDisposition = .spool
+                                
+                                if let printOperation = document?.printOperation(for: printInfo, scalingMode: .pageScaleNone, autoRotate: false) {
+                                    printOperation.showsProgressPanel = false
+
+                                    DispatchQueue.main.async {
+                                        if let controller = printOperation.printPanel.value(forKey: "windowController") as? NSWindowController,
+                                           let pdfButton = controller.value(forKey: "pdfActionButton") as? NSPopUpButton {
+                                            pdfButton.isEnabled = false
+                                        }
+                                    }
+                                    printOperation.run()
+                                }
+                            }
+                        }, label: {
+                            Image(systemName: "printer")
+                        })
+                        .padding(.trailing, 15)
+                    }
+                }
+            }
+            
+        }
+        .frame(minWidth: 600,
+               minHeight: 700,
                alignment: .center)
+
     }
 
     private func canViewDocument() -> Bool {

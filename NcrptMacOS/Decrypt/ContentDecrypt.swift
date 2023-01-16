@@ -22,6 +22,16 @@ class ContentDecrypt: Identifiable, ObservableObject {
     @Published var name : String = ""
     @Published var isUpdating : Bool = false
     
+    @Published var error : NCRPTError? = nil
+    
+    struct NCRPTError: Identifiable, Hashable, Codable {
+        var id = 0
+        var title: String = ""
+        var about: String = ""
+        var owner: String = ""
+        var repeatUrl: URL?
+    }
+    
     
     func clear() {
         self.objectWillChange.send()
@@ -72,11 +82,24 @@ class ContentDecrypt: Identifiable, ObservableObject {
         let avalibeUTTypes : [UTType] = [.ncrpt, .png]
         
         let polygone = Polygone()
-        print(polygone.getFileMD5(inputURL))
         if avalibeUTTypes.contains(fileUTType) {
-            DispatchQueue.main.async {
-                self.isUpdating = false
-                self.url = inputURL
+            let polygone = Polygone()
+            if fileUTType == .ncrpt{
+                self.changeTabTitle(inputURL.lastPathComponent,  inputURL.lastPathComponent, "lock.shield")
+                polygone.decryptFile(inputURL) { url, rights, success in
+                    if success{
+                        DispatchQueue.main.async {
+                            self.isUpdating = false
+                            self.url = url
+                        }
+                    }else{
+                        log.debug(module: "ContentDecrypt", type: #function, object: "error decrypt file")
+                        self.error = NCRPTError(id: 0, title: "Error",
+                                                about: "You do not have enough permissions to open this file, contact your administrator.",
+                                                owner: "",
+                                                repeatUrl: nil)
+                    }
+                }
             }
         }
     }

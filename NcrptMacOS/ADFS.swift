@@ -1,15 +1,14 @@
 //
 //  ADFS.swift
-//  EncryptFile
+//  NcrptMacOS
 //
-//  Created by Сафир Михаил Дмитриевич [B] on 31.10.2022.
+//  Created by Michael Safir on 16.01.2023.
 //
 
 import Foundation
 import Alamofire
-import SwiftyRSA
 import SwiftyJSON
-import UIKit
+
 
 class ADFS: NSObject, ObservableObject, Identifiable, URLSessionDelegate, URLSessionTaskDelegate {
     
@@ -47,9 +46,7 @@ class ADFS: NSObject, ObservableObject, Identifiable, URLSessionDelegate, URLSes
             completionHandler(.useCredential, nil)
             
         }
-        
-//        completionHandler(.useCredential, URLCredential(trust: trust))
-//        completionHandler(.cancelAuthenticationChallenge, nil)
+
         
     }
     
@@ -104,7 +101,6 @@ class ADFS: NSObject, ObservableObject, Identifiable, URLSessionDelegate, URLSes
                     return
                 }
                 if let httpResponse = response as? HTTPURLResponse {
-                    print("jwt \(httpResponse.statusCode)")
                     completion(false)
                     return
                 }

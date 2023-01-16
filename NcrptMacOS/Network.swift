@@ -1,13 +1,12 @@
 //
 //  Network.swift
-//  EncryptFile
+//  NcrptMacOS
 //
-//  Created by Сафир Михаил Дмитриевич [B] on 31.10.2022.
+//  Created by Michael Safir on 16.01.2023.
 //
 
 import Foundation
 import Alamofire
-import SwiftyRSA
 import SwiftyJSON
 
 class Network: ObservableObject, Identifiable  {
@@ -36,12 +35,14 @@ class Network: ObservableObject, Identifiable  {
                 if pfx != nil {
                     let decodedData = Data(base64Encoded: pfx)!
                     let keychain = Keychain()
-                    if keychain.certification.importCertificate(decodedData, passwordServer) {
-                        let defaults = UserDefaults.standard
-                        defaults.set(username.lowercased(), forKey: UserDefaults.Keys.AuthorizationUsername.rawValue)
-                        completion(true)
-                    }else{
-                        completion(false)
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        if keychain.certification.importCertificate(decodedData, passwordServer) {
+                            let defaults = UserDefaults.standard
+                            defaults.set(username.lowercased(), forKey: UserDefaults.Keys.AuthorizationUsername.rawValue)
+                            completion(true)
+                        }else{
+                            completion(false)
+                        }
                     }
                 }
             }else{
@@ -81,7 +82,6 @@ class Network: ObservableObject, Identifiable  {
             let keychain = Keychain()
             var publicKey = keychain.helper.loadPassword(service: "keychainPublicKey", account: "NCRPT") ?? ""
             publicKey = publicKey.data(using: .utf8)?.base64EncodedString() ?? ""
-            
             AF.request("https://secure.ncrpt.io/decrypt.php", method: .post, parameters: ["fileMD5": fileMD5,
                                                                                           "public": publicKey], headers: headers).responseJSON { [self] (response) in
                 
@@ -166,7 +166,7 @@ class Network: ObservableObject, Identifiable  {
                 if (response.response?.statusCode == 200) {
                     if (response.value != nil) {
                         let json = JSON(response.value!)
-                        
+                        print(json)
                         completion(true)
                     }else{
                         completion(false)

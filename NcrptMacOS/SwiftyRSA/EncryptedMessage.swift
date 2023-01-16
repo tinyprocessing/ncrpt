@@ -43,10 +43,10 @@ public class EncryptedMessage: Message {
             var decryptedDataBuffer = [UInt8](repeating: 0, count: blockSize)
             var decryptedDataLength = blockSize
             
-            decryptedDataBuffer = SecKeyCreateDecryptedData(key.reference, .rsaEncryptionPKCS1, chunkData as! CFData, nil) as! [UInt8]
+            decryptedDataBuffer = Array(SecKeyCreateDecryptedData(key.reference, .rsaEncryptionPKCS1, Data(chunkData) as! CFData, nil) as! Data)
             
             
-            decryptedDataBytes += [UInt8](decryptedDataBuffer[0..<decryptedDataLength])
+            decryptedDataBytes += decryptedDataBuffer
             
             idx += blockSize
         }

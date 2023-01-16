@@ -55,37 +55,9 @@ class Certification: ObservableObject, Identifiable  {
             if (secCert == nil){
                 return false
             }
-            
-            var keychainQueryDictionary = [String : Any]()
-            
-            if let tempSecCert = secCert {
-                keychainQueryDictionary = [kSecClass as String : kSecClassCertificate, kSecValueRef as String : tempSecCert, kSecAttrLabel as String: "NCRPT Viewer"]
-            }
-            
+           
             let summary = SecCertificateCopySubjectSummary(secCert!)! as String
             print("Cert summary: \(summary)")
-            
-            let status = SecItemAdd(keychainQueryDictionary as CFDictionary, nil)
-            
-            guard status == errSecSuccess else {
-                print("Error")
-                return false
-            }
-            
-            keychainQueryDictionary = [String : Any]()
-            
-            
-            keychainQueryDictionary = [kSecValueRef as String : readySecIdentity,
-                                       kSecAttrLabel as String: "NCRPT Viewer"]
-            
-            
-            let statusIdentity = SecItemAdd(keychainQueryDictionary as CFDictionary, nil)
-            
-            guard statusIdentity == errSecSuccess else {
-                print("Error")
-                return false
-            }
-            
             
             print("ready import")
             
@@ -224,12 +196,15 @@ class Certification: ObservableObject, Identifiable  {
         
         let array = result as! [NSDictionary]
         print("array count idenety: ", array.count)
-        if array.count > 1 {
-            return (array[1]["v_Ref"] as! SecIdentity)
-        }else{
-            return (array[0]["v_Ref"] as! SecIdentity)
+        var resultSI : SecIdentity? = nil
+        array.forEach { certificate in
+            if let issr = String(data: certificate["issr"] as! Data, encoding: .ascii) {
+                if issr.contains("NCRPTCA Root"){
+                    resultSI = (certificate["v_Ref"] as! SecIdentity)
+                }
+            }
         }
-       
+        return resultSI
     }
     
     func certificateThumbprintFromContext(_ certificateData: Data?) -> String? {

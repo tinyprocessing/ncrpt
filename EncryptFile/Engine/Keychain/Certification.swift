@@ -122,30 +122,39 @@ class Certification: ObservableObject, Identifiable  {
             var firstByte: UnsafePointer? = data.bytes.assumingMemoryBound(to: UInt8.self)
             let certificateX509 = d2i_X509(nil, &firstByte, data.length)
             let subjectX509Name = X509_get_subject_name(certificateX509)
-            
+            let issureX509Name = X509_get_issuer_name(certificateX509)
+
             if (subjectX509Name != nil) {
                 self.certificate.certificationOIDs = []
                 let organizationUnitName = getSubjectPartName(from: subjectX509Name, forKey: "2.5.4.11") ?? ""
-                print(organizationUnitName)
                 
-                print("email = ", getSubjectPartName(from: subjectX509Name, forKey: "1.2.840.113549.1.9.1") as Any)
-                print("name = ", getSubjectPartName(from: subjectX509Name, forKey: "2.5.4.4") as Any)
-                print("given = ", getSubjectPartName(from: subjectX509Name, forKey: "2.5.4.42") as Any)
-                print("common = ", getSubjectPartName(from: subjectX509Name, forKey: "2.5.4.3") as Any)
-                print("organizationUnitName = ", getSubjectPartName(from: subjectX509Name, forKey: "2.5.4.11") as Any)
-                print("thumbprint = ", certificateThumbprintFromContext(data as Data))
+                if issureX509Name != nil {
+                    let nid = OBJ_txt2nid("CN");
+                    let index = X509_NAME_get_index_by_NID(issureX509Name, nid, -1);
+                    if (index != -1) {
+                        let issuerNameCommonName = X509_NAME_get_entry(issureX509Name, index);
+                        if (issuerNameCommonName != nil) {
+                            let issuerCNASN1 = X509_NAME_ENTRY_get_data(issuerNameCommonName);
+                            if (issuerCNASN1 != nil) {
+                                let issuerCName = ASN1_STRING_data(issuerCNASN1);
+                                if let bytes = issuerCName {
+                                    let issure = String(cString: bytes)
+                                    self.certificate.issuer = issure
+                                }
+                            }
+                        }
+                    }
+                }
                 
                 let serialNumber = X509_get_serialNumber(certificateX509)
-                print("serialNumber = ",serialNumber)
                 
-                print(certificateX509.debugDescription)
                 
                 self.certificate.email = getSubjectPartName(from: subjectX509Name, forKey: "1.2.840.113549.1.9.1")
                 self.certificate.name = getSubjectPartName(from: subjectX509Name, forKey: "2.5.4.4")
                 
                 self.certificate.certificationOIDs.append(CertificateOID(name: "Name",
-                                                                         value: getSubjectPartName(from: subjectX509Name,
-                                                                                                   forKey: "2.5.4.4") ?? "-"))
+                                                                         value: self.certificate.issuer ?? ""))
+                                                          
                 self.certificate.certificationOIDs.append(CertificateOID(name: "Email",
                                                                          value: getSubjectPartName(from: subjectX509Name,
                                                                                                    forKey: "1.2.840.113549.1.9.1") ?? "-"))
@@ -160,7 +169,6 @@ class Certification: ObservableObject, Identifiable  {
                     for child in mirror.children  {
                         let value = getSubjectPartName(from: subjectX509Name, forKey: child.value as! String) ?? ""
                         if value.count > 0 {
-                            print("key: \(child.label), value: \(value)")
                             var oid = CertificateOID()
                             oid.name = (child.label ?? "-").replacingOccurrences(of: "kSecOID", with: "")
                             oid.value = String(describing: value)

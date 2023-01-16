@@ -16,7 +16,7 @@ class ProtectViewModel: ObservableObject {
     @Published var chosenFiles: [Attach] = []
     @Published var isRightsNoExpired: Bool = true
     @Published var untilDate: Date = Date()
-    
+    @Published var showingContent = false
     @Published var selectedTemplated: UUID = UUID()
     @Published var rights: Rights? = nil
     

@@ -47,31 +47,95 @@ class Settings: ObservableObject, Identifiable {
         }
     }
     
+    func shareLogs() {
+        let fileManager = FileManager.default
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let pathWithLogs = path + "/\(Bundle.main.bundleIdentifier!)/logs"
+        let urlFolder = URL(fileURLWithPath: pathWithLogs)
+        do {
+            try FileManager.default.createDirectory(at: urlFolder, withIntermediateDirectories: true, attributes: nil)
+        } catch {
+            
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.current
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let currentDateString = (dateFormatter.string(from: Date()))
+        
+        let fileLogsZIP = path + "/\(Bundle.main.bundleIdentifier!)" + "/ncrpt_\(currentDateString)_log.zip"
+        let urlLogsZIP = URL(fileURLWithPath: fileLogsZIP)
+
+        do {
+            try fileManager.zipItem(at: urlFolder, to: urlLogsZIP)
+            share(items: [urlLogsZIP])
+            log.debug(module: "Settings", type: #function, object: "Share url: \(fileLogsZIP)")
+        }catch{
+            log.debug(module: "Settings", type: #function, object: "Error: \(error)")
+            do {
+                try FileManager.default.removeItem(atPath: (urlLogsZIP.path().removingPercentEncoding)!)
+                try fileManager.zipItem(at: urlFolder, to: urlLogsZIP)
+                share(items: [urlLogsZIP])
+                log.debug(module: "Settings", type: #function, object: "Share url: \(fileLogsZIP)")
+            } catch {
+                log.debug(module: "Settings", type: #function, object: "Could not delete file, probably read-only filesystem")
+            }
+        }
+    }
+    
     func cleanCache(){
         
         do {
             // Get the document directory url
-            let documentDirectory = try FileManager.default.url(
+            let cachesDirectory = try FileManager.default.url(
                 for: .cachesDirectory,
                 in: .userDomainMask,
                 appropriateFor: nil,
                 create: true
             )
+            
+            let documentDirectory = try FileManager.default.url(
+                for: .documentDirectory,
+                in: .userDomainMask,
+                appropriateFor: nil,
+                create: true
+            )
+            
             // Get the directory contents urls (including subfolders urls)
             let directoryContents = try FileManager.default.contentsOfDirectory(
-                at: documentDirectory,
+                at: cachesDirectory,
                 includingPropertiesForKeys: nil
             )
             
             directoryContents.forEach { item in
-                print("clean system - ", item.localizedName)
+                log.debug(module: "Settings", type: #function, object: "clean - \(item.localizedName ?? "*filename*")")
                 let name = item.localizedName ?? ""
+                if name.contains("thenoco.co.EncryptFile") {
+                    do {
+                        let LogsDirectory = documentDirectory.appendingPathComponent("thenoco.co.EncryptFile/")
+                        let LogsDirectoryContents = try FileManager.default.contentsOfDirectory(
+                            at: LogsDirectory,
+                            includingPropertiesForKeys: nil
+                        )
+                        LogsDirectoryContents.forEach { itemInLogs in
+                            if (itemInLogs.localizedName ?? "").contains(".zip"){
+                                log.debug(module: "Settings", type: #function, object: "clean - \(itemInLogs.localizedName ?? "*filename*")")
+                                do {
+                                    try FileManager.default.removeItem(atPath: (itemInLogs.path().removingPercentEncoding)!)
+                                } catch {
+                                    print(error)
+                                }
+                            }
+                        }
+                    }catch{
+                        log.debug(module: "Settings", type: #function, object: "Error - \(error)")
+                    }
+                }
                 if item.typeIdentifier == "public.folder" && !item.isNCRPT && !name.contains("thenoco.co.EncryptFile") {
                     DispatchQueue.main.asyncAfter(deadline: .now()){
                         do {
                             try FileManager.default.removeItem(atPath: (item.path().removingPercentEncoding)!)
                         } catch {
-                            print("removeItem error")
                             print(error)
                         }
                     }
@@ -122,6 +186,7 @@ class Settings: ObservableObject, Identifiable {
     
     
     func alert(title: String, message: String, buttonName: String = "ok"){
+        log.debug(module: "Settings", type: #function, object: "Alert: \(title) - \(message)")
         DispatchQueue.main.async {
             UIApplication.shared.windows.first?.rootViewController?.present(self.alertView(title: title, message: message, buttonName: buttonName), animated: true)
         }

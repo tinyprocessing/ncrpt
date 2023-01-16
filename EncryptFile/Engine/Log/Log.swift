@@ -20,7 +20,7 @@ public class Log: ObservableObject, Identifiable, TextOutputStream {
         
         let date_to_print = dateFormatterGet.string(from: Date())
         
-        if (settings.log_allow){
+        if (true){
             print(date_to_print, "[NCRPT] [\(module)]", type, ":", object, to: &log)
         }
         print(date_to_print, "[NCRPT] [\(module)]", type, ":", object)

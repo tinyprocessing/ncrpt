@@ -8,32 +8,45 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
+
 extension UTType {
-    static var exampleText: UTType {
-        UTType(importedAs: "com.example.plain-text")
+    static var ncrpt: UTType {
+        UTType.types(tag: "ncrpt", tagClass: .filenameExtension, conformingTo: nil).first!
+    }
+    
+    static var png: UTType {
+        UTType.types(tag: "png", tagClass: .filenameExtension, conformingTo: nil).first!
     }
 }
 
-struct NcrptMacOSDocument: FileDocument {
-    var text: String
-
-    init(text: String = "Hello, world!") {
-        self.text = text
+final class DecryptDocument: ReferenceFileDocument, ObservableObject {
+    
+    typealias Snapshot = ContentDecrypt
+    
+    
+    
+    static var readableContentTypes: [UTType] { [.ncrpt, .png] }
+    
+    func snapshot(contentType: UTType) throws -> ContentDecrypt {
+        ContentDecrypt()
     }
-
-    static var readableContentTypes: [UTType] { [.exampleText] }
-
+    
+    init() {
+        
+    }
+    
     init(configuration: ReadConfiguration) throws {
-        guard let data = configuration.file.regularFileContents,
-              let string = String(data: data, encoding: .utf8)
+        guard configuration.file.regularFileContents != nil
         else {
             throw CocoaError(.fileReadCorruptFile)
         }
-        text = string
     }
     
-    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let data = text.data(using: .utf8)!
-        return .init(regularFileWithContents: data)
+
+    func fileWrapper(snapshot: ContentDecrypt, configuration: WriteConfiguration) throws -> FileWrapper {
+        let data = try JSONEncoder().encode("snapshot")
+        let fileWrapper = FileWrapper(regularFileWithContents: data)
+        return fileWrapper
     }
 }
+

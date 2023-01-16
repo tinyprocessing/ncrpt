@@ -73,20 +73,29 @@
 		2C75701B292439F20043B464 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 2C75701A292439F20043B464 /* SwiftyJSON */; };
 		2C75701D2924496C0043B464 /* ADFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C75701C2924496C0043B464 /* ADFS.swift */; };
 		2CEF745829267FB7009663C8 /* QLFilePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEF745729267FB7009663C8 /* QLFilePreviewController.swift */; };
-		59142F958DAA3C405E45261D /* libPods-NcrptMacOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16D01C033C7D939F30DD0A12 /* libPods-NcrptMacOS.a */; };
 		CAC626C503C0B776C3E7A888 /* Pods_EncryptFile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */; };
 		D401A767296A373B003F3BF8 /* Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D401A766296A373B003F3BF8 /* Interface.swift */; };
 		D401A76A296A380E003F3BF8 /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D401A769296A380E003F3BF8 /* NetworkView.swift */; };
 		D401A76C296A3D38003F3BF8 /* CertificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D401A76B296A3D38003F3BF8 /* CertificationView.swift */; };
 		D47D66B929759206004282D5 /* NcrptMacOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66B829759206004282D5 /* NcrptMacOSApp.swift */; };
 		D47D66BB29759206004282D5 /* NcrptMacOSDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66BA29759206004282D5 /* NcrptMacOSDocument.swift */; };
-		D47D66BD29759206004282D5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66BC29759206004282D5 /* ContentView.swift */; };
 		D47D66BF29759208004282D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D47D66BE29759208004282D5 /* Assets.xcassets */; };
 		D47D66C229759208004282D5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D47D66C129759208004282D5 /* Preview Assets.xcassets */; };
 		D47D66C929759A15004282D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66C829759A15004282D5 /* AppDelegate.swift */; };
 		D47D66CB29759A91004282D5 /* ScreenMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66CA29759A91004282D5 /* ScreenMonitor.swift */; };
 		D47D66CD29759AE0004282D5 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66CC29759AE0004282D5 /* Strings.swift */; };
 		D47D66CE29759AE4004282D5 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66CC29759AE0004282D5 /* Strings.swift */; };
+		D47D66D12975AD4D004282D5 /* Finder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66D02975AD4D004282D5 /* Finder.swift */; };
+		D47D66D42975AE01004282D5 /* ContentDecrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66D32975AE01004282D5 /* ContentDecrypt.swift */; };
+		D47D66D62975AF05004282D5 /* FileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66D52975AF05004282D5 /* FileView.swift */; };
+		D47D66D92975AF48004282D5 /* QuickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66D82975AF48004282D5 /* QuickView.swift */; };
+		D47D66DB2975AF76004282D5 /* PDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66DA2975AF76004282D5 /* PDFView.swift */; };
+		D47D66DE2975B099004282D5 /* VisualView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66DD2975B099004282D5 /* VisualView.swift */; };
+		D47D66E52975B33C004282D5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D47D66E42975B33C004282D5 /* Alamofire */; };
+		D47D66EB2975B347004282D5 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = D47D66EA2975B347004282D5 /* SwiftyJSON */; };
+		D47D66F32975B50B004282D5 /* Certification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C592DB82916946400CC4518 /* Certification.swift */; };
+		D47D66F52975B529004282D5 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = D47D66F42975B529004282D5 /* ZIPFoundation */; };
+		D47D67002975B870004282D5 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC09A290FEEB000B3AD7C /* Keychain.swift */; };
 		D49D419F2949273A00C66F0E /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D419E2949273A00C66F0E /* ActivityIndicator.swift */; };
 		D4A308B8294E208300CAEB5F /* APINotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A308B7294E208300CAEB5F /* APINotifications.swift */; };
 		D4A308BB294E22C200CAEB5F /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A308BA294E22C200CAEB5F /* NotificationsView.swift */; };
@@ -106,6 +115,27 @@
 		D4F36F832909AE7100EF7C85 /* FileDocumentStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F822909AE7100EF7C85 /* FileDocumentStruct.swift */; };
 		D4F36F862909D96D00EF7C85 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F852909D96D00EF7C85 /* MD5.swift */; };
 		D4F36F882909DA3500EF7C85 /* FileSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F872909DA3500EF7C85 /* FileSize.swift */; };
+		D4FE31502975BB2B00357DCC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FE314F2975BB2B00357DCC /* Security.framework */; };
+		D4FE31522975BB3C00357DCC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FE31512975BB3C00357DCC /* Security.framework */; };
+		D4FE31532975BC5C00357DCC /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC09C290FEF3F00B3AD7C /* KeychainHelper.swift */; };
+		D4FE31642975BEDC00357DCC /* PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE31552975BEDC00357DCC /* PublicKey.swift */; };
+		D4FE31652975BEDC00357DCC /* Data+SHA.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE31562975BEDC00357DCC /* Data+SHA.swift */; };
+		D4FE31662975BEDC00357DCC /* EncryptedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE31572975BEDC00357DCC /* EncryptedMessage.swift */; };
+		D4FE31672975BEDC00357DCC /* ClearMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE31582975BEDC00357DCC /* ClearMessage.swift */; };
+		D4FE31682975BEDC00357DCC /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE31592975BEDC00357DCC /* Message.swift */; };
+		D4FE31692975BEDC00357DCC /* Asn1Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE315A2975BEDC00357DCC /* Asn1Parser.swift */; };
+		D4FE316A2975BEDC00357DCC /* X509Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE315B2975BEDC00357DCC /* X509Certificate.swift */; };
+		D4FE316B2975BEDC00357DCC /* Signature.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE315C2975BEDC00357DCC /* Signature.swift */; };
+		D4FE316C2975BEDC00357DCC /* PrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE315D2975BEDC00357DCC /* PrivateKey.swift */; };
+		D4FE316D2975BEDC00357DCC /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE315E2975BEDC00357DCC /* Key.swift */; };
+		D4FE316F2975BEDC00357DCC /* SwiftyRSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE31602975BEDC00357DCC /* SwiftyRSA.swift */; };
+		D4FE31702975BEDC00357DCC /* SwiftyRSA+ObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE31612975BEDC00357DCC /* SwiftyRSA+ObjC.swift */; };
+		D4FE31712975BEDC00357DCC /* SwiftyRSAError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE31622975BEDC00357DCC /* SwiftyRSAError.swift */; };
+		D4FE31732975C09A00357DCC /* AESHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F6F29086EA000EF7C85 /* AESHelper.swift */; };
+		D4FE31742975C0CB00357DCC /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F6C29086E6900EF7C85 /* AES.swift */; };
+		D4FE31752975C14100357DCC /* EncryptionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F6A29086BC800EF7C85 /* EncryptionEngine.swift */; };
+		D4FE31762975C15700357DCC /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1BC0A9290FFCC400B3AD7C /* Log.swift */; };
+		D4FE31782975C1A400357DCC /* Polygone.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE31772975C1A400357DCC /* Polygone.swift */; };
 		D4FFFD8C2956111F0018C730 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD8B2956111F0018C730 /* SettingsView.swift */; };
 		D4FFFD8E295611FA0018C730 /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD8D295611FA0018C730 /* SupportView.swift */; };
 		D4FFFD90295629F10018C730 /* RightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD8F295629F10018C730 /* RightsView.swift */; };
@@ -113,10 +143,10 @@
 		D4FFFD94295742500018C730 /* NCRPTWatchSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD93295742500018C730 /* NCRPTWatchSDK.swift */; };
 		D4FFFD96295743B70018C730 /* NCRPTAuthSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD95295743B70018C730 /* NCRPTAuthSDK.swift */; };
 		D4FFFD99295761DA0018C730 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFFD98295761DA0018C730 /* Defaults.swift */; };
+		F7014A5A7B3A264B72DD3CC7 /* libPods-NcrptMacOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C273B464384747F1BEEA7B99 /* libPods-NcrptMacOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		16D01C033C7D939F30DD0A12 /* libPods-NcrptMacOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NcrptMacOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		236259C8291010F0007EC337 /* TeamMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamMenuView.swift; sourceTree = "<group>"; };
 		236259C9291010F0007EC337 /* GroupsSideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsSideView.swift; sourceTree = "<group>"; };
 		236259CA291010F0007EC337 /* SideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
@@ -186,6 +216,7 @@
 		A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EncryptFile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1D9F4C2828C34ED673B7C13 /* Pods-EncryptFile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.debug.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.debug.xcconfig"; sourceTree = "<group>"; };
 		BF339249A36D70EE8175E580 /* Pods-NcrptMacOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NcrptMacOS.debug.xcconfig"; path = "Target Support Files/Pods-NcrptMacOS/Pods-NcrptMacOS.debug.xcconfig"; sourceTree = "<group>"; };
+		C273B464384747F1BEEA7B99 /* libPods-NcrptMacOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NcrptMacOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D401A766296A373B003F3BF8 /* Interface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interface.swift; sourceTree = "<group>"; };
 		D401A769296A380E003F3BF8 /* NetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
 		D401A76B296A3D38003F3BF8 /* CertificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationView.swift; sourceTree = "<group>"; };
@@ -193,7 +224,6 @@
 		D47D66B629759206004282D5 /* NcrptMacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NcrptMacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D47D66B829759206004282D5 /* NcrptMacOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NcrptMacOSApp.swift; sourceTree = "<group>"; };
 		D47D66BA29759206004282D5 /* NcrptMacOSDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NcrptMacOSDocument.swift; sourceTree = "<group>"; };
-		D47D66BC29759206004282D5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D47D66BE29759208004282D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D47D66C129759208004282D5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D47D66C329759208004282D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -201,6 +231,15 @@
 		D47D66C829759A15004282D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D47D66CA29759A91004282D5 /* ScreenMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenMonitor.swift; sourceTree = "<group>"; };
 		D47D66CC29759AE0004282D5 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		D47D66D02975AD4D004282D5 /* Finder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Finder.swift; sourceTree = "<group>"; };
+		D47D66D32975AE01004282D5 /* ContentDecrypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDecrypt.swift; sourceTree = "<group>"; };
+		D47D66D52975AF05004282D5 /* FileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileView.swift; sourceTree = "<group>"; };
+		D47D66D82975AF48004282D5 /* QuickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickView.swift; sourceTree = "<group>"; };
+		D47D66DA2975AF76004282D5 /* PDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFView.swift; sourceTree = "<group>"; };
+		D47D66DD2975B099004282D5 /* VisualView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualView.swift; sourceTree = "<group>"; };
+		D47D66E62975B342004282D5 /* SwiftyRSA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyRSA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D47D66F62975B65E004282D5 /* GSS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GSS.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/GSS.framework; sourceTree = DEVELOPER_DIR; };
+		D47D66FC2975B74B004282D5 /* libboringssl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libboringssl.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk/usr/lib/libboringssl.tbd; sourceTree = DEVELOPER_DIR; };
 		D49D419E2949273A00C66F0E /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		D4A308B7294E208300CAEB5F /* APINotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APINotifications.swift; sourceTree = "<group>"; };
 		D4A308BA294E22C200CAEB5F /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
@@ -221,6 +260,22 @@
 		D4F36F842909B7A000EF7C85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D4F36F852909D96D00EF7C85 /* MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
 		D4F36F872909DA3500EF7C85 /* FileSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSize.swift; sourceTree = "<group>"; };
+		D4FE314F2975BB2B00357DCC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		D4FE31512975BB3C00357DCC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		D4FE31552975BEDC00357DCC /* PublicKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicKey.swift; sourceTree = "<group>"; };
+		D4FE31562975BEDC00357DCC /* Data+SHA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+SHA.swift"; sourceTree = "<group>"; };
+		D4FE31572975BEDC00357DCC /* EncryptedMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptedMessage.swift; sourceTree = "<group>"; };
+		D4FE31582975BEDC00357DCC /* ClearMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClearMessage.swift; sourceTree = "<group>"; };
+		D4FE31592975BEDC00357DCC /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		D4FE315A2975BEDC00357DCC /* Asn1Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asn1Parser.swift; sourceTree = "<group>"; };
+		D4FE315B2975BEDC00357DCC /* X509Certificate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = X509Certificate.swift; sourceTree = "<group>"; };
+		D4FE315C2975BEDC00357DCC /* Signature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signature.swift; sourceTree = "<group>"; };
+		D4FE315D2975BEDC00357DCC /* PrivateKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateKey.swift; sourceTree = "<group>"; };
+		D4FE315E2975BEDC00357DCC /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		D4FE31602975BEDC00357DCC /* SwiftyRSA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyRSA.swift; sourceTree = "<group>"; };
+		D4FE31612975BEDC00357DCC /* SwiftyRSA+ObjC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwiftyRSA+ObjC.swift"; sourceTree = "<group>"; };
+		D4FE31622975BEDC00357DCC /* SwiftyRSAError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyRSAError.swift; sourceTree = "<group>"; };
+		D4FE31772975C1A400357DCC /* Polygone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygone.swift; sourceTree = "<group>"; };
 		D4FFFD8B2956111F0018C730 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D4FFFD8D295611FA0018C730 /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
 		D4FFFD8F295629F10018C730 /* RightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightsView.swift; sourceTree = "<group>"; };
@@ -235,7 +290,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				59142F958DAA3C405E45261D /* libPods-NcrptMacOS.a in Frameworks */,
+				D47D66E52975B33C004282D5 /* Alamofire in Frameworks */,
+				D4FE31502975BB2B00357DCC /* Security.framework in Frameworks */,
+				D47D66EB2975B347004282D5 /* SwiftyJSON in Frameworks */,
+				D47D66F52975B529004282D5 /* ZIPFoundation in Frameworks */,
+				F7014A5A7B3A264B72DD3CC7 /* libPods-NcrptMacOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C1BC0A7290FFCA800B3AD7C /* Alamofire in Frameworks */,
+				D4FE31522975BB3C00357DCC /* Security.framework in Frameworks */,
 				D4F36F7C2908898000EF7C85 /* ZIPFoundation in Frameworks */,
 				2C75701B292439F20043B464 /* SwiftyJSON in Frameworks */,
 				CAC626C503C0B776C3E7A888 /* Pods_EncryptFile.framework in Frameworks */,
@@ -459,8 +519,13 @@
 		61DFDEA360CDE2553ACB5C71 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D4FE314F2975BB2B00357DCC /* Security.framework */,
+				D4FE31512975BB3C00357DCC /* Security.framework */,
+				D47D66FC2975B74B004282D5 /* libboringssl.tbd */,
+				D47D66F62975B65E004282D5 /* GSS.framework */,
+				D47D66E62975B342004282D5 /* SwiftyRSA.framework */,
 				A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */,
-				16D01C033C7D939F30DD0A12 /* libPods-NcrptMacOS.a */,
+				C273B464384747F1BEEA7B99 /* libPods-NcrptMacOS.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -477,11 +542,13 @@
 		D47D66B729759206004282D5 /* NcrptMacOS */ = {
 			isa = PBXGroup;
 			children = (
+				D4FE31542975BEDC00357DCC /* SwiftyRSA */,
+				D47D66D72975AF27004282D5 /* Viewers */,
+				D47D66D22975ADF3004282D5 /* Decrypt */,
 				D47D66CF29759B2A004282D5 /* Utils */,
 				D47D66C829759A15004282D5 /* AppDelegate.swift */,
 				D47D66B829759206004282D5 /* NcrptMacOSApp.swift */,
 				D47D66BA29759206004282D5 /* NcrptMacOSDocument.swift */,
-				D47D66BC29759206004282D5 /* ContentView.swift */,
 				D47D66BE29759208004282D5 /* Assets.xcassets */,
 				D47D66C329759208004282D5 /* Info.plist */,
 				D47D66C429759208004282D5 /* NcrptMacOS.entitlements */,
@@ -501,9 +568,38 @@
 		D47D66CF29759B2A004282D5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D47D66DC2975B08A004282D5 /* VisualBlur */,
 				D47D66CA29759A91004282D5 /* ScreenMonitor.swift */,
+				D47D66D02975AD4D004282D5 /* Finder.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		D47D66D22975ADF3004282D5 /* Decrypt */ = {
+			isa = PBXGroup;
+			children = (
+				D47D66D32975AE01004282D5 /* ContentDecrypt.swift */,
+				D4FE31772975C1A400357DCC /* Polygone.swift */,
+			);
+			path = Decrypt;
+			sourceTree = "<group>";
+		};
+		D47D66D72975AF27004282D5 /* Viewers */ = {
+			isa = PBXGroup;
+			children = (
+				D47D66D52975AF05004282D5 /* FileView.swift */,
+				D47D66D82975AF48004282D5 /* QuickView.swift */,
+				D47D66DA2975AF76004282D5 /* PDFView.swift */,
+			);
+			path = Viewers;
+			sourceTree = "<group>";
+		};
+		D47D66DC2975B08A004282D5 /* VisualBlur */ = {
+			isa = PBXGroup;
+			children = (
+				D47D66DD2975B099004282D5 /* VisualView.swift */,
+			);
+			path = VisualBlur;
 			sourceTree = "<group>";
 		};
 		D4A308B9294E22AE00CAEB5F /* SideMenu */ = {
@@ -618,6 +714,26 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		D4FE31542975BEDC00357DCC /* SwiftyRSA */ = {
+			isa = PBXGroup;
+			children = (
+				D4FE31552975BEDC00357DCC /* PublicKey.swift */,
+				D4FE31562975BEDC00357DCC /* Data+SHA.swift */,
+				D4FE31572975BEDC00357DCC /* EncryptedMessage.swift */,
+				D4FE31582975BEDC00357DCC /* ClearMessage.swift */,
+				D4FE31592975BEDC00357DCC /* Message.swift */,
+				D4FE315A2975BEDC00357DCC /* Asn1Parser.swift */,
+				D4FE315B2975BEDC00357DCC /* X509Certificate.swift */,
+				D4FE315C2975BEDC00357DCC /* Signature.swift */,
+				D4FE315D2975BEDC00357DCC /* PrivateKey.swift */,
+				D4FE315E2975BEDC00357DCC /* Key.swift */,
+				D4FE31602975BEDC00357DCC /* SwiftyRSA.swift */,
+				D4FE31612975BEDC00357DCC /* SwiftyRSA+ObjC.swift */,
+				D4FE31622975BEDC00357DCC /* SwiftyRSAError.swift */,
+			);
+			path = SwiftyRSA;
+			sourceTree = "<group>";
+		};
 		D4FFFD97295761CE0018C730 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -638,12 +754,18 @@
 				D47D66B229759206004282D5 /* Sources */,
 				D47D66B329759206004282D5 /* Frameworks */,
 				D47D66B429759206004282D5 /* Resources */,
+				F1C8EC4787B159ABD941AE80 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = NcrptMacOS;
+			packageProductDependencies = (
+				D47D66E42975B33C004282D5 /* Alamofire */,
+				D47D66EA2975B347004282D5 /* SwiftyJSON */,
+				D47D66F42975B529004282D5 /* ZIPFoundation */,
+			);
 			productName = NcrptMacOS;
 			productReference = D47D66B629759206004282D5 /* NcrptMacOS.app */;
 			productType = "com.apple.product-type.application";
@@ -656,7 +778,7 @@
 				D4F36F5429086AA300EF7C85 /* Sources */,
 				D4F36F5529086AA300EF7C85 /* Frameworks */,
 				D4F36F5629086AA300EF7C85 /* Resources */,
-				376553BFAD24B50C5D6313A6 /* [CP] Embed Pods Frameworks */,
+				050116AEB0E5085A84581E71 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -700,9 +822,9 @@
 			);
 			mainGroup = D4F36F4F29086AA300EF7C85;
 			packageReferences = (
-				D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
-				2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */,
-				2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation.git" */,
+				2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire.git" */,
+				2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON.git" */,
 			);
 			productRefGroup = D4F36F5929086AA300EF7C85 /* Products */;
 			projectDirPath = "";
@@ -755,6 +877,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		050116AEB0E5085A84581E71 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EncryptFile/Pods-EncryptFile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EncryptFile/Pods-EncryptFile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EncryptFile/Pods-EncryptFile-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		1EC991F3B232DACD2CCCB8B6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -799,21 +938,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		376553BFAD24B50C5D6313A6 /* [CP] Embed Pods Frameworks */ = {
+		F1C8EC4787B159ABD941AE80 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-EncryptFile/Pods-EncryptFile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-NcrptMacOS/Pods-NcrptMacOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-EncryptFile/Pods-EncryptFile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-NcrptMacOS/Pods-NcrptMacOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EncryptFile/Pods-EncryptFile-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NcrptMacOS/Pods-NcrptMacOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -824,11 +963,37 @@
 			buildActionMask = 2147483647;
 			files = (
 				D47D66C929759A15004282D5 /* AppDelegate.swift in Sources */,
+				D4FE31532975BC5C00357DCC /* KeychainHelper.swift in Sources */,
+				D4FE316F2975BEDC00357DCC /* SwiftyRSA.swift in Sources */,
+				D4FE31732975C09A00357DCC /* AESHelper.swift in Sources */,
+				D47D66D12975AD4D004282D5 /* Finder.swift in Sources */,
+				D47D66F32975B50B004282D5 /* Certification.swift in Sources */,
+				D4FE31662975BEDC00357DCC /* EncryptedMessage.swift in Sources */,
+				D4FE316D2975BEDC00357DCC /* Key.swift in Sources */,
 				D47D66CB29759A91004282D5 /* ScreenMonitor.swift in Sources */,
+				D4FE31702975BEDC00357DCC /* SwiftyRSA+ObjC.swift in Sources */,
 				D47D66BB29759206004282D5 /* NcrptMacOSDocument.swift in Sources */,
+				D4FE31742975C0CB00357DCC /* AES.swift in Sources */,
+				D4FE31682975BEDC00357DCC /* Message.swift in Sources */,
+				D4FE316A2975BEDC00357DCC /* X509Certificate.swift in Sources */,
+				D47D66D92975AF48004282D5 /* QuickView.swift in Sources */,
+				D4FE316C2975BEDC00357DCC /* PrivateKey.swift in Sources */,
+				D4FE31752975C14100357DCC /* EncryptionEngine.swift in Sources */,
 				D47D66B929759206004282D5 /* NcrptMacOSApp.swift in Sources */,
+				D47D66D42975AE01004282D5 /* ContentDecrypt.swift in Sources */,
+				D47D66D62975AF05004282D5 /* FileView.swift in Sources */,
+				D4FE31712975BEDC00357DCC /* SwiftyRSAError.swift in Sources */,
+				D4FE31652975BEDC00357DCC /* Data+SHA.swift in Sources */,
+				D4FE31782975C1A400357DCC /* Polygone.swift in Sources */,
+				D4FE316B2975BEDC00357DCC /* Signature.swift in Sources */,
+				D4FE31642975BEDC00357DCC /* PublicKey.swift in Sources */,
+				D47D67002975B870004282D5 /* Keychain.swift in Sources */,
+				D4FE31692975BEDC00357DCC /* Asn1Parser.swift in Sources */,
 				D47D66CE29759AE4004282D5 /* Strings.swift in Sources */,
-				D47D66BD29759206004282D5 /* ContentView.swift in Sources */,
+				D4FE31762975C15700357DCC /* Log.swift in Sources */,
+				D47D66DB2975AF76004282D5 /* PDFView.swift in Sources */,
+				D47D66DE2975B099004282D5 /* VisualView.swift in Sources */,
+				D4FE31672975BEDC00357DCC /* ClearMessage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1199,7 +1364,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -1207,7 +1372,7 @@
 				kind = branch;
 			};
 		};
-		2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+		2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
 			requirement = {
@@ -1215,7 +1380,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+		D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
 			requirement = {
@@ -1228,17 +1393,32 @@
 /* Begin XCSwiftPackageProductDependency section */
 		2C1BC0A6290FFCA800B3AD7C /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = 2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire.git" */;
 			productName = Alamofire;
 		};
 		2C75701A292439F20043B464 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			package = 2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON.git" */;
 			productName = SwiftyJSON;
+		};
+		D47D66E42975B33C004282D5 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C1BC0A5290FFCA800B3AD7C /* XCRemoteSwiftPackageReference "Alamofire.git" */;
+			productName = Alamofire;
+		};
+		D47D66EA2975B347004282D5 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C757019292439F20043B464 /* XCRemoteSwiftPackageReference "SwiftyJSON.git" */;
+			productName = SwiftyJSON;
+		};
+		D47D66F42975B529004282D5 /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation.git" */;
+			productName = ZIPFoundation;
 		};
 		D4F36F7B2908898000EF7C85 /* ZIPFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			package = D4F36F7A2908898000EF7C85 /* XCRemoteSwiftPackageReference "ZIPFoundation.git" */;
 			productName = ZIPFoundation;
 		};
 /* End XCSwiftPackageProductDependency section */

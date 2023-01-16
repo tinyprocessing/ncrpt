@@ -73,10 +73,20 @@
 		2C75701B292439F20043B464 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 2C75701A292439F20043B464 /* SwiftyJSON */; };
 		2C75701D2924496C0043B464 /* ADFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C75701C2924496C0043B464 /* ADFS.swift */; };
 		2CEF745829267FB7009663C8 /* QLFilePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEF745729267FB7009663C8 /* QLFilePreviewController.swift */; };
+		59142F958DAA3C405E45261D /* libPods-NcrptMacOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16D01C033C7D939F30DD0A12 /* libPods-NcrptMacOS.a */; };
 		CAC626C503C0B776C3E7A888 /* Pods_EncryptFile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */; };
 		D401A767296A373B003F3BF8 /* Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D401A766296A373B003F3BF8 /* Interface.swift */; };
 		D401A76A296A380E003F3BF8 /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D401A769296A380E003F3BF8 /* NetworkView.swift */; };
 		D401A76C296A3D38003F3BF8 /* CertificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D401A76B296A3D38003F3BF8 /* CertificationView.swift */; };
+		D47D66B929759206004282D5 /* NcrptMacOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66B829759206004282D5 /* NcrptMacOSApp.swift */; };
+		D47D66BB29759206004282D5 /* NcrptMacOSDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66BA29759206004282D5 /* NcrptMacOSDocument.swift */; };
+		D47D66BD29759206004282D5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66BC29759206004282D5 /* ContentView.swift */; };
+		D47D66BF29759208004282D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D47D66BE29759208004282D5 /* Assets.xcassets */; };
+		D47D66C229759208004282D5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D47D66C129759208004282D5 /* Preview Assets.xcassets */; };
+		D47D66C929759A15004282D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66C829759A15004282D5 /* AppDelegate.swift */; };
+		D47D66CB29759A91004282D5 /* ScreenMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66CA29759A91004282D5 /* ScreenMonitor.swift */; };
+		D47D66CD29759AE0004282D5 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66CC29759AE0004282D5 /* Strings.swift */; };
+		D47D66CE29759AE4004282D5 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D66CC29759AE0004282D5 /* Strings.swift */; };
 		D49D419F2949273A00C66F0E /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D419E2949273A00C66F0E /* ActivityIndicator.swift */; };
 		D4A308B8294E208300CAEB5F /* APINotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A308B7294E208300CAEB5F /* APINotifications.swift */; };
 		D4A308BB294E22C200CAEB5F /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A308BA294E22C200CAEB5F /* NotificationsView.swift */; };
@@ -106,6 +116,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		16D01C033C7D939F30DD0A12 /* libPods-NcrptMacOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NcrptMacOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		236259C8291010F0007EC337 /* TeamMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamMenuView.swift; sourceTree = "<group>"; };
 		236259C9291010F0007EC337 /* GroupsSideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsSideView.swift; sourceTree = "<group>"; };
 		236259CA291010F0007EC337 /* SideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
@@ -171,12 +182,25 @@
 		2C75701C2924496C0043B464 /* ADFS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADFS.swift; sourceTree = "<group>"; };
 		2CEF745729267FB7009663C8 /* QLFilePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLFilePreviewController.swift; sourceTree = "<group>"; };
 		3AE40F6516B80AD996D0E26C /* Pods-EncryptFile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.release.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.release.xcconfig"; sourceTree = "<group>"; };
+		4FE2FC4BA89E5D2EE52A612D /* Pods-NcrptMacOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NcrptMacOS.release.xcconfig"; path = "Target Support Files/Pods-NcrptMacOS/Pods-NcrptMacOS.release.xcconfig"; sourceTree = "<group>"; };
 		A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EncryptFile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1D9F4C2828C34ED673B7C13 /* Pods-EncryptFile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.debug.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.debug.xcconfig"; sourceTree = "<group>"; };
+		BF339249A36D70EE8175E580 /* Pods-NcrptMacOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NcrptMacOS.debug.xcconfig"; path = "Target Support Files/Pods-NcrptMacOS/Pods-NcrptMacOS.debug.xcconfig"; sourceTree = "<group>"; };
 		D401A766296A373B003F3BF8 /* Interface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interface.swift; sourceTree = "<group>"; };
 		D401A769296A380E003F3BF8 /* NetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
 		D401A76B296A3D38003F3BF8 /* CertificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationView.swift; sourceTree = "<group>"; };
 		D47D66B129757319004282D5 /* EncryptFile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EncryptFile.entitlements; sourceTree = "<group>"; };
+		D47D66B629759206004282D5 /* NcrptMacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NcrptMacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D47D66B829759206004282D5 /* NcrptMacOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NcrptMacOSApp.swift; sourceTree = "<group>"; };
+		D47D66BA29759206004282D5 /* NcrptMacOSDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NcrptMacOSDocument.swift; sourceTree = "<group>"; };
+		D47D66BC29759206004282D5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D47D66BE29759208004282D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D47D66C129759208004282D5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D47D66C329759208004282D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D47D66C429759208004282D5 /* NcrptMacOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NcrptMacOS.entitlements; sourceTree = "<group>"; };
+		D47D66C829759A15004282D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D47D66CA29759A91004282D5 /* ScreenMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenMonitor.swift; sourceTree = "<group>"; };
+		D47D66CC29759AE0004282D5 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		D49D419E2949273A00C66F0E /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		D4A308B7294E208300CAEB5F /* APINotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APINotifications.swift; sourceTree = "<group>"; };
 		D4A308BA294E22C200CAEB5F /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
@@ -207,6 +231,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D47D66B329759206004282D5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59142F958DAA3C405E45261D /* libPods-NcrptMacOS.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4F36F5529086AA300EF7C85 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -226,6 +258,8 @@
 			children = (
 				A1D9F4C2828C34ED673B7C13 /* Pods-EncryptFile.debug.xcconfig */,
 				3AE40F6516B80AD996D0E26C /* Pods-EncryptFile.release.xcconfig */,
+				BF339249A36D70EE8175E580 /* Pods-NcrptMacOS.debug.xcconfig */,
+				4FE2FC4BA89E5D2EE52A612D /* Pods-NcrptMacOS.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -426,6 +460,7 @@
 			isa = PBXGroup;
 			children = (
 				A099DAB57C27A81ECEAD3072 /* Pods_EncryptFile.framework */,
+				16D01C033C7D939F30DD0A12 /* libPods-NcrptMacOS.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -437,6 +472,38 @@
 				D401A76B296A3D38003F3BF8 /* CertificationView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		D47D66B729759206004282D5 /* NcrptMacOS */ = {
+			isa = PBXGroup;
+			children = (
+				D47D66CF29759B2A004282D5 /* Utils */,
+				D47D66C829759A15004282D5 /* AppDelegate.swift */,
+				D47D66B829759206004282D5 /* NcrptMacOSApp.swift */,
+				D47D66BA29759206004282D5 /* NcrptMacOSDocument.swift */,
+				D47D66BC29759206004282D5 /* ContentView.swift */,
+				D47D66BE29759208004282D5 /* Assets.xcassets */,
+				D47D66C329759208004282D5 /* Info.plist */,
+				D47D66C429759208004282D5 /* NcrptMacOS.entitlements */,
+				D47D66C029759208004282D5 /* Preview Content */,
+			);
+			path = NcrptMacOS;
+			sourceTree = "<group>";
+		};
+		D47D66C029759208004282D5 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				D47D66C129759208004282D5 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D47D66CF29759B2A004282D5 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				D47D66CA29759A91004282D5 /* ScreenMonitor.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		D4A308B9294E22AE00CAEB5F /* SideMenu */ = {
@@ -454,6 +521,7 @@
 			isa = PBXGroup;
 			children = (
 				D4F36F5A29086AA300EF7C85 /* EncryptFile */,
+				D47D66B729759206004282D5 /* NcrptMacOS */,
 				D4F36F5929086AA300EF7C85 /* Products */,
 				61DFDEA360CDE2553ACB5C71 /* Frameworks */,
 				0A19F29C9B04D17EC16F73E8 /* Pods */,
@@ -464,6 +532,7 @@
 			isa = PBXGroup;
 			children = (
 				D4F36F5829086AA300EF7C85 /* EncryptFile.app */,
+				D47D66B629759206004282D5 /* NcrptMacOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -553,6 +622,7 @@
 			isa = PBXGroup;
 			children = (
 				D4FFFD98295761DA0018C730 /* Defaults.swift */,
+				D47D66CC29759AE0004282D5 /* Strings.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -560,6 +630,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D47D66B529759206004282D5 /* NcrptMacOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D47D66C529759208004282D5 /* Build configuration list for PBXNativeTarget "NcrptMacOS" */;
+			buildPhases = (
+				1F1512C88C2DE51FB375ED06 /* [CP] Check Pods Manifest.lock */,
+				D47D66B229759206004282D5 /* Sources */,
+				D47D66B329759206004282D5 /* Frameworks */,
+				D47D66B429759206004282D5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NcrptMacOS;
+			productName = NcrptMacOS;
+			productReference = D47D66B629759206004282D5 /* NcrptMacOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 		D4F36F5729086AA300EF7C85 /* EncryptFile */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4F36F6629086AA400EF7C85 /* Build configuration list for PBXNativeTarget "EncryptFile" */;
@@ -591,9 +679,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1400;
+				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
+					D47D66B529759206004282D5 = {
+						CreatedOnToolsVersion = 14.1;
+					};
 					D4F36F5729086AA300EF7C85 = {
 						CreatedOnToolsVersion = 14.0.1;
 					};
@@ -618,11 +709,21 @@
 			projectRoot = "";
 			targets = (
 				D4F36F5729086AA300EF7C85 /* EncryptFile */,
+				D47D66B529759206004282D5 /* NcrptMacOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D47D66B429759206004282D5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D47D66C229759208004282D5 /* Preview Assets.xcassets in Resources */,
+				D47D66BF29759208004282D5 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4F36F5629086AA300EF7C85 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -676,6 +777,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		1F1512C88C2DE51FB375ED06 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NcrptMacOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		376553BFAD24B50C5D6313A6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -696,6 +819,19 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D47D66B229759206004282D5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D47D66C929759A15004282D5 /* AppDelegate.swift in Sources */,
+				D47D66CB29759A91004282D5 /* ScreenMonitor.swift in Sources */,
+				D47D66BB29759206004282D5 /* NcrptMacOSDocument.swift in Sources */,
+				D47D66B929759206004282D5 /* NcrptMacOSApp.swift in Sources */,
+				D47D66CE29759AE4004282D5 /* Strings.swift in Sources */,
+				D47D66BD29759206004282D5 /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4F36F5429086AA300EF7C85 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -710,6 +846,7 @@
 				D4F36F5E29086AA300EF7C85 /* ContentView.swift in Sources */,
 				D4F36F7E2909500F00EF7C85 /* LocalFileEngine.swift in Sources */,
 				2C75701D2924496C0043B464 /* ADFS.swift in Sources */,
+				D47D66CD29759AE0004282D5 /* Strings.swift in Sources */,
 				2C1BC0A4290FFC6700B3AD7C /* Network.swift in Sources */,
 				236259CE291010F0007EC337 /* SideMenu.swift in Sources */,
 				23ED89BA296326410052E031 /* HiddenContainerRecognizer.swift in Sources */,
@@ -777,6 +914,70 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		D47D66C629759208004282D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF339249A36D70EE8175E580 /* Pods-NcrptMacOS.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = NcrptMacOS/NcrptMacOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"NcrptMacOS/Preview Content\"";
+				DEVELOPMENT_TEAM = GAH72SPMY9;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NcrptMacOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NCRPT;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = thenoco.co.NcrptMacOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D47D66C729759208004282D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4FE2FC4BA89E5D2EE52A612D /* Pods-NcrptMacOS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = NcrptMacOS/NcrptMacOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"NcrptMacOS/Preview Content\"";
+				DEVELOPMENT_TEAM = GAH72SPMY9;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NcrptMacOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NCRPT;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = thenoco.co.NcrptMacOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		D4F36F6429086AA400EF7C85 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -919,7 +1120,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ncrpt.io.iosviewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -956,7 +1157,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ncrpt.io.iosviewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -968,6 +1169,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D47D66C529759208004282D5 /* Build configuration list for PBXNativeTarget "NcrptMacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D47D66C629759208004282D5 /* Debug */,
+				D47D66C729759208004282D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D4F36F5329086AA300EF7C85 /* Build configuration list for PBXProject "EncryptFile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

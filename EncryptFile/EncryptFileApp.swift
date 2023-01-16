@@ -11,7 +11,7 @@ import LocalAuthentication
 
 @main
 struct EncryptFileApp: App {
-    @AppStorage("appearance") var appearance: Appearance = .automatic
+    @AppStorage("appearance") var appearance: Appearance = .light
     
     @State var isLoggedIn = true
     @State var opacity : Double = 1.0

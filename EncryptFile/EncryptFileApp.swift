@@ -67,7 +67,7 @@ struct EncryptFileApp: App {
                         self.api.ui = .auth
                     }else{
                         log.debug(type: "EncryptFileApp", object: "User need pin code")
-                        self.api.ui = .ready
+                        self.api.ui = .pin
                         if defaults.bool(forKey: UserDefaults.Keys.SettingsFaceID.rawValue) {
                             let context = LAContext()
                             if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {

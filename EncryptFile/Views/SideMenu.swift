@@ -16,22 +16,12 @@ struct SideMenu: View {
     var body: some View {
         ZStack(alignment: .topTrailing) {
             ZStack(alignment: .leading) {
+                
                 Color.init(hex: "F2F3F4")
                     .ignoresSafeArea()
                 
                 TeamMenuView(viewModel: viewModel, pvm: pvm)
-                    .navigationBarHidden(true)
-            }
-            
-            Button {
-                withAnimation(.spring()) {
-                    isShowMenu.toggle()
-                }
-            } label: {
-                Image(systemName: "xmark")
-                    .foregroundColor(.white)
-                    .padding(.trailing, 20)
-                    .padding(.top, 10)
+                    
             }
         }
   

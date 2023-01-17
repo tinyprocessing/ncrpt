@@ -22,44 +22,81 @@ struct ContentView: View {
     @ObservedObject var content : ProtectViewModel = ProtectViewModel.shared
     @State var showProtectionView = false
     
+    @State private var offset = CGPoint.zero
+  
     var body: some View {
         NavigationView{
-            ZStack {
-                Color.init(hex: "F2F5F8")
-                    .edgesIgnoringSafeArea(.top)
-                if isShowMenu {
+                ZStack {
+                    
+                    Color.init(hex: "F2F5F8")
+                        .edgesIgnoringSafeArea(.top)
+                    
                     SideMenu(isShowMenu: $isShowMenu, pvm: pvm)
-                }
-                ZStack(alignment: .bottomTrailing) {
-                    Color.white
-                    VStack{
-                        if self.localFiles.files.count > 0 {
-                            VStack(spacing: 0){
-                                HStack{
-                                    Text("Recent Files")
-                                        .modifier(NCRPTTextSemibold(size: 18))
-                                        .foregroundColor(Color.init(hex: "21205A"))
-                                    Spacer()
-                                }
-                                .padding(.horizontal, 20)
-                                .padding(.top)
-                                
-                                ScrollView(.vertical, showsIndicators: false){
-                                    VStack(spacing: 0){
-                                        ForEach(self.localFiles.files, id:\.self) { file in
-                                            HStack(spacing: 15){
-                                                HStack(spacing: 10){
-                                                    // file.ext
-                                                    Image("file")
-                                                        .resizable()
-                                                        .frame(width: 20, height: 20, alignment: .center)
-                                                    Text("\(file.name)")
-                                                        .modifier(NCRPTTextMedium(size: 16))
-                                                        .onTapGesture {
-                                                            self.content.chosenFiles = []
-                                                            DispatchQueue.main.async {
-                                                                self.content.showingContent.toggle()
+                        .opacity(self.offset.x*1.0/200)
+
+                    ZStack(alignment: .bottomTrailing) {
+                        Color.white
+                        VStack{
+                            if self.localFiles.files.count > 0 {
+                                VStack(spacing: 0){
+                                    HStack{
+                                        Text("Recent Files")
+                                            .modifier(NCRPTTextSemibold(size: 18))
+                                            .foregroundColor(Color.init(hex: "21205A"))
+                                        Spacer()
+                                    }
+                                    .padding(.horizontal, 20)
+                                    .padding(.top)
+                                    
+                                    ScrollView(.vertical, showsIndicators: false){
+                                        VStack(spacing: 0){
+                                            ForEach(self.localFiles.files, id:\.self) { file in
+                                                HStack(spacing: 15){
+                                                    HStack(spacing: 10){
+                                                        // file.ext
+                                                        Image("file")
+                                                            .resizable()
+                                                            .frame(width: 20, height: 20, alignment: .center)
+                                                        Text("\(file.name)")
+                                                            .modifier(NCRPTTextMedium(size: 16))
+                                                            .onTapGesture {
+                                                                self.content.chosenFiles = []
+                                                                DispatchQueue.main.async {
+                                                                    self.content.showingContent.toggle()
+                                                                }
+                                                                
+                                                                if file.url != nil {
+                                                                    DispatchQueue.global(qos: .userInitiated).async {
+                                                                        let polygone = Polygone()
+                                                                        polygone.decryptFile(file.url!) { url, rights, success  in
+                                                                            if success {
+                                                                                self.content.objectWillChange.send()
+                                                                                self.content.chosenFiles = [Attach(url: url)]
+                                                                                self.content.rights = rights
+                                                                                self.content.objectWillChange.send()
+                                                                            }else{
+                                                                                Settings.shared.alert(title: "Error", message: "You do not have enough permissions to open this file, contact your administrator.", buttonName: "close")
+                                                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                                                                    self.content.showingContent.toggle()
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        
+                                                                    }
+                                                                }
                                                             }
+                                                    }
+                                                    Spacer()
+                                                    
+                                                    Menu(content: {
+                                                        
+                                                        Button(action: {
+                                                            share(items: [file.url!])
+                                                        }) {
+                                                            Label("Share", systemImage: "square.and.arrow.up")
+                                                        }
+                                                        
+                                                        Button(action: {
                                                             
                                                             if file.url != nil {
                                                                 DispatchQueue.global(qos: .userInitiated).async {
@@ -70,220 +107,229 @@ struct ContentView: View {
                                                                             self.content.chosenFiles = [Attach(url: url)]
                                                                             self.content.rights = rights
                                                                             self.content.objectWillChange.send()
+                                                                            
+                                                                            DispatchQueue.main.async {
+                                                                                showingRights.toggle()
+                                                                            }
+                                                                            
                                                                         }else{
                                                                             Settings.shared.alert(title: "Error", message: "You do not have enough permissions to open this file, contact your administrator.", buttonName: "close")
-                                                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                                                                self.content.showingContent.toggle()
-                                                                            }
                                                                         }
                                                                     }
                                                                     
                                                                 }
                                                             }
+                                                        }) {
+                                                            Label("Rights", systemImage: "list.clipboard")
                                                         }
-                                                }
-                                                Spacer()
-                                                
-                                                Menu(content: {
-                                                    
-                                                    Button(action: {
-                                                        share(items: [file.url!])
-                                                    }) {
-                                                        Label("Share", systemImage: "square.and.arrow.up")
-                                                    }
-                                                    
-                                                    Button(action: {
                                                         
-                                                        if file.url != nil {
-                                                            DispatchQueue.global(qos: .userInitiated).async {
-                                                                let polygone = Polygone()
-                                                                polygone.decryptFile(file.url!) { url, rights, success  in
-                                                                    if success {
-                                                                        self.content.objectWillChange.send()
-                                                                        self.content.chosenFiles = [Attach(url: url)]
-                                                                        self.content.rights = rights
-                                                                        self.content.objectWillChange.send()
-                                                                        
-                                                                        DispatchQueue.main.async {
-                                                                            showingRights.toggle()
-                                                                        }
-                                                                        
-                                                                    }else{
-                                                                        Settings.shared.alert(title: "Error", message: "You do not have enough permissions to open this file, contact your administrator.", buttonName: "close")
-                                                                    }
-                                                                }
-                                                                
-                                                            }
-                                                        }
-                                                    }) {
-                                                        Label("Rights", systemImage: "list.clipboard")
-                                                    }
-                                                    
-                                                    Button(role: .destructive, action: {
-                                                        print("revoke file from server")
-                                                        Settings.shared.alertViewWithCompletion(title: "Sure?", message: "File will be revoked and deleted from server and device.") { result in
-                                                            if result {
-                                                                let polygone = Polygone()
-                                                                let md5 = polygone.getFileMD5(file.url!)
-                                                                if let md5 = md5 {
-                                                                    Network.shared.revoke(fileMD5: md5) { success in
-                                                                        if success {
-                                                                            do {
-                                                                                try FileManager.default.removeItem(atPath: (file.url?.path().removingPercentEncoding)!)
-                                                                                self.localFiles.getLocalFiles()
-                                                                            } catch {
-                                                                                print("Could not delete file, probably read-only filesystem")
+                                                        Button(role: .destructive, action: {
+                                                            print("revoke file from server")
+                                                            Settings.shared.alertViewWithCompletion(title: "Sure?", message: "File will be revoked and deleted from server and device.") { result in
+                                                                if result {
+                                                                    let polygone = Polygone()
+                                                                    let md5 = polygone.getFileMD5(file.url!)
+                                                                    if let md5 = md5 {
+                                                                        Network.shared.revoke(fileMD5: md5) { success in
+                                                                            if success {
+                                                                                do {
+                                                                                    try FileManager.default.removeItem(atPath: (file.url?.path().removingPercentEncoding)!)
+                                                                                    self.localFiles.getLocalFiles()
+                                                                                } catch {
+                                                                                    print("Could not delete file, probably read-only filesystem")
+                                                                                }
+                                                                            }else{
+                                                                                Settings.shared.alert(title: "Error", message: "Server is not able to revoke", buttonName: "close")
                                                                             }
-                                                                        }else{
-                                                                            Settings.shared.alert(title: "Error", message: "Server is not able to revoke", buttonName: "close")
                                                                         }
                                                                     }
                                                                 }
                                                             }
+                                                            
+                                                        }) {
+                                                            Label("Revoke", systemImage: "network")
+                                                                .foregroundColor(.red)
                                                         }
-
-                                                    }) {
-                                                        Label("Revoke", systemImage: "network")
-                                                            .foregroundColor(.red)
-                                                    }
-                                                    
-                                                    Button(role: .destructive, action: {
-                                                        Settings.shared.alertViewWithCompletion(title: "Sure?", message: "File will be deleted from device.") { result in
-                                                            if result {
-                                                                do {
-                                                                    try FileManager.default.removeItem(atPath: (file.url?.path().removingPercentEncoding)!)
-                                                                    self.localFiles.getLocalFiles()
-                                                                } catch {
-                                                                    print("Could not delete file, probably read-only filesystem")
+                                                        
+                                                        Button(role: .destructive, action: {
+                                                            Settings.shared.alertViewWithCompletion(title: "Sure?", message: "File will be deleted from device.") { result in
+                                                                if result {
+                                                                    do {
+                                                                        try FileManager.default.removeItem(atPath: (file.url?.path().removingPercentEncoding)!)
+                                                                        self.localFiles.getLocalFiles()
+                                                                    } catch {
+                                                                        print("Could not delete file, probably read-only filesystem")
+                                                                    }
                                                                 }
                                                             }
+                                                        }) {
+                                                            Label("Delete", systemImage: "trash")
+                                                                .foregroundColor(.red)
                                                         }
-                                                    }) {
-                                                        Label("Delete", systemImage: "trash")
-                                                            .foregroundColor(.red)
-                                                    }
-                                                }, label: {
-                                                    Text(":")
-                                                        .modifier(NCRPTTextSemibold(size: 20))
-                                                        .foregroundColor(.black)
-                                                        .padding(10)
-                                                })
-                                                .contentShape(Rectangle())
-                                                .modifier(NCRPTTextMedium(size: 20))
-                                                
-                                                
-                                                
+                                                    }, label: {
+                                                        Text(":")
+                                                            .modifier(NCRPTTextSemibold(size: 20))
+                                                            .foregroundColor(.black)
+                                                            .padding(10)
+                                                    })
+                                                    .contentShape(Rectangle())
+                                                    .modifier(NCRPTTextMedium(size: 20))
+                                                    
+                                                    
+                                                    
+                                                }
                                             }
                                         }
                                     }
+                                    .padding(.horizontal, 20)
                                 }
-                                .padding(.horizontal, 20)
-                            }
-                            Spacer()
-                        }else{
-                            Spacer()
-                            HStack{
                                 Spacer()
-                                Text("No files yet")
-                                    .modifier(NCRPTTextSemibold(size: 18))
-                                    .foregroundColor(Color.init(hex: "21205A"))
+                            }else{
+                                Spacer()
+                                HStack{
+                                    Spacer()
+                                    Text("No files yet")
+                                        .modifier(NCRPTTextSemibold(size: 18))
+                                        .foregroundColor(Color.init(hex: "21205A"))
+                                    Spacer()
+                                }
                                 Spacer()
                             }
-                            Spacer()
                         }
-                    }
-                    .fileImporter(
-                        isPresented: $isImporting,
-                        allowedContentTypes: [.ncrpt],
-                        allowsMultipleSelection: false
-                    ) { result in
-                        do {
-                            guard let selectedFile: URL = try result.get().first else { return }
-                            self.document.url = selectedFile
-                            let one = selectedFile.startAccessingSecurityScopedResource()
-                           
-                            self.content.chosenFiles = []
-                            DispatchQueue.main.async {
-                                self.content.showingContent.toggle()
+                        .fileImporter(
+                            isPresented: $isImporting,
+                            allowedContentTypes: [.ncrpt],
+                            allowsMultipleSelection: false
+                        ) { result in
+                            do {
+                                guard let selectedFile: URL = try result.get().first else { return }
+                                self.document.url = selectedFile
+                                let one = selectedFile.startAccessingSecurityScopedResource()
+                                
+                                self.content.chosenFiles = []
+                                DispatchQueue.main.async {
+                                    self.content.showingContent.toggle()
+                                }
+                                
+                                let polygone = Polygone()
+                                polygone.decryptFile(self.document.url!) { url, rights, success in
+                                    if success {
+                                        self.content.chosenFiles = [Attach(url: url)]
+                                        self.content.rights = rights
+                                    }else{
+                                        Settings.shared.alert(title: "Error", message: "You do not have enough permissions to open this file, contact your administrator.", buttonName: "close")
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                            self.content.showingContent.toggle()
+                                        }
+                                    }
+                                }
+                            } catch {
+                                // Handle failure.
                             }
-                            
-                            let polygone = Polygone()
-                            polygone.decryptFile(self.document.url!) { url, rights, success in
-                                if success {
-                                    self.content.chosenFiles = [Attach(url: url)]
-                                    self.content.rights = rights
-                                }else{
-                                    Settings.shared.alert(title: "Error", message: "You do not have enough permissions to open this file, contact your administrator.", buttonName: "close")
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                        self.content.showingContent.toggle()
+                        }
+                        
+                        NavigationLink(destination: SheetView(content: self.content), isActive: self.$content.showingContent) {
+                            EmptyView()
+                        }
+                        
+                        NavigationLink(destination: RightsView(content: self.content), isActive: $showingRights) {
+                            EmptyView()
+                        }
+                        
+                        NavigationLink(destination: SecureFileView(pvm: pvm), label: {
+                            ZStack{
+                                Circle()
+                                    .fill(Color.init(hex: "4378DB"))
+                                    .frame(width: 64, height: 64, alignment: .center)
+                                    .padding(.horizontal)
+                                Image("lock")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 22, height: 22, alignment: .center)
+                            }
+                            .shadow(radius: 5)
+                            .padding(.bottom, 5)
+                        })
+                        
+                        VisualEffect(style: .prominent)
+                            .opacity(self.offset.x*1.0/600)
+                            .onTapGesture {
+                                withAnimation(.spring()) {
+                                    withAnimation{
+                                        self.isShowMenu = false
+                                        self.offset = .zero
                                     }
                                 }
                             }
-                        } catch {
-                            // Handle failure.
-                        }
                     }
-                    
-                    NavigationLink(destination: SheetView(content: self.content), isActive: self.$content.showingContent) {
-                        EmptyView()
-                    }
-                    
-                    NavigationLink(destination: RightsView(content: self.content), isActive: $showingRights) {
-                        EmptyView()
-                    }
-                    
-                    NavigationLink(destination: SecureFileView(pvm: pvm), label: {
-                        ZStack{
-                            Circle()
-                                .fill(Color.init(hex: "4378DB"))
-                                .frame(width: 64, height: 64, alignment: .center)
-                                .padding(.horizontal)
-                            Image("lock")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 22, height: 22, alignment: .center)
-                        }
-                        .shadow(radius: 5)
-                        .padding(.bottom, 5)
-                    })
-                 
-                    VisualEffect(style: .prominent)
-                        .opacity(isShowMenu ? 0.6 : 0)
-                        .onTapGesture {
-                            withAnimation(.spring()) {
-                                self.isShowMenu = false
+                    .cornerRadius(20)
+                    .gesture(DragGesture(minimumDistance: 5)
+                        .onChanged{ value in
+                            if value.startLocation.x <= 15 || self.offset.x == 200{
+                                if value.location.x <= 200{
+                                    withAnimation(.linear){
+                                        offset = value.location
+                                    }
+                                }
                             }
                         }
-                }
-                .navigationBarItems(
-                    leading:
-                        Button(action: {
-                            withAnimation(.spring()) {
-                                self.isShowMenu = true
+                        .onEnded { value in
+                            if value.startLocation.x <= 15 || self.isShowMenu == true{
+                                if (value.location.x >= 40) {
+                                    withAnimation(){
+                                        self.isShowMenu = true
+                                        self.offset.x = 200
+                                    }
+                                } else {
+                                    withAnimation(){
+                                        self.isShowMenu = false
+                                        self.offset = .zero
+                                    }
+                                }
                             }
-                        }, label: {
-                            Image(systemName: "slider.horizontal.3")
-                                .foregroundColor(.black)
-                        })
-                    ,
-                    trailing:
-
-                        Button(action: {
-                            self.isImporting.toggle()
-                        }, label: {
-                            Image(systemName: "plus")
-                                .foregroundColor(.black)
-                        })
-                )
-                .cornerRadius(20)
-                .offset(x: isShowMenu ? 210 : 0)
-                .navigationTitle("ncrpt.io")
-                .navigationBarTitleDisplayMode(.inline)
-                .onAppear{
-                    self.localFiles.getLocalFiles()
+                        }
+                    )
+                    .offset(x: Double(round(1000 * offset.x) / 1000))
+                    .navigationBarItems(
+                        leading:
+                            Button(action: {
+                                var change : Bool = false
+                                if self.isShowMenu == false {
+                                    change = true
+                                    withAnimation(.spring()) {
+                                        self.offset.x = 200
+                                        self.isShowMenu = true
+                                    }
+                                }
+                                if self.isShowMenu == true && change == false {
+                                    change = true
+                                    withAnimation(.spring()) {
+                                        self.offset.x = 0
+                                        self.isShowMenu = false
+                                    }
+                                }
+                            }, label: {
+                                Image(systemName: "slider.horizontal.3")
+                                    .foregroundColor(.black)
+                            })
+                        ,
+                        trailing:
+                            
+                            Button(action: {
+                                self.isImporting.toggle()
+                            }, label: {
+                                Image(systemName: "plus")
+                                    .foregroundColor(.black)
+                            })
+                    )
+                    .navigationTitle("ncrpt.io")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .onAppear{
+                        self.localFiles.getLocalFiles()
+                    }
+                    
                 }
-               
-            }
+            
         }
         .background(.red)
         .navigationViewStyle(StackNavigationViewStyle())

@@ -45,20 +45,55 @@ class Certification: ObservableObject, Identifiable  {
                 throw NSError(domain: NSOSStatusErrorDomain, code: Int(err), userInfo: nil)
             }
             
-//            kSecImportItemCertChain
+            //            kSecImportItemCertChain
             let identityDictionaries = importResult as! [[String:Any]]
             let readySecIdentity = identityDictionaries[0][kSecImportItemIdentity as String] as! SecIdentity
-
+            
             var secCert: SecCertificate?
             SecIdentityCopyCertificate(readySecIdentity, &secCert)
             
             if (secCert == nil){
                 return false
             }
-           
+            
             let summary = SecCertificateCopySubjectSummary(secCert!)! as String
             print("Cert summary: \(summary)")
             
+#if IOSSYSTEM
+            
+            var keychainQueryDictionary = [String : Any]()
+            
+            if let tempSecCert = secCert {
+                keychainQueryDictionary = [kSecClass as String : kSecClassCertificate, kSecValueRef as String : tempSecCert, kSecAttrLabel as String: "NCRPT Viewer"]
+            }
+            
+            
+            let status = SecItemAdd(keychainQueryDictionary as CFDictionary, nil)
+            
+            guard status == errSecSuccess else {
+                print("Error")
+                return false
+            }
+            
+            keychainQueryDictionary = [String : Any]()
+            
+            
+            keychainQueryDictionary = [kSecValueRef as String : readySecIdentity,
+                                       kSecAttrLabel as String: "NCRPT Viewer"]
+            
+            
+            let statusIdentity = SecItemAdd(keychainQueryDictionary as CFDictionary, nil)
+            
+            guard statusIdentity == errSecSuccess else {
+                print("Error")
+                return false
+            }
+            
+            
+            print("ready import")
+            
+            return true
+#endif
             print("ready import")
             
             return true
@@ -83,6 +118,10 @@ class Certification: ObservableObject, Identifiable  {
         var result: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &result)
         
+        if status == -25300 {
+            return
+        }
+        
         let array = result as! [NSDictionary]
         
         for i in 0...array.count-1 {
@@ -95,7 +134,7 @@ class Certification: ObservableObject, Identifiable  {
             let certificateX509 = d2i_X509(nil, &firstByte, data.length)
             let subjectX509Name = X509_get_subject_name(certificateX509)
             let issureX509Name = X509_get_issuer_name(certificateX509)
-
+            
             if (subjectX509Name != nil) {
                 self.certificate.certificationOIDs = []
                 let organizationUnitName = getSubjectPartName(from: subjectX509Name, forKey: "2.5.4.11") ?? ""
@@ -126,13 +165,13 @@ class Certification: ObservableObject, Identifiable  {
                 
                 self.certificate.certificationOIDs.append(CertificateOID(name: "Name",
                                                                          value: self.certificate.issuer ?? ""))
-                                                          
+                
                 self.certificate.certificationOIDs.append(CertificateOID(name: "Email",
                                                                          value: getSubjectPartName(from: subjectX509Name,
                                                                                                    forKey: "1.2.840.113549.1.9.1") ?? "-"))
                 self.certificate.certificationOIDs.append(CertificateOID(name: "serialNumber",
                                                                          value: String(describing: serialNumber)))
-
+                
                 
                 let structOID = certificationOIDs()
                 let mirror = Mirror(reflecting: structOID)

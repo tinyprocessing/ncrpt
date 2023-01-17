@@ -36,12 +36,16 @@ class ADFS: NSObject, ObservableObject, Identifiable, URLSessionDelegate, URLSes
                 if identity == nil {
                     identity = keychain.certification.loadIdentity(0)
                 }
+                if keychain.certification.loadIdentity() != nil {
                     let config = URLCredential(identity: keychain.certification.loadIdentity()!,
                                                certificates: nil,
                                                persistence: .forSession)
                     
                     challenge.sender?.use(config, for: challenge)
                     completionHandler(.useCredential, config)
+                }else{
+                    completionHandler(.useCredential, nil)
+                }
                 
             }
             completionHandler(.useCredential, nil)

@@ -289,6 +289,8 @@ struct ContentView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .accentColor(.black)
         .onAppear{
+            self.pvm.clear()
+            self.pvm.objectWillChange.send()
             Network.shared.contacts { result in
                 
             }

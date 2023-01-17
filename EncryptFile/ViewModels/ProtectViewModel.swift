@@ -149,8 +149,7 @@ class ProtectViewModel: ObservableObject {
         }
     }
     
-    func removeTemplate(at offset: IndexSet) {
-        templates.remove(atOffsets: offset)
+    func updateTemplates() {
         LocalStorageEngine.saveTemplates(templates: templates) { result in
             if case .failure(let error) = result {
                 fatalError(error.localizedDescription)

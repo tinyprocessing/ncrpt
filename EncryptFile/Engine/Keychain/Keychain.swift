@@ -11,14 +11,14 @@ import CommonCrypto
 import Security
 import openssl
 
-let kSecClassValue = NSString(format: kSecClass)
-let kSecAttrAccountValue = NSString(format: kSecAttrAccount)
-let kSecValueDataValue = NSString(format: kSecValueData)
-let kSecClassGenericPasswordValue = NSString(format: kSecClassGenericPassword)
-let kSecAttrServiceValue = NSString(format: kSecAttrService)
-let kSecMatchLimitValue = NSString(format: kSecMatchLimit)
-let kSecReturnDataValue = NSString(format: kSecReturnData)
-let kSecMatchLimitOneValue = NSString(format: kSecMatchLimitOne)
+let kSecClassValue = kSecClass as String
+let kSecAttrAccountValue = kSecAttrAccount as String
+let kSecValueDataValue = kSecValueData as String
+let kSecClassGenericPasswordValue = kSecClassGenericPassword as String
+let kSecAttrServiceValue = kSecAttrService as String
+let kSecMatchLimitValue = kSecMatchLimit as String
+let kSecReturnDataValue = kSecReturnData as String
+let kSecMatchLimitOneValue = kSecMatchLimitOne as String
 
 class Keychain: ObservableObject, Identifiable  {
     @Published var helper : KeychainHelper = KeychainHelper()

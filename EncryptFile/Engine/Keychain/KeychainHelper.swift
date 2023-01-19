@@ -32,7 +32,9 @@ public class KeychainHelper: ObservableObject, Identifiable {
         if let dataFromString: Data = data.data(using: String.Encoding.utf8, allowLossyConversion: false) {
             
             // Instantiate a new default keychain query
-            let keychainQuery: NSMutableDictionary = NSMutableDictionary(objects: [kSecClassGenericPasswordValue, service, account], forKeys: [kSecClassValue, kSecAttrServiceValue, kSecAttrAccountValue])
+            let keychainQuery: [String: Any] = [kSecClassValue: kSecClassGenericPassword,
+                                          kSecAttrServiceValue: service,
+                                          kSecAttrAccountValue: account]
             
             let status = SecItemUpdate(keychainQuery as CFDictionary, [kSecValueDataValue:dataFromString] as CFDictionary)
             
@@ -55,7 +57,11 @@ public class KeychainHelper: ObservableObject, Identifiable {
         
         
         // Instantiate a new default keychain query
-        let keychainQuery: NSMutableDictionary = NSMutableDictionary(objects: [kSecClassGenericPasswordValue, service, account, kCFBooleanTrue], forKeys: [kSecClassValue, kSecAttrServiceValue, kSecAttrAccountValue, kSecReturnDataValue])
+        let keychainQuery: [String: Any] = [kSecClassValue: kSecClassGenericPassword,
+                                      kSecAttrServiceValue: service,
+                                      kSecAttrAccountValue: account,
+                                       kSecReturnDataValue: true]
+
         
         // Delete any existing items
         let status = SecItemDelete(keychainQuery as CFDictionary)
@@ -78,7 +84,11 @@ public class KeychainHelper: ObservableObject, Identifiable {
         if let dataFromString = data.data(using: String.Encoding.utf8, allowLossyConversion: false) {
             
             // Instantiate a new default keychain query
-            let keychainQuery: NSMutableDictionary = NSMutableDictionary(objects: [kSecClassGenericPasswordValue, service, account, dataFromString], forKeys: [kSecClassValue, kSecAttrServiceValue, kSecAttrAccountValue, kSecValueDataValue])
+            let keychainQuery: [String: Any] = [kSecClassValue: kSecClassGenericPassword,
+                                          kSecAttrServiceValue: service,
+                                          kSecAttrAccountValue: account,
+                                            kSecValueDataValue: dataFromString]
+
             
             // Add the new keychain item
             let status = SecItemAdd(keychainQuery as CFDictionary, nil)
@@ -101,12 +111,17 @@ public class KeychainHelper: ObservableObject, Identifiable {
         // Instantiate a new default keychain query
         // Tell the query to return a result
         // Limit our results to one item
-        let keychainQuery: NSMutableDictionary = NSMutableDictionary(objects: [kSecClassGenericPasswordValue, service, account, kCFBooleanTrue, kSecMatchLimitOneValue], forKeys: [kSecClassValue, kSecAttrServiceValue, kSecAttrAccountValue, kSecReturnDataValue, kSecMatchLimitValue])
+        let keychainQuery: [String: Any] = [kSecClassValue: kSecClassGenericPassword,
+                                      kSecAttrServiceValue: service,
+                                      kSecAttrAccountValue: account,
+                                       kSecReturnDataValue: true,
+                                       kSecMatchLimitValue: kSecMatchLimitOneValue]
+
         
         var dataTypeRef :AnyObject?
         
         // Search for the keychain items
-        let status: OSStatus = SecItemCopyMatching(keychainQuery, &dataTypeRef)
+        let status: OSStatus = SecItemCopyMatching(keychainQuery as CFDictionary, &dataTypeRef)
         var contentsOfKeychain: String?
         
         if status == errSecSuccess {

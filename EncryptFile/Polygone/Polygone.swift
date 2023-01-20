@@ -188,7 +188,7 @@ class Polygone: ObservableObject, Identifiable  {
             let json = try JSONSerialization.jsonObject(with: dataLicense, options: .mutableLeaves)
             
             
-            if let json = json as? Dictionary<String, AnyObject>, let fileMD5 = json["fileMD5"] as? String {
+            if let json = json as? Dictionary<String, AnyObject>, let fileMD5 = json["fileMD5"] as? String, let ownerUser = json["owner"] as? String {
                 Network.shared.licenseDecrypt(fileMD5: fileMD5) { [self] aesServer, rights, success  in
                     if (success == true) {
                         do {
@@ -197,10 +197,14 @@ class Polygone: ObservableObject, Identifiable  {
                             let engine : EncryptionEngine = EncryptionEngine(aes: aes!)
                             let decrypt = engine.decrypt(dataPrimary)
                             
+                            
+                            var rightsWithUser = rights
+                            rightsWithUser?.owner = ownerUser
+                            
                             if let fileName = json["fileName"] as? String{
                                 let ready : URL = (subDirectory?.appending(path: "\(fileName)"))!
                                 try decrypt?.write(to: ready)
-                                completion(ready, rights, true)
+                                completion(ready, rightsWithUser, true)
                                 return
                             }
                         } catch {

@@ -12,6 +12,26 @@ struct RightsView: View {
 
     var body: some View {
         VStack(alignment: .leading){
+            
+            if let rights = self.content.rights {
+                VStack{
+                    HStack{
+                        VStack(alignment: .leading, spacing: 5){
+                            Text(rights.owner)
+                                .modifier(NCRPTTextMedium(size: 16))
+                            Text("OWNER")
+                                .modifier(NCRPTTextMedium(size: 12))
+                                .padding(2.5)
+                                .background(.red.opacity(0.2))
+                                .cornerRadius(5)
+                                .foregroundColor(.red)
+                        }
+                        Spacer()
+                    }
+                    Divider()
+                }
+            }
+            
             if let rights = self.content.rights {
                 if !rights.users.isEmpty {
                     ScrollView(.vertical, showsIndicators: false){

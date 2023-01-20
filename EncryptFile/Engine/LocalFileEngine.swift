@@ -15,34 +15,18 @@ struct fileItem : Identifiable, Hashable {
     var ext : String = ""
 }
 
+extension Dictionary where Value: Equatable {
+    func getKey(forValue val: Value) -> Key? {
+        return first(where: { $1 == val })?.key
+    }
+}
 class LocalFileEngine: ObservableObject, Identifiable  {
     
     @Published var files : [fileItem] = []
     static let shared = LocalFileEngine()
     
     func decodeFileExtension(_ ext: String) -> String{
-        var header = "file"
-        if ext == "0001"{
-            header = "pdf"
-        }
-        if ext == "0002"{
-            header = "docx"
-        }
-        if ext == "0003"{
-            header = "pptx"
-        }
-        if ext == "0004"{
-            header = "xlsx"
-        }
-        if ext == "0005"{
-            header = "jpg"
-        }
-        if ext == "0006"{
-            header = "png"
-        }
-        if ext == "0007"{
-            header = "gif"
-        }
+        var header = avalibleExtensions.getKey(forValue: ext) ?? "file"
         return header
     }
     func getFileExtension(url: URL) -> String {

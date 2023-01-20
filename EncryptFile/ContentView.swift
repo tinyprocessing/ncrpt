@@ -24,6 +24,25 @@ struct ContentView: View {
     
     @State private var offset = CGPoint.zero
   
+    func colorIcon(ext: String) -> (String, Color){
+        switch ext {
+        case "doc", "jpg", "png", "bmp", "docx", "gif", "tiff", "tif":
+            // blue
+            return ("324FEB", .white)
+        case "pdf", "pptx", "ppt", "zip", "rar", "gzip", "7z":
+            // orange
+            return ("FE890D", .white)
+        case "xlsx", "xls", "txt", "html", "htm", "mkt", "djvu", "fb2", "epub", "csv":
+            // green
+            return ("337C41", .white)
+        case "mp4", "avi", "mp3", "wav", "mkv", "midi", "aac", "flv", "mpeg":
+            // red
+            return ("FA4747", .white)
+        default:
+            return ("858484", .white)
+        }
+    }
+    
     var body: some View {
         NavigationView{
                 ZStack {
@@ -54,37 +73,61 @@ struct ContentView: View {
                                                 HStack(spacing: 15){
                                                     HStack(spacing: 10){
                                                         // file.ext
-                                                        Image("file")
-                                                            .resizable()
-                                                            .frame(width: 20, height: 20, alignment: .center)
-                                                        Text("\(file.name)")
-                                                            .modifier(NCRPTTextMedium(size: 16))
-                                                            .onTapGesture {
-                                                                self.content.chosenFiles = []
-                                                                DispatchQueue.main.async {
-                                                                    self.content.showingContent.toggle()
-                                                                }
-                                                                
-                                                                if file.url != nil {
-                                                                    DispatchQueue.global(qos: .userInitiated).async {
-                                                                        let polygone = Polygone()
-                                                                        polygone.decryptFile(file.url!) { url, rights, success  in
-                                                                            if success {
-                                                                                self.content.objectWillChange.send()
-                                                                                self.content.chosenFiles = [Attach(url: url)]
-                                                                                self.content.rights = rights
-                                                                                self.content.objectWillChange.send()
-                                                                            }else{
-                                                                                Settings.shared.alert(title: "Error", message: "You do not have enough permissions to open this file, contact your administrator.", buttonName: "close")
-                                                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                                                                    self.content.showingContent.toggle()
+                                                        ZStack{
+                                                            Image("fileIcon")
+                                                                .resizable()
+                                                                .aspectRatio(contentMode: .fill)
+                                                                .frame(width: 19, height: 30, alignment: .center)
+                                                            ZStack{
+                                                                RoundedRectangle(cornerRadius: 2)
+                                                                    .fill(Color.init(hex: colorIcon(ext: file.ext).0))
+                                                                    .frame(width: 20, height: 11)
+                                                                Text(file.ext)
+                                                                    .modifier(NCRPTTextRegular(size: 8))
+                                                                    .foregroundColor(colorIcon(ext: file.ext).1)
+                                                            }.offset(x: -5, y: 2.8)
+                                                        }.frame(width: 30)
+                                                        VStack(alignment: .leading){
+                                                            Text("\(file.name.replacingOccurrences(of: ".ncrpt", with: ""))")
+                                                                .modifier(NCRPTTextMedium(size: 16))
+                                                                .onTapGesture {
+                                                                    self.content.chosenFiles = []
+                                                                    DispatchQueue.main.async {
+                                                                        self.content.showingContent.toggle()
+                                                                    }
+                                                                    
+                                                                    if file.url != nil {
+                                                                        DispatchQueue.global(qos: .userInitiated).async {
+                                                                            let polygone = Polygone()
+                                                                            polygone.decryptFile(file.url!) { url, rights, success  in
+                                                                                if success {
+                                                                                    self.content.objectWillChange.send()
+                                                                                    self.content.chosenFiles = [Attach(url: url)]
+                                                                                    self.content.rights = rights
+                                                                                    self.content.objectWillChange.send()
+                                                                                }else{
+                                                                                    Settings.shared.alert(title: "Error", message: "You do not have enough permissions to open this file, contact your administrator.", buttonName: "close")
+                                                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                                                                        self.content.showingContent.toggle()
+                                                                                    }
                                                                                 }
                                                                             }
+                                                                            
                                                                         }
-                                                                        
                                                                     }
                                                                 }
+                                                            HStack{
+                                                                Text(".\(file.ext)")
+                                                                    .modifier(NCRPTTextRegular(size: 14))
+                                                                    .foregroundColor(Color.init(hex: "7C809E"))
+                                                                
+                                                                Text(file.url?.fileSize() ?? "")
+                                                                    .modifier(NCRPTTextRegular(size: 14))
+                                                                    .foregroundColor(Color.init(hex: "7C809E"))
+                                                                
+                                                                Spacer()
                                                             }
+                                                        }
                                                     }
                                                     Spacer()
                                                     

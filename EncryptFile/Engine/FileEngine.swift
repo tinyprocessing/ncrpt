@@ -8,31 +8,52 @@
 import Foundation
 import ZIPFoundation
 
+let avalibleExtensions : [String:String] = [
+    "pdf" : "0001",
+    "docx" : "0002",
+    "pptx" : "0003",
+    "xlsx" : "0004",
+    "jpg" : "0005",
+    "png" : "0006",
+    "gif" : "0007",
+    "doc" : "0008",
+    "bmp" : "0009",
+    "pub" : "0010",
+    "tiff" : "0011",
+    "tif" : "0012",
+    "ppt" : "0013",
+    "zip" : "0014",
+    "rar" : "0015",
+    "gzip" : "0016",
+    "7z" : "0017",
+    "xls" : "0018",
+    "txt" : "0019",
+    "html" : "0020",
+    "htm" : "0021",
+    "mkt" : "0022",
+    "djvu" : "0023",
+    "fb2" : "0024",
+    "epub" : "0025",
+    "mp4" : "0026",
+    "avi" : "0027",
+    "mp3" : "0028",
+    "wav" : "0029",
+    "mkv" : "0030",
+    "midi" : "0031",
+    "aac" : "0032",
+    "flv" : "0033",
+    "mpeg" : "0034",
+    "exe" : "0035",
+    "ncrpt" : "0036",
+    "m4a" : "0037",
+    "csv" : "0038",
+]
+
+
 class FileEngine: ObservableObject, Identifiable  {
     
     func byteHeader(_ data: Data,_ ext: String) -> Data{
-        var header = "0000".data(using: .utf8)
-        if ext == "pdf"{
-            header = "0001".data(using: .utf8)
-        }
-        if ext == "docx"{
-            header = "0002".data(using: .utf8)
-        }
-        if ext == "pptx"{
-            header = "0003".data(using: .utf8)
-        }
-        if ext == "xlsx"{
-            header = "0004".data(using: .utf8)
-        }
-        if ext == "jpg"{
-            header = "0005".data(using: .utf8)
-        }
-        if ext == "png"{
-            header = "0006".data(using: .utf8)
-        }
-        if ext == "gif"{
-            header = "0007".data(using: .utf8)
-        }
+        var header = (avalibleExtensions[ext] ?? "0000").data(using: .utf8)
         return header! + data
     }
     

@@ -103,5 +103,21 @@ class FileEngine: ObservableObject, Identifiable  {
             log.debug(module: "FileEngine", type: #function, object: "Error exportNCRPT")
         }
     }
-    
+}
+
+extension FileManager {
+    func moveFile(at: URL) {
+        do {
+            let libraryDirectory = self.urls(for: .documentDirectory, in: .userDomainMask)
+            let fileFullName = at.lastPathComponent
+            let fileMoveUrl = libraryDirectory[0].appendingPathComponent(fileFullName)
+            
+            if self.fileExists(atPath: fileMoveUrl.path(percentEncoded: true)) {
+                try FileManager.default.removeItem(at: fileMoveUrl)
+            }
+            try self.copyItem(at: at, to: fileMoveUrl)
+        } catch (let error) {
+            print("Cannot copy item \(at): \(error)")
+        }
+    }
 }

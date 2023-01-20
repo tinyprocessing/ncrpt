@@ -45,7 +45,8 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView{
-                ZStack {
+            GeometryReader { geometry in
+                ZStack(alignment: .top) {
                     
                     Color.init(hex: "F2F5F8")
                         .edgesIgnoringSafeArea(.top)
@@ -226,6 +227,7 @@ struct ContentView: View {
                                     }
                                     .padding(.horizontal, 20)
                                 }
+                                .blur(radius: isShowMenu ? 2 : 0)
                                 Spacer()
                             }else{
                                 Spacer()
@@ -259,6 +261,7 @@ struct ContentView: View {
                                     if success {
                                         self.content.chosenFiles = [Attach(url: url)]
                                         self.content.rights = rights
+                                        FileManager.default.moveFile(at: selectedFile)
                                     }else{
                                         Settings.shared.alert(title: "Error", message: "You do not have enough permissions to open this file, contact your administrator.", buttonName: "close")
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -291,9 +294,9 @@ struct ContentView: View {
                                     .frame(width: 22, height: 22, alignment: .center)
                             }
                             .shadow(radius: 5)
-                            .padding(.bottom, 5)
+                            .padding(.bottom, 40)
                         })
-                        
+
                         VisualEffect(style: .prominent)
                             .opacity(self.offset.x*1.0/600)
                             .onTapGesture {
@@ -370,9 +373,10 @@ struct ContentView: View {
                     .onAppear{
                         self.localFiles.getLocalFiles()
                     }
-                    
+                    .frame(height: isShowMenu ? geometry.size.height * 0.95 : geometry.size.height)
                 }
-            
+            }
+            .edgesIgnoringSafeArea(.bottom)
         }
         .background(.red)
         .navigationViewStyle(StackNavigationViewStyle())
@@ -393,10 +397,12 @@ struct ContentView: View {
             }
             
             let polygone = Polygone()
-            polygone.decryptFile(url) { url, rights, success in
+            polygone.decryptFile(url) { urlDecrypted, rights, success in
                 if success {
-                    self.content.chosenFiles = [Attach(url: url)]
+                    self.content.chosenFiles = [Attach(url: urlDecrypted)]
                     self.content.rights = rights
+                    
+                    FileManager.default.moveFile(at: url)
                 }else{
                     Settings.shared.alert(title: "Error", message: "You do not have enough permissions to open this file, contact your administrator.", buttonName: "close")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

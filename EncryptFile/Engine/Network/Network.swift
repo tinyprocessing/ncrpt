@@ -159,20 +159,24 @@ class Network: ObservableObject, Identifiable  {
     }
     
     
-    func contacts(completion: @escaping (_ success:Bool) -> Void){
+    func contacts(completion: @escaping (_ contacts : [User], _ success: Bool) -> Void){
         ADFS.shared.jwt { success in
             let headers: HTTPHeaders = [.authorization(bearerToken: ADFS.shared.jwt)]
             AF.request("https://api.ncrpt.io/contacts.php", headers: headers).responseJSON { [self] (response) in
                 if (response.response?.statusCode == 200) {
                     if (response.value != nil) {
                         let json = JSON(response.value!)
+                        var users = [User]()
+                        json.forEach { (_, jso) in
+                            users.append(User(name: jso["name"].stringValue, email: jso["email"].stringValue))
+                        }
                         
-                        completion(true)
+                        completion(users, true)
                     }else{
-                        completion(false)
+                        completion([], false)
                     }
                 }else{
-                    completion(false)
+                    completion([], false)
                 }
             }
         }

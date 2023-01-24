@@ -19,6 +19,7 @@ class ProtectViewModel: ObservableObject {
     @Published var showingContent = false
     @Published var selectedTemplated: UUID = UUID()
     @Published var rights: Rights? = nil
+    @Published var contacts: [User] = []
     
     static let shared = ProtectViewModel()
     

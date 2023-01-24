@@ -383,9 +383,10 @@ struct ContentView: View {
         .accentColor(.black)
         .onAppear{
             self.pvm.clear()
-            self.pvm.objectWillChange.send()
-            Network.shared.contacts { result in
-                
+            Network.shared.contacts { contacts, result in
+                if result {
+                    self.pvm.contacts = contacts
+                }
             }
         }
         .onOpenURL { url in

@@ -73,11 +73,12 @@
 		2C75701B292439F20043B464 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 2C75701A292439F20043B464 /* SwiftyJSON */; };
 		2C75701D2924496C0043B464 /* ADFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C75701C2924496C0043B464 /* ADFS.swift */; };
 		2CEF745829267FB7009663C8 /* QLFilePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEF745729267FB7009663C8 /* QLFilePreviewController.swift */; };
+		2F4B188E89B2AB057E4E4A37 /* Pods_EncryptFile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA41ABF1E6BFE5CD50BA04C3 /* Pods_EncryptFile.framework */; };
 		D401A767296A373B003F3BF8 /* Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D401A766296A373B003F3BF8 /* Interface.swift */; };
 		D401A76A296A380E003F3BF8 /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D401A769296A380E003F3BF8 /* NetworkView.swift */; };
 		D401A76C296A3D38003F3BF8 /* CertificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D401A76B296A3D38003F3BF8 /* CertificationView.swift */; };
-		D4096A672B0E8476001D5D55 /* openssl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4096A662B0E8476001D5D55 /* openssl.framework */; };
-		D4096A692B0E8E2F001D5D55 /* openssl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D4096A662B0E8476001D5D55 /* openssl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D4096A8B2B0E9700001D5D55 /* openssl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4096A892B0E96DC001D5D55 /* openssl.framework */; };
+		D4096A8C2B0E9700001D5D55 /* openssl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4096A892B0E96DC001D5D55 /* openssl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D415DEB029C0ACFE00DE3343 /* recom.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D415DEAF29C0ACFD00DE3343 /* recom.pdf */; };
 		D415DEB229C0AD5500DE3343 /* BoostSponsorshipAgreement.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D415DEB129C0AD5500DE3343 /* BoostSponsorshipAgreement.pdf */; };
 		D4422642299FD88800D791BC /* FileEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F36F782908870900EF7C85 /* FileEngine.swift */; };
@@ -169,19 +170,31 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		D4096A682B0E8E1B001D5D55 /* CopyFiles */ = {
+		D4096A772B0E924D001D5D55 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D4096A8C2B0E9700001D5D55 /* openssl.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		D4096A7B2B0E9297001D5D55 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D4096A692B0E8E2F001D5D55 /* openssl.framework in CopyFiles */,
 			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		07BC9690C6AFF6D571A6330A /* Pods-EncryptFile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.release.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.release.xcconfig"; sourceTree = "<group>"; };
 		236259C8291010F0007EC337 /* TeamMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamMenuView.swift; sourceTree = "<group>"; };
 		236259C9291010F0007EC337 /* GroupsSideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsSideView.swift; sourceTree = "<group>"; };
 		236259CA291010F0007EC337 /* SideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
@@ -246,14 +259,12 @@
 		2C592DB82916946400CC4518 /* Certification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Certification.swift; sourceTree = "<group>"; };
 		2C75701C2924496C0043B464 /* ADFS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADFS.swift; sourceTree = "<group>"; };
 		2CEF745729267FB7009663C8 /* QLFilePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLFilePreviewController.swift; sourceTree = "<group>"; };
-		3AE40F6516B80AD996D0E26C /* Pods-EncryptFile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.release.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.release.xcconfig"; sourceTree = "<group>"; };
-		4FE2FC4BA89E5D2EE52A612D /* Pods-NcrptMacOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NcrptMacOS.release.xcconfig"; path = "Target Support Files/Pods-NcrptMacOS/Pods-NcrptMacOS.release.xcconfig"; sourceTree = "<group>"; };
-		A1D9F4C2828C34ED673B7C13 /* Pods-EncryptFile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.debug.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.debug.xcconfig"; sourceTree = "<group>"; };
-		BF339249A36D70EE8175E580 /* Pods-NcrptMacOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NcrptMacOS.debug.xcconfig"; path = "Target Support Files/Pods-NcrptMacOS/Pods-NcrptMacOS.debug.xcconfig"; sourceTree = "<group>"; };
+		932AA81B29E4BA71589943AB /* Pods-EncryptFile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncryptFile.debug.xcconfig"; path = "Target Support Files/Pods-EncryptFile/Pods-EncryptFile.debug.xcconfig"; sourceTree = "<group>"; };
+		98288E041B50A1A3DB141530 /* Pods-NcrptMacOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NcrptMacOS.debug.xcconfig"; path = "Target Support Files/Pods-NcrptMacOS/Pods-NcrptMacOS.debug.xcconfig"; sourceTree = "<group>"; };
 		D401A766296A373B003F3BF8 /* Interface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interface.swift; sourceTree = "<group>"; };
 		D401A769296A380E003F3BF8 /* NetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
 		D401A76B296A3D38003F3BF8 /* CertificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationView.swift; sourceTree = "<group>"; };
-		D4096A662B0E8476001D5D55 /* openssl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = openssl.framework; sourceTree = "<group>"; };
+		D4096A892B0E96DC001D5D55 /* openssl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = openssl.framework; sourceTree = "<group>"; };
 		D415DEAF29C0ACFD00DE3343 /* recom.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = recom.pdf; sourceTree = "<group>"; };
 		D415DEB129C0AD5500DE3343 /* BoostSponsorshipAgreement.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = BoostSponsorshipAgreement.pdf; sourceTree = "<group>"; };
 		D4422644299FE43E00D791BC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -332,6 +343,8 @@
 		D4FFFD93295742500018C730 /* NCRPTWatchSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NCRPTWatchSDK.swift; sourceTree = "<group>"; };
 		D4FFFD95295743B70018C730 /* NCRPTAuthSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NCRPTAuthSDK.swift; sourceTree = "<group>"; };
 		D4FFFD98295761DA0018C730 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		D79F808724BF5C0711493A68 /* Pods-NcrptMacOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NcrptMacOS.release.xcconfig"; path = "Target Support Files/Pods-NcrptMacOS/Pods-NcrptMacOS.release.xcconfig"; sourceTree = "<group>"; };
+		EA41ABF1E6BFE5CD50BA04C3 /* Pods_EncryptFile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EncryptFile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -349,11 +362,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4096A672B0E8476001D5D55 /* openssl.framework in Frameworks */,
 				2C1BC0A7290FFCA800B3AD7C /* Alamofire in Frameworks */,
 				D4FE31522975BB3C00357DCC /* Security.framework in Frameworks */,
 				D4F36F7C2908898000EF7C85 /* ZIPFoundation in Frameworks */,
+				D4096A8B2B0E9700001D5D55 /* openssl.framework in Frameworks */,
 				2C75701B292439F20043B464 /* SwiftyJSON in Frameworks */,
+				2F4B188E89B2AB057E4E4A37 /* Pods_EncryptFile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,10 +377,10 @@
 		0A19F29C9B04D17EC16F73E8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A1D9F4C2828C34ED673B7C13 /* Pods-EncryptFile.debug.xcconfig */,
-				3AE40F6516B80AD996D0E26C /* Pods-EncryptFile.release.xcconfig */,
-				BF339249A36D70EE8175E580 /* Pods-NcrptMacOS.debug.xcconfig */,
-				4FE2FC4BA89E5D2EE52A612D /* Pods-NcrptMacOS.release.xcconfig */,
+				932AA81B29E4BA71589943AB /* Pods-EncryptFile.debug.xcconfig */,
+				07BC9690C6AFF6D571A6330A /* Pods-EncryptFile.release.xcconfig */,
+				98288E041B50A1A3DB141530 /* Pods-NcrptMacOS.debug.xcconfig */,
+				D79F808724BF5C0711493A68 /* Pods-NcrptMacOS.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -566,8 +580,9 @@
 		61DFDEA360CDE2553ACB5C71 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D4096A662B0E8476001D5D55 /* openssl.framework */,
+				D4096A892B0E96DC001D5D55 /* openssl.framework */,
 				D4FE31512975BB3C00357DCC /* Security.framework */,
+				EA41ABF1E6BFE5CD50BA04C3 /* Pods_EncryptFile.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -835,10 +850,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D47D66C529759208004282D5 /* Build configuration list for PBXNativeTarget "NcrptMacOS" */;
 			buildPhases = (
-				1F1512C88C2DE51FB375ED06 /* [CP] Check Pods Manifest.lock */,
+				55183D6353CB6FF619D24F04 /* [CP] Check Pods Manifest.lock */,
 				D47D66B229759206004282D5 /* Sources */,
 				D47D66B329759206004282D5 /* Frameworks */,
 				D47D66B429759206004282D5 /* Resources */,
+				D4096A7B2B0E9297001D5D55 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -858,12 +874,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4F36F6629086AA400EF7C85 /* Build configuration list for PBXNativeTarget "EncryptFile" */;
 			buildPhases = (
-				1EC991F3B232DACD2CCCB8B6 /* [CP] Check Pods Manifest.lock */,
+				71DEE1659CA237E5ECD6B2A6 /* [CP] Check Pods Manifest.lock */,
 				D4F36F5429086AA300EF7C85 /* Sources */,
 				D4F36F5529086AA300EF7C85 /* Frameworks */,
 				D4F36F5629086AA300EF7C85 /* Resources */,
-				050116AEB0E5085A84581E71 /* [CP] Embed Pods Frameworks */,
-				D4096A682B0E8E1B001D5D55 /* CopyFiles */,
+				679042E60C9247296430945E /* [CP] Embed Pods Frameworks */,
+				D4096A772B0E924D001D5D55 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -966,7 +982,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		050116AEB0E5085A84581E71 /* [CP] Embed Pods Frameworks */ = {
+		55183D6353CB6FF619D24F04 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NcrptMacOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		679042E60C9247296430945E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -983,7 +1021,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EncryptFile/Pods-EncryptFile-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1EC991F3B232DACD2CCCB8B6 /* [CP] Check Pods Manifest.lock */ = {
+		71DEE1659CA237E5ECD6B2A6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -999,28 +1037,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-EncryptFile-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		1F1512C88C2DE51FB375ED06 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-NcrptMacOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1172,7 +1188,7 @@
 /* Begin XCBuildConfiguration section */
 		D47D66C629759208004282D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BF339249A36D70EE8175E580 /* Pods-NcrptMacOS.debug.xcconfig */;
+			baseConfigurationReference = 98288E041B50A1A3DB141530 /* Pods-NcrptMacOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1204,7 +1220,7 @@
 		};
 		D47D66C729759208004282D5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4FE2FC4BA89E5D2EE52A612D /* Pods-NcrptMacOS.release.xcconfig */;
+			baseConfigurationReference = D79F808724BF5C0711493A68 /* Pods-NcrptMacOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1350,7 +1366,7 @@
 		};
 		D4F36F6729086AA400EF7C85 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A1D9F4C2828C34ED673B7C13 /* Pods-EncryptFile.debug.xcconfig */;
+			baseConfigurationReference = 932AA81B29E4BA71589943AB /* Pods-EncryptFile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1363,6 +1379,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/openssl-apple/frameworks/iPhoneOS",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EncryptFile/Info.plist;
@@ -1393,7 +1410,7 @@
 		};
 		D4F36F6829086AA400EF7C85 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3AE40F6516B80AD996D0E26C /* Pods-EncryptFile.release.xcconfig */;
+			baseConfigurationReference = 07BC9690C6AFF6D571A6330A /* Pods-EncryptFile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1406,6 +1423,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/openssl-apple/frameworks/iPhoneOS",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EncryptFile/Info.plist;

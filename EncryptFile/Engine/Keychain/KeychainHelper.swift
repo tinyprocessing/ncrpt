@@ -7,6 +7,7 @@
 
 import Foundation
 import Security
+import openssl
 
 public class KeychainHelper: ObservableObject, Identifiable {
 

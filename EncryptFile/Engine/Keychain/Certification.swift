@@ -11,7 +11,7 @@ import Security
 import SwiftUI
 import openssl
 
-private typealias X509 = OpaquePointer
+typealias X509 = OpaquePointer
 
 class Certification: ObservableObject, Identifiable {
     public var certificate = Certificate()
@@ -160,7 +160,7 @@ class Certification: ObservableObject, Identifiable {
                 self.certificate.certificationOIDs = []
                 let organizationUnitName =
                     getSubjectPartName(
-                        from: subjectX509Name,
+                        from: subjectX509Name!,
                         forKey: "2.5.4.11"
                     ) ?? ""
 
@@ -184,7 +184,7 @@ class Certification: ObservableObject, Identifiable {
                                 )
                             if issuerCNASN1 != nil {
                                 let issuerCName =
-                                    ASN1_STRING_data(
+                                    ASN1_STRING_get0_data(
                                         issuerCNASN1
                                     )
                                 if let
@@ -209,11 +209,11 @@ class Certification: ObservableObject, Identifiable {
                 let serialNumber = X509_get_serialNumber(certificateX509)
 
                 self.certificate.email = getSubjectPartName(
-                    from: subjectX509Name,
+                    from: subjectX509Name!,
                     forKey: "1.2.840.113549.1.9.1"
                 )
                 self.certificate.name = getSubjectPartName(
-                    from: subjectX509Name,
+                    from: subjectX509Name!,
                     forKey: "2.5.4.4"
                 )
 
@@ -228,7 +228,7 @@ class Certification: ObservableObject, Identifiable {
                     CertificateOID(
                         name: "Email",
                         value: getSubjectPartName(
-                            from: subjectX509Name,
+                            from: subjectX509Name!,
                             forKey:
                                 "1.2.840.113549.1.9.1"
                         ) ?? "-"
@@ -252,7 +252,7 @@ class Certification: ObservableObject, Identifiable {
                         let value =
                             getSubjectPartName(
                                 from:
-                                    subjectX509Name,
+                                    subjectX509Name!,
                                 forKey:
                                     child
                                     .value
@@ -287,7 +287,7 @@ class Certification: ObservableObject, Identifiable {
         }
     }
 
-    func getSubjectPartName(from x509Name: UnsafeMutablePointer<X509_NAME>?, forKey key: String) -> String? {
+    func getSubjectPartName(from x509Name: X509, forKey key: String) -> String? {
         var partList: [String] = []
         let pointer: UnsafePointer<Int8>? = NSString(string: key).utf8String
         let nid = OBJ_txt2nid(pointer)
@@ -297,11 +297,11 @@ class Certification: ObservableObject, Identifiable {
         while (x509nameEntry) != nil {
             let asn1Str = X509_NAME_ENTRY_get_data(x509nameEntry)
             if asn1Str != nil {
-                let charName = ASN1_STRING_data(asn1Str)
+                let charName = ASN1_STRING_get0_data(asn1Str)
 
                 if let asn1Str = asn1Str {
                     let charName = UnsafePointer(
-                        ASN1_STRING_data(asn1Str)
+                        ASN1_STRING_get0_data(asn1Str)
                     )
                     partList.append(String(cString: charName!))
                     index = X509_NAME_get_index_by_NID(

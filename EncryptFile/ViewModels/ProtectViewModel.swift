@@ -9,7 +9,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 class ProtectViewModel: ObservableObject {
-    
+
     @Published var templates: [Template] = []
     @Published var recentUsers: [User] = []
     @Published var selectedResentUsers: [User] = []
@@ -20,10 +20,10 @@ class ProtectViewModel: ObservableObject {
     @Published var selectedTemplated: UUID = UUID()
     @Published var rights: Rights? = nil
     @Published var contacts: [User] = []
-    
+
     static let shared = ProtectViewModel()
-    
-    func clear(){
+
+    func clear() {
         self.templates = []
         self.recentUsers = []
         self.selectedResentUsers = []
@@ -31,15 +31,17 @@ class ProtectViewModel: ObservableObject {
         self.isRightsNoExpired = true
         self.untilDate = Date()
         self.rights = nil
-        
+
         loadTemplates()
         loadUsers()
     }
-    
-    let permissionSet = ["View",
-                         "Copy",
-                         "Edit",
-                         "Owner"]
+
+    let permissionSet = [
+        "View",
+        "Copy",
+        "Edit",
+        "Owner",
+    ]
     /*
      "Docedit",
      "Comment",
@@ -53,14 +55,14 @@ class ProtectViewModel: ObservableObject {
      "Editrightsdata",
      "Objmodel"
      */
-    
+
     init() {
         loadTemplates()
         loadUsers()
     }
-    
+
     //helper methods
-    
+
     func loadTemplates() {
         LocalStorageEngine.loadTemplates { result in
             switch result {
@@ -72,7 +74,7 @@ class ProtectViewModel: ObservableObject {
             }
         }
     }
-    
+
     func loadUsers() {
         LocalStorageEngine.loadUsers { result in
             switch result {
@@ -84,46 +86,49 @@ class ProtectViewModel: ObservableObject {
             }
         }
     }
-    
+
     func isCurTemplate(_ templ: Template) -> Bool {
         return selectedTemplated == templ.id
     }
-    
+
     func selectTemplate(_ id: UUID) {
         if selectedTemplated == id {
             selectedTemplated = UUID()
-        } else {
+        }
+        else {
             selectedTemplated = id
         }
     }
-    
+
     func isSelUser(_ user: User) -> Bool {
         return selectedResentUsers.contains { $0.id == user.id }
     }
-    
+
     func addSelectUser(_ user: User) {
         if selectedResentUsers.contains(where: { $0.id == user.id }) {
             let inx = selectedResentUsers.firstIndex { $0.id == user.id }!
             selectedResentUsers.remove(at: inx)
-        } else {
+        }
+        else {
             selectedResentUsers.append(user)
         }
     }
-    
+
     func addFileURL(_ url: URL) {
         if !chosenFiles.contains(where: { $0.url == url }) {
             chosenFiles.append(Attach(url: url))
-        }        
+        }
     }
     //UTType
-    func getAtualTypes() -> [UTType]{
+    func getAtualTypes() -> [UTType] {
         return [.item]
     }
-    
+
     func addTemplate(_ temp: Template, new: Bool = false) {
         if new {
             templates.append(temp)
-        } else {
+        }
+        else {
             if let inx = templates.firstIndex(where: { $0.id == temp.id }) {
                 templates[inx] = temp
             }
@@ -134,11 +139,12 @@ class ProtectViewModel: ObservableObject {
             }
         }
     }
-    
+
     func addNewUser(_ user: User, new: Bool = false) {
         if new {
             recentUsers.append(user)
-        } else {
+        }
+        else {
             if let inx = recentUsers.firstIndex(where: { $0.id == user.id }) {
                 recentUsers[inx] = user
             }
@@ -149,7 +155,7 @@ class ProtectViewModel: ObservableObject {
             }
         }
     }
-    
+
     func updateTemplates() {
         LocalStorageEngine.saveTemplates(templates: templates) { result in
             if case .failure(let error) = result {
@@ -157,7 +163,7 @@ class ProtectViewModel: ObservableObject {
             }
         }
     }
-    
+
     func removeUser(at offset: IndexSet) {
         recentUsers.remove(atOffsets: offset)
         LocalStorageEngine.saveUsers(users: recentUsers) { result in
@@ -166,23 +172,24 @@ class ProtectViewModel: ObservableObject {
             }
         }
     }
-    
+
 }
 
-
 extension ProtectViewModel {
-    
+
     //Samples to UI
     static func getSampleTempl() -> [Template] {
         return [
-            Template(name: "Developers",  rights: ["Owner"]),
-            Template(name: "Accountants",  rights: ["View", "Edit"]),
+            Template(name: "Developers", rights: ["Owner"]),
+            Template(name: "Accountants", rights: ["View", "Edit"]),
         ]
     }
-    
+
     static func getSampleRecentUsers() -> [User] {
-        return [User(email: "mdsafir@ncrpt.io", rights: ["View"]),
-                User(email: "kaanisimov@ncrpt.io", rights: ["View", "Edit"]),
-                User(email: "nasozinov@ncrpt.io", rights: ["Owner"])]
+        return [
+            User(email: "mdsafir@ncrpt.io", rights: ["View"]),
+            User(email: "kaanisimov@ncrpt.io", rights: ["View", "Edit"]),
+            User(email: "nasozinov@ncrpt.io", rights: ["Owner"]),
+        ]
     }
 }

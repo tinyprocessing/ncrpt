@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Attach: Identifiable, Codable, Hashable  {
+struct Attach: Identifiable, Codable, Hashable {
     var id: Int = 0
     var url: URL?
     var size: String {
@@ -20,7 +20,7 @@ struct Attach: Identifiable, Codable, Hashable  {
     var name: String {
         url?.lastPathComponent ?? ""
     }
-    var ext : String {
+    var ext: String {
         url?.pathExtension ?? ""
     }
 }

@@ -12,11 +12,11 @@ struct User: Identifiable, Codable, Hashable {
     var name: String
     var email: String
     var rights: Set<String>
-    
+
     var allRights: String {
         rights.joined(separator: ",")
     }
-    
+
     init(id: UUID = UUID(), name: String = "", email: String = "", rights: Set<String> = Set<String>()) {
         self.id = id
         self.name = name

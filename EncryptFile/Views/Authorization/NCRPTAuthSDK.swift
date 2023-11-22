@@ -5,71 +5,67 @@
 //  Created by Michael Safir on 24.12.2022.
 //
 
+import Combine
 import Foundation
 import SwiftUI
-import UIKit
-import Combine
 import SwiftyJSON
+import UIKit
 
 public class NCRPTAuthSDK: NSObject, ObservableObject, Identifiable, URLSessionDelegate, URLSessionTaskDelegate {
-    
-    
-    @Published var login : String = ""
-    @Published var password : String = ""
-    @Published var passwordRecover : Bool = false
-    
-    
+
+    @Published var login: String = ""
+    @Published var password: String = ""
+    @Published var passwordRecover: Bool = false
+
     static var shared: NCRPTAuthSDK = {
         let instance = NCRPTAuthSDK()
         return instance
     }()
-    
-    
+
     public func loadFromKeychain(_ path: String) -> String {
         let service = "NCRPTAuth"
         let account = path
         let keychain = Keychain()
         if let search = keychain.helper.loadPassword(service: service, account: account) {
-            if (!search.isEmpty){
+            if !search.isEmpty {
                 return search
             }
         }
-        
+
         return ""
     }
-    
-    public func saveToKeychain(_ path: String, _ data: String){
+
+    public func saveToKeychain(_ path: String, _ data: String) {
         let service = "NCRPTAuth"
         let account = path
         let keychain = Keychain()
         keychain.helper.removePassword(service: service, account: account)
         keychain.helper.savePassword(service: service, account: account, data: data)
-        
+
     }
-    
-    public func removeFromKeychain(_ path: String){
+
+    public func removeFromKeychain(_ path: String) {
         let service = "NCRPTAuth"
         let account = path
         let keychain = Keychain()
         keychain.helper.removePassword(service: service, account: account)
     }
-    
-    
-    public func containsCachePasscode(){
-        let passCache : String = loadFromKeychain("IRMPin")
+
+    public func containsCachePasscode() {
+        let passCache: String = loadFromKeychain("IRMPin")
         if passCache == "" {
             let keychain = Keychain()
             keychain.helper.deleteKeyChain()
         }
     }
-    
+
     public func verifyPasscode(passcode: String) -> Bool {
-        
-        let passCache : String = loadFromKeychain("IRMPin")
-        if (passcode == passCache){
+
+        let passCache: String = loadFromKeychain("IRMPin")
+        if passcode == passCache {
             DispatchQueue.main.async {
                 NCRPTWatchSDK.shared.objectWillChange.send()
-                withAnimation{
+                withAnimation {
                     NCRPTWatchSDK.shared.ui = .loading
                 }
             }
@@ -77,26 +73,25 @@ public class NCRPTAuthSDK: NSObject, ObservableObject, Identifiable, URLSessionD
                 NCRPTWatchSDK.shared.ui = .ready
             }
             return true
-        }else{
+        }
+        else {
             return false
         }
     }
-    
+
     public func savePasscode(passcode: String) {
         saveToKeychain("IRMPin", passcode)
         DispatchQueue.main.async {
-            withAnimation{
+            withAnimation {
                 NCRPTWatchSDK.shared.ui = .loading
             }
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            withAnimation{
+            withAnimation {
                 NCRPTWatchSDK.shared.ui = .ready
             }
             //close screen
         }
     }
-    
+
 }
-
-

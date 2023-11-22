@@ -37,6 +37,7 @@ struct QuickKitRepresentedView: NSViewRepresentable {
     func makeNSView(context _: NSViewRepresentableContext<QuickKitRepresentedView>) -> NSViewType {
         let view = QLPreviewView()
         view.previewItem = PreviewItem(URL: self.url, title: self.title)
+        view.shouldCloseWithWindow = false
         return view
     }
     

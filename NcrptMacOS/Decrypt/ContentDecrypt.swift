@@ -81,7 +81,6 @@ class ContentDecrypt: Identifiable, ObservableObject {
         let fileUTType = UTType.types(tag: inputURL.pathExtension, tagClass: .filenameExtension, conformingTo: nil).first!
         let avalibeUTTypes : [UTType] = [.ncrpt, .png]
         
-        let polygone = Polygone()
         if avalibeUTTypes.contains(fileUTType) {
             let polygone = Polygone()
             if fileUTType == .ncrpt{
@@ -94,13 +93,23 @@ class ContentDecrypt: Identifiable, ObservableObject {
                         }
                     }else{
                         log.debug(module: "ContentDecrypt", type: #function, object: "error decrypt file")
+                        self.isUpdating = false
                         self.error = NCRPTError(id: 0, title: "Error",
                                                 about: "You do not have enough permissions to open this file, contact your administrator.",
                                                 owner: "",
                                                 repeatUrl: nil)
                     }
                 }
+            }else{
+                self.isUpdating = false
+                self.url = inputURL
             }
+        }else{
+            self.isUpdating = false
+            self.error = NCRPTError(id: 0, title: "Error",
+                                    about: "This file type is not supported",
+                                    owner: "",
+                                    repeatUrl: nil)
         }
     }
     

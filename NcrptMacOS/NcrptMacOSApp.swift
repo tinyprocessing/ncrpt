@@ -7,27 +7,28 @@
 
 import SwiftUI
 
+extension Scene {
+    func windowResizabilityContentSize() -> some Scene {
+        if #available(macOS 13.0, *) {
+            return windowResizability(.contentSize)
+        } else {
+            return self
+        }
+    }
+}
+
+
 @main
 struct NcrptMacOSApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     var body: some Scene {
-        DocumentGroup(viewing: DecryptDocument.self) { file in
-            FileView(urlFromFinder: file.fileURL,
-                        documentFromFinder: file.document,
-                        file: file)
-            .onAppear {
-                NSWindow.allowsAutomaticWindowTabbing = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    NSApp.sendAction(#selector(NSWindow.mergeAllWindows(_:)), to: nil, from: nil)
-                    NSApplication.shared.keyWindow?.titleVisibility = .hidden
-
-                    NSApplication.shared.windows.forEach { window in
-                        window.titleVisibility = .hidden
-                    }
-                }
-            }
-
+        
+        WindowGroup{
+            HomeView()
         }
+        .windowStyle(HiddenTitleBarWindowStyle())
+        .windowResizabilityContentSize()
+        
         .commands {
             MenuCommands()
         }
@@ -90,20 +91,6 @@ struct MenuCommands: Commands {
     
     var aboutAppButton: some View {
         Button("About ncrpt.io") {
-//            let contentView = AboutAppView().padding()
-//
-//            window = NSWindow(
-//                contentRect: NSRect(x: 0, y: 0, width: 600, height: 640),
-//                styleMask: [.closable, .miniaturizable, .fullSizeContentView, .titled, .resizable],
-//                backing: .buffered, defer: false)
-//
-//            window.isReleasedWhenClosed = false
-//            window.center()
-//            window.setFrameAutosaveName("NCRPT - Settings")
-//            window.contentView = NSHostingView(rootView: contentView)
-//            window.makeKeyAndOrderFront(nil)
-//            window.titlebarAppearsTransparent = true
-//            window.titleVisibility = .visible
         }
     }
     

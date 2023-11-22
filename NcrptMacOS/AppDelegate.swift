@@ -22,47 +22,47 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
-        log.debug(module: "AppDelegate", type: #function, object: "Appication Start")
-        NSWindow.allowsAutomaticWindowTabbing = true
-        UserDefaults.standard.set(false, forKey: "NSQuitAlwaysKeepsWindows")
-        
-        NSUpdateDynamicServices();
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            NSApp.sendAction(#selector(NSWindow.mergeAllWindows(_:)), to: nil, from: nil)
-        }
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            let rsa = RSA()
-            rsa.start()
-        }
-        self.privacy.start()
-        
-        let defaults = UserDefaults.standard
-        let username = defaults.string(forKey: UserDefaults.Keys.AuthorizationUsername.rawValue) ?? ""
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-            if username.isEmpty {
-                Network.shared.login(username: "mdsafir", password: MD5(string: "r")) { success in
-                    if success {
-                        log.debug(type: "Login", object: "Success authorize user")
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                            
-                        })
-                    }else{
-                        log.debug(type: "Login", object: "🛑 Error authorize user")
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                            
-                        })
-                    }
-                }
-            }else{
-                DispatchQueue.global(qos: .userInitiated).async {
-                    ADFS.shared.jwt { success in
-                        print(ADFS.shared.jwt)
-                    }
-                }
-            }
-        })
+//        log.debug(module: "AppDelegate", type: #function, object: "Appication Start")
+//        NSWindow.allowsAutomaticWindowTabbing = true
+//        UserDefaults.standard.set(false, forKey: "NSQuitAlwaysKeepsWindows")
+//
+//        NSUpdateDynamicServices();
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//            NSApp.sendAction(#selector(NSWindow.mergeAllWindows(_:)), to: nil, from: nil)
+//        }
+//
+//        DispatchQueue.global(qos: .userInitiated).async {
+//            let rsa = RSA()
+//            rsa.start()
+//        }
+//        self.privacy.start()
+//
+//        let defaults = UserDefaults.standard
+//        let username = defaults.string(forKey: UserDefaults.Keys.AuthorizationUsername.rawValue) ?? ""
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+//            if username.isEmpty {
+//                Network.shared.login(username: "mdsafir", password: MD5(string: "r")) { success in
+//                    if success {
+//                        log.debug(type: "Login", object: "Success authorize user")
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+//
+//                        })
+//                    }else{
+//                        log.debug(type: "Login", object: "🛑 Error authorize user")
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+//
+//                        })
+//                    }
+//                }
+//            }else{
+//                DispatchQueue.global(qos: .userInitiated).async {
+//                    ADFS.shared.jwt { success in
+//                        print(ADFS.shared.jwt)
+//                    }
+//                }
+//            }
+//        })
     }
     
     //Removing unwanted menu items

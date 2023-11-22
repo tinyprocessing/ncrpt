@@ -1,0 +1,12 @@
+--2023-04-08 21:51:07--  https://www.ubiqsecurity.com/clear
+Распознаётся www.ubiqsecurity.com (www.ubiqsecurity.com)… 162.159.135.42
+Подключение к www.ubiqsecurity.com (www.ubiqsecurity.com)|162.159.135.42|:443... соединение установлено.
+HTTP-запрос отправлен. Ожидание ответа… Ошибка чтения (Operation timed out) в заголовках.
+Повтор.
+
+--2023-04-10 19:48:06--  (попытка: 2)  https://www.ubiqsecurity.com/clear
+Подключение к www.ubiqsecurity.com (www.ubiqsecurity.com)|162.159.135.42|:443... соединение установлено.
+HTTP-запрос отправлен. Ожидание ответа… 404 Not Found
+2023-04-10 19:48:08 ОШИБКА 404: Not Found.
+
+Ссылки преобразованы в файлы (0) за 0 секунд.

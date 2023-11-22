@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Attach: Hashable {
+struct Attach: Identifiable, Codable, Hashable {
+    var id: Int = 0
     var url: URL?
     var size: String {
         let isAccessing = url?.startAccessingSecurityScopedResource() ?? false
@@ -19,7 +20,7 @@ struct Attach: Hashable {
     var name: String {
         url?.lastPathComponent ?? ""
     }
-    var ext : String {
+    var ext: String {
         url?.pathExtension ?? ""
     }
 }

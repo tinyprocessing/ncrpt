@@ -5,8 +5,8 @@
 //  Created by Kirill Anisimov on 10.01.2023.
 //
 
-import SwiftUI
 import PDFKit
+import SwiftUI
 
 struct PDFKitView: UIViewRepresentable {
     let pdfDocument: PDFDocument
@@ -34,7 +34,6 @@ struct PDFKitView: UIViewRepresentable {
     }
 }
 
-
 class ClearPDFView: PDFView {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         self.currentSelection = nil
@@ -59,7 +58,7 @@ extension PDFView {
                 all.append(aView)
             }
             guard view.subviews.count > 0 else { return }
-            view.subviews.forEach{ getSubview(view: $0) }
+            view.subviews.forEach { getSubview(view: $0) }
         }
         getSubview(view: self)
         return all

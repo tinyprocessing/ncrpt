@@ -14,7 +14,7 @@ struct GroupData: Hashable {
     var logo: String?
     var accentColor: Color
     var teams = [TeamData]()
-    
+
     func getFirstChar() -> String {
         return (name.first?.uppercased())!
     }
@@ -25,9 +25,8 @@ struct TeamData: Hashable {
     var name: String
     var logo: String?
     var accentColor: Color
-    
+
     func getFirstChar() -> String {
         return (name.first?.uppercased())!
     }
 }
-

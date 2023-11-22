@@ -9,32 +9,22 @@ import SwiftUI
 
 struct SideMenu: View {
     @Binding var isShowMenu: Bool
-    
+
     @StateObject var viewModel = GroupViewModel()
     @ObservedObject var pvm: ProtectViewModel
-    
+
     var body: some View {
         ZStack(alignment: .topTrailing) {
             ZStack(alignment: .leading) {
+
                 Color.init(hex: "F2F3F4")
                     .ignoresSafeArea()
-                
+
                 TeamMenuView(viewModel: viewModel, pvm: pvm)
-                    .navigationBarHidden(true)
-            }
-            
-            Button {
-                withAnimation(.spring()) {
-                    isShowMenu.toggle()
-                }
-            } label: {
-                Image(systemName: "xmark")
-                    .foregroundColor(.white)
-                    .padding(.trailing, 20)
-                    .padding(.top, 10)
+
             }
         }
-  
+
     }
 }
 

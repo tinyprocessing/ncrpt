@@ -12,7 +12,7 @@ extension URL {
         let value = try? resourceValues(forKeys: [.fileSizeKey])
         return value?.fileSize
     }
-    
+
     func fileSize() -> String? {
         if let fileSize = self.fileSizeExtension {
             // bytes

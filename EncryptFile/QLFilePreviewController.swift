@@ -6,12 +6,11 @@
 //
 
 import Foundation
-import SwiftUI
 import QuartzCore
+import QuickLook
+import SwiftUI
 import UIKit
 import UniformTypeIdentifiers
-import QuickLook
-
 
 //TODO: Remove, not used
 
@@ -20,7 +19,10 @@ class RestrictedTextField: UITextField {
         OperationQueue.main.addOperation({
             UIMenuController.shared.setMenuVisible(false, animated: false)
         })
-        if action == #selector(UIResponderStandardEditActions.paste(_:))  || action == #selector(UIResponderStandardEditActions.copy(_:)) || action == #selector(UIResponderStandardEditActions.cut(_:)){
+        if action == #selector(UIResponderStandardEditActions.paste(_:))
+            || action == #selector(UIResponderStandardEditActions.copy(_:))
+            || action == #selector(UIResponderStandardEditActions.cut(_:))
+        {
             return false
         }
         return super.canPerformAction(action, withSender: sender)
@@ -35,7 +37,7 @@ extension UIView {
             }
             return
         }
-        
+
         let guardTextField = RestrictedTextField()
         guardTextField.backgroundColor = .white
         guardTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -45,14 +47,14 @@ extension UIView {
         addSubview(guardTextField)
         guardTextField.isUserInteractionEnabled = false
         sendSubviewToBack(guardTextField)
-        
+
         layer.superlayer?.addSublayer(guardTextField.layer)
         guardTextField.layer.sublayers?.first?.addSublayer(layer)
-        
+
         guardTextField.centerYAnchor.constraint(
             equalTo: self.centerYAnchor
         ).isActive = true
-        
+
         guardTextField.centerXAnchor.constraint(
             equalTo: self.centerXAnchor
         ).isActive = true
@@ -60,14 +62,14 @@ extension UIView {
 }
 
 class QLPreviewControllerNew: QLPreviewController {
-    
+
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-       return false
+        return false
     }
 }
 
 var deep = 0
-func removeAllStaff<T>(_ view: inout T){
+func removeAllStaff<T>(_ view: inout T) {
     if deep > 500 {
         return
     }
@@ -84,7 +86,7 @@ func removeAllStaff<T>(_ view: inout T){
             removeAllStaff(&tmp)
         }
     }
-    if view is  UIViewController {
+    if view is UIViewController {
         let viewsCheck = view as! UIViewController
         viewsCheck.children.forEach { controller in
             var tmp = controller
@@ -100,7 +102,7 @@ func removeAllStaff<T>(_ view: inout T){
         let viewsCheck = view as? UIView
         if viewsCheck != nil {
             print(viewsCheck!.interactions)
-            if viewsCheck!.interactions.count > 0{
+            if viewsCheck!.interactions.count > 0 {
                 viewsCheck!.interactions.forEach { iter in
                     viewsCheck!.removeInteraction(iter)
                     viewsCheck!.isUserInteractionEnabled = false
@@ -118,8 +120,8 @@ func removeAllStaff<T>(_ view: inout T){
 struct PreviewController: UIViewControllerRepresentable {
     let url: URL
     var controller = QLPreviewControllerNew()
-    
-    func removeAllSubviews(subviews: [UIView]){
+
+    func removeAllSubviews(subviews: [UIView]) {
         subviews.forEach { view in
             view.interactions.forEach { iter in
                 print(iter)
@@ -128,56 +130,62 @@ struct PreviewController: UIViewControllerRepresentable {
             removeAllSubviews(subviews: view.subviews)
         }
     }
-    
+
     func makeUIViewController(context: Context) -> QLPreviewController {
-        
-        
+
         controller.dataSource = context.coordinator
         controller.delegate = context.coordinator
-        
 
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             controller.view.subviews.forEach { view in
                 view.preventScreenshot()
                 print(view)
             }
         }
-        
+
         controller.view.preventScreenshot()
         return controller
     }
-    
+
     func makeCoordinator() -> Coordinator {
         return Coordinator(parent: self)
     }
-    
+
     func updateUIViewController(
-        _ uiViewController: QLPreviewController, context: Context) {}
-    
+        _ uiViewController: QLPreviewController,
+        context: Context
+    ) {}
+
     class Coordinator: NSObject, QLPreviewControllerDataSource, QLPreviewControllerDelegate {
         let parent: PreviewController
-        
-        func previewController(_ controller: QLPreviewController, editingModeFor previewItem: QLPreviewItem) -> QLPreviewItemEditingMode {
+
+        func previewController(
+            _ controller: QLPreviewController,
+            editingModeFor previewItem: QLPreviewItem
+        )
+            -> QLPreviewItemEditingMode
+        {
             return .disabled
         }
-        
-        func previewController(_ controller: QLPreviewController, shouldOpen url: URL, for item: QLPreviewItem) -> Bool {
+
+        func previewController(
+            _ controller: QLPreviewController,
+            shouldOpen url: URL,
+            for item: QLPreviewItem
+        ) -> Bool {
             return false
         }
-        
-        
-        
+
         init(parent: PreviewController) {
             self.parent = parent
         }
-        
+
         func numberOfPreviewItems(
             in controller: QLPreviewController
         ) -> Int {
             return 1
         }
-        
+
         func previewController(
             _ controller: QLPreviewController,
             previewItemAt index: Int
@@ -189,9 +197,9 @@ struct PreviewController: UIViewControllerRepresentable {
             //                    print("error??")
             //                }
             //            }
-            
+
             return parent.url as NSURL
         }
-        
+
     }
 }

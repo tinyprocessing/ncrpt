@@ -1,6 +1,6 @@
 //
 //  HiddenContainerRecognizer.swift
-//  
+//
 //
 //  Created by Князьков Илья on 23.07.2022.
 //
@@ -33,7 +33,7 @@ struct HiddenContainerRecognizer {
     }
 
     func getHiddenContainerTypeInStringRepresentation() throws -> String {
-        
+
         if #available(iOS 15, *) {
             return "_UITextLayoutCanvasView"
         }

@@ -1,29 +1,21 @@
-//
-//  EncryptFileApp.swift
-//  EncryptFile
-//
-//  Created by Michael Safir on 25.10.2022.
-//
-
-import SwiftUI
 import Foundation
 import LocalAuthentication
+import SwiftUI
 
 @main
 struct EncryptFileApp: App {
     @AppStorage("appearance") var appearance: Appearance = .light
-    
+
     @State var isLoggedIn = true
-    @State var opacity : Double = 1.0
-    
+    @State var opacity = 1.0
+
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @ObservedObject var api: NCRPTWatchSDK = NCRPTWatchSDK.shared
-    
-    
+    @ObservedObject var api = NCRPTWatchSDK.shared
+
     var body: some Scene {
         WindowGroup {
             Group {
-                ZStack{
+                ZStack {
                     switch api.ui {
                     case .auth:
                         LoginView()
@@ -51,8 +43,7 @@ struct EncryptFileApp: App {
             .navigationViewStyle(StackNavigationViewStyle())
             .accentColor(.black)
             .preferredColorScheme(appearance.getColorScheme())
-            .onAppear{
-                
+            .onAppear {
                 let rsa = RSA()
                 rsa.start()
                 api.setupSecureView()
@@ -60,29 +51,32 @@ struct EncryptFileApp: App {
                 Settings.shared.cleanCache()
                 let defaults = UserDefaults.standard
                 let username = defaults.string(forKey: UserDefaults.Keys.AuthorizationUsername.rawValue) ?? ""
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     if username.isEmpty {
                         defaults.reset()
                         log.debug(type: "EncryptFileApp", object: "User is not logged")
                         self.api.ui = .auth
-                    }else{
+                    } else {
                         log.debug(type: "EncryptFileApp", object: "User need pin code")
                         self.api.ui = .pin
                         if defaults.bool(forKey: UserDefaults.Keys.SettingsFaceID.rawValue) {
                             let context = LAContext()
                             if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
-                                context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Please authenticate to proceed.") { (success, error) in
+                                context.evaluatePolicy(
+                                    .deviceOwnerAuthenticationWithBiometrics,
+                                    localizedReason: "Please authenticate to proceed."
+                                ) { success, error in
                                     if success {
                                         DispatchQueue.main.async {
-                                            withAnimation{
+                                            withAnimation {
                                                 NCRPTWatchSDK.shared.ui = .loading
                                             }
                                         }
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                            withAnimation{
+                                            withAnimation {
                                                 NCRPTWatchSDK.shared.ui = .ready
                                             }
-                                            //close screen
+                                            // close screen
                                         }
                                     } else {
                                         guard let error = error else { return }
@@ -92,38 +86,31 @@ struct EncryptFileApp: App {
                             }
                         }
                     }
-                })
+                }
             }
         }
     }
 }
 
-
 class AppDelegate: NSObject, UIApplicationDelegate {
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         return true
     }
-    
 }
 
-
-
 struct Loading: View {
-    
-    @State var animating : Bool = true
-    
+    @State var animating = true
+
     var body: some View {
-        VStack(spacing: 20){
+        VStack(spacing: 20) {
             Image("NCRPTBlue")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 126, height: 157, alignment: .center)
-            
+
             ActivityIndicator(isAnimating: self.$animating, style: .large)
                 .padding()
-            
         }
     }
 }
-
-

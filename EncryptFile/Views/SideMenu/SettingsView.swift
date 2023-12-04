@@ -1,21 +1,14 @@
-//
-//  SettingsView.swift
-//  EncryptFile
-//
-//  Created by Michael Safir on 23.12.2022.
-//
-
-import SwiftUI
 import Combine
+import SwiftUI
 
 struct SettingsView: View {
     @AppStorage("appearance")
     var appearance: Appearance = .light
-    
-    @State var email : String = ""
-    @State var server : String = "https://security.ncrpt.io"
-    
-    @ObservedObject var api: NCRPTWatchSDK = NCRPTWatchSDK.shared
+
+    @State var email = ""
+    @State var server = "https://security.ncrpt.io"
+
+    @ObservedObject var api = NCRPTWatchSDK.shared
 
     @State private var rsa = true
     @State private var trustNetwork = true
@@ -24,10 +17,10 @@ struct SettingsView: View {
     @State private var faceID = true
 
     var body: some View {
-        VStack(alignment: .leading){
-            ScrollView(.vertical, showsIndicators: false){
-                VStack(alignment: .leading, spacing: 15){
-                    VStack(alignment: .leading, spacing: 15){
+        VStack(alignment: .leading) {
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 15) {
+                    VStack(alignment: .leading, spacing: 15) {
 //                        Text("UI")
 //                            .modifier(NCRPTTextSemibold(size: 18))
 //                            .foregroundColor(Color.init(hex: "21205A"))
@@ -39,13 +32,13 @@ struct SettingsView: View {
 //                        .pickerStyle(SegmentedPickerStyle())
 //                        .padding(.bottom, 10)
 
-                        HStack{
+                        HStack {
                             Text("General")
                                 .modifier(NCRPTTextSemibold(size: 18))
-                                .foregroundColor(Color.init(hex: "21205A"))
+                                .foregroundColor(Color(hex: "21205A"))
                             Spacer()
                         }
-                        HStack{
+                        HStack {
                             Text("Account")
                                 .modifier(NCRPTTextMedium(size: 16))
                             Spacer()
@@ -54,9 +47,9 @@ struct SettingsView: View {
                                 .padding(.leading)
                                 .opacity(0.7)
                         }
-                        
+
                         NavigationLink(destination: CertificationView(), label: {
-                            HStack{
+                            HStack {
                                 Text("Certificates")
                                     .modifier(NCRPTTextMedium(size: 16))
                                 Spacer()
@@ -65,12 +58,12 @@ struct SettingsView: View {
                                     .opacity(0.7)
                             }.clipShape(Rectangle())
                         })
-                        
-                        HStack{
+
+                        HStack {
                             Text("Share Logs")
                                 .modifier(NCRPTTextMedium(size: 16))
                             Spacer()
-                            
+
                             Button(action: {
                                 Settings.shared.shareLogs()
                             }, label: {
@@ -80,7 +73,7 @@ struct SettingsView: View {
                                     .clipShape(Rectangle())
                             })
                         }
-                        
+
 //                        HStack{
 //                            Text("Compress Files")
 //                                .modifier(NCRPTTextMedium(size: 16))
@@ -94,16 +87,15 @@ struct SettingsView: View {
 //                                    defaults.set(newValue, forKey: UserDefaults.Keys.SettingsCompress.rawValue)
 //                                })
 //                        }
-                        
                     }
-                    VStack(alignment: .leading, spacing: 15){
-                        HStack{
+                    VStack(alignment: .leading, spacing: 15) {
+                        HStack {
                             Text("Security")
                                 .modifier(NCRPTTextSemibold(size: 18))
-                                .foregroundColor(Color.init(hex: "21205A"))
+                                .foregroundColor(Color(hex: "21205A"))
                             Spacer()
                         }
-                        HStack{
+                        HStack {
                             Text("Server")
                                 .modifier(NCRPTTextMedium(size: 16))
                             Spacer()
@@ -116,7 +108,8 @@ struct SettingsView: View {
 //                            VStack(alignment: .leading){
 //                                Text("RSA Connection")
 //                                    .modifier(NCRPTTextMedium(size: 16))
-//                                Text("This setting helps to protect the connection between the server and the client with its own ncrpt protocol")
+//                                Text("This setting helps to protect the connection between the server and the client with its own ncrpt
+//                                protocol")
 //                                    .modifier(NCRPTTextMedium(size: 14))
 //                                    .opacity(0.5)
 //                            }
@@ -130,54 +123,54 @@ struct SettingsView: View {
 //                                    defaults.set(newValue, forKey: UserDefaults.Keys.SettingsRSA.rawValue)
 //                                })
 //                        }
-                        HStack{
-                            VStack(alignment: .leading){
+                        HStack {
+                            VStack(alignment: .leading) {
                                 Text("Trust connection")
                                     .modifier(NCRPTTextMedium(size: 16))
-                                Text("This setting helps to identify untrusted networks on your device and prevent the app from being used to safeguard your data")
-                                    .modifier(NCRPTTextMedium(size: 14))
-                                    .opacity(0.5)
+                                Text(
+                                    "This setting helps to identify untrusted networks on your device and prevent the app from being used to safeguard your data"
+                                )
+                                .modifier(NCRPTTextMedium(size: 14))
+                                .opacity(0.5)
                             }
                             Spacer()
                             Toggle("", isOn: $trustNetwork)
                                 .offset(x: -5)
-                                .tint(Color.init(hex: "21205A"))
+                                .tint(Color(hex: "21205A"))
                                 .onChange(of: self.trustNetwork, perform: { newValue in
                                     print(newValue)
                                     let defaults = UserDefaults.standard
                                     defaults.set(newValue, forKey: UserDefaults.Keys.SettingsTrust.rawValue)
                                 })
-                                
                         }
-                        HStack{
+                        HStack {
                             Text("Crash Reporting")
                                 .modifier(NCRPTTextMedium(size: 16))
                             Spacer()
                             Toggle("", isOn: $crashReporting)
                                 .offset(x: -5)
-                                .tint(Color.init(hex: "21205A"))
+                                .tint(Color(hex: "21205A"))
                                 .onChange(of: self.crashReporting, perform: { newValue in
                                     print(newValue)
                                     let defaults = UserDefaults.standard
                                     defaults.set(newValue, forKey: UserDefaults.Keys.SettingsCrashReporting.rawValue)
                                 })
                         }
-                        
-                        HStack{
+
+                        HStack {
                             Text("Face ID")
                                 .modifier(NCRPTTextMedium(size: 16))
                             Spacer()
                             Toggle("", isOn: $faceID)
                                 .offset(x: -5)
-                                .tint(Color.init(hex: "21205A"))
+                                .tint(Color(hex: "21205A"))
                                 .onChange(of: self.faceID, perform: { newValue in
                                     print(newValue)
                                     let defaults = UserDefaults.standard
                                     defaults.set(newValue, forKey: UserDefaults.Keys.SettingsFaceID.rawValue)
                                 })
                         }
-                        
-                        
+
 //                        NavigationLink(destination: PinEntryView(), label: {
 //                            HStack{
 //                                Text("PIN & FaceID")
@@ -191,15 +184,15 @@ struct SettingsView: View {
 //                            self.api.ui = .pinCreate
 //                        })
                     }
-                    VStack(alignment: .leading, spacing: 15){
-                        HStack{
+                    VStack(alignment: .leading, spacing: 15) {
+                        HStack {
                             Text("Network")
                                 .modifier(NCRPTTextSemibold(size: 18))
-                                .foregroundColor(Color.init(hex: "21205A"))
+                                .foregroundColor(Color(hex: "21205A"))
                             Spacer()
                         }
                         NavigationLink(destination: NetworkView(), label: {
-                            HStack{
+                            HStack {
                                 Text("System Information")
                                     .modifier(NCRPTTextMedium(size: 16))
                                 Spacer()
@@ -215,7 +208,7 @@ struct SettingsView: View {
         .padding(.horizontal)
         .navigationTitle("settings")
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear{
+        .onAppear {
             let defaults = UserDefaults.standard
             self.faceID = defaults.bool(forKey: UserDefaults.Keys.SettingsFaceID.rawValue)
             self.trustNetwork = defaults.bool(forKey: UserDefaults.Keys.SettingsTrust.rawValue)
@@ -233,5 +226,3 @@ struct SettingsView: View {
         }
     }
 }
-
-

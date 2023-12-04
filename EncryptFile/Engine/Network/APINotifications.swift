@@ -1,30 +1,22 @@
-//
-//  APINotifications.swift
-//  EncryptFile
-//
-//  Created by Michael Safir on 17.12.2022.
-//
-
-import Foundation
 import Alamofire
-import SwiftyRSA
+import Foundation
 import SwiftyJSON
+import SwiftyRSA
 
-class APINotifications: ObservableObject, Identifiable  {
-    
-    struct Notification : Identifiable, Hashable {
-        var id : Int = 0
-        var title : String
-        var text : String
-        var link : String
-        var time : String
+class APINotifications: ObservableObject, Identifiable {
+    struct Notification: Identifiable, Hashable {
+        var id = 0
+        var title: String
+        var text: String
+        var link: String
+        var time: String
     }
-    
-    func getAll(completion: @escaping (_ all: [APINotifications.Notification], _ success:Bool) -> Void){
-        AF.request("https://api.ncrpt.io/notifications.php", method: .get, encoding: URLEncoding.default).responseJSON { [self] (response) in
-            if (response.value != nil) {
+
+    func getAll(completion: @escaping (_ all: [APINotifications.Notification], _ success: Bool) -> Void) {
+        AF.request("https://api.ncrpt.io/notifications.php", method: .get, encoding: URLEncoding.default).responseJSON { [self] response in
+            if response.value != nil {
                 let json = JSON(response.value!)
-                var notifications : [APINotifications.Notification] = []
+                var notifications: [APINotifications.Notification] = []
                 json.arrayValue.forEach { item in
                     let title = item["title"].stringValue
                     let text = item["text"].stringValue
@@ -33,7 +25,7 @@ class APINotifications: ObservableObject, Identifiable  {
                     notifications.append(APINotifications.Notification(title: title, text: text, link: link, time: time))
                 }
                 completion(notifications, true)
-            }else{
+            } else {
                 completion([], false)
             }
         }

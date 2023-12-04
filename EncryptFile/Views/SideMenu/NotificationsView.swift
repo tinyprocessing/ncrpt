@@ -1,25 +1,18 @@
-//
-//  NotificationsView.swift
-//  EncryptFile
-//
-//  Created by Michael Safir on 17.12.2022.
-//
-
 import SwiftUI
 
 struct NotificationsView: View {
-    @State var notifications : [APINotifications.Notification] = []
+    @State var notifications: [APINotifications.Notification] = []
     var body: some View {
-        VStack(alignment: .leading){
+        VStack(alignment: .leading) {
             if !self.notifications.isEmpty {
-                ScrollView(.vertical, showsIndicators: false){
-                    VStack(alignment: .leading, spacing: 5){
-                        ForEach(self.notifications, id:\.self) { item in
-                            HStack{
-                                VStack(alignment: .leading, spacing: 5){
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: 5) {
+                        ForEach(self.notifications, id: \.self) { item in
+                            HStack {
+                                VStack(alignment: .leading, spacing: 5) {
                                     Text(item.title)
                                         .modifier(NCRPTTextSemibold(size: 18))
-                                        .foregroundColor(Color.init(hex: "21205A"))
+                                        .foregroundColor(Color(hex: "21205A"))
                                     Text(item.text)
                                         .modifier(NCRPTTextMedium(size: 16))
                                 }
@@ -34,11 +27,11 @@ struct NotificationsView: View {
                     }.padding(.horizontal)
                     Spacer()
                 }
-            }else{
-                VStack{
+            } else {
+                VStack {
                     ActivityIndicator(isAnimating: .constant(true), style: .large)
                         .foregroundColor(.secondary)
-                    
+
                     Text("loading")
                         .modifier(NCRPTTextMedium(size: 16))
                 }
@@ -46,7 +39,7 @@ struct NotificationsView: View {
         }
         .navigationTitle("notifications")
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear{
+        .onAppear {
             let api = APINotifications()
             api.getAll { all, success in
                 if success {

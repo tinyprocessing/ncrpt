@@ -1,18 +1,11 @@
-//
-//  PDFKitView.swift
-//  EncryptFile
-//
-//  Created by Kirill Anisimov on 10.01.2023.
-//
-
-import SwiftUI
 import PDFKit
+import SwiftUI
 
 struct PDFKitView: UIViewRepresentable {
     let pdfDocument: PDFDocument
 
     init(show pdfDoc: PDFDocument) {
-        self.pdfDocument = pdfDoc
+        pdfDocument = pdfDoc
     }
 
     func makeUIView(context: Context) -> ClearPDFView {
@@ -34,11 +27,10 @@ struct PDFKitView: UIViewRepresentable {
     }
 }
 
-
 class ClearPDFView: PDFView {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        self.currentSelection = nil
-        self.clearSelection()
+        currentSelection = nil
+        clearSelection()
         return false
     }
 
@@ -51,6 +43,7 @@ class ClearPDFView: PDFView {
 }
 
 // MARK: - extension
+
 extension PDFView {
     func allSubViewsOf<T: UIView>(type: T.Type) -> [T] {
         var all: [T] = []
@@ -58,8 +51,8 @@ extension PDFView {
             if let aView = view as? T {
                 all.append(aView)
             }
-            guard view.subviews.count > 0 else { return }
-            view.subviews.forEach{ getSubview(view: $0) }
+            guard !view.subviews.isEmpty else { return }
+            view.subviews.forEach { getSubview(view: $0) }
         }
         getSubview(view: self)
         return all

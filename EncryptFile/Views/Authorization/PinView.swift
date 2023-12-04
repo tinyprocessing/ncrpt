@@ -1,54 +1,47 @@
-//
-//  File.swift
-//
-//
-//  Created by Сафир Михаил Дмитриевич [B] on 15.03.2022.
-//
-
 import Foundation
 import SwiftUI
-// Создание pin-code для входа в и сохранение в кейчене
+
+/// Создание pin-code для входа в и сохранение в кейчене
 struct PinEntryView: View {
-    
-    var pinLimit: Int = 4
-    var isError: Bool = false
-    var canEdit: Bool = true
-    @State var pinCode: String = ""
-    @ObservedObject var api: NCRPTWatchSDK = NCRPTWatchSDK.shared
-    @State var status: String = ""
-    @State var attempts: Int = 1
-    @State var attemptsRegistration: Int = 0
-    @State var preCreatePIN : String = ""
+    var pinLimit = 4
+    var isError = false
+    var canEdit = true
+    @State var pinCode = ""
+    @ObservedObject var api = NCRPTWatchSDK.shared
+    @State var status = ""
+    @State var attempts = 1
+    @State var attemptsRegistration = 0
+    @State var preCreatePIN = ""
     @State var pin: [String] = []
-    
+
     var body: some View {
-        VStack(spacing: 10){
+        VStack(spacing: 10) {
             Image("NCRPTBlue")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(height: 70, alignment: .center)
                 .padding(.bottom, 20)
-            
+
             Spacer()
-            
+
             PinFieldView(pin: self.$pin)
-            
+
             Spacer()
-            
-            if (self.api.ui == .pin){
+
+            if self.api.ui == .pin {
                 Button(action: {
                     NCRPTWatchSDK.shared.authorization.passwordRecover = true
                     withAnimation {
                         self.api.ui = .auth
                     }
                 }, label: {
-                    HStack{
+                    HStack {
                         Spacer()
                         Text("Forgot Pin?")
                             .padding(.vertical, 15)
                             .foregroundColor(Color.black)
                             .modifier(NCRPTTextMedium(size: 16))
-                        
+
                         Spacer()
                     }
                 })
@@ -56,8 +49,6 @@ struct PinEntryView: View {
             Text("Version \((Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String)!)")
                 .foregroundColor(Color.gray.opacity(0.9))
                 .modifier(NCRPTTextMedium(size: 16))
-            
-            
         }
         .padding([.vertical], 20)
         .onAppear {
@@ -68,26 +59,24 @@ struct PinEntryView: View {
 
 import LocalAuthentication
 
-
 struct PinFieldView: View {
-    
-    @Binding var pin : [String]
-    @ObservedObject var api: NCRPTWatchSDK = NCRPTWatchSDK.shared
-    
-    @State var attemptsRegistration: Bool = false
-    @State var pinRepeat : [String] = []
-    
-    @State var wrongAttempt: Bool = false
-    @State var wrongAttemptCount : Int = 0
-    
-    func isCorrectCode(pinCode:String) -> Bool{
+    @Binding var pin: [String]
+    @ObservedObject var api = NCRPTWatchSDK.shared
+
+    @State var attemptsRegistration = false
+    @State var pinRepeat: [String] = []
+
+    @State var wrongAttempt = false
+    @State var wrongAttemptCount = 0
+
+    func isCorrectCode(pinCode: String) -> Bool {
         let postalcodeRegex = "^[0-9]{5}?$"
         let pinPredicate = NSPredicate(format: "SELF MATCHES %@", postalcodeRegex)
         var bool = pinPredicate.evaluate(with: pinCode) as Bool
-        
-        //Убараем нормальный механизм и ставим тупой
+
+        // Убараем нормальный механизм и ставим тупой
         if bool {
-            var tCodeArr:[Int] = []
+            var tCodeArr: [Int] = []
             pinCode.forEach { character in
                 tCodeArr.append(character.wholeNumberValue!)
             }
@@ -95,23 +84,29 @@ struct PinFieldView: View {
             if tCodeArr[1] == (tCodeArr[0] + 1)
                 && tCodeArr[2] == (tCodeArr[1] + 1)
                 && tCodeArr[3] == (tCodeArr[2] + 1)
-                && tCodeArr[4] == (tCodeArr[3] + 1){
+                && tCodeArr[4] == (tCodeArr[3] + 1) {
                 return false
             }
-            //54321
+            // 54321
             if tCodeArr[1] == (tCodeArr[0] - 1)
                 && tCodeArr[2] == (tCodeArr[1] - 1)
                 && tCodeArr[3] == (tCodeArr[2] - 1)
-                && tCodeArr[4] == (tCodeArr[3] - 1){
+                && tCodeArr[4] == (tCodeArr[3] - 1) {
                 return false
             }
-            //11111
-            if tCodeArr[0] == tCodeArr[1] && tCodeArr[1] == tCodeArr[2] && tCodeArr[2] == tCodeArr[3] && tCodeArr[3] == tCodeArr[4]{
+            // 11111
+            if tCodeArr[0] == tCodeArr[1] && tCodeArr[1] == tCodeArr[2] && tCodeArr[2] == tCodeArr[3] && tCodeArr[3] == tCodeArr[4] {
                 return false
             }
-            //константы
+            // константы
             switch tCodeArr {
-            case  [8,9,0,1,2], [2,1,0,9,8], [7,5,3,1,4], [9,5,1,3,6], [8,6,2,4,5], [6,2,4,8,5], [2,4,8,6,5], [5,2,4,8,6], [5,8,6,2,4], [3,5,7,9,6], [1,5,9,7,4], [7,5,3,6,9], [9,5,1,4,7], [9,6,3,5,7], [7,4,1,5,9]:
+            case [8, 9, 0, 1, 2], [2, 1, 0, 9, 8], [7, 5, 3, 1, 4], [9, 5, 1, 3, 6], [8, 6, 2, 4, 5], [6, 2, 4, 8, 5], [2, 4, 8, 6, 5], [
+                5,
+                2,
+                4,
+                8,
+                6
+            ], [5, 8, 6, 2, 4], [3, 5, 7, 9, 6], [1, 5, 9, 7, 4], [7, 5, 3, 6, 9], [9, 5, 1, 4, 7], [9, 6, 3, 5, 7], [7, 4, 1, 5, 9]:
                 return false
             default:
                 break
@@ -119,19 +114,19 @@ struct PinFieldView: View {
             // – AAA –AAAA
             if tCodeArr[0] == tCodeArr[1] && tCodeArr[1] == tCodeArr[2]
                 || tCodeArr[1] == tCodeArr[2] && tCodeArr[2] == tCodeArr[3]
-                || tCodeArr[2] == tCodeArr[3] && tCodeArr[3] == tCodeArr[4]  {
+                || tCodeArr[2] == tCodeArr[3] && tCodeArr[3] == tCodeArr[4] {
                 return false
             }
-            
+
             if tCodeArr[0] == tCodeArr[1] && tCodeArr[1] == tCodeArr[2] && tCodeArr[2] == tCodeArr[3]
                 || tCodeArr[1] == tCodeArr[2] && tCodeArr[2] == tCodeArr[3] && tCodeArr[3] == tCodeArr[4] {
                 return false
             }
             // не должен содержать парных комбинаций AB располагающихся последовательно ABABC,CABAB или разделенных цифрой ABCAB
-            var arr:[String] = []
-            var twoElement:String = ""
-            var t_element:Character?
-            
+            var arr: [String] = []
+            var twoElement = ""
+            var t_element: Character?
+
             for (inx, val) in pinCode.enumerated() {
                 switch inx {
                 case 0:
@@ -162,7 +157,7 @@ struct PinFieldView: View {
                     break
                 }
             }
-            //AA
+            // AA
             arr.forEach { element in
                 if element.first == element.last {
                     bool = false
@@ -170,66 +165,61 @@ struct PinFieldView: View {
             }
             var counts: [String: Int] = [:]
             arr.forEach { counts[$0, default: 0] += 1 }
-            let result = counts.filter({$0.value > 1})
-            if result.count > 0 {
+            let result = counts.filter { $0.value > 1 }
+            if !result.isEmpty {
                 return false
             }
         }
         return bool
     }
-    
-    
-    func add(_ char: String){
-        
-        if self.wrongAttempt {
+
+    func add(_ char: String) {
+        if wrongAttempt {
             let impactMed = UIImpactFeedbackGenerator(style: .heavy)
             impactMed.impactOccurred()
             return
         }
-        
+
         let impactMed = UIImpactFeedbackGenerator(style: .light)
         impactMed.impactOccurred()
-        
-        if self.pin.count < 5 && self.api.ui == .pin {
-            self.pin.append(char)
+
+        if pin.count < 5 && api.ui == .pin {
+            pin.append(char)
         }
-        if self.pin.count < 5 && self.api.ui == .pinCreate {
-            self.pin.append(char)
+        if pin.count < 5 && api.ui == .pinCreate {
+            pin.append(char)
         }
-        if self.pin.count == 5 && self.api.ui == .pinCreate {
-            switch self.attemptsRegistration {
+        if pin.count == 5 && api.ui == .pinCreate {
+            switch attemptsRegistration {
             case false:
-                if (isCorrectCode(pinCode: self.pin.joined())){
-                    self.pinRepeat = self.pin
-                    self.pin.removeAll()
-                    self.attemptsRegistration = true
-                }else{
+                if isCorrectCode(pinCode: pin.joined()) {
+                    pinRepeat = pin
+                    pin.removeAll()
+                    attemptsRegistration = true
+                } else {
                     let generator = UIImpactFeedbackGenerator(style: .light)
                     generator.impactOccurred()
                     withAnimation {
                         self.wrongAttempt.toggle()
                     }
                     DispatchQueue.main.async {
-                        
                         Settings.shared.alert(title: "Pin Error", message: "Very simple pin-code", buttonName: "ok")
-                        
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         withAnimation {
                             self.wrongAttempt.toggle()
                         }
                         self.pin.removeAll()
-                    })
+                    }
                 }
             case true:
-                if (self.pin == self.pinRepeat){
-                    
-                    self.api.authorization.savePasscode(passcode: self.pin.joined())
-                }else{
-                    self.pin.removeAll()
-                    self.pinRepeat.removeAll()
-                    self.attemptsRegistration = false
-                    
+                if pin == pinRepeat {
+                    api.authorization.savePasscode(passcode: pin.joined())
+                } else {
+                    pin.removeAll()
+                    pinRepeat.removeAll()
+                    attemptsRegistration = false
+
                     let generator = UIImpactFeedbackGenerator(style: .light)
                     generator.impactOccurred()
                     DispatchQueue.main.async {
@@ -240,18 +230,16 @@ struct PinFieldView: View {
                 }
             }
         }
-        
-        if self.pin.count == 5 && self.api.ui == .pin {
-            if !self.api.authorization.verifyPasscode(passcode: self.pin.joined()) {
-                
+
+        if pin.count == 5 && api.ui == .pin {
+            if !api.authorization.verifyPasscode(passcode: pin.joined()) {
                 let generator = UINotificationFeedbackGenerator()
                 generator.notificationOccurred(.error)
-                if (self.wrongAttemptCount > 2){
+                if wrongAttemptCount > 2 {
                     return
                 }
-                if (self.wrongAttemptCount == 2){
-                    
-                    self.wrongAttemptCount += 1
+                if wrongAttemptCount == 2 {
+                    wrongAttemptCount += 1
                     withAnimation {
                         self.wrongAttempt.toggle()
                     }
@@ -261,68 +249,66 @@ struct PinFieldView: View {
                     }
                     return
                 }
-                
-                self.wrongAttemptCount += 1
+
+                wrongAttemptCount += 1
                 DispatchQueue.main.async {
                     Settings.shared.alert(title: "Error", message: "The pin code does not match", buttonName: "Repeat")
                 }
-                
+
                 withAnimation {
                     self.wrongAttempt.toggle()
                 }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     withAnimation {
                         self.wrongAttempt.toggle()
                     }
                     self.pin.removeAll()
-                })
+                }
             }
         }
     }
-    
-    func remove(){
-        if self.wrongAttemptCount > 2{
+
+    func remove() {
+        if wrongAttemptCount > 2 {
             return
         }
-        if self.pin.count > 0{
-            self.pin.removeLast()
+        if !pin.isEmpty {
+            pin.removeLast()
         }
     }
-    
+
     var body: some View {
-        VStack(alignment: .center, spacing: 40){
-            
-            VStack(spacing: 20){
-                if (self.api.ui == .pin){
+        VStack(alignment: .center, spacing: 40) {
+            VStack(spacing: 20) {
+                if self.api.ui == .pin {
                     Text("Enter pin code")
                         .foregroundColor(Color.black)
                         .modifier(NCRPTTextMedium(size: 16))
-                    
                 }
-                if (self.api.ui == .pinCreate && self.attemptsRegistration == false){
+                if self.api.ui == .pinCreate && self.attemptsRegistration == false {
                     Text("Create pin code")
                         .foregroundColor(Color.black)
                         .modifier(NCRPTTextMedium(size: 16))
                 }
-                if (self.api.ui == .pinCreate && self.attemptsRegistration == true){
+                if self.api.ui == .pinCreate && self.attemptsRegistration == true {
                     Text("Repeat pin code")
                         .foregroundColor(Color.black)
                         .modifier(NCRPTTextMedium(size: 16))
                 }
-                
-                HStack(spacing: 10){
-                    ForEach(0...4, id:\.self){ value in
+
+                HStack(spacing: 10) {
+                    ForEach(0...4, id: \.self) { value in
                         Circle()
-                            .fill(self.pin.indices.contains(value) ? self.wrongAttempt ? Color.red.opacity(0.85) :  Color.black.opacity(0.55) : Color.black.opacity(0.1))
+                            .fill(self.pin.indices.contains(value) ? self.wrongAttempt ? Color.red.opacity(0.85) : Color.black
+                                .opacity(0.55) : Color.black.opacity(0.1))
                             .frame(width: 15, height: 15, alignment: .center)
                     }
                 }
             }
-            
+
             //            FIRST ROW
-            HStack(spacing: 55){
-                
+            HStack(spacing: 55) {
                 Button(action: {
                     self.add("1")
                 }, label: {
@@ -332,7 +318,7 @@ struct PinFieldView: View {
                         .font(.system(size: 40))
                         .fontWeight(Font.Weight.light)
                 }).buttonStyle(PinButtonStyle())
-                
+
                 Button(action: {
                     self.add("2")
                 }, label: {
@@ -342,7 +328,7 @@ struct PinFieldView: View {
                         .font(.system(size: 40))
                         .fontWeight(Font.Weight.light)
                 }).buttonStyle(PinButtonStyle())
-                
+
                 Button(action: {
                     self.add("3")
                 }, label: {
@@ -353,11 +339,10 @@ struct PinFieldView: View {
                         .fontWeight(Font.Weight.light)
                 }).buttonStyle(PinButtonStyle())
             }
-            
+
             //            SECOND ROW
-            
-            HStack(spacing: 55){
-                
+
+            HStack(spacing: 55) {
                 Button(action: {
                     self.add("4")
                 }, label: {
@@ -367,7 +352,7 @@ struct PinFieldView: View {
                         .font(.system(size: 40))
                         .fontWeight(Font.Weight.light)
                 }).buttonStyle(PinButtonStyle())
-                
+
                 Button(action: {
                     self.add("5")
                 }, label: {
@@ -377,7 +362,7 @@ struct PinFieldView: View {
                         .font(.system(size: 40))
                         .fontWeight(Font.Weight.light)
                 }).buttonStyle(PinButtonStyle())
-                
+
                 Button(action: {
                     self.add("6")
                 }, label: {
@@ -387,11 +372,9 @@ struct PinFieldView: View {
                         .font(.system(size: 40))
                         .fontWeight(Font.Weight.light)
                 }).buttonStyle(PinButtonStyle())
-                
             }
             //            THIRD ROW
-            HStack(spacing: 55){
-                
+            HStack(spacing: 55) {
                 Button(action: {
                     self.add("7")
                 }, label: {
@@ -401,7 +384,7 @@ struct PinFieldView: View {
                         .font(.system(size: 40))
                         .fontWeight(Font.Weight.light)
                 }).buttonStyle(PinButtonStyle())
-                
+
                 Button(action: {
                     self.add("8")
                 }, label: {
@@ -421,23 +404,26 @@ struct PinFieldView: View {
                         .fontWeight(Font.Weight.light)
                 }).buttonStyle(PinButtonStyle())
             }
-            HStack(spacing: 55){
+            HStack(spacing: 55) {
                 Button(action: {
                     if self.api.ui == .pin {
                         let context = LAContext()
                         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
-                            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Please authenticate to proceed.") { (success, error) in
+                            context.evaluatePolicy(
+                                .deviceOwnerAuthenticationWithBiometrics,
+                                localizedReason: "Please authenticate to proceed."
+                            ) { success, error in
                                 if success {
                                     DispatchQueue.main.async {
-                                        withAnimation{
+                                        withAnimation {
                                             NCRPTWatchSDK.shared.ui = .loading
                                         }
                                     }
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                        withAnimation{
+                                        withAnimation {
                                             NCRPTWatchSDK.shared.ui = .ready
                                         }
-                                        //close screen
+                                        // close screen
                                     }
                                 } else {
                                     guard let error = error else { return }
@@ -471,7 +457,7 @@ struct PinFieldView: View {
                         .foregroundColor(.black)
                         .font(.system(size: 40))
                         .fontWeight(Font.Weight.light)
-                    
+
                 }).buttonStyle(PinButtonStyle())
             }
         }
@@ -479,7 +465,6 @@ struct PinFieldView: View {
 }
 
 struct PinButtonStyle: ButtonStyle {
-    
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .modifier(NCRPTTextMedium(size: 16))

@@ -1,30 +1,21 @@
-//
-//  ContentView.swift
-//  EncryptFile
-//
-//  Created by Michael Safir on 25.10.2022.
-//
-
 import SwiftUI
 
 struct ContentView: View {
-    
-    
     @State private var showingRights = false
 
     @State private var isShowMenu = false
-    @ObservedObject var localFiles: LocalFileEngine = LocalFileEngine.shared
-    @State private var document: FileDocumentStruct = FileDocumentStruct()
+    @ObservedObject var localFiles = LocalFileEngine.shared
+    @State private var document = FileDocumentStruct()
     @StateObject var pvm = ProtectViewModel()
-    @State private var isImporting: Bool = false
-    @State private var isImportingEncrypt: Bool = false
-    @State private var isImportingDecrypt: Bool = false
-    @ObservedObject var content : ProtectViewModel = ProtectViewModel.shared
+    @State private var isImporting = false
+    @State private var isImportingEncrypt = false
+    @State private var isImportingDecrypt = false
+    @ObservedObject var content = ProtectViewModel.shared
     @State var showProtectionView = false
-    
+
     @State private var offset = CGPoint.zero
-  
-    func colorIcon(ext: String) -> (String, Color){
+
+    func colorIcon(ext: String) -> (String, Color) {
         switch ext {
         case "doc", "jpg", "png", "bmp", "docx", "gif", "tiff", "tif":
             // blue
@@ -42,53 +33,52 @@ struct ContentView: View {
             return ("858484", .white)
         }
     }
-    
+
     var body: some View {
-        NavigationView{
+        NavigationView {
             GeometryReader { geometry in
                 ZStack(alignment: .top) {
-                    
-                    Color.init(hex: "F2F5F8")
+                    Color(hex: "F2F5F8")
                         .edgesIgnoringSafeArea(.top)
-                    
+
                     SideMenu(isShowMenu: $isShowMenu, pvm: pvm)
-                        .opacity(self.offset.x*1.0/200)
+                        .opacity(self.offset.x * 1.0 / 200)
 
                     ZStack(alignment: .bottomTrailing) {
                         Color.white
-                        VStack{
-                            if self.localFiles.files.count > 0 {
-                                VStack(spacing: 0){
-                                    HStack{
+                        VStack {
+                            if !self.localFiles.files.isEmpty {
+                                VStack(spacing: 0) {
+                                    HStack {
                                         Text("Recent Files")
                                             .modifier(NCRPTTextSemibold(size: 18))
-                                            .foregroundColor(Color.init(hex: "21205A"))
+                                            .foregroundColor(Color(hex: "21205A"))
                                         Spacer()
                                     }
                                     .padding(.horizontal, 20)
                                     .padding(.top)
-                                    
-                                    ScrollView(.vertical, showsIndicators: false){
-                                        VStack(spacing: 0){
-                                            ForEach(self.localFiles.files, id:\.self) { file in
-                                                HStack(spacing: 15){
-                                                    HStack(spacing: 10){
+
+                                    ScrollView(.vertical, showsIndicators: false) {
+                                        VStack(spacing: 0) {
+                                            ForEach(self.localFiles.files, id: \.self) { file in
+                                                HStack(spacing: 15) {
+                                                    HStack(spacing: 10) {
                                                         // file.ext
-                                                        ZStack{
+                                                        ZStack {
                                                             Image("fileIcon")
                                                                 .resizable()
                                                                 .aspectRatio(contentMode: .fill)
                                                                 .frame(width: 19, height: 30, alignment: .center)
-                                                            ZStack{
+                                                            ZStack {
                                                                 RoundedRectangle(cornerRadius: 2)
-                                                                    .fill(Color.init(hex: colorIcon(ext: file.ext).0))
+                                                                    .fill(Color(hex: colorIcon(ext: file.ext).0))
                                                                     .frame(width: 20, height: 11)
                                                                 Text(file.ext)
                                                                     .modifier(NCRPTTextRegular(size: 8))
                                                                     .foregroundColor(colorIcon(ext: file.ext).1)
                                                             }.offset(x: -5, y: 2.8)
                                                         }.frame(width: 30)
-                                                        VStack(alignment: .leading){
+                                                        VStack(alignment: .leading) {
                                                             Text("\(file.name.replacingOccurrences(of: ".ncrpt", with: ""))")
                                                                 .modifier(NCRPTTextMedium(size: 16))
                                                                 .onTapGesture {
@@ -96,80 +86,87 @@ struct ContentView: View {
                                                                     DispatchQueue.main.async {
                                                                         self.content.showingContent.toggle()
                                                                     }
-                                                                    
+
                                                                     if file.url != nil {
                                                                         DispatchQueue.global(qos: .userInitiated).async {
                                                                             let polygone = Polygone()
-                                                                            polygone.decryptFile(file.url!) { url, rights, success  in
+                                                                            polygone.decryptFile(file.url!) { url, rights, success in
                                                                                 if success {
                                                                                     self.content.objectWillChange.send()
                                                                                     self.content.chosenFiles = [Attach(url: url)]
                                                                                     self.content.rights = rights
                                                                                     self.content.objectWillChange.send()
-                                                                                }else{
-                                                                                    Settings.shared.alert(title: "Error", message: "You do not have enough permissions to open this file, contact your administrator.", buttonName: "close")
+                                                                                } else {
+                                                                                    Settings.shared.alert(
+                                                                                        title: "Error",
+                                                                                        message: "You do not have enough permissions to open this file, contact your administrator.",
+                                                                                        buttonName: "close"
+                                                                                    )
                                                                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                                                                         self.content.showingContent.toggle()
                                                                                     }
                                                                                 }
                                                                             }
-                                                                            
                                                                         }
                                                                     }
                                                                 }
-                                                            HStack{
+                                                            HStack {
                                                                 Text(".\(file.ext)")
                                                                     .modifier(NCRPTTextRegular(size: 14))
-                                                                    .foregroundColor(Color.init(hex: "7C809E"))
-                                                                
+                                                                    .foregroundColor(Color(hex: "7C809E"))
+
                                                                 Text(file.url?.fileSize() ?? "")
                                                                     .modifier(NCRPTTextRegular(size: 14))
-                                                                    .foregroundColor(Color.init(hex: "7C809E"))
-                                                                
+                                                                    .foregroundColor(Color(hex: "7C809E"))
+
                                                                 Spacer()
                                                             }
                                                         }
                                                     }
                                                     Spacer()
-                                                    
+
                                                     Menu(content: {
-                                                        
                                                         Button(action: {
                                                             share(items: [file.url!])
                                                         }) {
                                                             Label("Share", systemImage: "square.and.arrow.up")
                                                         }
-                                                        
+
                                                         Button(action: {
-                                                            
                                                             if file.url != nil {
                                                                 DispatchQueue.global(qos: .userInitiated).async {
                                                                     let polygone = Polygone()
-                                                                    polygone.decryptFile(file.url!) { url, rights, success  in
+                                                                    polygone.decryptFile(file.url!) { url, rights, success in
                                                                         if success {
                                                                             self.content.objectWillChange.send()
                                                                             self.content.chosenFiles = [Attach(url: url)]
                                                                             self.content.rights = rights
                                                                             self.content.objectWillChange.send()
-                                                                            
+
                                                                             DispatchQueue.main.async {
                                                                                 showingRights.toggle()
                                                                             }
-                                                                            
-                                                                        }else{
-                                                                            Settings.shared.alert(title: "Error", message: "You do not have enough permissions to open this file, contact your administrator.", buttonName: "close")
+
+                                                                        } else {
+                                                                            Settings.shared.alert(
+                                                                                title: "Error",
+                                                                                message: "You do not have enough permissions to open this file, contact your administrator.",
+                                                                                buttonName: "close"
+                                                                            )
                                                                         }
                                                                     }
-                                                                    
                                                                 }
                                                             }
                                                         }) {
                                                             Label("Rights", systemImage: "list.clipboard")
                                                         }
-                                                        
+
                                                         Button(role: .destructive, action: {
                                                             print("revoke file from server")
-                                                            Settings.shared.alertViewWithCompletion(title: "Sure?", message: "File will be revoked and deleted from server and device.") { result in
+                                                            Settings.shared.alertViewWithCompletion(
+                                                                title: "Sure?",
+                                                                message: "File will be revoked and deleted from server and device."
+                                                            ) { result in
                                                                 if result {
                                                                     let polygone = Polygone()
                                                                     let md5 = polygone.getFileMD5(file.url!)
@@ -177,29 +174,41 @@ struct ContentView: View {
                                                                         Network.shared.revoke(fileMD5: md5) { success in
                                                                             if success {
                                                                                 do {
-                                                                                    try FileManager.default.removeItem(atPath: (file.url?.path().removingPercentEncoding)!)
+                                                                                    try FileManager.default
+                                                                                        .removeItem(atPath: (file.url?.path()
+                                                                                                .removingPercentEncoding)!)
                                                                                     self.localFiles.getLocalFiles()
                                                                                 } catch {
-                                                                                    print("Could not delete file, probably read-only filesystem")
+                                                                                    print(
+                                                                                        "Could not delete file, probably read-only filesystem"
+                                                                                    )
                                                                                 }
-                                                                            }else{
-                                                                                Settings.shared.alert(title: "Error", message: "Server is not able to revoke", buttonName: "close")
+                                                                            } else {
+                                                                                Settings.shared.alert(
+                                                                                    title: "Error",
+                                                                                    message: "Server is not able to revoke",
+                                                                                    buttonName: "close"
+                                                                                )
                                                                             }
                                                                         }
                                                                     }
                                                                 }
                                                             }
-                                                            
+
                                                         }) {
                                                             Label("Revoke", systemImage: "network")
                                                                 .foregroundColor(.red)
                                                         }
-                                                        
+
                                                         Button(role: .destructive, action: {
-                                                            Settings.shared.alertViewWithCompletion(title: "Sure?", message: "File will be deleted from device.") { result in
+                                                            Settings.shared.alertViewWithCompletion(
+                                                                title: "Sure?",
+                                                                message: "File will be deleted from device."
+                                                            ) { result in
                                                                 if result {
                                                                     do {
-                                                                        try FileManager.default.removeItem(atPath: (file.url?.path().removingPercentEncoding)!)
+                                                                        try FileManager.default
+                                                                            .removeItem(atPath: (file.url?.path().removingPercentEncoding)!)
                                                                         self.localFiles.getLocalFiles()
                                                                     } catch {
                                                                         print("Could not delete file, probably read-only filesystem")
@@ -218,9 +227,6 @@ struct ContentView: View {
                                                     })
                                                     .contentShape(Rectangle())
                                                     .modifier(NCRPTTextMedium(size: 20))
-                                                    
-                                                    
-                                                    
                                                 }
                                             }
                                         }
@@ -229,13 +235,13 @@ struct ContentView: View {
                                 }
                                 .blur(radius: isShowMenu ? 2 : 0)
                                 Spacer()
-                            }else{
+                            } else {
                                 Spacer()
-                                HStack{
+                                HStack {
                                     Spacer()
                                     Text("No files yet")
                                         .modifier(NCRPTTextSemibold(size: 18))
-                                        .foregroundColor(Color.init(hex: "21205A"))
+                                        .foregroundColor(Color(hex: "21205A"))
                                     Spacer()
                                 }
                                 Spacer()
@@ -250,20 +256,24 @@ struct ContentView: View {
                                 guard let selectedFile: URL = try result.get().first else { return }
                                 self.document.url = selectedFile
                                 let one = selectedFile.startAccessingSecurityScopedResource()
-                                
+
                                 self.content.chosenFiles = []
                                 DispatchQueue.main.async {
                                     self.content.showingContent.toggle()
                                 }
-                                
+
                                 let polygone = Polygone()
                                 polygone.decryptFile(self.document.url!) { url, rights, success in
                                     if success {
                                         self.content.chosenFiles = [Attach(url: url)]
                                         self.content.rights = rights
                                         FileManager.default.moveFile(at: selectedFile)
-                                    }else{
-                                        Settings.shared.alert(title: "Error", message: "You do not have enough permissions to open this file, contact your administrator.", buttonName: "close")
+                                    } else {
+                                        Settings.shared.alert(
+                                            title: "Error",
+                                            message: "You do not have enough permissions to open this file, contact your administrator.",
+                                            buttonName: "close"
+                                        )
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                             self.content.showingContent.toggle()
                                         }
@@ -273,19 +283,19 @@ struct ContentView: View {
                                 // Handle failure.
                             }
                         }
-                        
+
                         NavigationLink(destination: SheetView(content: self.content), isActive: self.$content.showingContent) {
                             EmptyView()
                         }
-                        
+
                         NavigationLink(destination: RightsView(content: self.content), isActive: $showingRights) {
                             EmptyView()
                         }
-                        
+
                         NavigationLink(destination: SecureFileView(pvm: pvm), label: {
-                            ZStack{
+                            ZStack {
                                 Circle()
-                                    .fill(Color.init(hex: "4378DB"))
+                                    .fill(Color(hex: "4378DB"))
                                     .frame(width: 64, height: 64, alignment: .center)
                                     .padding(.horizontal)
                                 Image("lock")
@@ -298,10 +308,10 @@ struct ContentView: View {
                         })
 
                         VisualEffect(style: .prominent)
-                            .opacity(self.offset.x*1.0/600)
+                            .opacity(self.offset.x * 1.0 / 600)
                             .onTapGesture {
                                 withAnimation(.spring()) {
-                                    withAnimation{
+                                    withAnimation {
                                         self.isShowMenu = false
                                         self.offset = .zero
                                     }
@@ -310,67 +320,66 @@ struct ContentView: View {
                     }
                     .cornerRadius(20)
                     .gesture(DragGesture(minimumDistance: 5)
-                        .onChanged{ value in
-                            if value.startLocation.x <= 15 || self.offset.x == 200{
-                                if value.location.x <= 200{
-                                    withAnimation(.linear){
+                        .onChanged { value in
+                            if value.startLocation.x <= 15 || self.offset.x == 200 {
+                                if value.location.x <= 200 {
+                                    withAnimation(.linear) {
                                         offset = value.location
                                     }
                                 }
                             }
                         }
                         .onEnded { value in
-                            if value.startLocation.x <= 15 || self.isShowMenu == true{
-                                if (value.location.x >= 40) {
-                                    withAnimation(){
+                            if value.startLocation.x <= 15 || self.isShowMenu == true {
+                                if value.location.x >= 40 {
+                                    withAnimation {
                                         self.isShowMenu = true
                                         self.offset.x = 200
                                     }
                                 } else {
-                                    withAnimation(){
+                                    withAnimation {
                                         self.isShowMenu = false
                                         self.offset = .zero
                                     }
                                 }
                             }
-                        }
-                    )
+                        })
                     .offset(x: Double(round(1000 * offset.x) / 1000))
                     .navigationBarItems(
                         leading:
-                            Button(action: {
-                                var change : Bool = false
-                                if self.isShowMenu == false {
-                                    change = true
-                                    withAnimation(.spring()) {
-                                        self.offset.x = 200
-                                        self.isShowMenu = true
-                                    }
+                        Button(action: {
+                            var change = false
+                            if self.isShowMenu == false {
+                                change = true
+                                withAnimation(.spring()) {
+                                    self.offset.x = 200
+                                    self.isShowMenu = true
                                 }
-                                if self.isShowMenu == true && change == false {
-                                    change = true
-                                    withAnimation(.spring()) {
-                                        self.offset.x = 0
-                                        self.isShowMenu = false
-                                    }
+                            }
+                            if self.isShowMenu == true && change == false {
+                                change = true
+                                withAnimation(.spring()) {
+                                    self.offset.x = 0
+                                    self.isShowMenu = false
                                 }
-                            }, label: {
-                                Image(systemName: "slider.horizontal.3")
-                                    .foregroundColor(.black)
-                            })
-                        ,
+                            }
+                        }, label: {
+                            Image(systemName: "slider.horizontal.3")
+                                .foregroundColor(.black)
+                        }),
+
                         trailing:
-                            
-                            Button(action: {
-                                self.isImporting.toggle()
-                            }, label: {
-                                Image(systemName: "plus")
-                                    .foregroundColor(.black)
-                            })
+
+                        Button(action: {
+                            self.isImporting.toggle()
+                        }, label: {
+                            Image(systemName: "plus")
+                                .foregroundColor(.black)
+                        })
                     )
                     .navigationTitle("ncrpt.io")
                     .navigationBarTitleDisplayMode(.inline)
-                    .onAppear{
+                    .onAppear {
                         self.localFiles.getLocalFiles()
                     }
                     .frame(height: isShowMenu ? geometry.size.height * 0.95 : geometry.size.height)
@@ -381,7 +390,7 @@ struct ContentView: View {
         .background(.red)
         .navigationViewStyle(StackNavigationViewStyle())
         .accentColor(.black)
-        .onAppear{
+        .onAppear {
             self.pvm.clear()
             Network.shared.contacts { contacts, result in
                 if result {
@@ -392,20 +401,24 @@ struct ContentView: View {
         .onOpenURL { url in
             self.content.chosenFiles = []
             self.content.showingContent = false
-            
+
             DispatchQueue.main.async {
                 self.content.showingContent.toggle()
             }
-            
+
             let polygone = Polygone()
             polygone.decryptFile(url) { urlDecrypted, rights, success in
                 if success {
                     self.content.chosenFiles = [Attach(url: urlDecrypted)]
                     self.content.rights = rights
-                    
+
                     FileManager.default.moveFile(at: url)
-                }else{
-                    Settings.shared.alert(title: "Error", message: "You do not have enough permissions to open this file, contact your administrator.", buttonName: "close")
+                } else {
+                    Settings.shared.alert(
+                        title: "Error",
+                        message: "You do not have enough permissions to open this file, contact your administrator.",
+                        buttonName: "close"
+                    )
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.content.showingContent.toggle()
                     }
@@ -439,7 +452,6 @@ func share(
     return true
 }
 
-
 extension Color {
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
@@ -456,25 +468,24 @@ extension Color {
         default:
             (a, r, g, b) = (1, 1, 1, 0)
         }
-        
+
         self.init(
             .sRGB,
             red: Double(r) / 255,
             green: Double(g) / 255,
-            blue:  Double(b) / 255,
+            blue: Double(b) / 255,
             opacity: Double(a) / 255
         )
     }
 }
 
-
 struct VisualEffect: UIViewRepresentable {
-    @State var style : UIBlurEffect.Style // 1
+    @State var style: UIBlurEffect.Style // 1
     func makeUIView(context: Context) -> UIVisualEffectView {
         return UIVisualEffectView(effect: UIBlurEffect(style: style)) // 2
     }
-    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
-    } // 3
+
+    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {} // 3
 }
 
 struct DeleteButtonStyle: ButtonStyle {

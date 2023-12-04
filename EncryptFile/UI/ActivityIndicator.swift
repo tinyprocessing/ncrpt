@@ -1,14 +1,6 @@
-//
-//  ActivityIndicator.swift
-//  EncryptFile
-//
-//  Created by Michael Safir on 14.12.2022.
-//
-
 import SwiftUI
 
 struct ActivityIndicator: UIViewRepresentable {
-
     @Binding var isAnimating: Bool
     let style: UIActivityIndicatorView.Style
 

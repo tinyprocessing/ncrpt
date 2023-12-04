@@ -1,10 +1,3 @@
-//
-//  URL+Ext.swift
-//  EncryptFile
-//
-//  Created by Kirill Anisimov on 07.11.2022.
-//
-
 import Foundation
 
 extension URL {
@@ -12,9 +5,9 @@ extension URL {
         let value = try? resourceValues(forKeys: [.fileSizeKey])
         return value?.fileSize
     }
-    
+
     func fileSize() -> String? {
-        if let fileSize = self.fileSizeExtension {
+        if let fileSize = fileSizeExtension {
             // bytes
             if fileSize < 1023 {
                 return String(format: "%lu bytes", CUnsignedLong(fileSize))

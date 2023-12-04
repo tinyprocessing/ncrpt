@@ -1,10 +1,3 @@
-//
-//  TemplateView.swift
-//  EncryptFile
-//
-//  Created by Kirill Anisimov on 07.11.2022.
-//
-
 import SwiftUI
 
 struct TemplateView: View {
@@ -15,34 +8,32 @@ struct TemplateView: View {
     @State var templateFieldInput = ""
     @State var selectedRights = Set<String>()
     @State var usersInTamplate = [User]()
-    
+
     @State private var showNewUser = false
     @State private var showEditUser = false
-    
+
     @State var chosenPermission = ""
-    
+
     func checkTemplateStatus() -> Bool {
-        if self.usersInTamplate.count > 0 && !self.templateFieldInput.isEmpty {
+        if !usersInTamplate.isEmpty && !templateFieldInput.isEmpty {
             return true
         }
         return false
     }
-    
+
     var body: some View {
-        
-        ZStack(alignment: .bottom){
-            
-            ScrollView(.vertical, showsIndicators: false){
-                VStack(alignment: .leading, spacing: 15){
-                    VStack(alignment: .leading, spacing: 15){
-                        HStack{
+        ZStack(alignment: .bottom) {
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 15) {
+                    VStack(alignment: .leading, spacing: 15) {
+                        HStack {
                             Text("Template Name")
                                 .modifier(NCRPTTextSemibold(size: 18))
-                                .foregroundColor(Color.init(hex: "21205A"))
+                                .foregroundColor(Color(hex: "21205A"))
                             Spacer()
                         }
                         .padding(.horizontal)
-                        HStack{
+                        HStack {
                             VStack(alignment: .leading) {
                                 if isNewTemplate {
                                     TextField("Write...", text: $templateFieldInput)
@@ -54,18 +45,18 @@ struct TemplateView: View {
                                             self.templateFieldInput = $0
                                             self.template?.name = self.templateFieldInput
                                         }))
-                                    .onAppear(perform: loadTemplate)
-                                    .frame(height: 30)
+                                        .onAppear(perform: loadTemplate)
+                                        .frame(height: 30)
                                 }
                             }
                         }
                         .padding(.horizontal)
-                        HStack{
+                        HStack {
                             Text("Users")
                                 .modifier(NCRPTTextSemibold(size: 18))
-                                .foregroundColor(Color.init(hex: "21205A"))
+                                .foregroundColor(Color(hex: "21205A"))
                             Spacer()
-                            
+
                             NavigationLink(
                                 destination: {
                                     TemplateUserView(vm: vm, isNewUser: true, usersInTamplate: $usersInTamplate)
@@ -75,24 +66,24 @@ struct TemplateView: View {
                                         .foregroundColor(Color.black)
                                 }
                             )
-                            
                         }
                         .padding(.horizontal)
-                        if usersInTamplate.count == 0 {
-                            HStack{
+                        if usersInTamplate.isEmpty {
+                            HStack {
                                 Spacer()
                                 Text("no users in list")
                                 Spacer()
                             }.padding()
                         }
-                        
-                        ForEach(usersInTamplate){ user in
-                            
+
+                        ForEach(usersInTamplate) { user in
+
                             NavigationLink(
                                 destination: {
-                                    TemplateUserView(vm: vm, user: user, selectedRights: user.rights, usersInTamplate: $usersInTamplate) },
+                                    TemplateUserView(vm: vm, user: user, selectedRights: user.rights, usersInTamplate: $usersInTamplate)
+                                },
                                 label: {
-                                    HStack{
+                                    HStack {
                                         VStack(alignment: .leading) {
                                             Text(user.name)
                                                 .foregroundColor(.black)
@@ -104,7 +95,7 @@ struct TemplateView: View {
                                         }
                                         Spacer()
                                         Image(systemName: "chevron.right")
-                                        
+
                                     }.padding(.vertical, 5)
                                 }
                             )
@@ -112,7 +103,7 @@ struct TemplateView: View {
                             .background(Color.white)
                             .contextMenu {
                                 Button(role: .destructive, action: {
-                                    var tmpArray : [User] = []
+                                    var tmpArray: [User] = []
                                     self.usersInTamplate.forEach { userItem in
                                         if userItem.id != user.id {
                                             tmpArray.append(userItem)
@@ -128,23 +119,23 @@ struct TemplateView: View {
                     }
                 }
             }
-            
+
             Button {
                 if !templateFieldInput.isEmpty {
                     if isNewTemplate {
-                        //add new template
+                        // add new template
                         vm.addTemplate(Template(name: templateFieldInput,
                                                 rights: selectedRights,
                                                 users: Set(usersInTamplate)),
                                        new: true)
                     } else {
-                        //edit template
+                        // edit template
                         vm.addTemplate(Template(id: template!.id,
                                                 name: templateFieldInput,
                                                 rights: selectedRights,
                                                 users: Set(usersInTamplate)))
                     }
-                    
+
                     self.presentation.wrappedValue.dismiss()
                 }
             } label: {
@@ -154,7 +145,7 @@ struct TemplateView: View {
                         .modifier(NCRPTTextMedium(size: 16))
                         .padding(.horizontal, 55)
                         .padding(.vertical, 10)
-                        .background(checkTemplateStatus() ? Color.init(hex: "4378DB") : Color.init(hex: "4378DB").opacity(0.1))
+                        .background(checkTemplateStatus() ? Color(hex: "4378DB") : Color(hex: "4378DB").opacity(0.1))
                         .cornerRadius(8.0)
                         .foregroundColor(Color.white)
                     Spacer()
@@ -163,13 +154,11 @@ struct TemplateView: View {
         }
         .navigationTitle(isNewTemplate ? "New template" : "Edit template")
         .navigationBarTitleDisplayMode(.inline)
-        
     }
-    
+
     func loadTemplate() {
         templateFieldInput = template?.name ?? ""
     }
-    
 }
 
 struct TemplateView_Previews: PreviewProvider {

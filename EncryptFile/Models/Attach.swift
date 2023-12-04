@@ -1,14 +1,7 @@
-//
-//  Attach.swift
-//  EncryptFile
-//
-//  Created by Kirill Anisimov on 16.12.2022.
-//
-
 import Foundation
 
-struct Attach: Identifiable, Codable, Hashable  {
-    var id: Int = 0
+struct Attach: Identifiable, Codable, Hashable {
+    var id = 0
     var url: URL?
     var size: String {
         let isAccessing = url?.startAccessingSecurityScopedResource() ?? false
@@ -17,10 +10,12 @@ struct Attach: Identifiable, Codable, Hashable  {
         }
         return ""
     }
+
     var name: String {
         url?.lastPathComponent ?? ""
     }
-    var ext : String {
+
+    var ext: String {
         url?.pathExtension ?? ""
     }
 }

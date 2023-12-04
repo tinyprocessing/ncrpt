@@ -1,15 +1,7 @@
-//
-//  HiddenContainerRecognizer.swift
-//  
-//
-//  Created by Князьков Илья on 23.07.2022.
-//
-
 import UIKit
 
 /// Recognize view, which can be hidden before system screenshot event did triggered, depend on `iOS version`
 struct HiddenContainerRecognizer {
-
     // MARK: - Nested Types
 
     private enum Error: Swift.Error {
@@ -33,7 +25,6 @@ struct HiddenContainerRecognizer {
     }
 
     func getHiddenContainerTypeInStringRepresentation() throws -> String {
-        
         if #available(iOS 15, *) {
             return "_UITextLayoutCanvasView"
         }
@@ -67,5 +58,4 @@ struct HiddenContainerRecognizer {
 
         return stringRepresentationOfClassContainer == containerClassName
     }
-
 }

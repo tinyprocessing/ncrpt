@@ -1,29 +1,20 @@
-//
-//  LocalStorageEngine.swift
-//  EncryptFile
-//
-//  Created by Kirill Anisimov on 17.12.2022.
-//
-
 import Foundation
-
 
 enum StorageDataType: String {
     case templates, users
 }
 
-class LocalStorageEngine {
-
+enum LocalStorageEngine {
     private static func fileURL(for type: StorageDataType) throws -> URL {
         try FileManager.default.url(for: .documentDirectory,
                                     in: .userDomainMask,
                                     appropriateFor: nil,
                                     create: false)
-        .appendingPathComponent("\(type.rawValue).data")
+            .appendingPathComponent("\(type.rawValue).data")
     }
-    
-    //Templates
-    static func loadTemplates(completion: @escaping (Result<[Template], Error>)->Void) {
+
+    /// Templates
+    static func loadTemplates(completion: @escaping (Result<[Template], Error>) -> Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try fileURL(for: .templates)
@@ -44,8 +35,8 @@ class LocalStorageEngine {
             }
         }
     }
-    
-    static func saveTemplates(templates: [Template], completion: @escaping (Result<Int, Error>)->Void) {
+
+    static func saveTemplates(templates: [Template], completion: @escaping (Result<Int, Error>) -> Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let data = try JSONEncoder().encode(templates)
@@ -62,8 +53,8 @@ class LocalStorageEngine {
         }
     }
 
-    //Users
-    static func loadUsers(completion: @escaping (Result<[User], Error>)->Void) {
+    /// Users
+    static func loadUsers(completion: @escaping (Result<[User], Error>) -> Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try fileURL(for: .users)
@@ -84,8 +75,8 @@ class LocalStorageEngine {
             }
         }
     }
-    
-    static func saveUsers(users: [User], completion: @escaping (Result<Int, Error>)->Void) {
+
+    static func saveUsers(users: [User], completion: @escaping (Result<Int, Error>) -> Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let data = try JSONEncoder().encode(users)

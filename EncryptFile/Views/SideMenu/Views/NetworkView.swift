@@ -1,25 +1,18 @@
-//
-//  NetworkView.swift
-//  EncryptFile
-//
-//  Created by Michael Safir on 08.01.2023.
-//
-
 import SwiftUI
 
 struct NetworkView: View {
-    @State var interfaces : [Interface] = []
+    @State var interfaces: [Interface] = []
     var body: some View {
-        VStack(alignment: .leading){
+        VStack(alignment: .leading) {
             if !self.interfaces.isEmpty {
-                ScrollView(.vertical, showsIndicators: false){
-                    VStack(alignment: .leading, spacing: 5){
-                        ForEach(self.interfaces, id:\.self) { item in
-                            HStack{
-                                VStack(alignment: .leading, spacing: 5){
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: 5) {
+                        ForEach(self.interfaces, id: \.self) { item in
+                            HStack {
+                                VStack(alignment: .leading, spacing: 5) {
                                     Text(item.name)
                                         .modifier(NCRPTTextSemibold(size: 18))
-                                        .foregroundColor(Color.init(hex: "21205A"))
+                                        .foregroundColor(Color(hex: "21205A"))
                                     Text(item.description)
                                         .modifier(NCRPTTextMedium(size: 16))
                                 }
@@ -34,11 +27,11 @@ struct NetworkView: View {
                     }.padding(.horizontal)
                     Spacer()
                 }
-            }else{
-                VStack{
+            } else {
+                VStack {
                     ActivityIndicator(isAnimating: .constant(true), style: .large)
                         .foregroundColor(.secondary)
-                    
+
                     Text("loading")
                         .modifier(NCRPTTextMedium(size: 16))
                 }
@@ -46,7 +39,7 @@ struct NetworkView: View {
         }
         .navigationTitle("network")
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear{
+        .onAppear {
             self.interfaces = Interface.allInterfaces()
         }
     }

@@ -1,41 +1,34 @@
-//
-//  Certification.swift
-//  EncryptFile
-//
-//  Created by Сафир Михаил Дмитриевич [B] on 05.11.2022.
-//
-
 import CommonCrypto
 import Foundation
+import openssl
 import Security
 import SwiftUI
-import openssl
 
 typealias X509 = OpaquePointer
 
 class Certification: ObservableObject, Identifiable {
     public var certificate = Certificate()
     public var identity: SecIdentity? = nil
-
+    
     private func transportPasswordGeneration(_ bits: Int) -> String {
-        let chars: String = "abcdefghijklmnopqrstuvwxyz"
-        let charsUpper: String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        let digits: String = "123456789"
-        let spetials: String = "!@#$%^&*?"
-
-        var password: String = ""
-
+        let chars = "abcdefghijklmnopqrstuvwxyz"
+        let charsUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        let digits = "123456789"
+        let spetials = "!@#$%^&*?"
+        
+        var password = ""
+        
         for _ in 1...bits / 4 {
-            let tmp: String =
-                String(chars.randomElement()!)
-                + String(charsUpper.randomElement()!)
-                + String(digits.randomElement()!)
-                + String(spetials.randomElement()!)
+            let tmp =
+            String(chars.randomElement()!)
+            + String(charsUpper.randomElement()!)
+            + String(digits.randomElement()!)
+            + String(spetials.randomElement()!)
             password += tmp
         }
         return password
     }
-
+    
     func importCertificate(_ certificate: Data, _ password: String) -> Bool {
         var importResult: CFArray? = nil
         let err = SecPKCS12Import(
@@ -51,100 +44,97 @@ class Certification: ObservableObject, Identifiable {
                     userInfo: nil
                 )
             }
-
+            
             //            kSecImportItemCertChain
             let identityDictionaries = importResult as! [[String: Any]]
             let readySecIdentity =
-                identityDictionaries[0][kSecImportItemIdentity as String]
-                as! SecIdentity
-
+            identityDictionaries[0][kSecImportItemIdentity as String]
+            as! SecIdentity
+            
             var secCert: SecCertificate?
             SecIdentityCopyCertificate(readySecIdentity, &secCert)
-
+            
             if secCert == nil {
                 return false
             }
-
+            
             let summary = SecCertificateCopySubjectSummary(secCert!)! as String
             print("Cert summary: \(summary)")
-
-            #if IOSSYSTEM
-
-                var keychainQueryDictionary = [String: Any]()
-
-                if let tempSecCert = secCert {
-                    keychainQueryDictionary = [
-                        kSecClass as String:
-                            kSecClassCertificate,
-                        kSecValueRef as String: tempSecCert,
-                        kSecAttrLabel as String:
-                            "NCRPT Viewer",
-                    ]
-                }
-
-                let status = SecItemAdd(
-                    keychainQueryDictionary as CFDictionary,
-                    nil
-                )
-
-                guard status == errSecSuccess else {
-                    print("Error")
-                    return false
-                }
-
-                keychainQueryDictionary = [String: Any]()
-
+            
+#if IOSSYSTEM
+            
+            var keychainQueryDictionary = [String: Any]()
+            
+            if let tempSecCert = secCert {
                 keychainQueryDictionary = [
-                    kSecValueRef as String: readySecIdentity,
-                    kSecAttrLabel as String: "NCRPT Viewer",
+                    kSecClass as String:
+                        kSecClassCertificate,
+                    kSecValueRef as String: tempSecCert,
+                    kSecAttrLabel as String:
+                        "NCRPT Viewer"
                 ]
-
-                let statusIdentity = SecItemAdd(
-                    keychainQueryDictionary as CFDictionary,
-                    nil
-                )
-
-                guard statusIdentity == errSecSuccess else {
-                    print("Error")
-                    return false
-                }
-
-                print("ready import")
-
-                return true
-            #endif
+            }
+            
+            let status = SecItemAdd(
+                keychainQueryDictionary as CFDictionary,
+                nil
+            )
+            
+            guard status == errSecSuccess else {
+                print("Error")
+                return false
+            }
+            
+            keychainQueryDictionary = [String: Any]()
+            
+            keychainQueryDictionary = [
+                kSecValueRef as String: readySecIdentity,
+                kSecAttrLabel as String: "NCRPT Viewer"
+            ]
+            
+            let statusIdentity = SecItemAdd(
+                keychainQueryDictionary as CFDictionary,
+                nil
+            )
+            
+            guard statusIdentity == errSecSuccess else {
+                print("Error")
+                return false
+            }
+            
             print("ready import")
-
+            
             return true
-
-        }
-        catch {
+#endif
+            print("ready import")
+            
+            return true
+        } catch {
             print("some error")
-
+            
             return false
         }
     }
-
+    
     func getCertificate() {
-
         let query =
-            [
-                kSecClass: kSecClassIdentity,
-                kSecReturnAttributes: true,
-                kSecReturnRef: true,
-                kSecReturnData: true,
-                kSecMatchLimit: kSecMatchLimitAll,
-            ] as CFDictionary
-
+        [
+            kSecClass: kSecClassIdentity,
+            kSecReturnAttributes: true,
+            kSecReturnRef: true,
+            kSecReturnData: true,
+            kSecMatchLimit: kSecMatchLimitAll
+        ] as CFDictionary
+        
         var result: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &result)
-
+        
         if status == -25300 {
             return
         }
-
+        
         let array = result as! [NSDictionary]
-
+        
         for i in 0...array.count - 1 {
             let identity = array[i]["v_Ref"] as! SecIdentity
             print(identity)
@@ -155,15 +145,15 @@ class Certification: ObservableObject, Identifiable {
             let certificateX509 = d2i_X509(nil, &firstByte, data.length)
             let subjectX509Name = X509_get_subject_name(certificateX509)
             let issureX509Name = X509_get_issuer_name(certificateX509)
-
+            
             if subjectX509Name != nil {
-                self.certificate.certificationOIDs = []
+                certificate.certificationOIDs = []
                 let organizationUnitName =
-                    getSubjectPartName(
-                        from: subjectX509Name!,
-                        forKey: "2.5.4.11"
-                    ) ?? ""
-
+                getSubjectPartName(
+                    from: subjectX509Name!,
+                    forKey: "2.5.4.11"
+                ) ?? ""
+                
                 if issureX509Name != nil {
                     let nid = OBJ_txt2nid("CN")
                     let index = X509_NAME_get_index_by_NID(
@@ -173,58 +163,56 @@ class Certification: ObservableObject, Identifiable {
                     )
                     if index != -1 {
                         let issuerNameCommonName =
-                            X509_NAME_get_entry(
-                                issureX509Name,
-                                index
-                            )
+                        X509_NAME_get_entry(
+                            issureX509Name,
+                            index
+                        )
                         if issuerNameCommonName != nil {
                             let issuerCNASN1 =
-                                X509_NAME_ENTRY_get_data(
-                                    issuerNameCommonName
-                                )
+                            X509_NAME_ENTRY_get_data(
+                                issuerNameCommonName
+                            )
                             if issuerCNASN1 != nil {
                                 let issuerCName =
-                                    ASN1_STRING_get0_data(
-                                        issuerCNASN1
-                                    )
+                                ASN1_STRING_get0_data(
+                                    issuerCNASN1
+                                )
                                 if let
                                     bytes =
-                                    issuerCName
-                                {
+                                    issuerCName {
                                     let issure =
-                                        String(
-                                            cString:
-                                                bytes
-                                        )
-                                    self
-                                        .certificate
+                                    String(
+                                        cString:
+                                            bytes
+                                    )
+                                    certificate
                                         .issuer =
-                                        issure
+                                    issure
                                 }
                             }
                         }
                     }
                 }
-
+                
                 let serialNumber = X509_get_serialNumber(certificateX509)
-
-                self.certificate.email = getSubjectPartName(
+                
+                certificate.email = getSubjectPartName(
                     from: subjectX509Name!,
                     forKey: "1.2.840.113549.1.9.1"
                 )
-                self.certificate.name = getSubjectPartName(
+                certificate.name = getSubjectPartName(
                     from: subjectX509Name!,
                     forKey: "2.5.4.4"
                 )
-
-                self.certificate.certificationOIDs.append(
+                
+                certificate.certificationOIDs.append(
                     CertificateOID(
                         name: "Name",
-                        value: self.certificate.issuer ?? ""
+                        value: certificate.issuer ?? ""
                     )
                 )
-
-                self.certificate.certificationOIDs.append(
+                
+                certificate.certificationOIDs.append(
                     CertificateOID(
                         name: "Email",
                         value: getSubjectPartName(
@@ -234,7 +222,7 @@ class Certification: ObservableObject, Identifiable {
                         ) ?? "-"
                     )
                 )
-                self.certificate.certificationOIDs.append(
+                certificate.certificationOIDs.append(
                     CertificateOID(
                         name: "serialNumber",
                         value: String(
@@ -243,34 +231,34 @@ class Certification: ObservableObject, Identifiable {
                         )
                     )
                 )
-
+                
                 let structOID = certificationOIDs()
                 let mirror = Mirror(reflecting: structOID)
-
+                
                 autoreleasepool {
                     for child in mirror.children {
                         let value =
-                            getSubjectPartName(
-                                from:
-                                    subjectX509Name!,
-                                forKey:
-                                    child
-                                    .value
-                                    as! String
-                            ) ?? ""
-                        if value.count > 0 {
+                        getSubjectPartName(
+                            from:
+                                subjectX509Name!,
+                            forKey:
+                                child
+                                .value
+                            as! String
+                        ) ?? ""
+                        if !value.isEmpty {
                             var oid =
-                                CertificateOID()
+                            CertificateOID()
                             oid.name =
-                                (child
+                            (child
                                 .label
-                                ?? "-")
-                                .replacingOccurrences(
-                                    of:
-                                        "kSecOID",
-                                    with:
-                                        ""
-                                )
+                             ?? "-")
+                            .replacingOccurrences(
+                                of:
+                                    "kSecOID",
+                                with:
+                                    ""
+                            )
                             oid.value = String(
                                 describing:
                                     value
@@ -286,19 +274,19 @@ class Certification: ObservableObject, Identifiable {
             }
         }
     }
-
+    
     func getSubjectPartName(from x509Name: X509, forKey key: String) -> String? {
         var partList: [String] = []
         let pointer: UnsafePointer<Int8>? = NSString(string: key).utf8String
         let nid = OBJ_txt2nid(pointer)
         var index = X509_NAME_get_index_by_NID(x509Name, nid, -1)
         var x509nameEntry = X509_NAME_get_entry(x509Name, index)
-
-        while (x509nameEntry) != nil {
+        
+        while x509nameEntry != nil {
             let asn1Str = X509_NAME_ENTRY_get_data(x509nameEntry)
             if asn1Str != nil {
                 let charName = ASN1_STRING_get0_data(asn1Str)
-
+                
                 if let asn1Str = asn1Str {
                     let charName = UnsafePointer(
                         ASN1_STRING_get0_data(asn1Str)
@@ -318,26 +306,25 @@ class Certification: ObservableObject, Identifiable {
         }
         return partList.joined(separator: ".")
     }
-
+    
     func loadIdentity(_ inDepth: Int = 0) -> SecIdentity? {
-
         let query =
-            [
-                kSecClass: kSecClassIdentity,
-                kSecReturnAttributes: true,
-                kSecReturnRef: true,
-                kSecMatchLimit: kSecMatchLimitAll,
-            ] as CFDictionary
-
+        [
+            kSecClass: kSecClassIdentity,
+            kSecReturnAttributes: true,
+            kSecReturnRef: true,
+            kSecMatchLimit: kSecMatchLimitAll
+        ] as CFDictionary
+        
         var result: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &result)
-
+        
         print("Operation finished with status: \(status)")
         if result == nil {
             print("not found")
             return nil
         }
-
+        
         let array = result as! [NSDictionary]
         print("array count idenety: ", array.count)
         var resultSI: SecIdentity? = nil
@@ -350,7 +337,7 @@ class Certification: ObservableObject, Identifiable {
         }
         return resultSI
     }
-
+    
     func certificateThumbprintFromContext(_ certificateData: Data?) -> String? {
         var digest = [UInt8](repeating: 0, count: Int(CC_SHA1_DIGEST_LENGTH))
         certificateData?.withUnsafeBytes {
@@ -358,7 +345,6 @@ class Certification: ObservableObject, Identifiable {
         }
         let hexBytes = digest.map { String(format: "%02hhx", $0) }
         return hexBytes.joined()
-
     }
 }
 
@@ -381,9 +367,9 @@ public class Certificate: NSObject {
 }
 
 struct CertificateOID: Identifiable, Hashable {
-    var id: Int = 0
-    var name: String = ""
-    var value: String = ""
+    var id = 0
+    var name = ""
+    var value = ""
 }
 
 enum CertTrust: Int {

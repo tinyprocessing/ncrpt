@@ -1,17 +1,8 @@
-//
-//  SnaphotSafeViewSwiftUIBridge.swift
-//  
-//
-//  Created by Илья Князьков on 10.09.2022.
-//
-
-
 #if canImport(SwiftUI)
 import SwiftUI
 
 @available(iOS 13, *)
 struct SnaphotSafeViewSwiftUIBridge<Content: View>: SnaphotSafeViewSwiftUIBridgeProtocol {
-
     // MARK: - Private Properties
 
     private let content: () -> Content
@@ -30,16 +21,13 @@ struct SnaphotSafeViewSwiftUIBridge<Content: View>: SnaphotSafeViewSwiftUIBridge
         let hostingController = UIHostingController(rootView: content())
         return ProtectedViewRepresentable(content: hostingController.view)
     }
-
 }
 
 // MARK: - Nested Types
 
 @available(iOS 13, *)
 extension SnaphotSafeViewSwiftUIBridge {
-
     struct ProtectedViewRepresentable: UIViewRepresentable {
-
         // MARK: - Internal Properties
 
         let viewContent: UIView
@@ -47,7 +35,7 @@ extension SnaphotSafeViewSwiftUIBridge {
         // MARK: - Initialization
 
         init(content: UIView) {
-            self.viewContent = content
+            viewContent = content
         }
 
         // MARK: - UIViewRepresentable
@@ -60,9 +48,7 @@ extension SnaphotSafeViewSwiftUIBridge {
             return snapshotController.container
         }
 
-        func updateUIView(_ uiView: UIView, context: Context) { }
-        
+        func updateUIView(_ uiView: UIView, context: Context) {}
     }
-
 }
 #endif

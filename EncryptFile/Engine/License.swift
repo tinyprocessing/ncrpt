@@ -14,23 +14,23 @@ import Foundation
 /// method :  32
 ///
 /// server : encryption dedicated server (en1.secure.ncrpt.io)
-struct License: Codable {
-    var algorithm: String = "AES"
-    var method: String = ""
-    var owner: String = ""
-    var AESKey: String = ""
-    var server: String = ""
-    var version: String = ""
-    var publicKey: String = ""
-    var templateID: String = ""
-    var fileName: String = ""
-    var fileSize: String = ""
-    var fileMD5: String = ""
-    var issuedDate: String = ""
-    var description: String = ""
-    var serverLicense: String = ""
-    var userRights: String? = nil
-    var ext: String = ""
+struct License : Codable {
+    var algorithm : String = "AES"
+    var method : String = ""
+    var owner : String = ""
+    var AESKey : String = ""
+    var server : String = ""
+    var version : String = ""
+    var publicKey : String = ""
+    var templateID : String = ""
+    var fileName : String = ""
+    var fileSize : String = ""
+    var fileMD5 : String = ""
+    var issuedDate : String = ""
+    var description : String = ""
+    var serverLicense : String = ""
+    var userRights : String? = nil
+    var ext : String = ""
 }
 
 /// Struct represents user rights
@@ -62,11 +62,11 @@ struct License: Codable {
 /// EDITRIGHTSDATA
 ///
 /// OBJMODEL
-struct Rights: Codable {
-    var id: [Int] = []
-    var owner: String = ""
-    var users: [String] = []
-    var rights: [String] = []
+struct Rights : Codable {
+    var id : [Int] = []
+    var owner : String = ""
+    var users : [String] = []
+    var rights : [String] = []
 }
 
 /*
@@ -87,7 +87,7 @@ struct Rights: Codable {
  */
 
 /*
-
+ 
  Common name: Edit Content, Edit
 
  Encoding in policy: DOCEDIT    Allows the user to modify, rearrange, format, or sort the content inside the application, which includes Office on the web. It does not grant the right to save the edited copy.
@@ -300,5 +300,5 @@ struct Rights: Codable {
  Name in AD RMS templates: Allow Macros
 
  API constant or value: MSIPC: Not implemented. NCRPT SDK: OBJMODEL
-
+ 
  */

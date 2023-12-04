@@ -16,10 +16,7 @@ struct ActivityIndicator: UIViewRepresentable {
         return UIActivityIndicatorView(style: style)
     }
 
-    func updateUIView(
-        _ uiView: UIActivityIndicatorView,
-        context: UIViewRepresentableContext<ActivityIndicator>
-    ) {
+    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
         isAnimating ? uiView.startAnimating() : uiView.stopAnimating()
     }
 }

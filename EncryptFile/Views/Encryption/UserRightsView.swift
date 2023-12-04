@@ -17,308 +17,132 @@ struct UserRightsView: View {
     @State var selectedRights = Set<String>()
     @State var contactsIsHidden = false
     @State var currentTextField = TextFieldType.nameField
-
+    
     private var filteredContacts: [User] {
         if emailFieldInput.isEmpty && nameFieldInput.isEmpty {
             return []
-        }
-        else {
+        } else {
             switch currentTextField {
             case .nameField:
-                return vm.contacts.filter {
-                    $0.name.localizedCaseInsensitiveContains(
-                        nameFieldInput
-                    )
-                }
+                return vm.contacts.filter { $0.name.localizedCaseInsensitiveContains(nameFieldInput) }
             case .emailField:
-                return vm.contacts.filter {
-                    $0.email.localizedCaseInsensitiveContains(
-                        emailFieldInput
-                    )
-                }
+                return vm.contacts.filter { $0.email.localizedCaseInsensitiveContains(emailFieldInput) }
             }
         }
     }
-
+    
     @State var chosenPermission = ""
-
+    
     var body: some View {
-
-        ZStack(alignment: .bottom) {
-
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 15) {
-                    VStack(alignment: .leading, spacing: 15) {
-                        HStack {
-                            Text(
-                                "User credentials"
-                            )
-                            .modifier(
-                                NCRPTTextSemibold(
-                                    size:
-                                        18
-                                )
-                            )
-                            .foregroundColor(
-                                Color
-                                    .init(
-                                        hex:
-                                            "21205A"
-                                    )
-                            )
+        
+        
+        ZStack(alignment: .bottom){
+            
+            ScrollView(.vertical, showsIndicators: false){
+                VStack(alignment: .leading, spacing: 15){
+                    VStack(alignment: .leading, spacing: 15){
+                        HStack{
+                            Text("User credentials")
+                                .modifier(NCRPTTextSemibold(size: 18))
+                                .foregroundColor(Color.init(hex: "21205A"))
                             Spacer()
                         }
                         .padding(.horizontal)
-
+                        
                         VStack(alignment: .leading) {
                             if isNewUser {
-                                TextField(
-                                    "Type name",
-                                    text:
-                                        $nameFieldInput,
-                                    onEditingChanged: {
-                                        changed
-                                        in
-                                        if changed {
-                                            currentTextField =
-                                                .nameField
-                                        }
+                                TextField("Type name", text: $nameFieldInput, onEditingChanged: { changed in
+                                    if changed {
+                                        currentTextField = .nameField
+                                    }})
+                                    .modifier(NCRPTTextMedium(size: 14))
+                                    .frame(height: 30)
+                                    .onTapGesture {
+                                        contactsIsHidden = false
                                     }
-                                )
-                                .modifier(
-                                    NCRPTTextMedium(
-                                        size:
-                                            14
-                                    )
-                                )
-                                .frame(
-                                    height:
-                                        30
-                                )
-                                .onTapGesture {
-                                    contactsIsHidden =
-                                        false
-                                }
                                 Divider()
-                                TextField(
-                                    "Type email",
-                                    text:
-                                        $emailFieldInput,
-                                    onEditingChanged: {
-                                        changed
-                                        in
-                                        if changed {
-                                            currentTextField =
-                                                .emailField
-                                        }
+                                TextField("Type email", text: $emailFieldInput, onEditingChanged: { changed in
+                                    if changed {
+                                        currentTextField = .emailField
+                                    }})
+                                    .modifier(NCRPTTextMedium(size: 14))
+                                    .frame(height: 30)
+                                    .onTapGesture {
+                                        contactsIsHidden = false
                                     }
-                                )
-                                .modifier(
-                                    NCRPTTextMedium(
-                                        size:
-                                            14
-                                    )
-                                )
-                                .frame(
-                                    height:
-                                        30
-                                )
-                                .onTapGesture {
-                                    contactsIsHidden =
-                                        false
-                                }
-                            }
-                            else {
-                                TextField(
-                                    "",
-                                    text:
-                                        Binding<
-                                            String
-                                        >(
-                                            get: {
-                                                self
-                                                    .nameFieldInput
-                                            },
-                                            set: {
-                                                self
-                                                    .nameFieldInput =
-                                                    $0
-                                                self
-                                                    .user?
-                                                    .name =
-                                                    self
-                                                    .nameFieldInput
-                                            }
-                                        )
-                                )
-                                .frame(
-                                    height:
-                                        30
-                                )
+                            } else {
+                                TextField("", text: Binding<String>(
+                                    get: { self.nameFieldInput },
+                                    set: {
+                                        self.nameFieldInput = $0
+                                        self.user?.name = self.nameFieldInput
+                                    }))
+                                .frame(height: 30)
                                 Divider()
-                                TextField(
-                                    "",
-                                    text:
-                                        Binding<
-                                            String
-                                        >(
-                                            get: {
-                                                self
-                                                    .emailFieldInput
-                                            },
-                                            set: {
-                                                self
-                                                    .emailFieldInput =
-                                                    $0
-                                                self
-                                                    .user?
-                                                    .email =
-                                                    self
-                                                    .emailFieldInput
-                                            }
-                                        )
-                                )
-                                .frame(
-                                    height:
-                                        30
-                                )
-                                .onAppear(
-                                    perform:
-                                        loadMail
-                                )
+                                TextField("", text: Binding<String>(
+                                    get: { self.emailFieldInput },
+                                    set: {
+                                        self.emailFieldInput = $0
+                                        self.user?.email = self.emailFieldInput
+                                    }))
+                                .frame(height: 30)
+                                .onAppear(perform: loadMail)
                             }
-
+                            
                         }.padding(.horizontal)
-
-                        HStack {
-                            Text(
-                                "User permissions"
-                            )
-                            .modifier(
-                                NCRPTTextSemibold(
-                                    size:
-                                        18
-                                )
-                            )
-                            .foregroundColor(
-                                Color
-                                    .init(
-                                        hex:
-                                            "21205A"
-                                    )
-                            )
+                        
+                        HStack{
+                            Text("User permissions")
+                                .modifier(NCRPTTextSemibold(size: 18))
+                                .foregroundColor(Color.init(hex: "21205A"))
                             Spacer()
                         }
                         .padding(.horizontal)
-
-                        ForEach(
-                            vm.permissionSet,
-                            id: \.self
-                        ) { item in
+                        
+                        ForEach(vm.permissionSet, id: \.self) { item in
                             HStack {
-                                Text(
-                                    "\(item)"
-                                )
-                                .foregroundColor(
-                                    .black
-                                )
-                                .modifier(
-                                    NCRPTTextMedium(
-                                        size:
-                                            14
-                                    )
-                                )
+                                Text("\(item)")
+                                    .foregroundColor(.black)
+                                    .modifier(NCRPTTextMedium(size: 14))
                                 Spacer()
-                                Image(
-                                    systemName:
-                                        selectedRights
-                                        .contains(
-                                            item
-                                        )
-                                        ? "checkmark.square"
-                                        : "square"
-                                )
-                                .foregroundColor(
-                                    selectedRights
-                                        .contains(
-                                            item
-                                        )
-                                        ? Color
-                                            .init(
-                                                hex:
-                                                    "28B463"
-                                            )
-                                        : .secondary
-                                )
+                                Image(systemName: selectedRights.contains(item) ? "checkmark.square" : "square")
+                                    .foregroundColor(selectedRights.contains(item) ? Color.init(hex: "28B463") : .secondary)
                             }
                             .padding(.horizontal)
-                            .contentShape(
-                                Rectangle()
-                            )
+                            .contentShape(Rectangle())
                             .onTapGesture {
-                                if selectedRights
-                                    .contains(
-                                        item
-                                    )
-                                {
-                                    selectedRights
-                                        .remove(
-                                            item
-                                        )
+                                if  selectedRights.contains(item) {
+                                    selectedRights.remove(item)
                                 }
-                                else {
-                                    selectedRights
-                                        .insert(
-                                            item
-                                        )
+                                else{
+                                    selectedRights.insert(item)
                                 }
-                                print(
-                                    selectedRights
-                                )
+                                print(selectedRights)
                             }
                             Divider()
-                                .padding(
-                                    .horizontal
-                                )
-
+                                .padding(.horizontal)
+                            
                         }
                     }
                 }
             }
-
+            
             Button {
                 if !emailFieldInput.isEmpty {
                     if isNewUser {
                         //add new user
-                        vm.addNewUser(
-                            User(
-                                name:
-                                    nameFieldInput,
-                                email:
-                                    emailFieldInput,
-                                rights:
-                                    selectedRights
-                            ),
-                            new: true
-                        )
-                    }
-                    else {
+                        vm.addNewUser(User(name: nameFieldInput,
+                                           email: emailFieldInput,
+                                           rights: selectedRights),
+                                      new: true)
+                    } else {
                         //edit user
-                        vm.addNewUser(
-                            User(
-                                id:
-                                    user!
-                                    .id,
-                                name:
-                                    nameFieldInput,
-                                email:
-                                    emailFieldInput,
-                                rights:
-                                    selectedRights
-                            )
-                        )
+                        vm.addNewUser(User(id: user!.id,
+                                           name: nameFieldInput,
+                                           email: emailFieldInput,
+                                           rights: selectedRights))
                     }
-
+                    
                     self.presentation.wrappedValue.dismiss()
                 }
             } label: {
@@ -328,12 +152,7 @@ struct UserRightsView: View {
                         .modifier(NCRPTTextMedium(size: 16))
                         .padding(.horizontal, 55)
                         .padding(.vertical, 10)
-                        .background(
-                            Color.init(
-                                hex:
-                                    "4378DB"
-                            )
-                        )
+                        .background(Color.init(hex: "4378DB"))
                         .cornerRadius(8.0)
                         .foregroundColor(Color.white)
                     Spacer()
@@ -341,43 +160,21 @@ struct UserRightsView: View {
             }
             .padding()
             .ignoresSafeArea(.keyboard, edges: .bottom)
-
+            
             //MARK: contact helper view
-            if !emailFieldInput.isEmpty || !nameFieldInput.isEmpty {
+            if !emailFieldInput.isEmpty || !nameFieldInput.isEmpty  {
                 if !contactsIsHidden {
                     ZStack {
                         List(filteredContacts) { user in
-                            Text(
-                                currentTextField
-                                    == .nameField
-                                    ? user
-                                        .name
-                                    : user
-                                        .email
-                            )
-                            .modifier(
-                                NCRPTTextMedium(
-                                    size:
-                                        14
-                                )
-                            )
-                            .listRowBackground(
-                                Color
-                                    .clear
-                            )
-                            .onTapGesture {
-                                nameFieldInput =
-                                    user
-                                    .name
-                                emailFieldInput =
-                                    user
-                                    .email
-                                contactsIsHidden =
-                                    true
-                                UIApplication
-                                    .shared
-                                    .dismissKeyboard()
-                            }
+                            Text(currentTextField == .nameField ? user.name : user.email)
+                                .modifier(NCRPTTextMedium(size: 14))
+                                .listRowBackground(Color.clear)
+                                .onTapGesture {
+                                    nameFieldInput = user.name
+                                    emailFieldInput = user.email
+                                    contactsIsHidden = true
+                                    UIApplication.shared.dismissKeyboard()
+                                }
                         }
 
                     }
@@ -389,35 +186,33 @@ struct UserRightsView: View {
                 }
 
             }
-
+            
         }
         .navigationTitle("create user")
         .navigationBarTitleDisplayMode(.inline)
-
+        
     }
-
+    
+    
     func loadMail() {
         self.nameFieldInput = user?.name ?? ""
         self.emailFieldInput = user?.email ?? ""
     }
-
+    
     private func getHeightContacts() -> CGFloat {
         if filteredContacts.count >= 3 {
             return 132
-        }
-        else if filteredContacts.count == 2 {
+        } else if filteredContacts.count == 2 {
             return 86
-        }
-        else if filteredContacts.count == 1 {
+        } else if filteredContacts.count == 1 {
             return 42
-        }
-        else {
+        } else {
             return 0
         }
     }
-
+    
     private func isScrollDisabled() -> Bool {
         return filteredContacts.count >= 3 ? false : true
     }
-
+    
 }

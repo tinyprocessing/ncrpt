@@ -1,91 +1,91 @@
-{
-    "version": 1,
-    "lineLength": 120,
-    "indentation": {
-        "spaces": 4
-    },
-    "maximumBlankLines": 1,
-    "respectsExistingLineBreaks": true,
-    "lineBreakBeforeControlFlowKeywords": true,
-    "lineBreakBeforeEachArgument": true,
-    "acronyms": ["UUID"],
-    "allman": false,
-    "assetliterals": "visual-width",
-    "beforemarks": [],
-    "binarygrouping": [4, 8],
-    "categorymark": "MARK: %c",
-    "classthreshold": 0,
-    "closingparen": "balanced",
-    "closurevoid": "remove",
-    "commas": "inline",
-    "wrapconditions": "disable",
-    "conflictmarkers": "reject",
-    "decimalgrouping": [3, 6],
-    "elseposition": "same-line",
-    "emptybraces": "no-space",
-    "enumnamespaces": "always",
-    "enumthreshold": 0,
-    "exponentcase": "lowercase",
-    "exponentgrouping": "disabled",
-    "extensionacl": "on-declarations",
-    "extensionlength": 0,
-    "extensionmark": "MARK: - %t + %c",
-    "fractiongrouping": "disabled",
-    "fragment": false,
-    "funcattributes": "preserve",
-    "generictypes": [],
-    "groupedextension": "MARK: %c",
-    "guardelse": "next-line",
-    "hexgrouping": [4, 8],
-    "hexliteralcase": "uppercase",
-    "ifdef": "no-indent",
-    "importgrouping": "alpha",
-    "indent": 4,
-    "indentcase": "false",
-    "indentstrings": "false",
-    "lifecycle": [],
-    "lineaftermarks": "true",
-    "linebreaks": "lf",
-    "markcategories": "true",
-    "markextensions": "always",
-    "marktypes": "always",
-    "maxwidth": 120,
-    "modifierorder": ["acl", "setterACL", "override", "dynamic", "mutators", "lazy", "final", "required", "convenience", "typeMethods", "owned"],
-    "nevertrailing": [],
-    "nospaceoperators": [],
-    "nowrapoperators": [],
-    "octalgrouping": [4, 8],
-    "operatorfunc": "spaced",
-    "organizetypes": ["actor", "class", "enum", "struct"],
-    "patternlet": "inline",
-    "ranges": "no-space",
-    "redundanttype": "inferred",
-    "self": "remove",
-    "selfrequired": ["waitForCondition", "waitForNonCondition", "waitForValueClosure", "boundingRect", "get"],
-    "semicolons": "inline",
-    "shortoptionals": "always",
-    "smarttabs": "enabled",
-    "someAny": "true",
-    "stripunusedargs": "closure-only",
-    "structthreshold": 0,
-    "swiftversion": 5,
-    "tabwidth": "unspecified",
-    "trailingclosures": [],
-    "trimwhitespace": "always",
-    "typeattributes": "preserve",
-    "typeblanklines": "remove",
-    "typemark": "MARK: - %t",
-    "varattributes": "preserve",
-    "voidtype": "void",
-    "wraparguments": "preserve",
-    "wrapcollections": "preserve",
-    "wrapparameters": "preserve",
-    "wrapreturntype": "preserve",
-    "wrapternary": "default",
-    "wraptypealiases": "preserve",
-    "xcodeindentation": "disabled",
-    "yodaswap": "always",
-    "disable": ["andOperator"],
-    "enable": ["acronyms", "anyObjectProtocol", "blankLineAfterImports", "blockComments", "docComments", "isEmpty", "preferKeyPath", "redundantSelf", "wrapMultilineStatementBraces"],
-    "header": "ignore"
-}
+--exclude Tuist, **/GraphQL/API, **/DerivedData, **/derivedData, **/build
+
+--acronyms UUID
+--allman false
+--assetliterals visual-width
+--beforemarks 
+--binarygrouping 4,8
+--categorymark "MARK: %c"
+--classthreshold 0
+--closingparen balanced
+--closurevoid remove
+--commas inline
+--wrapconditions disable
+--conflictmarkers reject
+--decimalgrouping 3,6
+--elseposition same-line
+--emptybraces no-space
+--enumnamespaces always
+--enumthreshold 0
+--exponentcase lowercase
+--exponentgrouping disabled
+--extensionacl on-declarations
+--extensionlength 0
+--extensionmark "MARK: - %t + %c"
+--fractiongrouping disabled
+--fragment false
+--funcattributes preserve
+--generictypes 
+--groupedextension "MARK: %c"
+--guardelse next-line
+--header strip
+--hexgrouping 4,8
+--hexliteralcase uppercase
+--ifdef no-indent
+--importgrouping alpha
+--indent 4
+--indentcase false
+--indentstrings false
+--lifecycle 
+--lineaftermarks true
+--linebreaks lf
+--markcategories true
+--markextensions always
+--marktypes always
+--maxwidth 140
+--modifierorder acl,setterACL,override,dynamic,mutators,lazy,final,required,convenience,typeMethods,owned
+--nevertrailing 
+--nospaceoperators 
+--nowrapoperators 
+--octalgrouping 4,8
+--operatorfunc spaced
+--organizetypes actor,class,enum,struct
+--patternlet inline
+--ranges no-space
+--redundanttype inferred
+--self remove
+--selfrequired waitForCondition, waitForNonCondition, waitForValueClosure, boundingRect, get
+--semicolons inline
+--shortoptionals always
+--smarttabs enabled
+--someAny true
+--stripunusedargs closure-only
+--structthreshold 0
+--swiftversion 5
+--tabwidth unspecified
+--trailingclosures 
+--trimwhitespace always
+--typeattributes preserve
+--typeblanklines remove
+--typemark "MARK: - %t"
+--varattributes preserve
+--voidtype void
+--wraparguments preserve
+--wrapcollections preserve
+--wrapconditions preserve
+--wrapparameters preserve
+--wrapreturntype preserve
+--wrapternary default
+--wraptypealiases preserve
+--xcodeindentation disabled
+--yodaswap always
+--disable andOperator
+--enable acronyms
+--enable anyObjectProtocol
+--enable blankLineAfterImports
+--enable blockComments
+--enable docComments
+--enable isEmpty
+--enable preferKeyPath
+--enable redundantSelf
+--disable wrapMultilineStatementBraces

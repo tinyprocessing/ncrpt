@@ -5,15 +5,16 @@
 //  Created by Kirill Anisimov on 01.11.2022.
 //
 
-import Combine
 import SwiftUI
+import Combine
 
 struct LoginView: View {
     @ObservedObject private var vm = RegistrationViewModel()
     @State var isSigningIn = false
-
+    
     @ObservedObject var api: NCRPTWatchSDK = NCRPTWatchSDK.shared
 
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 30) {
@@ -21,173 +22,65 @@ struct LoginView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 100)
-
+                
                 ZStack {
-                    FormField(
-                        fieldName: "Login",
-                        fieldValue: $vm.email
-                    )
-                    .padding(.top, 50)
-
+                    FormField(fieldName: "Login", fieldValue: $vm.email)
+                        .padding(.top, 50)
+                    
                     HStack {
                         Spacer()
-                        Image(
-                            systemName:
-                                "checkmark.circle"
-                        )
-                        .foregroundColor(
-                            vm.isMailValid
-                                ? .green
-                                : .clear
-                        ).padding(.top, 44)
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(vm.isMailValid ? .green : .clear).padding(.top, 44)
                     }
-
+                    
                 }
-
+                
                 ZStack {
-                    FormField(
-                        fieldName: "password",
-                        fieldValue: $vm.password,
-                        isSecure: true
-                    )
-
+                    FormField(fieldName: "password", fieldValue: $vm.password, isSecure: true)
+                    
                     HStack {
                         Spacer()
-                        Image(
-                            systemName:
-                                "checkmark.circle"
-                        )
-                        .foregroundColor(
-                            vm
-                                .isPasswordLengthValid
-                                ? .green
-                                : .clear
-                        )
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(vm.isPasswordLengthValid ? .green : .clear)
                     }
-
+                    
                 }
-
+                
+                
                 Button(action: {
                     //TODO: call backend
-                    log.debug(
-                        type: "LoginView",
-                        object:
-                            "Start authorize user \(self.vm.email)"
-                    )
+                    log.debug(type: "LoginView", object: "Start authorize user \(self.vm.email)")
                     self.api.ui = .loading
                     if self.isSigningIn == false {
-                        Network.shared.login(
-                            username: self.vm
-                                .email
-                                .lowercased(),
-                            password: MD5(
-                                string:
-                                    self
-                                    .vm
-                                    .password
-                            )
-                        ) { success in
+                        Network.shared.login(username: self.vm.email.lowercased(), password: MD5(string: self.vm.password)) { success in
                             if success {
-                                log
-                                    .debug(
-                                        type:
-                                            "LoginView",
-                                        object:
-                                            "Success authorize user \(self.vm.email)"
-                                    )
-                                DispatchQueue
-                                    .main
-                                    .asyncAfter(
-                                        deadline:
-                                            .now()
-                                            + 0.5,
-                                        execute: {
-                                            self
-                                                .api
-                                                .ui =
-                                                .pinCreate
-                                        }
-                                    )
-                            }
-                            else {
-                                log
-                                    .debug(
-                                        type:
-                                            "LoginView",
-                                        object:
-                                            "🛑 Error authorize user \(self.vm.email)"
-                                    )
-                                DispatchQueue
-                                    .main
-                                    .asyncAfter(
-                                        deadline:
-                                            .now()
-                                            + 0.5,
-                                        execute: {
-                                            self
-                                                .api
-                                                .ui =
-                                                .auth
-                                            Settings
-                                                .shared
-                                                .alert(
-                                                    title:
-                                                        "Error",
-                                                    message:
-                                                        "Service failed to authorize",
-                                                    buttonName:
-                                                        "Repeat"
-                                                )
-                                        }
-                                    )
+                                log.debug(type: "LoginView", object: "Success authorize user \(self.vm.email)")
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                                    self.api.ui = .pinCreate
+                                })
+                            }else{
+                                log.debug(type: "LoginView", object: "🛑 Error authorize user \(self.vm.email)")
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                                    self.api.ui = .auth
+                                    Settings.shared.alert(title: "Error", message: "Service failed to authorize", buttonName: "Repeat")
+                                })
                             }
                         }
                     }
-
+                    
                 }) {
-                    ZStack {
+                    ZStack{
                         Text(isSigningIn ? "" : "Login")
-                            .modifier(
-                                NCRPTTextMedium(
-                                    size:
-                                        16
-                                )
-                            )
-                            .foregroundColor(
-                                .white
-                            )
+                            .modifier(NCRPTTextMedium(size: 16))
+                            .foregroundColor(.white)
                             .bold()
                             .padding()
-                            .frame(
-                                minWidth:
-                                    0,
-                                maxWidth:
-                                    .infinity
-                            )
-                            .if(vm.canLogin) {
-                                view in
-                                view
-                                    .background(
-                                        Color
-                                            .init(
-                                                hex:
-                                                    "4378DB"
-                                            )
-                                    )
+                            .frame(minWidth: 0, maxWidth: .infinity)
+                            .if(vm.canLogin) { view in
+                                view.background(Color.init(hex: "4378DB"))
                             }
-                            .if(!vm.canLogin) {
-                                view in
-                                view
-                                    .background(
-                                        Color
-                                            .init(
-                                                hex:
-                                                    "4378DB"
-                                            )
-                                    )
-                                    .opacity(
-                                        0.5
-                                    )
+                            .if(!vm.canLogin) { view in
+                                view.background(Color.init(hex: "4378DB")).opacity(0.5)
                             }
                             .cornerRadius(10)
                             .padding(.horizontal)
@@ -195,53 +88,44 @@ struct LoginView: View {
                 }
                 .padding(.top, 40)
                 .disabled(!vm.canLogin)
-
+                
                 HStack {
                     Text("Don't have an account?")
                         .modifier(NCRPTTextMedium(size: 16))
                         .bold()
-
+                    
                     NavigationLink(destination: RegistrationView()) {
                         Text("Create one")
-                            .modifier(
-                                NCRPTTextMedium(
-                                    size:
-                                        16
-                                )
-                            )
+                            .modifier(NCRPTTextMedium(size: 16))
                             .bold()
-                            .foregroundColor(
-                                Color
-                                    .init(
-                                        hex:
-                                            "4378DB"
-                                    )
-                            )
+                            .foregroundColor(Color.init(hex: "4378DB"))
                     }
                     .navigationTitle("")
                 }.padding(.top, 50)
-
+                
             }
             .padding()
         }
     }
+    
+    
 
 }
+
 
 struct FormField: View {
     var fieldName = ""
     @Binding var fieldValue: String
     var isSecure = false
-
+    
     var body: some View {
         VStack {
             if isSecure {
                 SecureField(fieldName, text: $fieldValue)
                     .modifier(NCRPTTextMedium(size: 20))
                     .padding(.horizontal)
-
-            }
-            else {
+                
+            } else {
                 TextField(fieldName, text: $fieldValue)
                     .modifier(NCRPTTextMedium(size: 20))
                     .disableAutocorrection(true)
@@ -253,7 +137,8 @@ struct FormField: View {
                 .frame(height: 1)
                 .background(.gray).opacity(0.5)
                 .padding(.horizontal)
-
+            
         }
     }
 }
+

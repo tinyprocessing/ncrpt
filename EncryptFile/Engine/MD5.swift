@@ -5,9 +5,8 @@
 //  Created by Michael Safir on 27.10.2022.
 //
 
-import CommonCrypto
-import CryptoKit
 import Foundation
+import CommonCrypto
 
 func md5File(url: URL) -> String? {
 
@@ -29,18 +28,13 @@ func md5File(url: URL) -> String? {
             let data = file.readData(ofLength: bufferSize)
             if data.count > 0 {
                 data.withUnsafeBytes {
-                    _ = CC_MD5_Update(
-                        &context,
-                        $0.baseAddress,
-                        numericCast(data.count)
-                    )
+                    _ = CC_MD5_Update(&context, $0.baseAddress, numericCast(data.count))
                 }
-                return true  // Continue
+                return true // Continue
+            } else {
+                return false // End of file
             }
-            else {
-                return false  // End of file
-            }
-        }) {}
+        }) { }
 
         // Compute the MD5 digest:
         var digest: [UInt8] = Array(repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
@@ -48,16 +42,13 @@ func md5File(url: URL) -> String? {
 
         return Data(digest).base64EncodedString()
 
-    }
-    catch {
-        log.debug(
-            module: "MD5",
-            type: #function,
-            object: "Cannot open file: \(error.localizedDescription)"
-        )
+    } catch {
+        log.debug(module: "MD5", type: #function, object: "Cannot open file: \(error.localizedDescription)")
         return nil
     }
 }
+
+import CryptoKit
 
 func MD5(string: String) -> String {
     let digest = Insecure.MD5.hash(data: string.data(using: .utf8) ?? Data())
@@ -66,3 +57,4 @@ func MD5(string: String) -> String {
         String(format: "%02hhx", $0)
     }.joined()
 }
+

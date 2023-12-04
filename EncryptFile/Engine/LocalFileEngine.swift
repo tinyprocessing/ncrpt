@@ -7,11 +7,12 @@
 
 import Foundation
 
-struct fileItem: Identifiable, Hashable {
+
+struct fileItem : Identifiable, Hashable {
     var id: Int = 0
-    var name: String = ""
-    var url: URL? = nil
-    var ext: String = ""
+    var name : String = ""
+    var url : URL? = nil
+    var ext : String = ""
 }
 
 extension Dictionary where Value: Equatable {
@@ -19,12 +20,12 @@ extension Dictionary where Value: Equatable {
         return first(where: { $1 == val })?.key
     }
 }
-class LocalFileEngine: ObservableObject, Identifiable {
-
-    @Published var files: [fileItem] = []
+class LocalFileEngine: ObservableObject, Identifiable  {
+    
+    @Published var files : [fileItem] = []
     static let shared = LocalFileEngine()
-
-    func decodeFileExtension(_ ext: String) -> String {
+    
+    func decodeFileExtension(_ ext: String) -> String{
         var header = avalibleExtensions.getKey(forValue: ext) ?? "file"
         return header
     }
@@ -33,15 +34,14 @@ class LocalFileEngine: ObservableObject, Identifiable {
             let fileURLNCRPTData = try Data(contentsOf: url)
             let fileExtension = String(decoding: fileURLNCRPTData[0...3], as: UTF8.self)
             return decodeFileExtension(fileExtension)
-        }
-        catch {
+        }catch {
             return "file"
             print(error)
         }
     }
-
-    func getLocalFiles() {
-
+    
+    func getLocalFiles(){
+        
         self.files.removeAll()
         do {
             // Get the document directory url
@@ -56,78 +56,43 @@ class LocalFileEngine: ObservableObject, Identifiable {
                 at: documentDirectory,
                 includingPropertiesForKeys: nil
             )
-
+            
             directoryContents.forEach { item in
                 let name = item.localizedName ?? ""
-                if item.typeIdentifier == "public.folder" && !item.isNCRPT
-                    && !name.contains("ncrpt.io.iosviewer")
-                {
-                    DispatchQueue.main.asyncAfter(
-                        deadline: .now() + 1
-                    ) {
+                if item.typeIdentifier == "public.folder" && !item.isNCRPT && !name.contains("ncrpt.io.iosviewer") {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1){
                         do {
-                            try FileManager
-                                .default
-                                .removeItem(
-                                    atPath: (item
-                                        .path()
-                                        .removingPercentEncoding)!
-                                )
-                        }
-                        catch {
-                            print(
-                                "removeItem error"
-                            )
+                            try FileManager.default.removeItem(atPath: (item.path().removingPercentEncoding)!)
+                        } catch {
+                            print("removeItem error")
                             print(error)
                         }
                     }
                 }
             }
-
+            
             // if you want to get all ncrpt files located at the documents directory:
             let ncrpt = directoryContents.filter(\.isNCRPT)
             self.objectWillChange.send()
-            autoreleasepool {
+            autoreleasepool{
                 ncrpt.forEach { url in
                     do {
-                        let fileURLNCRPTData = try Data(
-                            contentsOf: url
-                        )
-                        let fileExtension = String(
-                            decoding:
-                                fileURLNCRPTData[
-                                    0...3
-                                ],
-                            as: UTF8.self
-                        )
+                        let fileURLNCRPTData = try Data(contentsOf: url)
+                        let fileExtension = String(decoding: fileURLNCRPTData[0...3], as: UTF8.self)
                         self.objectWillChange.send()
-                        files.append(
-                            fileItem(
-                                name:
-                                    url
-                                    .lastPathComponent,
-                                url:
-                                    url,
-                                ext:
-                                    decodeFileExtension(
-                                        fileExtension
-                                    )
-                            )
-                        )
-                        //                        print(url)
-                    }
-                    catch {
-                        //                        print("getLocalFiles error")
+                        files.append(fileItem(name: url.lastPathComponent, url: url, ext: decodeFileExtension(fileExtension)))
+//                        print(url)
+                    }catch{
+//                        print("getLocalFiles error")
                     }
                 }
             }
-        }
-        catch {
+        } catch {
             print(error)
         }
-
+        
     }
-
+    
 }
 
 extension URL {
